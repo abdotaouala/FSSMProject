@@ -1,0 +1,101 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <h:outputStylesheet name="/css/bootstrap.min.css" />
+        <style>
+            html {
+                background-image: url(resources/img/b1.png);
+                background-repeat: repeat; 
+            }
+            .form-signin
+            {
+                max-width: 330px;
+                padding: 15px;
+                margin: 0 auto;
+            }
+            .profile-img
+            {
+                width: 96px;
+                height: 96px;
+                margin: 0 auto 10px;
+                display: block;
+            }
+            .login-title
+            {
+                color: #555;
+                font-size: 18px;
+                font-weight: 400;
+                display: block;
+                margin-bottom: 27px;
+            }
+            .account-wall
+            {
+                margin-top: 20px;
+                padding: 10px 0px 20px 0px;
+                background-color: #f7f7f7;
+                -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+                -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+                box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+            }
+            .form-signin input[type="text"]
+            {
+                margin-bottom: 5px;
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+            .form-signin input[type="password"]
+            {
+                margin-bottom: 10px;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+            .form-signin .form-control:focus
+            {
+                z-index: 2;
+            }
+            .form-signin .form-control
+            {
+                position: relative;
+                font-size: 16px;
+                height: auto;
+                padding: 7px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+            form .styleGreen {    
+                font-size: 18px;
+                width: 100%;
+                margin-top: 19px;
+            }
+        </style>
+    </h:head>
+    <h:body style="margin: auto;width:30%;height: 50%;">
+        
+        <div class="account-wall">
+            <h1 class="text-center login-title">Veuillez authentifier</h1>
+            <img class="profile-img" src="resources/img/cadi-ayyad-2.png" alt="" />
+
+            <h:form prependId="false" styleClass="form-signin">
+
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputText value="Login:"/>
+                    <p:inputText id="username" required="true" class="form-control" value="#{shiroLoginBean.username}" requiredMessage="Veuillez entrer login"/>
+
+                    <h:outputText value="Password:"/>
+                    <p:password id="password" required="true" class="form-control" value="#{shiroLoginBean.password}" requiredMessage="Veuillez entrer mot de passe"/>
+
+                    <h:outputText value="Remember me:"/>
+                    <p:selectBooleanCheckbox id="rememberMe" value="#{shiroLoginBean.rememberMe}"/>
+
+                    <h:outputText/>
+                    
+                </h:panelGrid>
+<p:commandButton value="Login" action="#{shiroLoginBean.doLogin}" styleClass="styleGreen"/>
+                <p:messages id="messages" autoUpdate="true" closable="true" />
+
+            </h:form>
+        </div>
+    </h:body>
+</html>

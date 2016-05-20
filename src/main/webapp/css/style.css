@@ -116,7 +116,7 @@ div#bs-example-navbar-collapse-1 {
 }
 
 .banner-section {
-    background:url(../images/ba11.jpg) no-repeat 0px 0px;
+    background:url(../images/amphi10.jpg) no-repeat 0px 0px;
 	background-size:cover;
 	min-height:686px;
 }
@@ -125,9 +125,10 @@ div#bs-example-navbar-collapse-1 {
 }
 .details-section {
     width: 40%;
-    background:rgba(175, 163, 111, 0.75);
+    background:#003c20;
     padding: 2em;
     margin-top: 2em;
+    opacity: 0.7;
 }
 .banner-center h3 {
     font-size: 3em;
@@ -136,19 +137,21 @@ div#bs-example-navbar-collapse-1 {
     line-height: 1.4em;
 	font-family: 'Play', sans-serif;
 }
-.details-section input[type="text"] {
+.details-section .input{
    width: 100%;
     padding: 0.8em;
     background: #F8F6DE;
     font-size: 1em;
     outline: none;
     border: none;
-	font-family: 'Play', sans-serif;
+    font-family: 'Play', sans-serif;
+    width: 100%;
+    padding: 0.5em
 }
 .mail {
     margin: 0.5em 0;
 }
-.details-section input[type="submit"] {
+.details-section .inputsub {
     width: 37%;
     display: block;
     font-size: 1em;
@@ -796,7 +799,7 @@ div#bs-example-navbar-collapse-1 {
 /**about**/
 /**about**/
 .banner {
-    background: url(../images/ba11.jpg) no-repeat 0px 0px;
+    background: url(../images/amphi10.jpg) no-repeat 0px 0px;
     background-size: cover;
    min-height: 120px !important;
 }
@@ -1723,7 +1726,7 @@ ul.price-list li {
 }
 @media(max-width:736px){
 .banner-section {
-    background: url(../images/ba11.jpg) no-repeat -97px 0px;
+    background: url(../images/amphi10.jpg) no-repeat -97px 0px;
     background-size: cover;	
 }
 .banner-center h3 {
@@ -1735,10 +1738,7 @@ ul.price-list li {
     margin-top: 1em;
     padding: 1em;
 }
-.details-section input[type="text"] {
-    width: 100%;
-    padding: 0.5em
-}
+
 div#bs-example-navbar-collapse-1 {
     float: none;
     padding-top: 0.4em;
@@ -1825,7 +1825,7 @@ ul.price-list li {
     min-height: 90px !important;
 }
 .banner-section {
-    background: url(../images/ba11.jpg) no-repeat -82px 0px;
+    background: url(../images/amphi10.jpg) no-repeat -82px 0px;
     background-size: cover;
 	    min-height: 380px;
 }
@@ -1887,14 +1887,14 @@ ul.price-list li {
 }
 @media(max-width:600px){
 .banner-section {
-    background: url(../images/ba11.jpg) no-repeat -138px 0px;
+    background: url(../images/amphi10.jpg) no-repeat -138px 0px;
     background-size: cover;
 	    min-height: 380px;
 }	
 .fuel-text {
     bottom: -71%;
 }
-.details-section input[type="submit"] {
+.details-section .inputsub {
     width: 45%;
 }
 .fules {
@@ -1954,14 +1954,14 @@ ul.price-list li {
     font-size: 1.8em;
 }
 .banner-section {
-    background: url(../images/ba11.jpg) no-repeat -194px 0px;
+    background: url(../images/amphi10.jpg) no-repeat -194px 0px;
     background-size: cover;
     min-height: 346px;	
 }
 .details-section {
     width: 58%;
 }
-.details-section input[type="submit"] {
+.details-section .inputsub {
     width: 53%;
     font-size: 0.95em;
 }
@@ -2101,7 +2101,7 @@ h2#h2-bootstrap-heading {
 }
 @media(max-width:414px){
 .banner-section {
-    background: url(../images/ba11.jpg) no-repeat -249px 0px;
+    background: url(../images/amphi10.jpg) no-repeat -249px 0px;
     background-size: cover;
     min-height: 346px;
 }
@@ -2224,7 +2224,7 @@ ul.price-list li {
     width: 80%;
 }
 .banner-section {
-    background: url(../images/ba11.jpg) no-repeat -250px 0px;
+    background: url(../images/amphi10.jpg) no-repeat -250px 0px;
     background-size: cover;
     min-height: 315px;
 }

@@ -1,19 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-        xmlns:h="http://java.sun.com/jsf/html"
-        xmlns:p="http://primefaces.org/ui">
-<h:head>
-</h:head>
-<h:body>
-    <h1>Welcome Operateur</h1>
-    <h:outputLink value="../logout">logout</h:outputLink>
-    <pre>
-    subject = <h:outputText value="#{indexBean.subject}"/>
-    principal = <h:outputText value="#{indexBean.subject.principal}"/>
-    session = <h:outputText value="#{indexBean.subject.session}"/>
-    role operateur = <h:outputText value="#{indexBean.subject.hasRole('operateur')}"/>
-    role admin = <h:outputText value="#{indexBean.subject.hasRole('admin')}"/>
-    </pre>
-
-    <p:editor value="&lt;b&gt;primefaces"/>
-</h:body>
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core">
+     <head>
+          <title>TODO supply a title</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+     </head>
+     <body>
+          <ui:composition  template="./resources/template.xhtml">
+             
+              
+               <ui:define name="content">
+                    Content
+               </ui:define>
+              
+          </ui:composition>
+     </body>
 </html>

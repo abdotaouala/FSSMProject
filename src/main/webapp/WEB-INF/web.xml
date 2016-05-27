@@ -47,7 +47,7 @@
 
     <!-- Resources -->
     <resource-ref>
-        <res-ref-name>jdbc/shiro-primefaces</res-ref-name>
+        <res-ref-name>jdbc/finance_fssm</res-ref-name>
         <res-type>javax.sql.ConnectionPoolDataSource</res-type>
         <res-auth>Container</res-auth>
         <lookup-name>java:app/jdbc/embeddedDS</lookup-name>

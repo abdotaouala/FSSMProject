@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--A Design by W3layouts 
-Author: Abde lfatah taouala 199888
-Author URL: 
--->
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
 
-<link href="resources/tmp1Acc/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+  <link href="resources/tmp1Acc/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="resources/tmp1Acc/js/jquery.min.js"></script>
 <!-- Custom Theme files -->
@@ -23,9 +19,9 @@ Author URL:
 <meta name="keywords" content="Crude Oil  Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-<!---->
+
 <script src="resources/tmp1Acc/js/bootstrap.min.js"></script>
-<!---->
+
 <!--JS for animate-->
 	<link href="resources/tmp1Acc/css/animate.css" rel="stylesheet" type="text/css" media="all" />
 	<script src="resources/tmp1Acc/js/wow.min.js"></script>
@@ -33,81 +29,80 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			new WOW().init();
 		</script>
 	<!--//end-animate-->
+<!--js-->
+<link rel="stylesheet" type="text/css" href="resources/tmp1Acc/css/component.css" />
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css' />
 <link href='//fonts.googleapis.com/css?family=Play:400,700' rel='stylesheet' type='text/css' />
 
-	<div class="banner-section">
-		<div class="container">
-			<div class="banner-center wow fadeInRight animated animated" data-wow-delay="0.4s">
-				<h3>
-                                <img src="resources/tmp1Acc/images/logo.png" />
-                                </h3>
-				<div class="details-section">
-					
-                                        <h:form prependId="false" >
+    <div class="banner-section">
+        <div class="container">
+            <div class="banner-center wow fadeInRight animated animated" data-wow-delay="0.4s">
+                <div class="details-logo">
+                    <img src="resources/tmp1Acc/images/logo.png" />
+                </div>
+                <div class="details-section">
 
-                                        <h:panelGrid columns="2" cellpadding="5">
-                                             <div class="form-group">
-                                                  <p:inputText id="username"  styleClass ="form-control input"  title="Identifiant"   placeholder="Identifiant" required="true"  value="#{shiroLoginBean.username}" requiredMessage="Veuillez entrer login" /><br /><br />
-                                             </div>
-                                             <div class="form-group">
-                                              <p:password id="password" title="Mot de passe" placeholder="Mot de passe" required="true" styleClass="form-control  input"  value="#{shiroLoginBean.password}" requiredMessage="Veuillez entrer mot de passe"  />
-                                             </div>
-                                             <div class="checkbox">
-                                                  <label>
-                                                       <p:selectBooleanCheckbox id="rememberMe"  value="#{shiroLoginBean.rememberMe}">
-                                                            <p:outputLabel for="rememberMe" value="Remember me" />
-                                                       </p:selectBooleanCheckbox>
-                                                  </label>
-                                             </div>
-                                             <div class="form-group">
-                                            <h:outputText/>
-                                             </div>
-                                        <p:commandButton value="Login" action="#{shiroLoginBean.doLogin}" class="btn btn-default" />
-                                        <p:messages id="messages" autoUpdate="true" closable="true" />
-                                        </h:panelGrid>
-                                        
+                    <h:form prependId="false">
+                        <div class="form-group">
+                            <p:inputText id="username"  styleClass ="form-control input"  title="Identifiant"   placeholder="Identifiant" required="true"  value="#{shiroLoginBean.username}" requiredMessage="Veuillez entrer login" />
+                        </div>
+                        <div class="form-group">
+                            <p:password id="password" title="Mot de passe" placeholder="Mot de passe" required="true" styleClass="form-control  input"  value="#{shiroLoginBean.password}" requiredMessage="Veuillez entrer mot de passe"  />
+                        </div>
+                        <div class="checkbox" style="color:white">
+                            <label>
+                                <h:selectBooleanCheckbox id="rememberMe"  value="#{shiroLoginBean.rememberMe}" />
+                                Remember me
+                            </label>
+                        </div>
 
-                                    </h:form>
-                                 </div>
-			</div>
-		</div>
-	</div>
-        <!-- Menu -->
+
+                        <p:commandButton value="Login" action="#{shiroLoginBean.doLogin}" class="btn btn-default" />
+                        <p:messages id="messages" autoUpdate="true" closable="true" />
+
+
+
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Menu -->
     <div class="header">
-		<div class="container">
-			<div class="header-menu">
-				<nav class="navbar navbar-default">
-					<div class="container-fluid">
-						<!-- Brand and toggle get grouped for better mobile display -->
-						<div class="navbar-header">
-						  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						  </button>
-						  <div class="navbar-brand logo wow fadeInLeft animated animated" data-wow-delay="0.4s">
-								<h1><a href="index.html"><span>FSSM</span></a></h1>
-							</div>
-						</div>
-						<!-- Collect the nav links, forms, and other content for toggling -->
-						<div class="collapse navbar-collapse wow fadeInRight animated animated" data-wow-delay="0.4s" id="bs-example-navbar-collapse-1">
-						  <ul class="nav navbar-nav cl-effect-11">
-							<li class="active"><a href="index.xhtml" data-hover="Home">Home </a></li>
-							
-							<li><a href="vacation.xhtml" data-hover="Vacation">Vacation</a></li>
-							 <li><a data-hover="Deplacement" href="deplacement.xhtml">Deplacement</a></li>
-							  <li><a  href="BonCommande.xhtml" data-hover="Commande">Commande</a></li>
-                                                          <li><a href="about.html" data-hover="About">About</a></li>
-							 <li><a data-hover="Contact" href="contact.xhtml">Contact</a></li>
-							 
-						  </ul>
-						</div><!-- /.navbar-collapse -->
-					</div><!-- /.container-fluid -->
-				</nav>
-			<div class="clearfix"></div>
-			</div>	
-		</div> 
-	</div>
+        <div class="container">
+            <div class="header-menu">
+                <nav class="navbar navbar-default">
+                    <div class="container-fluid">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <div class="navbar-brand logo wow fadeInLeft animated animated" data-wow-delay="0.4s">
+                                <h1><a href="index.html"><span>FSSM</span></a></h1>
+                            </div>
+                        </div>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse wow fadeInRight animated animated" data-wow-delay="0.4s" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav cl-effect-11">
+                                <li class="active"><a href="index.xhtml" data-hover="Home">Home </a></li>
+
+                                <li><a href="services.html" data-hover="Vacation">Vacation</a></li>
+                                <li><a data-hover="Deplacement" href="gallery.html">Deplacement</a></li>
+                                <li><a  href="codes.html" data-hover="Commande">Commande</a></li>
+                                <li><a href="about.html" data-hover="About">About</a></li>
+                                <li><a data-hover="Contact" href="contact.xhtml">Contact</a></li>
+
+                            </ul>
+                        </div><!-- /.navbar-collapse -->
+                    </div><!-- /.container-fluid -->
+                </nav>
+                <div class="clearfix"></div>
+            </div>	
+        </div> 
+    </div>
+
 </html>

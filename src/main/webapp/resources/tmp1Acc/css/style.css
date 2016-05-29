@@ -123,12 +123,19 @@ div#bs-example-navbar-collapse-1 {
 .banner-center {
     margin-top: 6em;
 }
+.details-logo{
+    width: 30%;
+    opacity: 0.8;
+    background: #ecf0f1;
+}
+.details-logo img{
+    
+}
 .details-section {
-    width: 40%;
+    width: 30%;
     background:#003c20;
     padding: 2em;
-    margin-top: 2em;
-    opacity: 0.7;
+    opacity: 0.8;
 }
 .banner-center h3 {
     font-size: 3em;

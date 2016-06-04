@@ -2,8 +2,8 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 4 juin 2016 18:10:50 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="finance_fssm" name="modele.Budget" optimistic-lock="version" table="budget">
-    <composite-id class="modele.BudgetId" name="id">
+  <class catalog="finance_fssm" name="models.Budget" optimistic-lock="version" table="budget">
+    <composite-id class="models.BudgetId" name="id">
       <key-property name="idCompte" type="int">
         <column name="idCompte"/>
       </key-property>

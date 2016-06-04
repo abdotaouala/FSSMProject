@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 4 juin 2016 18:10:50 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="finance_fssm" name="modele.Comptebc" optimistic-lock="version" table="comptebc">
+  <class catalog="finance_fssm" name="models.Comptebc" optimistic-lock="version" table="comptebc">
     <id name="idCptBc" type="java.lang.Integer">
       <column name="idCptBc"/>
       <generator class="identity"/>

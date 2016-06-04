@@ -1,50 +1,51 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 4 juin 2016 18:10:50 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 4 juin 2016 20:48:02 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="finance_fssm" name="models.Deplacement" optimistic-lock="version" table="deplacement">
-    <id name="idDeplacement" type="java.lang.Integer">
-      <column name="idDeplacement"/>
-      <generator class="identity"/>
-    </id>
-    <property name="cinPpr" type="string">
-      <column length="254" name="cinPpr" not-null="true"/>
-    </property>
-    <property name="idUser" type="int">
-      <column name="idUser" not-null="true"/>
-    </property>
-    <property name="idPays" type="java.lang.Integer">
-      <column name="idPays"/>
-    </property>
-    <property name="nbrJours" type="java.lang.Integer">
-      <column name="nbrJours"/>
-    </property>
-    <property name="dateDepart" type="timestamp">
-      <column length="19" name="dateDepart"/>
-    </property>
-    <property name="dateArrive" type="timestamp">
-      <column length="19" name="dateArrive"/>
-    </property>
-    <property name="annee" type="java.lang.Integer">
-      <column name="annee"/>
-    </property>
-    <property name="motifDeplacement" type="string">
-      <column length="254" name="motifDeplacement"/>
-    </property>
-    <property name="dateCreation" type="timestamp">
-      <column length="19" name="dateCreation"/>
-    </property>
-    <property name="statutMnt" type="java.lang.Integer">
-      <column name="statutMnt"/>
-    </property>
-    <property name="indice" type="java.lang.Integer">
-      <column name="indice"/>
-    </property>
-    <property name="echelle" type="java.lang.Integer">
-      <column name="echelle"/>
-    </property>
-    <property name="grade" type="string">
-      <column length="254" name="grade"/>
-    </property>
-  </class>
+    <class name="models.Deplacement" table="deplacement" catalog="bd_finance_fssm" optimistic-lock="version">
+        <id name="idDeplacement" type="java.lang.Integer">
+            <column name="idDeplacement" />
+            <generator class="identity" />
+        </id>
+        <property name="cinPpr" type="string">
+            <column name="cinPpr" length="254" not-null="true" />
+        </property>
+        <property name="idUser" type="int">
+            <column name="idUser" not-null="true" />
+        </property>
+        <property name="idPays" type="java.lang.Integer">
+            <column name="idPays" />
+        </property>
+        <property name="nbrJours" type="java.lang.Integer">
+            <column name="nbrJours" />
+        </property>
+        <property name="dateDepart" type="timestamp">
+            <column name="dateDepart" length="19" />
+        </property>
+        <property name="dateArrive" type="timestamp">
+            <column name="dateArrive" length="19" />
+        </property>
+        <property name="annee" type="java.lang.Integer">
+            <column name="annee" />
+        </property>
+        <property name="motifDeplacement" type="string">
+            <column name="motifDeplacement" length="254" />
+        </property>
+        <property name="dateCreation" type="timestamp">
+            <column name="dateCreation" length="19" />
+        </property>
+        <property name="statutMnt" type="java.lang.Integer">
+            <column name="statutMnt" />
+        </property>
+        <property name="indice" type="java.lang.Integer">
+            <column name="indice" />
+        </property>
+        <property name="echelle" type="java.lang.Integer">
+            <column name="echelle" />
+        </property>
+        <property name="grade" type="string">
+            <column name="grade" length="254" />
+        </property>
+    </class>
 </hibernate-mapping>

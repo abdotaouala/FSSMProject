@@ -1,38 +1,39 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 4 juin 2016 18:10:50 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 4 juin 2016 20:48:02 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="finance_fssm" name="models.Dossierprovisoir" optimistic-lock="version" table="dossierprovisoir">
-    <id name="idDossierProv" type="java.lang.Integer">
-      <column name="idDossierProv"/>
-      <generator class="identity"/>
-    </id>
-    <property name="idRelever" type="java.lang.Integer">
-      <column name="idRelever"/>
-    </property>
-    <property name="idGrade" type="java.lang.Integer">
-      <column name="idGrade"/>
-    </property>
-    <property name="nomComplet" type="string">
-      <column length="254" name="nomComplet"/>
-    </property>
-    <property name="dernierDiplome" type="string">
-      <column length="254" name="dernierDiplome"/>
-    </property>
-    <property name="nbrHeures" type="java.lang.Integer">
-      <column name="nbrHeures"/>
-    </property>
-    <property name="module" type="string">
-      <column length="254" name="module"/>
-    </property>
-    <property name="etat" type="java.lang.Boolean">
-      <column name="etat"/>
-    </property>
-    <property name="dateDebut" type="timestamp">
-      <column length="19" name="dateDebut"/>
-    </property>
-    <property name="dateFin" type="timestamp">
-      <column length="19" name="dateFin"/>
-    </property>
-  </class>
+    <class name="models.Dossierprovisoir" table="dossierprovisoir" catalog="bd_finance_fssm" optimistic-lock="version">
+        <id name="idDossierProv" type="java.lang.Integer">
+            <column name="idDossierProv" />
+            <generator class="identity" />
+        </id>
+        <property name="idRelever" type="java.lang.Integer">
+            <column name="idRelever" />
+        </property>
+        <property name="idGrade" type="java.lang.Integer">
+            <column name="idGrade" />
+        </property>
+        <property name="nomComplet" type="string">
+            <column name="nomComplet" length="254" />
+        </property>
+        <property name="dernierDiplome" type="string">
+            <column name="dernierDiplome" length="254" />
+        </property>
+        <property name="nbrHeures" type="java.lang.Integer">
+            <column name="nbrHeures" />
+        </property>
+        <property name="module" type="string">
+            <column name="module" length="254" />
+        </property>
+        <property name="etat" type="java.lang.Boolean">
+            <column name="etat" />
+        </property>
+        <property name="dateDebut" type="timestamp">
+            <column name="dateDebut" length="19" />
+        </property>
+        <property name="dateFin" type="timestamp">
+            <column name="dateFin" length="19" />
+        </property>
+    </class>
 </hibernate-mapping>

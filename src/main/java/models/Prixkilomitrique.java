@@ -1,5 +1,5 @@
 package models;
-// Generated 4 juin 2016 18:10:45 by Hibernate Tools 4.3.1
+// Generated 4 juin 2016 20:47:55 by Hibernate Tools 4.3.1
 
 
 import javax.persistence.Column;
@@ -14,7 +14,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="prixkilomitrique"
-    ,catalog="finance_fssm"
+    ,catalog="bd_finance_fssm"
 )
 public class Prixkilomitrique  implements java.io.Serializable {
 

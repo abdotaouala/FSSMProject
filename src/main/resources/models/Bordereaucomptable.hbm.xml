@@ -1,23 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 4 juin 2016 18:10:50 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 4 juin 2016 20:48:02 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="finance_fssm" name="models.Bordereaucomptable" optimistic-lock="version" table="bordereaucomptable">
-    <id name="idBordComp" type="java.lang.Integer">
-      <column name="idBordComp"/>
-      <generator class="identity"/>
-    </id>
-    <property name="annee" type="int">
-      <column name="annee" not-null="true"/>
-    </property>
-    <property name="dateExercice" type="timestamp">
-      <column length="19" name="dateExercice"/>
-    </property>
-    <property name="totalIr" type="java.lang.Integer">
-      <column name="totalIr" precision="8" scale="0"/>
-    </property>
-    <property name="totalNet" type="java.lang.Integer">
-      <column name="totalNet" precision="8" scale="0"/>
-    </property>
-  </class>
+    <class name="models.Bordereaucomptable" table="bordereaucomptable" catalog="bd_finance_fssm" optimistic-lock="version">
+        <id name="idBordComp" type="java.lang.Integer">
+            <column name="idBordComp" />
+            <generator class="identity" />
+        </id>
+        <property name="annee" type="int">
+            <column name="annee" not-null="true" />
+        </property>
+        <property name="dateExercice" type="timestamp">
+            <column name="dateExercice" length="19" />
+        </property>
+        <property name="totalIr" type="java.lang.Integer">
+            <column name="totalIr" precision="8" scale="0" />
+        </property>
+        <property name="totalNet" type="java.lang.Integer">
+            <column name="totalNet" precision="8" scale="0" />
+        </property>
+    </class>
 </hibernate-mapping>

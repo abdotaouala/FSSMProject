@@ -1,26 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 4 juin 2016 18:10:50 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 4 juin 2016 20:48:02 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="finance_fssm" name="models.Piecejustificativevacation" optimistic-lock="version" table="piecejustificativevacation">
-    <id name="idPiece" type="java.lang.Integer">
-      <column name="idPiece"/>
-      <generator class="identity"/>
-    </id>
-    <property name="idDossier" type="int">
-      <column name="idDossier" not-null="true"/>
-    </property>
-    <property name="dosIdDossier" type="int">
-      <column name="Dos_idDossier" not-null="true"/>
-    </property>
-    <property name="datePiece" type="timestamp">
-      <column length="19" name="datePiece"/>
-    </property>
-    <property name="intutilePiece" type="string">
-      <column length="254" name="intutilePiece"/>
-    </property>
-    <property name="piece" type="string">
-      <column length="254" name="piece"/>
-    </property>
-  </class>
+    <class name="models.Piecejustificativevacation" table="piecejustificativevacation" catalog="bd_finance_fssm" optimistic-lock="version">
+        <id name="idPiece" type="java.lang.Integer">
+            <column name="idPiece" />
+            <generator class="identity" />
+        </id>
+        <property name="idDossier" type="int">
+            <column name="idDossier" not-null="true" />
+        </property>
+        <property name="dosIdDossier" type="int">
+            <column name="Dos_idDossier" not-null="true" />
+        </property>
+        <property name="datePiece" type="timestamp">
+            <column name="datePiece" length="19" />
+        </property>
+        <property name="intutilePiece" type="string">
+            <column name="intutilePiece" length="254" />
+        </property>
+        <property name="piece" type="string">
+            <column name="piece" length="254" />
+        </property>
+    </class>
 </hibernate-mapping>

@@ -1,23 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 4 juin 2016 18:10:50 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 4 juin 2016 20:48:02 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="finance_fssm" name="models.Dotationsecteur" optimistic-lock="version" table="dotationsecteur">
-    <id name="idDotation" type="java.lang.Integer">
-      <column name="idDotation"/>
-      <generator class="identity"/>
-    </id>
-    <property name="idCompte" type="int">
-      <column name="idCompte" not-null="true"/>
-    </property>
-    <property name="idSecteur" type="int">
-      <column name="idSecteur" not-null="true"/>
-    </property>
-    <property name="montantInitial" type="java.lang.Integer">
-      <column name="montantInitial" precision="8" scale="0"/>
-    </property>
-    <property name="reliquat" type="java.lang.Integer">
-      <column name="reliquat" precision="8" scale="0"/>
-    </property>
-  </class>
+    <class name="models.Dotationsecteur" table="dotationsecteur" catalog="bd_finance_fssm" optimistic-lock="version">
+        <id name="idDotation" type="java.lang.Integer">
+            <column name="idDotation" />
+            <generator class="identity" />
+        </id>
+        <property name="idCompte" type="int">
+            <column name="idCompte" not-null="true" />
+        </property>
+        <property name="idSecteur" type="int">
+            <column name="idSecteur" not-null="true" />
+        </property>
+        <property name="montantInitial" type="java.lang.Integer">
+            <column name="montantInitial" precision="8" scale="0" />
+        </property>
+        <property name="reliquat" type="java.lang.Integer">
+            <column name="reliquat" precision="8" scale="0" />
+        </property>
+    </class>
 </hibernate-mapping>

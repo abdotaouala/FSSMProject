@@ -1,14 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 4 juin 2016 18:10:50 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 4 juin 2016 20:48:02 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="finance_fssm" name="models.Bordereauautorisation" optimistic-lock="version" table="bordereauautorisation">
-    <id name="idBordAut" type="java.lang.Integer">
-      <column name="idBordAut"/>
-      <generator class="identity"/>
-    </id>
-    <property name="anneeUniversitaire" type="java.lang.Integer">
-      <column name="anneeUniversitaire"/>
-    </property>
-  </class>
+    <class name="models.Bordereauautorisation" table="bordereauautorisation" catalog="bd_finance_fssm" optimistic-lock="version">
+        <id name="idBordAut" type="java.lang.Integer">
+            <column name="idBordAut" />
+            <generator class="identity" />
+        </id>
+        <property name="anneeUniversitaire" type="java.lang.Integer">
+            <column name="anneeUniversitaire" />
+        </property>
+    </class>
 </hibernate-mapping>

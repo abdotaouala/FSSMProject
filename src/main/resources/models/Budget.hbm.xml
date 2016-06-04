@@ -1,21 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 4 juin 2016 18:10:50 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 4 juin 2016 20:48:02 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="finance_fssm" name="models.Budget" optimistic-lock="version" table="budget">
-    <composite-id class="models.BudgetId" name="id">
-      <key-property name="idCompte" type="int">
-        <column name="idCompte"/>
-      </key-property>
-      <key-property name="annee" type="int">
-        <column name="annee"/>
-      </key-property>
-    </composite-id>
-    <property name="budgetAnnuel" type="java.lang.Integer">
-      <column name="budgetAnnuel" precision="8" scale="0"/>
-    </property>
-    <property name="reliquat" type="java.lang.Integer">
-      <column name="reliquat" precision="8" scale="0"/>
-    </property>
-  </class>
+    <class name="models.Budget" table="budget" catalog="bd_finance_fssm" optimistic-lock="version">
+        <composite-id name="id" class="models.BudgetId">
+            <key-property name="idCompte" type="int">
+                <column name="idCompte" />
+            </key-property>
+            <key-property name="annee" type="int">
+                <column name="annee" />
+            </key-property>
+        </composite-id>
+        <property name="budgetAnnuel" type="java.lang.Integer">
+            <column name="budgetAnnuel" precision="8" scale="0" />
+        </property>
+        <property name="reliquat" type="java.lang.Integer">
+            <column name="reliquat" precision="8" scale="0" />
+        </property>
+    </class>
 </hibernate-mapping>

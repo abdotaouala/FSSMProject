@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core">
+     <head>
+          <title>Gestion des anneés Budgétaires</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+     </head>
+     <body>
+          <ui:composition  template="./template.xhtml">
+               <ui:define name="content">
+                    <form name="form" method="POST">
+                        <p:growl id="growl" life="2000" />
+                <center><p:fieldset  style="margin-bottom:20px;margin-top: 20px; border:5px solid; width:600px; background-color: #f8f6de; vertical-align: central;">
+                        <center> <b><i><legend> Affectation de budget annuel</legend></i></b></center>
+                    <center><table class='tab_form' style="width:400px;height:200px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
+                    <tr>    
+                        <td class="olab"><p:outputLabel value="Année : "></p:outputLabel></td>
+                        <td><p:inputText accesskey="annee" value=""/></td>
+                    </tr>
+                    <br/>
+                    <tr>
+                        <td class="olab"><p:outputLabel value="Budget Annuel :  "></p:outputLabel></td>
+                        <td><p:inputText accesskey="ba" value=""/></td>
+                    </tr>
+                    <tr>
+                        <td class="olab"><p:commandButton value="Affecter" id="ajax" update="growl" actionListener="#{buttonView.buttonAction}" styleClass="ui-priority-primary" /></td>
+                    </tr>
+                    </table></center>
+                </p:fieldset></center>
+                    </form>
+               </ui:define>
+              
+          </ui:composition>
+     </body>
+</html>

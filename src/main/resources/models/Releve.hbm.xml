@@ -1,20 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 4 juin 2016 18:10:50 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 4 juin 2016 20:48:02 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="finance_fssm" name="models.Releve" optimistic-lock="version" table="releve">
-    <id name="idRelever" type="java.lang.Integer">
-      <column name="idRelever"/>
-      <generator class="identity"/>
-    </id>
-    <property name="idFiliere" type="int">
-      <column name="idFiliere" not-null="true"/>
-    </property>
-    <property name="semestre" type="string">
-      <column length="254" name="semestre"/>
-    </property>
-    <property name="anneeUniversitaire" type="string">
-      <column length="254" name="anneeUniversitaire"/>
-    </property>
-  </class>
+    <class name="models.Releve" table="releve" catalog="bd_finance_fssm" optimistic-lock="version">
+        <id name="idRelever" type="java.lang.Integer">
+            <column name="idRelever" />
+            <generator class="identity" />
+        </id>
+        <property name="idFiliere" type="int">
+            <column name="idFiliere" not-null="true" />
+        </property>
+        <property name="semestre" type="string">
+            <column name="semestre" length="254" />
+        </property>
+        <property name="anneeUniversitaire" type="string">
+            <column name="anneeUniversitaire" length="254" />
+        </property>
+    </class>
 </hibernate-mapping>

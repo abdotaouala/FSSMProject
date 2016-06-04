@@ -1,23 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 4 juin 2016 18:10:50 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 4 juin 2016 20:48:02 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="finance_fssm" name="models.Fournisseur" optimistic-lock="version" table="fournisseur">
-    <id name="idFournisseur" type="java.lang.Integer">
-      <column name="idFournisseur"/>
-      <generator class="identity"/>
-    </id>
-    <property name="nom" type="string">
-      <column length="254" name="nom"/>
-    </property>
-    <property name="adresse" type="string">
-      <column length="254" name="adresse"/>
-    </property>
-    <property name="tel" type="string">
-      <column length="254" name="tel"/>
-    </property>
-    <property name="email" type="string">
-      <column length="254" name="email"/>
-    </property>
-  </class>
+    <class name="models.Fournisseur" table="fournisseur" catalog="bd_finance_fssm" optimistic-lock="version">
+        <id name="idFournisseur" type="java.lang.Integer">
+            <column name="idFournisseur" />
+            <generator class="identity" />
+        </id>
+        <property name="nom" type="string">
+            <column name="nom" length="254" />
+        </property>
+        <property name="adresse" type="string">
+            <column name="adresse" length="254" />
+        </property>
+        <property name="tel" type="string">
+            <column name="tel" length="254" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="254" />
+        </property>
+    </class>
 </hibernate-mapping>

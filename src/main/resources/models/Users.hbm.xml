@@ -1,32 +1,33 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 4 juin 2016 18:10:50 by Hibernate Tools 4.3.1 -->
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 4 juin 2016 20:48:02 by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-  <class catalog="finance_fssm" name="models.Users" optimistic-lock="version" table="users">
-    <id name="idUser" type="java.lang.Integer">
-      <column name="idUser"/>
-      <generator class="identity"/>
-    </id>
-    <property name="login" type="string">
-      <column length="254" name="login"/>
-    </property>
-    <property name="password" type="string">
-      <column length="254" name="password"/>
-    </property>
-    <property name="nom" type="string">
-      <column length="254" name="nom"/>
-    </property>
-    <property name="prenom" type="string">
-      <column length="254" name="prenom"/>
-    </property>
-    <property name="telephone" type="string">
-      <column length="254" name="telephone"/>
-    </property>
-    <property name="email" type="string">
-      <column length="254" name="email"/>
-    </property>
-    <property name="img" type="string">
-      <column length="254" name="img"/>
-    </property>
-  </class>
+    <class name="models.Users" table="users" catalog="bd_finance_fssm" optimistic-lock="version">
+        <id name="idUser" type="java.lang.Integer">
+            <column name="idUser" />
+            <generator class="identity" />
+        </id>
+        <property name="login" type="string">
+            <column name="login" length="254" />
+        </property>
+        <property name="password" type="string">
+            <column name="password" length="254" />
+        </property>
+        <property name="nom" type="string">
+            <column name="nom" length="254" />
+        </property>
+        <property name="prenom" type="string">
+            <column name="prenom" length="254" />
+        </property>
+        <property name="telephone" type="string">
+            <column name="telephone" length="254" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="254" />
+        </property>
+        <property name="img" type="string">
+            <column name="img" length="254" />
+        </property>
+    </class>
 </hibernate-mapping>

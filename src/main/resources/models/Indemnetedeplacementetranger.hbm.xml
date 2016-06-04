@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 4 juin 2016 18:10:50 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="finance_fssm" name="modele.Indemnetedeplacementetranger" optimistic-lock="version" table="indemnetedeplacementetranger">
+    <composite-id class="modele.IndemnetedeplacementetrangerId" name="id">
+      <key-property name="idDeplacement" type="int">
+        <column name="idDeplacement"/>
+      </key-property>
+      <key-property name="idDepEx" type="int">
+        <column name="idDepEx"/>
+      </key-property>
+    </composite-id>
+    <property name="idPrixSej" type="java.lang.Integer">
+      <column name="idPrixSej"/>
+    </property>
+    <property name="idDotation" type="int">
+      <column name="idDotation" not-null="true"/>
+    </property>
+    <property name="mntDepEx" type="java.lang.Integer">
+      <column name="mntDepEx"/>
+    </property>
+  </class>
+</hibernate-mapping>

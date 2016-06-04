@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd">
+<hibernate-reverse-engineering>
+  <schema-selection match-catalog="finance_fssm"/>
+  <table-filter match-name="voiture"/>
+  <table-filter match-name="indemnetedeplacementetranger"/>
+  <table-filter match-name="prixkilomitrique"/>
+  <table-filter match-name="dossierprovisoir"/>
+  <table-filter match-name="anneebudgetaire"/>
+  <table-filter match-name="boncommande"/>
+  <table-filter match-name="lignecommande"/>
+  <table-filter match-name="piecejustificativevacation"/>
+  <table-filter match-name="dotationsecteur"/>
+  <table-filter match-name="etatdossier"/>
+  <table-filter match-name="compte"/>
+  <table-filter match-name="budget"/>
+  <table-filter match-name="dossierhsupp"/>
+  <table-filter match-name="prixrepas"/>
+  <table-filter match-name="bordereaucomptable"/>
+  <table-filter match-name="comptebc"/>
+  <table-filter match-name="bordereauautorisation"/>
+  <table-filter match-name="releve"/>
+  <table-filter match-name="fournisseur"/>
+  <table-filter match-name="indemnetedeplacementinterne"/>
+  <table-filter match-name="users"/>
+  <table-filter match-name="indemntekm"/>
+  <table-filter match-name="user_role"/>
+  <table-filter match-name="filiere"/>
+  <table-filter match-name="dossiervacataire"/>
+  <table-filter match-name="deplacement"/>
+  <table-filter match-name="secteurprincipal"/>
+  <table-filter match-name="departement"/>
+  <table-filter match-name="prixsejour"/>
+  <table-filter match-name="piecejustificativedeplacement"/>
+  <table-filter match-name="article"/>
+  <table-filter match-name="typeformations"/>
+  <table-filter match-name="graddiplome"/>
+  <table-filter match-name="pays"/>
+  <table-filter match-name="role"/>
+  <table-filter match-name="intervenant"/>
+  <table-filter match-name="secteur"/>
+  <table-filter match-name="dossierrejete"/>
+  <table-filter match-name="detail"/>
+</hibernate-reverse-engineering>

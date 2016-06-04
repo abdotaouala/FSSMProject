@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+    <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/finance_fssm?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.username">root</property>
+    <mapping resource="modele/Releve.hbm.xml"/>
+    <mapping resource="modele/UserRole.hbm.xml"/>
+    <mapping resource="modele/Dotationsecteur.hbm.xml"/>
+    <mapping resource="modele/Dossiervacataire.hbm.xml"/>
+    <mapping resource="modele/Comptebc.hbm.xml"/>
+    <mapping resource="modele/Pays.hbm.xml"/>
+    <mapping resource="modele/Bordereaucomptable.hbm.xml"/>
+    <mapping resource="modele/Typeformations.hbm.xml"/>
+    <mapping resource="modele/Piecejustificativevacation.hbm.xml"/>
+    <mapping resource="modele/Etatdossier.hbm.xml"/>
+    <mapping resource="modele/Indemnetedeplacementetranger.hbm.xml"/>
+    <mapping resource="modele/Prixrepas.hbm.xml"/>
+    <mapping resource="modele/Fournisseur.hbm.xml"/>
+    <mapping resource="modele/Graddiplome.hbm.xml"/>
+    <mapping resource="modele/Piecejustificativedeplacement.hbm.xml"/>
+    <mapping resource="modele/Budget.hbm.xml"/>
+    <mapping resource="modele/Deplacement.hbm.xml"/>
+    <mapping resource="modele/Dossierprovisoir.hbm.xml"/>
+    <mapping resource="modele/Departement.hbm.xml"/>
+    <mapping resource="modele/Article.hbm.xml"/>
+    <mapping resource="modele/Bordereauautorisation.hbm.xml"/>
+    <mapping resource="modele/Dossierhsupp.hbm.xml"/>
+    <mapping resource="modele/Intervenant.hbm.xml"/>
+    <mapping resource="modele/Prixkilomitrique.hbm.xml"/>
+    <mapping resource="modele/Dossierrejete.hbm.xml"/>
+    <mapping resource="modele/Prixsejour.hbm.xml"/>
+    <mapping resource="modele/Secteur.hbm.xml"/>
+    <mapping resource="modele/Boncommande.hbm.xml"/>
+    <mapping resource="modele/Compte.hbm.xml"/>
+    <mapping resource="modele/Indemntekm.hbm.xml"/>
+    <mapping resource="modele/Secteurprincipal.hbm.xml"/>
+    <mapping resource="modele/Detail.hbm.xml"/>
+    <mapping resource="modele/Anneebudgetaire.hbm.xml"/>
+    <mapping resource="modele/Voiture.hbm.xml"/>
+    <mapping resource="modele/Lignecommande.hbm.xml"/>
+    <mapping resource="modele/Indemnetedeplacementinterne.hbm.xml"/>
+    <mapping resource="modele/Users.hbm.xml"/>
+    <mapping resource="modele/Filiere.hbm.xml"/>
+    <mapping resource="modele/Role.hbm.xml"/>
+  </session-factory>
+</hibernate-configuration>

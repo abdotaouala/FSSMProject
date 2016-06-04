@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 4 juin 2016 18:10:50 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="finance_fssm" name="modele.Dossierhsupp" optimistic-lock="version" table="dossierhsupp">
+    <id name="idDossier" type="java.lang.Integer">
+      <column name="idDossier"/>
+      <generator class="identity"/>
+    </id>
+    <property name="cinPpr" type="string">
+      <column length="254" name="cinPpr" not-null="true"/>
+    </property>
+    <property name="idBordAut" type="java.lang.Integer">
+      <column name="idBordAut"/>
+    </property>
+    <property name="idDossierProv" type="int">
+      <column name="idDossierProv" not-null="true"/>
+    </property>
+    <property name="idBordComp" type="java.lang.Integer">
+      <column name="idBordComp"/>
+    </property>
+    <property name="idDotation" type="int">
+      <column name="idDotation" not-null="true"/>
+    </property>
+    <property name="idGrade" type="java.lang.Integer">
+      <column name="idGrade"/>
+    </property>
+    <property name="idDetail" type="int">
+      <column name="idDetail" not-null="true"/>
+    </property>
+    <property name="nbrHeures" type="java.lang.Integer">
+      <column name="nbrHeures"/>
+    </property>
+    <property name="mois" type="string">
+      <column length="254" name="mois"/>
+    </property>
+    <property name="semestre" type="string">
+      <column length="254" name="semestre"/>
+    </property>
+    <property name="dateCreance" type="timestamp">
+      <column length="19" name="dateCreance"/>
+    </property>
+    <property name="montantHsupp" type="java.lang.Integer">
+      <column name="montantHsupp" precision="8" scale="0"/>
+    </property>
+    <property name="statutDossier" type="string">
+      <column length="254" name="statutDossier"/>
+    </property>
+  </class>
+</hibernate-mapping>

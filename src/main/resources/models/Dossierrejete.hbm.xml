@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 4 juin 2016 18:10:50 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="finance_fssm" name="modele.Dossierrejete" optimistic-lock="version" table="dossierrejete">
+    <id name="idDossierRejete" type="java.lang.Integer">
+      <column name="idDossierRejete"/>
+      <generator class="identity"/>
+    </id>
+    <property name="idDossier" type="int">
+      <column name="idDossier" not-null="true"/>
+    </property>
+    <property name="dosIdDossier" type="int">
+      <column name="Dos_idDossier" not-null="true"/>
+    </property>
+    <property name="motifRejet" type="string">
+      <column length="254" name="motifRejet"/>
+    </property>
+  </class>
+</hibernate-mapping>

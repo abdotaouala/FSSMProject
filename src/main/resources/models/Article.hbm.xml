@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 4 juin 2016 18:10:50 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="finance_fssm" name="modele.Article" optimistic-lock="version" table="article">
+    <id name="idArticle" type="java.lang.Integer">
+      <column name="idArticle"/>
+      <generator class="identity"/>
+    </id>
+    <property name="description" type="string">
+      <column length="254" name="description"/>
+    </property>
+    <property name="pu" type="java.lang.Integer">
+      <column name="pu" precision="8" scale="0"/>
+    </property>
+  </class>
+</hibernate-mapping>

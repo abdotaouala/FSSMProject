@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 4 juin 2016 18:10:50 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="finance_fssm" name="modele.Comptebc" optimistic-lock="version" table="comptebc">
+    <id name="idCptBc" type="java.lang.Integer">
+      <column name="idCptBc"/>
+      <generator class="identity"/>
+    </id>
+    <property name="cinPpr" type="string">
+      <column length="254" name="cinPpr" not-null="true"/>
+    </property>
+    <property name="intitule" type="string">
+      <column length="254" name="intitule"/>
+    </property>
+    <property name="bc" type="string">
+      <column length="254" name="bc"/>
+    </property>
+    <property name="rib" type="string">
+      <column length="254" name="rib"/>
+    </property>
+  </class>
+</hibernate-mapping>

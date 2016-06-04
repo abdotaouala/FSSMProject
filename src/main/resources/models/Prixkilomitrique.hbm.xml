@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 4 juin 2016 18:10:50 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="finance_fssm" name="modele.Prixkilomitrique" optimistic-lock="version" table="prixkilomitrique">
+    <id name="idPrixKilo" type="java.lang.Integer">
+      <column name="idPrixKilo"/>
+      <generator class="identity"/>
+    </id>
+    <property name="kmSup" type="java.lang.Integer">
+      <column name="kmSup" precision="8" scale="0"/>
+    </property>
+    <property name="kmInf" type="java.lang.Integer">
+      <column name="kmInf" precision="8" scale="0"/>
+    </property>
+    <property name="prixRoute" type="java.lang.Integer">
+      <column name="prixRoute" precision="8" scale="0"/>
+    </property>
+    <property name="prixPiste" type="java.lang.Integer">
+      <column name="prixPiste" precision="8" scale="0"/>
+    </property>
+  </class>
+</hibernate-mapping>

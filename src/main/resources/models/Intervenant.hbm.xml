@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 4 juin 2016 18:10:50 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="finance_fssm" name="modele.Intervenant" optimistic-lock="version" table="intervenant">
+    <id name="cinPpr" type="string">
+      <column length="254" name="cinPpr"/>
+      <generator class="assigned"/>
+    </id>
+    <property name="idUser" type="int">
+      <column name="idUser" not-null="true"/>
+    </property>
+    <property name="nomComplet" type="string">
+      <column length="254" name="nomComplet"/>
+    </property>
+    <property name="nomArabe" type="string">
+      <column length="254" name="nomArabe"/>
+    </property>
+    <property name="telephone" type="string">
+      <column length="254" name="telephone"/>
+    </property>
+    <property name="mail" type="string">
+      <column length="254" name="mail"/>
+    </property>
+  </class>
+</hibernate-mapping>

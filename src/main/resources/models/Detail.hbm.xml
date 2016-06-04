@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 4 juin 2016 18:10:50 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="finance_fssm" name="modele.Detail" optimistic-lock="version" table="detail">
+    <id name="idDetail" type="java.lang.Integer">
+      <column name="idDetail"/>
+      <generator class="identity"/>
+    </id>
+    <property name="salaireAnnuelleBrut" type="java.lang.Integer">
+      <column name="salaireAnnuelleBrut" precision="8" scale="0"/>
+    </property>
+    <property name="allocationFamiliale" type="java.lang.Integer">
+      <column name="allocationFamiliale" precision="8" scale="0"/>
+    </property>
+    <property name="brutAdditionner" type="java.lang.Integer">
+      <column name="brutAdditionner" precision="8" scale="0"/>
+    </property>
+    <property name="amo" type="java.lang.Integer">
+      <column name="amo" precision="8" scale="0"/>
+    </property>
+    <property name="retenuCmr" type="java.lang.Integer">
+      <column name="retenuCmr" precision="8" scale="0"/>
+    </property>
+    <property name="mutuelleMutialiste" type="java.lang.Integer">
+      <column name="mutuelleMutialiste" precision="8" scale="0"/>
+    </property>
+    <property name="mutuelleCaisse" type="java.lang.Integer">
+      <column name="mutuelleCaisse" precision="8" scale="0"/>
+    </property>
+    <property name="rachatCmr" type="java.lang.Integer">
+      <column name="rachatCmr" precision="8" scale="0"/>
+    </property>
+    <property name="sommeDeduire" type="java.lang.Integer">
+      <column name="sommeDeduire" precision="8" scale="0"/>
+    </property>
+    <property name="nbrEnfant" type="java.lang.Integer">
+      <column name="nbrEnfant"/>
+    </property>
+    <property name="conjoint" type="java.lang.Boolean">
+      <column name="conjoint"/>
+    </property>
+    <property name="chargeFamiliale" type="java.lang.Integer">
+      <column name="chargeFamiliale" precision="8" scale="0"/>
+    </property>
+    <property name="irSource" type="java.lang.Integer">
+      <column name="irSource" precision="8" scale="0"/>
+    </property>
+    <property name="irComplement" type="java.lang.Integer">
+      <column name="irComplement" precision="8" scale="0"/>
+    </property>
+    <property name="net" type="java.lang.Integer">
+      <column name="net" precision="8" scale="0"/>
+    </property>
+    <property name="ir" type="java.lang.Integer">
+      <column name="ir" precision="8" scale="0"/>
+    </property>
+    <property name="echelle" type="string">
+      <column length="254" name="echelle"/>
+    </property>
+    <property name="echelon" type="string">
+      <column length="254" name="echelon"/>
+    </property>
+  </class>
+</hibernate-mapping>

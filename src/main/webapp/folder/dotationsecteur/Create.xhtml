@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DotationsecteurCreateDlg" widgetVar="DotationsecteurCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDotationsecteurTitle}">
+            <h:form id="DotationsecteurCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{dotationsecteurController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateDotationsecteurLabel_idDotation}" for="idDotation" />
+                        <p:inputText id="idDotation" value="#{dotationsecteurController.selected.idDotation}" title="#{bundle.CreateDotationsecteurTitle_idDotation}" required="true" requiredMessage="#{bundle.CreateDotationsecteurRequiredMessage_idDotation}"/>
+                        <p:outputLabel value="#{bundle.CreateDotationsecteurLabel_montantInitial}" for="montantInitial" />
+                        <p:inputText id="montantInitial" value="#{dotationsecteurController.selected.montantInitial}" title="#{bundle.CreateDotationsecteurTitle_montantInitial}" />
+                        <p:outputLabel value="#{bundle.CreateDotationsecteurLabel_reliquat}" for="reliquat" />
+                        <p:inputText id="reliquat" value="#{dotationsecteurController.selected.reliquat}" title="#{bundle.CreateDotationsecteurTitle_reliquat}" />
+                        <p:outputLabel value="#{bundle.CreateDotationsecteurLabel_idCompte}" for="idCompte" />
+                        <p:selectOneMenu id="idCompte" value="#{dotationsecteurController.selected.idCompte}" required="true" requiredMessage="#{bundle.EditDotationsecteurRequiredMessage_idCompte}">
+                            <f:selectItems value="#{compteController.itemsAvailableSelectOne}"
+                                           var="idCompteItem"
+                                           itemValue="#{idCompteItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDotationsecteurLabel_idSecteur}" for="idSecteur" />
+                        <p:selectOneMenu id="idSecteur" value="#{dotationsecteurController.selected.idSecteur}" required="true" requiredMessage="#{bundle.EditDotationsecteurRequiredMessage_idSecteur}">
+                            <f:selectItems value="#{secteurController.itemsAvailableSelectOne}"
+                                           var="idSecteurItem"
+                                           itemValue="#{idSecteurItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{dotationsecteurController.create}" value="#{bundle.Save}" update="display,:DotationsecteurListForm:datalist,:growl" oncomplete="handleSubmit(args,'DotationsecteurCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DotationsecteurCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

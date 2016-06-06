@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ArticleCreateDlg" widgetVar="ArticleCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateArticleTitle}">
+            <h:form id="ArticleCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{articleController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateArticleLabel_idArticle}" for="idArticle" />
+                        <p:inputText id="idArticle" value="#{articleController.selected.idArticle}" title="#{bundle.CreateArticleTitle_idArticle}" required="true" requiredMessage="#{bundle.CreateArticleRequiredMessage_idArticle}"/>
+                        <p:outputLabel value="#{bundle.CreateArticleLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{articleController.selected.description}" title="#{bundle.CreateArticleTitle_description}" />
+                        <p:outputLabel value="#{bundle.CreateArticleLabel_pu}" for="pu" />
+                        <p:inputText id="pu" value="#{articleController.selected.pu}" title="#{bundle.CreateArticleTitle_pu}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{articleController.create}" value="#{bundle.Save}" update="display,:ArticleListForm:datalist,:growl" oncomplete="handleSubmit(args,'ArticleCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ArticleCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

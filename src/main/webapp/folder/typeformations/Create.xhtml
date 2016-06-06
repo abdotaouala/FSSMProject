@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TypeformationsCreateDlg" widgetVar="TypeformationsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateTypeformationsTitle}">
+            <h:form id="TypeformationsCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{typeformationsController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateTypeformationsLabel_idType}" for="idType" />
+                        <p:inputText id="idType" value="#{typeformationsController.selected.idType}" title="#{bundle.CreateTypeformationsTitle_idType}" required="true" requiredMessage="#{bundle.CreateTypeformationsRequiredMessage_idType}"/>
+                        <p:outputLabel value="#{bundle.CreateTypeformationsLabel_nomType}" for="nomType" />
+                        <p:inputText id="nomType" value="#{typeformationsController.selected.nomType}" title="#{bundle.CreateTypeformationsTitle_nomType}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{typeformationsController.create}" value="#{bundle.Save}" update="display,:TypeformationsListForm:datalist,:growl" oncomplete="handleSubmit(args,'TypeformationsCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="TypeformationsCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

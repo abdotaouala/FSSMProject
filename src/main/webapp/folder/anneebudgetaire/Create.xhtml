@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AnneebudgetaireCreateDlg" widgetVar="AnneebudgetaireCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAnneebudgetaireTitle}">
+            <h:form id="AnneebudgetaireCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{anneebudgetaireController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateAnneebudgetaireLabel_annee}" for="annee" />
+                        <p:inputText id="annee" value="#{anneebudgetaireController.selected.annee}" title="#{bundle.CreateAnneebudgetaireTitle_annee}" required="true" requiredMessage="#{bundle.CreateAnneebudgetaireRequiredMessage_annee}"/>
+                        <p:outputLabel value="#{bundle.CreateAnneebudgetaireLabel_montantRap}" for="montantRap" />
+                        <p:inputText id="montantRap" value="#{anneebudgetaireController.selected.montantRap}" title="#{bundle.CreateAnneebudgetaireTitle_montantRap}" />
+                        <p:outputLabel value="#{bundle.CreateAnneebudgetaireLabel_reliquatRap}" for="reliquatRap" />
+                        <p:inputText id="reliquatRap" value="#{anneebudgetaireController.selected.reliquatRap}" title="#{bundle.CreateAnneebudgetaireTitle_reliquatRap}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{anneebudgetaireController.create}" value="#{bundle.Save}" update="display,:AnneebudgetaireListForm:datalist,:growl" oncomplete="handleSubmit(args,'AnneebudgetaireCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AnneebudgetaireCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

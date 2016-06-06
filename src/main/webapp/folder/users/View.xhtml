@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsersViewDlg" widgetVar="UsersViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewUsersTitle}">
+            <h:form id="UsersViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{usersController.selected != null}">
+                        <h:outputText value="#{bundle.ViewUsersLabel_idUser}"/>
+                        <h:outputText value="#{usersController.selected.idUser}" title="#{bundle.ViewUsersTitle_idUser}"/>
+                        <h:outputText value="#{bundle.ViewUsersLabel_login}"/>
+                        <h:outputText value="#{usersController.selected.login}" title="#{bundle.ViewUsersTitle_login}"/>
+                        <h:outputText value="#{bundle.ViewUsersLabel_password}"/>
+                        <h:outputText value="#{usersController.selected.password}" title="#{bundle.ViewUsersTitle_password}"/>
+                        <h:outputText value="#{bundle.ViewUsersLabel_nom}"/>
+                        <h:outputText value="#{usersController.selected.nom}" title="#{bundle.ViewUsersTitle_nom}"/>
+                        <h:outputText value="#{bundle.ViewUsersLabel_prenom}"/>
+                        <h:outputText value="#{usersController.selected.prenom}" title="#{bundle.ViewUsersTitle_prenom}"/>
+                        <h:outputText value="#{bundle.ViewUsersLabel_telephone}"/>
+                        <h:outputText value="#{usersController.selected.telephone}" title="#{bundle.ViewUsersTitle_telephone}"/>
+                        <h:outputText value="#{bundle.ViewUsersLabel_email}"/>
+                        <h:outputText value="#{usersController.selected.email}" title="#{bundle.ViewUsersTitle_email}"/>
+                        <h:outputText value="#{bundle.ViewUsersLabel_img}"/>
+                        <h:outputText value="#{usersController.selected.img}" title="#{bundle.ViewUsersTitle_img}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="UsersViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

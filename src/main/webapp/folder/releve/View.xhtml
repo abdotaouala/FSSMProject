@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ReleveViewDlg" widgetVar="ReleveViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewReleveTitle}">
+            <h:form id="ReleveViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{releveController.selected != null}">
+                        <h:outputText value="#{bundle.ViewReleveLabel_idRelever}"/>
+                        <h:outputText value="#{releveController.selected.idRelever}" title="#{bundle.ViewReleveTitle_idRelever}"/>
+                        <h:outputText value="#{bundle.ViewReleveLabel_semestre}"/>
+                        <h:outputText value="#{releveController.selected.semestre}" title="#{bundle.ViewReleveTitle_semestre}"/>
+                        <h:outputText value="#{bundle.ViewReleveLabel_anneeUniversitaire}"/>
+                        <h:outputText value="#{releveController.selected.anneeUniversitaire}" title="#{bundle.ViewReleveTitle_anneeUniversitaire}"/>
+                        <h:outputText value="#{bundle.ViewReleveLabel_idFiliere}"/>
+                        <h:outputText value="#{releveController.selected.idFiliere}" title="#{bundle.ViewReleveTitle_idFiliere}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ReleveViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

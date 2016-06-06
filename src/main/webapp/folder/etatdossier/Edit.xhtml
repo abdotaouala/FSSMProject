@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EtatdossierEditDlg" widgetVar="EtatdossierEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditEtatdossierTitle}">
+            <h:form id="EtatdossierEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{etatdossierController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditEtatdossierLabel_idEtat}" for="idEtat" />
+                        <p:inputText id="idEtat" value="#{etatdossierController.selected.idEtat}" title="#{bundle.EditEtatdossierTitle_idEtat}" required="true" requiredMessage="#{bundle.EditEtatdossierRequiredMessage_idEtat}"/>
+                        <p:outputLabel value="#{bundle.EditEtatdossierLabel_etat}" for="etat" />
+                        <p:inputText id="etat" value="#{etatdossierController.selected.etat}" title="#{bundle.EditEtatdossierTitle_etat}" />
+                        <p:outputLabel value="#{bundle.EditEtatdossierLabel_motif}" for="motif" />
+                        <p:inputText id="motif" value="#{etatdossierController.selected.motif}" title="#{bundle.EditEtatdossierTitle_motif}" />
+                        <p:outputLabel value="#{bundle.EditEtatdossierLabel_rmq}" for="rmq" />
+                        <p:inputText id="rmq" value="#{etatdossierController.selected.rmq}" title="#{bundle.EditEtatdossierTitle_rmq}" />
+                        <p:outputLabel value="#{bundle.EditEtatdossierLabel_observation}" for="observation" />
+                        <p:inputText id="observation" value="#{etatdossierController.selected.observation}" title="#{bundle.EditEtatdossierTitle_observation}" />
+                        <p:outputLabel value="#{bundle.EditEtatdossierLabel_dateEtat}" for="dateEtat" />
+                        <p:calendar id="dateEtat" pattern="MM/dd/yyyy HH:mm:ss" value="#{etatdossierController.selected.dateEtat}" title="#{bundle.EditEtatdossierTitle_dateEtat}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditEtatdossierLabel_idDeplacement}" for="idDeplacement" />
+                        <p:selectOneMenu id="idDeplacement" value="#{etatdossierController.selected.idDeplacement}" required="true" requiredMessage="#{bundle.EditEtatdossierRequiredMessage_idDeplacement}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{deplacementController.itemsAvailableSelectOne}"
+                                           var="idDeplacementItem"
+                                           itemValue="#{idDeplacementItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{etatdossierController.update}" value="#{bundle.Save}" update="display,:EtatdossierListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EtatdossierEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EtatdossierEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

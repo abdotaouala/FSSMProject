@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PiecejustificativedeplacementEditDlg" widgetVar="PiecejustificativedeplacementEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPiecejustificativedeplacementTitle}">
+            <h:form id="PiecejustificativedeplacementEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{piecejustificativedeplacementController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditPiecejustificativedeplacementLabel_idPiece}" for="idPiece" />
+                        <p:inputText id="idPiece" value="#{piecejustificativedeplacementController.selected.idPiece}" title="#{bundle.EditPiecejustificativedeplacementTitle_idPiece}" required="true" requiredMessage="#{bundle.EditPiecejustificativedeplacementRequiredMessage_idPiece}"/>
+                        <p:outputLabel value="#{bundle.EditPiecejustificativedeplacementLabel_datePiece}" for="datePiece" />
+                        <p:calendar id="datePiece" pattern="MM/dd/yyyy HH:mm:ss" value="#{piecejustificativedeplacementController.selected.datePiece}" title="#{bundle.EditPiecejustificativedeplacementTitle_datePiece}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditPiecejustificativedeplacementLabel_intutilePiece}" for="intutilePiece" />
+                        <p:inputText id="intutilePiece" value="#{piecejustificativedeplacementController.selected.intutilePiece}" title="#{bundle.EditPiecejustificativedeplacementTitle_intutilePiece}" />
+                        <p:outputLabel value="#{bundle.EditPiecejustificativedeplacementLabel_piece}" for="piece" />
+                        <p:inputText id="piece" value="#{piecejustificativedeplacementController.selected.piece}" title="#{bundle.EditPiecejustificativedeplacementTitle_piece}" />
+                        <p:outputLabel value="#{bundle.EditPiecejustificativedeplacementLabel_idDeplacement}" for="idDeplacement" />
+                        <p:selectOneMenu id="idDeplacement" value="#{piecejustificativedeplacementController.selected.idDeplacement}" required="true" requiredMessage="#{bundle.EditPiecejustificativedeplacementRequiredMessage_idDeplacement}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{deplacementController.itemsAvailableSelectOne}"
+                                           var="idDeplacementItem"
+                                           itemValue="#{idDeplacementItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{piecejustificativedeplacementController.update}" value="#{bundle.Save}" update="display,:PiecejustificativedeplacementListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PiecejustificativedeplacementEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PiecejustificativedeplacementEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

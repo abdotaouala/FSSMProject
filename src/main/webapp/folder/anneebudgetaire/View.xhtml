@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AnneebudgetaireViewDlg" widgetVar="AnneebudgetaireViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewAnneebudgetaireTitle}">
+            <h:form id="AnneebudgetaireViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{anneebudgetaireController.selected != null}">
+                        <h:outputText value="#{bundle.ViewAnneebudgetaireLabel_annee}"/>
+                        <h:outputText value="#{anneebudgetaireController.selected.annee}" title="#{bundle.ViewAnneebudgetaireTitle_annee}"/>
+                        <h:outputText value="#{bundle.ViewAnneebudgetaireLabel_montantRap}"/>
+                        <h:outputText value="#{anneebudgetaireController.selected.montantRap}" title="#{bundle.ViewAnneebudgetaireTitle_montantRap}"/>
+                        <h:outputText value="#{bundle.ViewAnneebudgetaireLabel_reliquatRap}"/>
+                        <h:outputText value="#{anneebudgetaireController.selected.reliquatRap}" title="#{bundle.ViewAnneebudgetaireTitle_reliquatRap}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="AnneebudgetaireViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

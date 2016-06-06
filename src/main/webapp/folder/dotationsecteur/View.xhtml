@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DotationsecteurViewDlg" widgetVar="DotationsecteurViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDotationsecteurTitle}">
+            <h:form id="DotationsecteurViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{dotationsecteurController.selected != null}">
+                        <h:outputText value="#{bundle.ViewDotationsecteurLabel_idDotation}"/>
+                        <h:outputText value="#{dotationsecteurController.selected.idDotation}" title="#{bundle.ViewDotationsecteurTitle_idDotation}"/>
+                        <h:outputText value="#{bundle.ViewDotationsecteurLabel_montantInitial}"/>
+                        <h:outputText value="#{dotationsecteurController.selected.montantInitial}" title="#{bundle.ViewDotationsecteurTitle_montantInitial}"/>
+                        <h:outputText value="#{bundle.ViewDotationsecteurLabel_reliquat}"/>
+                        <h:outputText value="#{dotationsecteurController.selected.reliquat}" title="#{bundle.ViewDotationsecteurTitle_reliquat}"/>
+                        <h:outputText value="#{bundle.ViewDotationsecteurLabel_idCompte}"/>
+                        <h:outputText value="#{dotationsecteurController.selected.idCompte}" title="#{bundle.ViewDotationsecteurTitle_idCompte}"/>
+                        <h:outputText value="#{bundle.ViewDotationsecteurLabel_idSecteur}"/>
+                        <h:outputText value="#{dotationsecteurController.selected.idSecteur}" title="#{bundle.ViewDotationsecteurTitle_idSecteur}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="DotationsecteurViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

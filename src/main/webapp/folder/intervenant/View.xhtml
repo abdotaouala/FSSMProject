@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="IntervenantViewDlg" widgetVar="IntervenantViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewIntervenantTitle}">
+            <h:form id="IntervenantViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{intervenantController.selected != null}">
+                        <h:outputText value="#{bundle.ViewIntervenantLabel_cinPpr}"/>
+                        <h:outputText value="#{intervenantController.selected.cinPpr}" title="#{bundle.ViewIntervenantTitle_cinPpr}"/>
+                        <h:outputText value="#{bundle.ViewIntervenantLabel_nomComplet}"/>
+                        <h:outputText value="#{intervenantController.selected.nomComplet}" title="#{bundle.ViewIntervenantTitle_nomComplet}"/>
+                        <h:outputText value="#{bundle.ViewIntervenantLabel_nomArabe}"/>
+                        <h:outputText value="#{intervenantController.selected.nomArabe}" title="#{bundle.ViewIntervenantTitle_nomArabe}"/>
+                        <h:outputText value="#{bundle.ViewIntervenantLabel_telephone}"/>
+                        <h:outputText value="#{intervenantController.selected.telephone}" title="#{bundle.ViewIntervenantTitle_telephone}"/>
+                        <h:outputText value="#{bundle.ViewIntervenantLabel_mail}"/>
+                        <h:outputText value="#{intervenantController.selected.mail}" title="#{bundle.ViewIntervenantTitle_mail}"/>
+                        <h:outputText value="#{bundle.ViewIntervenantLabel_idUser}"/>
+                        <h:outputText value="#{intervenantController.selected.idUser}" title="#{bundle.ViewIntervenantTitle_idUser}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="IntervenantViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

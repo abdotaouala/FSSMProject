@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BordereauautorisationEditDlg" widgetVar="BordereauautorisationEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditBordereauautorisationTitle}">
+            <h:form id="BordereauautorisationEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{bordereauautorisationController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditBordereauautorisationLabel_idBordAut}" for="idBordAut" />
+                        <p:inputText id="idBordAut" value="#{bordereauautorisationController.selected.idBordAut}" title="#{bundle.EditBordereauautorisationTitle_idBordAut}" required="true" requiredMessage="#{bundle.EditBordereauautorisationRequiredMessage_idBordAut}"/>
+                        <p:outputLabel value="#{bundle.EditBordereauautorisationLabel_anneeUniversitaire}" for="anneeUniversitaire" />
+                        <p:inputText id="anneeUniversitaire" value="#{bordereauautorisationController.selected.anneeUniversitaire}" title="#{bundle.EditBordereauautorisationTitle_anneeUniversitaire}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{bordereauautorisationController.update}" value="#{bundle.Save}" update="display,:BordereauautorisationListForm:datalist,:growl" oncomplete="handleSubmit(args, 'BordereauautorisationEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="BordereauautorisationEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

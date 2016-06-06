@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VoitureCreateDlg" widgetVar="VoitureCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateVoitureTitle}">
+            <h:form id="VoitureCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{voitureController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateVoitureLabel_idVoiture}" for="idVoiture" />
+                        <p:inputText id="idVoiture" value="#{voitureController.selected.idVoiture}" title="#{bundle.CreateVoitureTitle_idVoiture}" required="true" requiredMessage="#{bundle.CreateVoitureRequiredMessage_idVoiture}"/>
+                        <p:outputLabel value="#{bundle.CreateVoitureLabel_marque}" for="marque" />
+                        <p:inputText id="marque" value="#{voitureController.selected.marque}" title="#{bundle.CreateVoitureTitle_marque}" />
+                        <p:outputLabel value="#{bundle.CreateVoitureLabel_puissance}" for="puissance" />
+                        <p:inputText id="puissance" value="#{voitureController.selected.puissance}" title="#{bundle.CreateVoitureTitle_puissance}" />
+                        <p:outputLabel value="#{bundle.CreateVoitureLabel_idPrixKilo}" for="idPrixKilo" />
+                        <p:selectOneMenu id="idPrixKilo" value="#{voitureController.selected.idPrixKilo}" required="true" requiredMessage="#{bundle.EditVoitureRequiredMessage_idPrixKilo}">
+                            <f:selectItems value="#{prixkilomitriqueController.itemsAvailableSelectOne}"
+                                           var="idPrixKiloItem"
+                                           itemValue="#{idPrixKiloItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateVoitureLabel_indemntekm}" for="indemntekm" />
+                        <p:selectOneMenu id="indemntekm" value="#{voitureController.selected.indemntekm}" required="true" requiredMessage="#{bundle.EditVoitureRequiredMessage_indemntekm}">
+                            <f:selectItems value="#{indemntekmController.itemsAvailableSelectOne}"
+                                           var="indemntekmItem"
+                                           itemValue="#{indemntekmItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{voitureController.create}" value="#{bundle.Save}" update="display,:VoitureListForm:datalist,:growl" oncomplete="handleSubmit(args,'VoitureCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="VoitureCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="IndemntekmCreateDlg" widgetVar="IndemntekmCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateIndemntekmTitle}">
+            <h:form id="IndemntekmCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{indemntekmController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateIndemntekmLabel_indemntekmPK_idIndKm}" for="indemntekmPK_idIndKm" />
+                        <p:inputText id="indemntekmPK_idIndKm" value="#{indemntekmController.selected.indemntekmPK.idIndKm}" title="#{bundle.CreateIndemntekmTitle_indemntekmPK_idIndKm}" required="true" requiredMessage="#{bundle.CreateIndemntekmRequiredMessage_indemntekmPK_idIndKm}"/>
+                        <p:outputLabel value="#{bundle.CreateIndemntekmLabel_montantDepInt}" for="montantDepInt" />
+                        <p:inputText id="montantDepInt" value="#{indemntekmController.selected.montantDepInt}" title="#{bundle.CreateIndemntekmTitle_montantDepInt}" />
+                        <p:outputLabel value="#{bundle.CreateIndemntekmLabel_kmRoute}" for="kmRoute" />
+                        <p:inputText id="kmRoute" value="#{indemntekmController.selected.kmRoute}" title="#{bundle.CreateIndemntekmTitle_kmRoute}" />
+                        <p:outputLabel value="#{bundle.CreateIndemntekmLabel_kmPiste}" for="kmPiste" />
+                        <p:inputText id="kmPiste" value="#{indemntekmController.selected.kmPiste}" title="#{bundle.CreateIndemntekmTitle_kmPiste}" />
+                        <p:outputLabel value="#{bundle.CreateIndemntekmLabel_mntKm}" for="mntKm" />
+                        <p:inputText id="mntKm" value="#{indemntekmController.selected.mntKm}" title="#{bundle.CreateIndemntekmTitle_mntKm}" />
+                        <p:outputLabel value="#{bundle.CreateIndemntekmLabel_idDotation}" for="idDotation" />
+                        <p:selectOneMenu id="idDotation" value="#{indemntekmController.selected.idDotation}" required="true" requiredMessage="#{bundle.EditIndemntekmRequiredMessage_idDotation}">
+                            <f:selectItems value="#{dotationsecteurController.itemsAvailableSelectOne}"
+                                           var="idDotationItem"
+                                           itemValue="#{idDotationItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateIndemntekmLabel_deplacement}" for="deplacement" />
+                        <p:selectOneMenu id="deplacement" value="#{indemntekmController.selected.deplacement}" required="true" requiredMessage="#{bundle.EditIndemntekmRequiredMessage_deplacement}">
+                            <f:selectItems value="#{deplacementController.itemsAvailableSelectOne}"
+                                           var="deplacementItem"
+                                           itemValue="#{deplacementItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{indemntekmController.create}" value="#{bundle.Save}" update="display,:IndemntekmListForm:datalist,:growl" oncomplete="handleSubmit(args,'IndemntekmCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="IndemntekmCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="GraddiplomeEditDlg" widgetVar="GraddiplomeEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditGraddiplomeTitle}">
+            <h:form id="GraddiplomeEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{graddiplomeController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditGraddiplomeLabel_idGrade}" for="idGrade" />
+                        <p:inputText id="idGrade" value="#{graddiplomeController.selected.idGrade}" title="#{bundle.EditGraddiplomeTitle_idGrade}" required="true" requiredMessage="#{bundle.EditGraddiplomeRequiredMessage_idGrade}"/>
+                        <p:outputLabel value="#{bundle.EditGraddiplomeLabel_intituleGrade}" for="intituleGrade" />
+                        <p:inputText id="intituleGrade" value="#{graddiplomeController.selected.intituleGrade}" title="#{bundle.EditGraddiplomeTitle_intituleGrade}" />
+                        <p:outputLabel value="#{bundle.EditGraddiplomeLabel_taux}" for="taux" />
+                        <p:inputText id="taux" value="#{graddiplomeController.selected.taux}" title="#{bundle.EditGraddiplomeTitle_taux}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{graddiplomeController.update}" value="#{bundle.Save}" update="display,:GraddiplomeListForm:datalist,:growl" oncomplete="handleSubmit(args, 'GraddiplomeEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="GraddiplomeEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

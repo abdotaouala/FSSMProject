@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="IndemnetedeplacementetrangerViewDlg" widgetVar="IndemnetedeplacementetrangerViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewIndemnetedeplacementetrangerTitle}">
+            <h:form id="IndemnetedeplacementetrangerViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{indemnetedeplacementetrangerController.selected != null}">
+                        <h:outputText value="#{bundle.ViewIndemnetedeplacementetrangerLabel_indemnetedeplacementetrangerPK_idDepEx}"/>
+                        <h:outputText value="#{indemnetedeplacementetrangerController.selected.indemnetedeplacementetrangerPK.idDepEx}" title="#{bundle.ViewIndemnetedeplacementetrangerTitle_indemnetedeplacementetrangerPK_idDepEx}"/>
+                        <h:outputText value="#{bundle.ViewIndemnetedeplacementetrangerLabel_mntDepEx}"/>
+                        <h:outputText value="#{indemnetedeplacementetrangerController.selected.mntDepEx}" title="#{bundle.ViewIndemnetedeplacementetrangerTitle_mntDepEx}"/>
+                        <h:outputText value="#{bundle.ViewIndemnetedeplacementetrangerLabel_idPrixSej}"/>
+                        <h:outputText value="#{indemnetedeplacementetrangerController.selected.idPrixSej}" title="#{bundle.ViewIndemnetedeplacementetrangerTitle_idPrixSej}"/>
+                        <h:outputText value="#{bundle.ViewIndemnetedeplacementetrangerLabel_deplacement}"/>
+                        <h:outputText value="#{indemnetedeplacementetrangerController.selected.deplacement}" title="#{bundle.ViewIndemnetedeplacementetrangerTitle_deplacement}"/>
+                        <h:outputText value="#{bundle.ViewIndemnetedeplacementetrangerLabel_idDotation}"/>
+                        <h:outputText value="#{indemnetedeplacementetrangerController.selected.idDotation}" title="#{bundle.ViewIndemnetedeplacementetrangerTitle_idDotation}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="IndemnetedeplacementetrangerViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

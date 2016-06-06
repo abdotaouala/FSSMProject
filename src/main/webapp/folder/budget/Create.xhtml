@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BudgetCreateDlg" widgetVar="BudgetCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateBudgetTitle}">
+            <h:form id="BudgetCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{budgetController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateBudgetLabel_budgetAnnuel}" for="budgetAnnuel" />
+                        <p:inputText id="budgetAnnuel" value="#{budgetController.selected.budgetAnnuel}" title="#{bundle.CreateBudgetTitle_budgetAnnuel}" />
+                        <p:outputLabel value="#{bundle.CreateBudgetLabel_reliquat}" for="reliquat" />
+                        <p:inputText id="reliquat" value="#{budgetController.selected.reliquat}" title="#{bundle.CreateBudgetTitle_reliquat}" />
+                        <p:outputLabel value="#{bundle.CreateBudgetLabel_anneebudgetaire}" for="anneebudgetaire" />
+                        <p:selectOneMenu id="anneebudgetaire" value="#{budgetController.selected.anneebudgetaire}" required="true" requiredMessage="#{bundle.EditBudgetRequiredMessage_anneebudgetaire}">
+                            <f:selectItems value="#{anneebudgetaireController.itemsAvailableSelectOne}"
+                                           var="anneebudgetaireItem"
+                                           itemValue="#{anneebudgetaireItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateBudgetLabel_compte}" for="compte" />
+                        <p:selectOneMenu id="compte" value="#{budgetController.selected.compte}" required="true" requiredMessage="#{bundle.EditBudgetRequiredMessage_compte}">
+                            <f:selectItems value="#{compteController.itemsAvailableSelectOne}"
+                                           var="compteItem"
+                                           itemValue="#{compteItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{budgetController.create}" value="#{bundle.Save}" update="display,:BudgetListForm:datalist,:growl" oncomplete="handleSubmit(args,'BudgetCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="BudgetCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

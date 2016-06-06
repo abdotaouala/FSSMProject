@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PrixkilomitriqueCreateDlg" widgetVar="PrixkilomitriqueCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePrixkilomitriqueTitle}">
+            <h:form id="PrixkilomitriqueCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{prixkilomitriqueController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePrixkilomitriqueLabel_idPrixKilo}" for="idPrixKilo" />
+                        <p:inputText id="idPrixKilo" value="#{prixkilomitriqueController.selected.idPrixKilo}" title="#{bundle.CreatePrixkilomitriqueTitle_idPrixKilo}" required="true" requiredMessage="#{bundle.CreatePrixkilomitriqueRequiredMessage_idPrixKilo}"/>
+                        <p:outputLabel value="#{bundle.CreatePrixkilomitriqueLabel_kmSup}" for="kmSup" />
+                        <p:inputText id="kmSup" value="#{prixkilomitriqueController.selected.kmSup}" title="#{bundle.CreatePrixkilomitriqueTitle_kmSup}" />
+                        <p:outputLabel value="#{bundle.CreatePrixkilomitriqueLabel_kmInf}" for="kmInf" />
+                        <p:inputText id="kmInf" value="#{prixkilomitriqueController.selected.kmInf}" title="#{bundle.CreatePrixkilomitriqueTitle_kmInf}" />
+                        <p:outputLabel value="#{bundle.CreatePrixkilomitriqueLabel_prixRoute}" for="prixRoute" />
+                        <p:inputText id="prixRoute" value="#{prixkilomitriqueController.selected.prixRoute}" title="#{bundle.CreatePrixkilomitriqueTitle_prixRoute}" />
+                        <p:outputLabel value="#{bundle.CreatePrixkilomitriqueLabel_prixPiste}" for="prixPiste" />
+                        <p:inputText id="prixPiste" value="#{prixkilomitriqueController.selected.prixPiste}" title="#{bundle.CreatePrixkilomitriqueTitle_prixPiste}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{prixkilomitriqueController.create}" value="#{bundle.Save}" update="display,:PrixkilomitriqueListForm:datalist,:growl" oncomplete="handleSubmit(args,'PrixkilomitriqueCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PrixkilomitriqueCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

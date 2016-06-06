@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BoncommandeEditDlg" widgetVar="BoncommandeEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditBoncommandeTitle}">
+            <h:form id="BoncommandeEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{boncommandeController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditBoncommandeLabel_idBC}" for="idBC" />
+                        <p:inputText id="idBC" value="#{boncommandeController.selected.idBC}" title="#{bundle.EditBoncommandeTitle_idBC}" required="true" requiredMessage="#{bundle.EditBoncommandeRequiredMessage_idBC}"/>
+                        <p:outputLabel value="#{bundle.EditBoncommandeLabel_dateCommande}" for="dateCommande" />
+                        <p:calendar id="dateCommande" pattern="MM/dd/yyyy HH:mm:ss" value="#{boncommandeController.selected.dateCommande}" title="#{bundle.EditBoncommandeTitle_dateCommande}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditBoncommandeLabel_tva}" for="tva" />
+                        <p:inputText id="tva" value="#{boncommandeController.selected.tva}" title="#{bundle.EditBoncommandeTitle_tva}" />
+                        <p:outputLabel value="#{bundle.EditBoncommandeLabel_dateReception}" for="dateReception" />
+                        <p:calendar id="dateReception" pattern="MM/dd/yyyy HH:mm:ss" value="#{boncommandeController.selected.dateReception}" title="#{bundle.EditBoncommandeTitle_dateReception}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditBoncommandeLabel_etat}" for="etat" />
+                        <p:inputText id="etat" value="#{boncommandeController.selected.etat}" title="#{bundle.EditBoncommandeTitle_etat}" />
+                        <p:outputLabel value="#{bundle.EditBoncommandeLabel_montant}" for="montant" />
+                        <p:inputText id="montant" value="#{boncommandeController.selected.montant}" title="#{bundle.EditBoncommandeTitle_montant}" />
+                        <p:outputLabel value="#{bundle.EditBoncommandeLabel_type}" for="type" />
+                        <p:inputText id="type" value="#{boncommandeController.selected.type}" title="#{bundle.EditBoncommandeTitle_type}" />
+                        <p:outputLabel value="#{bundle.EditBoncommandeLabel_idFournisseur}" for="idFournisseur" />
+                        <p:selectOneMenu id="idFournisseur" value="#{boncommandeController.selected.idFournisseur}" required="true" requiredMessage="#{bundle.EditBoncommandeRequiredMessage_idFournisseur}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{fournisseurController.itemsAvailableSelectOne}"
+                                           var="idFournisseurItem"
+                                           itemValue="#{idFournisseurItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditBoncommandeLabel_idDotation}" for="idDotation" />
+                        <p:selectOneMenu id="idDotation" value="#{boncommandeController.selected.idDotation}" required="true" requiredMessage="#{bundle.EditBoncommandeRequiredMessage_idDotation}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{dotationsecteurController.itemsAvailableSelectOne}"
+                                           var="idDotationItem"
+                                           itemValue="#{idDotationItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditBoncommandeLabel_idUser}" for="idUser" />
+                        <p:selectOneMenu id="idUser" value="#{boncommandeController.selected.idUser}" required="true" requiredMessage="#{bundle.EditBoncommandeRequiredMessage_idUser}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usersController.itemsAvailableSelectOne}"
+                                           var="idUserItem"
+                                           itemValue="#{idUserItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{boncommandeController.update}" value="#{bundle.Save}" update="display,:BoncommandeListForm:datalist,:growl" oncomplete="handleSubmit(args, 'BoncommandeEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="BoncommandeEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

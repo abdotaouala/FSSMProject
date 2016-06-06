@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ArticleEditDlg" widgetVar="ArticleEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditArticleTitle}">
+            <h:form id="ArticleEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{articleController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditArticleLabel_idArticle}" for="idArticle" />
+                        <p:inputText id="idArticle" value="#{articleController.selected.idArticle}" title="#{bundle.EditArticleTitle_idArticle}" required="true" requiredMessage="#{bundle.EditArticleRequiredMessage_idArticle}"/>
+                        <p:outputLabel value="#{bundle.EditArticleLabel_description}" for="description" />
+                        <p:inputText id="description" value="#{articleController.selected.description}" title="#{bundle.EditArticleTitle_description}" />
+                        <p:outputLabel value="#{bundle.EditArticleLabel_pu}" for="pu" />
+                        <p:inputText id="pu" value="#{articleController.selected.pu}" title="#{bundle.EditArticleTitle_pu}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{articleController.update}" value="#{bundle.Save}" update="display,:ArticleListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ArticleEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ArticleEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

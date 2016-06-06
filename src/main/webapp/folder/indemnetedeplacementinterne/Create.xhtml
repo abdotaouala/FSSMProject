@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="IndemnetedeplacementinterneCreateDlg" widgetVar="IndemnetedeplacementinterneCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateIndemnetedeplacementinterneTitle}">
+            <h:form id="IndemnetedeplacementinterneCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{indemnetedeplacementinterneController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateIndemnetedeplacementinterneLabel_indemnetedeplacementinternePK_idIndDep}" for="indemnetedeplacementinternePK_idIndDep" />
+                        <p:inputText id="indemnetedeplacementinternePK_idIndDep" value="#{indemnetedeplacementinterneController.selected.indemnetedeplacementinternePK.idIndDep}" title="#{bundle.CreateIndemnetedeplacementinterneTitle_indemnetedeplacementinternePK_idIndDep}" required="true" requiredMessage="#{bundle.CreateIndemnetedeplacementinterneRequiredMessage_indemnetedeplacementinternePK_idIndDep}"/>
+                        <p:outputLabel value="#{bundle.CreateIndemnetedeplacementinterneLabel_montantDepInt}" for="montantDepInt" />
+                        <p:inputText id="montantDepInt" value="#{indemnetedeplacementinterneController.selected.montantDepInt}" title="#{bundle.CreateIndemnetedeplacementinterneTitle_montantDepInt}" />
+                        <p:outputLabel value="#{bundle.CreateIndemnetedeplacementinterneLabel_idPrixRepas}" for="idPrixRepas" />
+                        <p:selectOneMenu id="idPrixRepas" value="#{indemnetedeplacementinterneController.selected.idPrixRepas}" >
+                            <f:selectItems value="#{prixrepasController.itemsAvailableSelectOne}"
+                                           var="idPrixRepasItem"
+                                           itemValue="#{idPrixRepasItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateIndemnetedeplacementinterneLabel_idDotation}" for="idDotation" />
+                        <p:selectOneMenu id="idDotation" value="#{indemnetedeplacementinterneController.selected.idDotation}" required="true" requiredMessage="#{bundle.EditIndemnetedeplacementinterneRequiredMessage_idDotation}">
+                            <f:selectItems value="#{dotationsecteurController.itemsAvailableSelectOne}"
+                                           var="idDotationItem"
+                                           itemValue="#{idDotationItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateIndemnetedeplacementinterneLabel_deplacement}" for="deplacement" />
+                        <p:selectOneMenu id="deplacement" value="#{indemnetedeplacementinterneController.selected.deplacement}" required="true" requiredMessage="#{bundle.EditIndemnetedeplacementinterneRequiredMessage_deplacement}">
+                            <f:selectItems value="#{deplacementController.itemsAvailableSelectOne}"
+                                           var="deplacementItem"
+                                           itemValue="#{deplacementItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{indemnetedeplacementinterneController.create}" value="#{bundle.Save}" update="display,:IndemnetedeplacementinterneListForm:datalist,:growl" oncomplete="handleSubmit(args,'IndemnetedeplacementinterneCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="IndemnetedeplacementinterneCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ReleveEditDlg" widgetVar="ReleveEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditReleveTitle}">
+            <h:form id="ReleveEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{releveController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditReleveLabel_idRelever}" for="idRelever" />
+                        <p:inputText id="idRelever" value="#{releveController.selected.idRelever}" title="#{bundle.EditReleveTitle_idRelever}" required="true" requiredMessage="#{bundle.EditReleveRequiredMessage_idRelever}"/>
+                        <p:outputLabel value="#{bundle.EditReleveLabel_semestre}" for="semestre" />
+                        <p:inputText id="semestre" value="#{releveController.selected.semestre}" title="#{bundle.EditReleveTitle_semestre}" />
+                        <p:outputLabel value="#{bundle.EditReleveLabel_anneeUniversitaire}" for="anneeUniversitaire" />
+                        <p:inputText id="anneeUniversitaire" value="#{releveController.selected.anneeUniversitaire}" title="#{bundle.EditReleveTitle_anneeUniversitaire}" />
+                        <p:outputLabel value="#{bundle.EditReleveLabel_idFiliere}" for="idFiliere" />
+                        <p:selectOneMenu id="idFiliere" value="#{releveController.selected.idFiliere}" required="true" requiredMessage="#{bundle.EditReleveRequiredMessage_idFiliere}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{filiereController.itemsAvailableSelectOne}"
+                                           var="idFiliereItem"
+                                           itemValue="#{idFiliereItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{releveController.update}" value="#{bundle.Save}" update="display,:ReleveListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ReleveEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ReleveEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

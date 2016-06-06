@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EtatdossierViewDlg" widgetVar="EtatdossierViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewEtatdossierTitle}">
+            <h:form id="EtatdossierViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{etatdossierController.selected != null}">
+                        <h:outputText value="#{bundle.ViewEtatdossierLabel_idEtat}"/>
+                        <h:outputText value="#{etatdossierController.selected.idEtat}" title="#{bundle.ViewEtatdossierTitle_idEtat}"/>
+                        <h:outputText value="#{bundle.ViewEtatdossierLabel_etat}"/>
+                        <h:outputText value="#{etatdossierController.selected.etat}" title="#{bundle.ViewEtatdossierTitle_etat}"/>
+                        <h:outputText value="#{bundle.ViewEtatdossierLabel_motif}"/>
+                        <h:outputText value="#{etatdossierController.selected.motif}" title="#{bundle.ViewEtatdossierTitle_motif}"/>
+                        <h:outputText value="#{bundle.ViewEtatdossierLabel_rmq}"/>
+                        <h:outputText value="#{etatdossierController.selected.rmq}" title="#{bundle.ViewEtatdossierTitle_rmq}"/>
+                        <h:outputText value="#{bundle.ViewEtatdossierLabel_observation}"/>
+                        <h:outputText value="#{etatdossierController.selected.observation}" title="#{bundle.ViewEtatdossierTitle_observation}"/>
+                        <h:outputText value="#{bundle.ViewEtatdossierLabel_dateEtat}"/>
+                        <h:outputText value="#{etatdossierController.selected.dateEtat}" title="#{bundle.ViewEtatdossierTitle_dateEtat}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewEtatdossierLabel_idDeplacement}"/>
+                        <h:outputText value="#{etatdossierController.selected.idDeplacement}" title="#{bundle.ViewEtatdossierTitle_idDeplacement}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="EtatdossierViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

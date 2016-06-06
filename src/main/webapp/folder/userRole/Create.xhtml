@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UserRoleCreateDlg" widgetVar="UserRoleCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUserRoleTitle}">
+            <h:form id="UserRoleCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{userRoleController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateUserRoleLabel_idUserRole}" for="idUserRole" />
+                        <p:inputText id="idUserRole" value="#{userRoleController.selected.idUserRole}" title="#{bundle.CreateUserRoleTitle_idUserRole}" required="true" requiredMessage="#{bundle.CreateUserRoleRequiredMessage_idUserRole}"/>
+                        <p:outputLabel value="#{bundle.CreateUserRoleLabel_idRole}" for="idRole" />
+                        <p:selectOneMenu id="idRole" value="#{userRoleController.selected.idRole}" required="true" requiredMessage="#{bundle.EditUserRoleRequiredMessage_idRole}">
+                            <f:selectItems value="#{roleController.itemsAvailableSelectOne}"
+                                           var="idRoleItem"
+                                           itemValue="#{idRoleItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateUserRoleLabel_idUser}" for="idUser" />
+                        <p:selectOneMenu id="idUser" value="#{userRoleController.selected.idUser}" required="true" requiredMessage="#{bundle.EditUserRoleRequiredMessage_idUser}">
+                            <f:selectItems value="#{usersController.itemsAvailableSelectOne}"
+                                           var="idUserItem"
+                                           itemValue="#{idUserItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{userRoleController.create}" value="#{bundle.Save}" update="display,:UserRoleListForm:datalist,:growl" oncomplete="handleSubmit(args,'UserRoleCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="UserRoleCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

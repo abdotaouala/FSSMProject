@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LignecommandeViewDlg" widgetVar="LignecommandeViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewLignecommandeTitle}">
+            <h:form id="LignecommandeViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{lignecommandeController.selected != null}">
+                        <h:outputText value="#{bundle.ViewLignecommandeLabel_idLigne}"/>
+                        <h:outputText value="#{lignecommandeController.selected.idLigne}" title="#{bundle.ViewLignecommandeTitle_idLigne}"/>
+                        <h:outputText value="#{bundle.ViewLignecommandeLabel_quantite}"/>
+                        <h:outputText value="#{lignecommandeController.selected.quantite}" title="#{bundle.ViewLignecommandeTitle_quantite}"/>
+                        <h:outputText value="#{bundle.ViewLignecommandeLabel_pu}"/>
+                        <h:outputText value="#{lignecommandeController.selected.pu}" title="#{bundle.ViewLignecommandeTitle_pu}"/>
+                        <h:outputText value="#{bundle.ViewLignecommandeLabel_montant}"/>
+                        <h:outputText value="#{lignecommandeController.selected.montant}" title="#{bundle.ViewLignecommandeTitle_montant}"/>
+                        <h:outputText value="#{bundle.ViewLignecommandeLabel_idArticle}"/>
+                        <h:outputText value="#{lignecommandeController.selected.idArticle}" title="#{bundle.ViewLignecommandeTitle_idArticle}"/>
+                        <h:outputText value="#{bundle.ViewLignecommandeLabel_idBC}"/>
+                        <h:outputText value="#{lignecommandeController.selected.idBC}" title="#{bundle.ViewLignecommandeTitle_idBC}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="LignecommandeViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ComptebcEditDlg" widgetVar="ComptebcEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditComptebcTitle}">
+            <h:form id="ComptebcEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{comptebcController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditComptebcLabel_idCptBc}" for="idCptBc" />
+                        <p:inputText id="idCptBc" value="#{comptebcController.selected.idCptBc}" title="#{bundle.EditComptebcTitle_idCptBc}" required="true" requiredMessage="#{bundle.EditComptebcRequiredMessage_idCptBc}"/>
+                        <p:outputLabel value="#{bundle.EditComptebcLabel_intitule}" for="intitule" />
+                        <p:inputText id="intitule" value="#{comptebcController.selected.intitule}" title="#{bundle.EditComptebcTitle_intitule}" />
+                        <p:outputLabel value="#{bundle.EditComptebcLabel_bc}" for="bc" />
+                        <p:inputText id="bc" value="#{comptebcController.selected.bc}" title="#{bundle.EditComptebcTitle_bc}" />
+                        <p:outputLabel value="#{bundle.EditComptebcLabel_rib}" for="rib" />
+                        <p:inputText id="rib" value="#{comptebcController.selected.rib}" title="#{bundle.EditComptebcTitle_rib}" />
+                        <p:outputLabel value="#{bundle.EditComptebcLabel_cinPpr}" for="cinPpr" />
+                        <p:selectOneMenu id="cinPpr" value="#{comptebcController.selected.cinPpr}" required="true" requiredMessage="#{bundle.EditComptebcRequiredMessage_cinPpr}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{intervenantController.itemsAvailableSelectOne}"
+                                           var="cinPprItem"
+                                           itemValue="#{cinPprItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{comptebcController.update}" value="#{bundle.Save}" update="display,:ComptebcListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ComptebcEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ComptebcEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

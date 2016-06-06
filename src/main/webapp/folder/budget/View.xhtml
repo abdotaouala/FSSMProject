@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BudgetViewDlg" widgetVar="BudgetViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewBudgetTitle}">
+            <h:form id="BudgetViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{budgetController.selected != null}">
+                        <h:outputText value="#{bundle.ViewBudgetLabel_budgetAnnuel}"/>
+                        <h:outputText value="#{budgetController.selected.budgetAnnuel}" title="#{bundle.ViewBudgetTitle_budgetAnnuel}"/>
+                        <h:outputText value="#{bundle.ViewBudgetLabel_reliquat}"/>
+                        <h:outputText value="#{budgetController.selected.reliquat}" title="#{bundle.ViewBudgetTitle_reliquat}"/>
+                        <h:outputText value="#{bundle.ViewBudgetLabel_anneebudgetaire}"/>
+                        <h:outputText value="#{budgetController.selected.anneebudgetaire}" title="#{bundle.ViewBudgetTitle_anneebudgetaire}"/>
+                        <h:outputText value="#{bundle.ViewBudgetLabel_compte}"/>
+                        <h:outputText value="#{budgetController.selected.compte}" title="#{bundle.ViewBudgetTitle_compte}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="BudgetViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

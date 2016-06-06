@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ReleveCreateDlg" widgetVar="ReleveCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateReleveTitle}">
+            <h:form id="ReleveCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{releveController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateReleveLabel_idRelever}" for="idRelever" />
+                        <p:inputText id="idRelever" value="#{releveController.selected.idRelever}" title="#{bundle.CreateReleveTitle_idRelever}" required="true" requiredMessage="#{bundle.CreateReleveRequiredMessage_idRelever}"/>
+                        <p:outputLabel value="#{bundle.CreateReleveLabel_semestre}" for="semestre" />
+                        <p:inputText id="semestre" value="#{releveController.selected.semestre}" title="#{bundle.CreateReleveTitle_semestre}" />
+                        <p:outputLabel value="#{bundle.CreateReleveLabel_anneeUniversitaire}" for="anneeUniversitaire" />
+                        <p:inputText id="anneeUniversitaire" value="#{releveController.selected.anneeUniversitaire}" title="#{bundle.CreateReleveTitle_anneeUniversitaire}" />
+                        <p:outputLabel value="#{bundle.CreateReleveLabel_idFiliere}" for="idFiliere" />
+                        <p:selectOneMenu id="idFiliere" value="#{releveController.selected.idFiliere}" required="true" requiredMessage="#{bundle.EditReleveRequiredMessage_idFiliere}">
+                            <f:selectItems value="#{filiereController.itemsAvailableSelectOne}"
+                                           var="idFiliereItem"
+                                           itemValue="#{idFiliereItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{releveController.create}" value="#{bundle.Save}" update="display,:ReleveListForm:datalist,:growl" oncomplete="handleSubmit(args,'ReleveCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ReleveCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RoleEditDlg" widgetVar="RoleEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditRoleTitle}">
+            <h:form id="RoleEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{roleController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditRoleLabel_idRole}" for="idRole" />
+                        <p:inputText id="idRole" value="#{roleController.selected.idRole}" title="#{bundle.EditRoleTitle_idRole}" required="true" requiredMessage="#{bundle.EditRoleRequiredMessage_idRole}"/>
+                        <p:outputLabel value="#{bundle.EditRoleLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{roleController.selected.nom}" title="#{bundle.EditRoleTitle_nom}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{roleController.update}" value="#{bundle.Save}" update="display,:RoleListForm:datalist,:growl" oncomplete="handleSubmit(args, 'RoleEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="RoleEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

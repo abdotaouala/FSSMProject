@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BoncommandeViewDlg" widgetVar="BoncommandeViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewBoncommandeTitle}">
+            <h:form id="BoncommandeViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{boncommandeController.selected != null}">
+                        <h:outputText value="#{bundle.ViewBoncommandeLabel_idBC}"/>
+                        <h:outputText value="#{boncommandeController.selected.idBC}" title="#{bundle.ViewBoncommandeTitle_idBC}"/>
+                        <h:outputText value="#{bundle.ViewBoncommandeLabel_dateCommande}"/>
+                        <h:outputText value="#{boncommandeController.selected.dateCommande}" title="#{bundle.ViewBoncommandeTitle_dateCommande}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewBoncommandeLabel_tva}"/>
+                        <h:outputText value="#{boncommandeController.selected.tva}" title="#{bundle.ViewBoncommandeTitle_tva}"/>
+                        <h:outputText value="#{bundle.ViewBoncommandeLabel_dateReception}"/>
+                        <h:outputText value="#{boncommandeController.selected.dateReception}" title="#{bundle.ViewBoncommandeTitle_dateReception}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewBoncommandeLabel_etat}"/>
+                        <h:outputText value="#{boncommandeController.selected.etat}" title="#{bundle.ViewBoncommandeTitle_etat}"/>
+                        <h:outputText value="#{bundle.ViewBoncommandeLabel_montant}"/>
+                        <h:outputText value="#{boncommandeController.selected.montant}" title="#{bundle.ViewBoncommandeTitle_montant}"/>
+                        <h:outputText value="#{bundle.ViewBoncommandeLabel_type}"/>
+                        <h:outputText value="#{boncommandeController.selected.type}" title="#{bundle.ViewBoncommandeTitle_type}"/>
+                        <h:outputText value="#{bundle.ViewBoncommandeLabel_idFournisseur}"/>
+                        <h:outputText value="#{boncommandeController.selected.idFournisseur}" title="#{bundle.ViewBoncommandeTitle_idFournisseur}"/>
+                        <h:outputText value="#{bundle.ViewBoncommandeLabel_idDotation}"/>
+                        <h:outputText value="#{boncommandeController.selected.idDotation}" title="#{bundle.ViewBoncommandeTitle_idDotation}"/>
+                        <h:outputText value="#{bundle.ViewBoncommandeLabel_idUser}"/>
+                        <h:outputText value="#{boncommandeController.selected.idUser}" title="#{bundle.ViewBoncommandeTitle_idUser}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="BoncommandeViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

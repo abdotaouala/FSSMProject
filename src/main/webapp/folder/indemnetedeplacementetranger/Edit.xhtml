@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="IndemnetedeplacementetrangerEditDlg" widgetVar="IndemnetedeplacementetrangerEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditIndemnetedeplacementetrangerTitle}">
+            <h:form id="IndemnetedeplacementetrangerEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{indemnetedeplacementetrangerController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditIndemnetedeplacementetrangerLabel_indemnetedeplacementetrangerPK_idDepEx}" for="indemnetedeplacementetrangerPK_idDepEx" />
+                        <p:inputText id="indemnetedeplacementetrangerPK_idDepEx" value="#{indemnetedeplacementetrangerController.selected.indemnetedeplacementetrangerPK.idDepEx}" title="#{bundle.EditIndemnetedeplacementetrangerTitle_indemnetedeplacementetrangerPK_idDepEx}" required="true" requiredMessage="#{bundle.EditIndemnetedeplacementetrangerRequiredMessage_indemnetedeplacementetrangerPK_idDepEx}"/>
+                        <p:outputLabel value="#{bundle.EditIndemnetedeplacementetrangerLabel_mntDepEx}" for="mntDepEx" />
+                        <p:inputText id="mntDepEx" value="#{indemnetedeplacementetrangerController.selected.mntDepEx}" title="#{bundle.EditIndemnetedeplacementetrangerTitle_mntDepEx}" />
+                        <p:outputLabel value="#{bundle.EditIndemnetedeplacementetrangerLabel_idPrixSej}" for="idPrixSej" />
+                        <p:selectOneMenu id="idPrixSej" value="#{indemnetedeplacementetrangerController.selected.idPrixSej}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{prixsejourController.itemsAvailableSelectOne}"
+                                           var="idPrixSejItem"
+                                           itemValue="#{idPrixSejItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditIndemnetedeplacementetrangerLabel_deplacement}" for="deplacement" />
+                        <p:selectOneMenu id="deplacement" value="#{indemnetedeplacementetrangerController.selected.deplacement}" required="true" requiredMessage="#{bundle.EditIndemnetedeplacementetrangerRequiredMessage_deplacement}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{deplacementController.itemsAvailableSelectOne}"
+                                           var="deplacementItem"
+                                           itemValue="#{deplacementItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditIndemnetedeplacementetrangerLabel_idDotation}" for="idDotation" />
+                        <p:selectOneMenu id="idDotation" value="#{indemnetedeplacementetrangerController.selected.idDotation}" required="true" requiredMessage="#{bundle.EditIndemnetedeplacementetrangerRequiredMessage_idDotation}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{dotationsecteurController.itemsAvailableSelectOne}"
+                                           var="idDotationItem"
+                                           itemValue="#{idDotationItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{indemnetedeplacementetrangerController.update}" value="#{bundle.Save}" update="display,:IndemnetedeplacementetrangerListForm:datalist,:growl" oncomplete="handleSubmit(args, 'IndemnetedeplacementetrangerEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="IndemnetedeplacementetrangerEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

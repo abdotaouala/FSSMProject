@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetailCreateDlg" widgetVar="DetailCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDetailTitle}">
+            <h:form id="DetailCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{detailController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateDetailLabel_idDetail}" for="idDetail" />
+                        <p:inputText id="idDetail" value="#{detailController.selected.idDetail}" title="#{bundle.CreateDetailTitle_idDetail}" required="true" requiredMessage="#{bundle.CreateDetailRequiredMessage_idDetail}"/>
+                        <p:outputLabel value="#{bundle.CreateDetailLabel_salaireAnnuelleBrut}" for="salaireAnnuelleBrut" />
+                        <p:inputText id="salaireAnnuelleBrut" value="#{detailController.selected.salaireAnnuelleBrut}" title="#{bundle.CreateDetailTitle_salaireAnnuelleBrut}" />
+                        <p:outputLabel value="#{bundle.CreateDetailLabel_allocationFamiliale}" for="allocationFamiliale" />
+                        <p:inputText id="allocationFamiliale" value="#{detailController.selected.allocationFamiliale}" title="#{bundle.CreateDetailTitle_allocationFamiliale}" />
+                        <p:outputLabel value="#{bundle.CreateDetailLabel_brutAdditionner}" for="brutAdditionner" />
+                        <p:inputText id="brutAdditionner" value="#{detailController.selected.brutAdditionner}" title="#{bundle.CreateDetailTitle_brutAdditionner}" />
+                        <p:outputLabel value="#{bundle.CreateDetailLabel_amo}" for="amo" />
+                        <p:inputText id="amo" value="#{detailController.selected.amo}" title="#{bundle.CreateDetailTitle_amo}" />
+                        <p:outputLabel value="#{bundle.CreateDetailLabel_retenuCmr}" for="retenuCmr" />
+                        <p:inputText id="retenuCmr" value="#{detailController.selected.retenuCmr}" title="#{bundle.CreateDetailTitle_retenuCmr}" />
+                        <p:outputLabel value="#{bundle.CreateDetailLabel_mutuelleMutialiste}" for="mutuelleMutialiste" />
+                        <p:inputText id="mutuelleMutialiste" value="#{detailController.selected.mutuelleMutialiste}" title="#{bundle.CreateDetailTitle_mutuelleMutialiste}" />
+                        <p:outputLabel value="#{bundle.CreateDetailLabel_mutuelleCaisse}" for="mutuelleCaisse" />
+                        <p:inputText id="mutuelleCaisse" value="#{detailController.selected.mutuelleCaisse}" title="#{bundle.CreateDetailTitle_mutuelleCaisse}" />
+                        <p:outputLabel value="#{bundle.CreateDetailLabel_rachatCmr}" for="rachatCmr" />
+                        <p:inputText id="rachatCmr" value="#{detailController.selected.rachatCmr}" title="#{bundle.CreateDetailTitle_rachatCmr}" />
+                        <p:outputLabel value="#{bundle.CreateDetailLabel_sommeDeduire}" for="sommeDeduire" />
+                        <p:inputText id="sommeDeduire" value="#{detailController.selected.sommeDeduire}" title="#{bundle.CreateDetailTitle_sommeDeduire}" />
+                        <p:outputLabel value="#{bundle.CreateDetailLabel_nbrEnfant}" for="nbrEnfant" />
+                        <p:inputText id="nbrEnfant" value="#{detailController.selected.nbrEnfant}" title="#{bundle.CreateDetailTitle_nbrEnfant}" />
+                        <p:outputLabel value="#{bundle.CreateDetailLabel_conjoint}" for="conjoint" />
+                        <p:selectBooleanCheckbox id="conjoint" value="#{detailController.selected.conjoint}" />
+                        <p:outputLabel value="#{bundle.CreateDetailLabel_chargeFamiliale}" for="chargeFamiliale" />
+                        <p:inputText id="chargeFamiliale" value="#{detailController.selected.chargeFamiliale}" title="#{bundle.CreateDetailTitle_chargeFamiliale}" />
+                        <p:outputLabel value="#{bundle.CreateDetailLabel_irSource}" for="irSource" />
+                        <p:inputText id="irSource" value="#{detailController.selected.irSource}" title="#{bundle.CreateDetailTitle_irSource}" />
+                        <p:outputLabel value="#{bundle.CreateDetailLabel_irComplement}" for="irComplement" />
+                        <p:inputText id="irComplement" value="#{detailController.selected.irComplement}" title="#{bundle.CreateDetailTitle_irComplement}" />
+                        <p:outputLabel value="#{bundle.CreateDetailLabel_net}" for="net" />
+                        <p:inputText id="net" value="#{detailController.selected.net}" title="#{bundle.CreateDetailTitle_net}" />
+                        <p:outputLabel value="#{bundle.CreateDetailLabel_ir}" for="ir" />
+                        <p:inputText id="ir" value="#{detailController.selected.ir}" title="#{bundle.CreateDetailTitle_ir}" />
+                        <p:outputLabel value="#{bundle.CreateDetailLabel_echelle}" for="echelle" />
+                        <p:inputText id="echelle" value="#{detailController.selected.echelle}" title="#{bundle.CreateDetailTitle_echelle}" />
+                        <p:outputLabel value="#{bundle.CreateDetailLabel_echelon}" for="echelon" />
+                        <p:inputText id="echelon" value="#{detailController.selected.echelon}" title="#{bundle.CreateDetailTitle_echelon}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{detailController.create}" value="#{bundle.Save}" update="display,:DetailListForm:datalist,:growl" oncomplete="handleSubmit(args,'DetailCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DetailCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

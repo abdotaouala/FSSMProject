@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PrixrepasEditDlg" widgetVar="PrixrepasEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPrixrepasTitle}">
+            <h:form id="PrixrepasEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{prixrepasController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditPrixrepasLabel_idPrixRepas}" for="idPrixRepas" />
+                        <p:inputText id="idPrixRepas" value="#{prixrepasController.selected.idPrixRepas}" title="#{bundle.EditPrixrepasTitle_idPrixRepas}" required="true" requiredMessage="#{bundle.EditPrixrepasRequiredMessage_idPrixRepas}"/>
+                        <p:outputLabel value="#{bundle.EditPrixrepasLabel_indiceSup}" for="indiceSup" />
+                        <p:inputText id="indiceSup" value="#{prixrepasController.selected.indiceSup}" title="#{bundle.EditPrixrepasTitle_indiceSup}" />
+                        <p:outputLabel value="#{bundle.EditPrixrepasLabel_indiceInf}" for="indiceInf" />
+                        <p:inputText id="indiceInf" value="#{prixrepasController.selected.indiceInf}" title="#{bundle.EditPrixrepasTitle_indiceInf}" />
+                        <p:outputLabel value="#{bundle.EditPrixrepasLabel_prixDs}" for="prixDs" />
+                        <p:inputText id="prixDs" value="#{prixrepasController.selected.prixDs}" title="#{bundle.EditPrixrepasTitle_prixDs}" />
+                        <p:outputLabel value="#{bundle.EditPrixrepasLabel_prixD}" for="prixD" />
+                        <p:inputText id="prixD" value="#{prixrepasController.selected.prixD}" title="#{bundle.EditPrixrepasTitle_prixD}" />
+                        <p:outputLabel value="#{bundle.EditPrixrepasLabel_prixRs}" for="prixRs" />
+                        <p:inputText id="prixRs" value="#{prixrepasController.selected.prixRs}" title="#{bundle.EditPrixrepasTitle_prixRs}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{prixrepasController.update}" value="#{bundle.Save}" update="display,:PrixrepasListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PrixrepasEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PrixrepasEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

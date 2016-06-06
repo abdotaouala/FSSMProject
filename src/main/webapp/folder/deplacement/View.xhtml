@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DeplacementViewDlg" widgetVar="DeplacementViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDeplacementTitle}">
+            <h:form id="DeplacementViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{deplacementController.selected != null}">
+                        <h:outputText value="#{bundle.ViewDeplacementLabel_idDeplacement}"/>
+                        <h:outputText value="#{deplacementController.selected.idDeplacement}" title="#{bundle.ViewDeplacementTitle_idDeplacement}"/>
+                        <h:outputText value="#{bundle.ViewDeplacementLabel_nbrJours}"/>
+                        <h:outputText value="#{deplacementController.selected.nbrJours}" title="#{bundle.ViewDeplacementTitle_nbrJours}"/>
+                        <h:outputText value="#{bundle.ViewDeplacementLabel_dateDepart}"/>
+                        <h:outputText value="#{deplacementController.selected.dateDepart}" title="#{bundle.ViewDeplacementTitle_dateDepart}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewDeplacementLabel_dateArrive}"/>
+                        <h:outputText value="#{deplacementController.selected.dateArrive}" title="#{bundle.ViewDeplacementTitle_dateArrive}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewDeplacementLabel_annee}"/>
+                        <h:outputText value="#{deplacementController.selected.annee}" title="#{bundle.ViewDeplacementTitle_annee}"/>
+                        <h:outputText value="#{bundle.ViewDeplacementLabel_motifDeplacement}"/>
+                        <h:outputText value="#{deplacementController.selected.motifDeplacement}" title="#{bundle.ViewDeplacementTitle_motifDeplacement}"/>
+                        <h:outputText value="#{bundle.ViewDeplacementLabel_dateCreation}"/>
+                        <h:outputText value="#{deplacementController.selected.dateCreation}" title="#{bundle.ViewDeplacementTitle_dateCreation}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewDeplacementLabel_statutMnt}"/>
+                        <h:outputText value="#{deplacementController.selected.statutMnt}" title="#{bundle.ViewDeplacementTitle_statutMnt}"/>
+                        <h:outputText value="#{bundle.ViewDeplacementLabel_indice}"/>
+                        <h:outputText value="#{deplacementController.selected.indice}" title="#{bundle.ViewDeplacementTitle_indice}"/>
+                        <h:outputText value="#{bundle.ViewDeplacementLabel_echelle}"/>
+                        <h:outputText value="#{deplacementController.selected.echelle}" title="#{bundle.ViewDeplacementTitle_echelle}"/>
+                        <h:outputText value="#{bundle.ViewDeplacementLabel_grade}"/>
+                        <h:outputText value="#{deplacementController.selected.grade}" title="#{bundle.ViewDeplacementTitle_grade}"/>
+                        <h:outputText value="#{bundle.ViewDeplacementLabel_idPays}"/>
+                        <h:outputText value="#{deplacementController.selected.idPays}" title="#{bundle.ViewDeplacementTitle_idPays}"/>
+                        <h:outputText value="#{bundle.ViewDeplacementLabel_cinPpr}"/>
+                        <h:outputText value="#{deplacementController.selected.cinPpr}" title="#{bundle.ViewDeplacementTitle_cinPpr}"/>
+                        <h:outputText value="#{bundle.ViewDeplacementLabel_idUser}"/>
+                        <h:outputText value="#{deplacementController.selected.idUser}" title="#{bundle.ViewDeplacementTitle_idUser}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="DeplacementViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

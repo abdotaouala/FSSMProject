@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="IndemntekmViewDlg" widgetVar="IndemntekmViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewIndemntekmTitle}">
+            <h:form id="IndemntekmViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{indemntekmController.selected != null}">
+                        <h:outputText value="#{bundle.ViewIndemntekmLabel_indemntekmPK_idIndKm}"/>
+                        <h:outputText value="#{indemntekmController.selected.indemntekmPK.idIndKm}" title="#{bundle.ViewIndemntekmTitle_indemntekmPK_idIndKm}"/>
+                        <h:outputText value="#{bundle.ViewIndemntekmLabel_montantDepInt}"/>
+                        <h:outputText value="#{indemntekmController.selected.montantDepInt}" title="#{bundle.ViewIndemntekmTitle_montantDepInt}"/>
+                        <h:outputText value="#{bundle.ViewIndemntekmLabel_kmRoute}"/>
+                        <h:outputText value="#{indemntekmController.selected.kmRoute}" title="#{bundle.ViewIndemntekmTitle_kmRoute}"/>
+                        <h:outputText value="#{bundle.ViewIndemntekmLabel_kmPiste}"/>
+                        <h:outputText value="#{indemntekmController.selected.kmPiste}" title="#{bundle.ViewIndemntekmTitle_kmPiste}"/>
+                        <h:outputText value="#{bundle.ViewIndemntekmLabel_mntKm}"/>
+                        <h:outputText value="#{indemntekmController.selected.mntKm}" title="#{bundle.ViewIndemntekmTitle_mntKm}"/>
+                        <h:outputText value="#{bundle.ViewIndemntekmLabel_idDotation}"/>
+                        <h:outputText value="#{indemntekmController.selected.idDotation}" title="#{bundle.ViewIndemntekmTitle_idDotation}"/>
+                        <h:outputText value="#{bundle.ViewIndemntekmLabel_deplacement}"/>
+                        <h:outputText value="#{indemntekmController.selected.deplacement}" title="#{bundle.ViewIndemntekmTitle_deplacement}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="IndemntekmViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

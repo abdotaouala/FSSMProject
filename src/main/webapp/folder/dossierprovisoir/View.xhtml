@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DossierprovisoirViewDlg" widgetVar="DossierprovisoirViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDossierprovisoirTitle}">
+            <h:form id="DossierprovisoirViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{dossierprovisoirController.selected != null}">
+                        <h:outputText value="#{bundle.ViewDossierprovisoirLabel_idDossierProv}"/>
+                        <h:outputText value="#{dossierprovisoirController.selected.idDossierProv}" title="#{bundle.ViewDossierprovisoirTitle_idDossierProv}"/>
+                        <h:outputText value="#{bundle.ViewDossierprovisoirLabel_nomComplet}"/>
+                        <h:outputText value="#{dossierprovisoirController.selected.nomComplet}" title="#{bundle.ViewDossierprovisoirTitle_nomComplet}"/>
+                        <h:outputText value="#{bundle.ViewDossierprovisoirLabel_dernierDiplome}"/>
+                        <h:outputText value="#{dossierprovisoirController.selected.dernierDiplome}" title="#{bundle.ViewDossierprovisoirTitle_dernierDiplome}"/>
+                        <h:outputText value="#{bundle.ViewDossierprovisoirLabel_nbrHeures}"/>
+                        <h:outputText value="#{dossierprovisoirController.selected.nbrHeures}" title="#{bundle.ViewDossierprovisoirTitle_nbrHeures}"/>
+                        <h:outputText value="#{bundle.ViewDossierprovisoirLabel_module}"/>
+                        <h:outputText value="#{dossierprovisoirController.selected.module}" title="#{bundle.ViewDossierprovisoirTitle_module}"/>
+                        <h:outputText value="#{bundle.ViewDossierprovisoirLabel_etat}"/>
+                        <p:selectBooleanCheckbox value="#{dossierprovisoirController.selected.etat}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewDossierprovisoirLabel_dateDebut}"/>
+                        <h:outputText value="#{dossierprovisoirController.selected.dateDebut}" title="#{bundle.ViewDossierprovisoirTitle_dateDebut}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewDossierprovisoirLabel_dateFin}"/>
+                        <h:outputText value="#{dossierprovisoirController.selected.dateFin}" title="#{bundle.ViewDossierprovisoirTitle_dateFin}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewDossierprovisoirLabel_idGrade}"/>
+                        <h:outputText value="#{dossierprovisoirController.selected.idGrade}" title="#{bundle.ViewDossierprovisoirTitle_idGrade}"/>
+                        <h:outputText value="#{bundle.ViewDossierprovisoirLabel_idRelever}"/>
+                        <h:outputText value="#{dossierprovisoirController.selected.idRelever}" title="#{bundle.ViewDossierprovisoirTitle_idRelever}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="DossierprovisoirViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

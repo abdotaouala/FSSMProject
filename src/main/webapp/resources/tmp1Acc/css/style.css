@@ -116,7 +116,7 @@ div#bs-example-navbar-collapse-1 {
 }
 
 .banner-section {
-    background:url(../images/amphi10.jpg) no-repeat 0px 0px;
+    background:url(/display/javax.faces.resource/tmp1Acc/images/amphi10.jpg.xhtml) no-repeat 0px 0px;
 	background-size:cover;
 	min-height:686px;
 }
@@ -731,7 +731,7 @@ div#bs-example-navbar-collapse-1 {
 .footer-social-icons ul li a{
 	width:30px;
 	height:30px;
-	background:url('../images/img-sprite.png') no-repeat 0px 0px;
+	background:url('/display/javax.faces.resource/tmp1Acc/images/img-sprite.png.xhtml') no-repeat 0px 0px;
 	display:inline-block;
 	position: relative;
 }
@@ -806,7 +806,7 @@ div#bs-example-navbar-collapse-1 {
 /**about**/
 /**about**/
 .banner {
-    background: url(../images/amphi10.jpg) no-repeat 0px 0px;
+    background: url(/display/javax.faces.resource/tmp1Acc/images/amphi10.jpg.xhtml) no-repeat 0px 0px;
     background-size: cover;
    min-height: 120px !important;
 }
@@ -912,7 +912,7 @@ div#bs-example-navbar-collapse-1 {
 .social-icons a i {
     width: 30px;
     height: 30px;
-    background:url(../images/img-sprite.png) no-repeat 0px 0px;
+    background:url(/display/javax.faces.resource/tmp1Acc/images/img-sprite.png.xhtml) no-repeat 0px 0px;
     display: inline-block;
 	margin:0 0.2em;
 	transition: 0.5s all;

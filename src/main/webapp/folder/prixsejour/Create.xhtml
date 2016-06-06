@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PrixsejourCreateDlg" widgetVar="PrixsejourCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePrixsejourTitle}">
+            <h:form id="PrixsejourCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{prixsejourController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePrixsejourLabel_idPrixSej}" for="idPrixSej" />
+                        <p:inputText id="idPrixSej" value="#{prixsejourController.selected.idPrixSej}" title="#{bundle.CreatePrixsejourTitle_idPrixSej}" required="true" requiredMessage="#{bundle.CreatePrixsejourRequiredMessage_idPrixSej}"/>
+                        <p:outputLabel value="#{bundle.CreatePrixsejourLabel_grade}" for="grade" />
+                        <p:inputText id="grade" value="#{prixsejourController.selected.grade}" title="#{bundle.CreatePrixsejourTitle_grade}" />
+                        <p:outputLabel value="#{bundle.CreatePrixsejourLabel_prix}" for="prix" />
+                        <p:inputText id="prix" value="#{prixsejourController.selected.prix}" title="#{bundle.CreatePrixsejourTitle_prix}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{prixsejourController.create}" value="#{bundle.Save}" update="display,:PrixsejourListForm:datalist,:growl" oncomplete="handleSubmit(args,'PrixsejourCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PrixsejourCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

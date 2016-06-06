@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="CompteCreateDlg" widgetVar="CompteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateCompteTitle}">
+            <h:form id="CompteCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{compteController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateCompteLabel_idCompte}" for="idCompte" />
+                        <p:inputText id="idCompte" value="#{compteController.selected.idCompte}" title="#{bundle.CreateCompteTitle_idCompte}" required="true" requiredMessage="#{bundle.CreateCompteRequiredMessage_idCompte}"/>
+                        <p:outputLabel value="#{bundle.CreateCompteLabel_intitule}" for="intitule" />
+                        <p:inputText id="intitule" value="#{compteController.selected.intitule}" title="#{bundle.CreateCompteTitle_intitule}" />
+                        <p:outputLabel value="#{bundle.CreateCompteLabel_rap}" for="rap" />
+                        <p:inputText id="rap" value="#{compteController.selected.rap}" title="#{bundle.CreateCompteTitle_rap}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{compteController.create}" value="#{bundle.Save}" update="display,:CompteListForm:datalist,:growl" oncomplete="handleSubmit(args,'CompteCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="CompteCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

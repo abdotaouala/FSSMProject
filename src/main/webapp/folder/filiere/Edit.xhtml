@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FiliereEditDlg" widgetVar="FiliereEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditFiliereTitle}">
+            <h:form id="FiliereEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{filiereController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditFiliereLabel_idFiliere}" for="idFiliere" />
+                        <p:inputText id="idFiliere" value="#{filiereController.selected.idFiliere}" title="#{bundle.EditFiliereTitle_idFiliere}" required="true" requiredMessage="#{bundle.EditFiliereRequiredMessage_idFiliere}"/>
+                        <p:outputLabel value="#{bundle.EditFiliereLabel_intitule}" for="intitule" />
+                        <p:inputText id="intitule" value="#{filiereController.selected.intitule}" title="#{bundle.EditFiliereTitle_intitule}" />
+                        <p:outputLabel value="#{bundle.EditFiliereLabel_idUser}" for="idUser" />
+                        <p:selectOneMenu id="idUser" value="#{filiereController.selected.idUser}" required="true" requiredMessage="#{bundle.EditFiliereRequiredMessage_idUser}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usersController.itemsAvailableSelectOne}"
+                                           var="idUserItem"
+                                           itemValue="#{idUserItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditFiliereLabel_idDep}" for="idDep" />
+                        <p:selectOneMenu id="idDep" value="#{filiereController.selected.idDep}" required="true" requiredMessage="#{bundle.EditFiliereRequiredMessage_idDep}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{departementController.itemsAvailableSelectOne}"
+                                           var="idDepItem"
+                                           itemValue="#{idDepItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditFiliereLabel_idType}" for="idType" />
+                        <p:selectOneMenu id="idType" value="#{filiereController.selected.idType}" required="true" requiredMessage="#{bundle.EditFiliereRequiredMessage_idType}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{typeformationsController.itemsAvailableSelectOne}"
+                                           var="idTypeItem"
+                                           itemValue="#{idTypeItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{filiereController.update}" value="#{bundle.Save}" update="display,:FiliereListForm:datalist,:growl" oncomplete="handleSubmit(args, 'FiliereEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="FiliereEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

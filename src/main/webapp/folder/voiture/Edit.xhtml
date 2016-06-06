@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VoitureEditDlg" widgetVar="VoitureEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditVoitureTitle}">
+            <h:form id="VoitureEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{voitureController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditVoitureLabel_idVoiture}" for="idVoiture" />
+                        <p:inputText id="idVoiture" value="#{voitureController.selected.idVoiture}" title="#{bundle.EditVoitureTitle_idVoiture}" required="true" requiredMessage="#{bundle.EditVoitureRequiredMessage_idVoiture}"/>
+                        <p:outputLabel value="#{bundle.EditVoitureLabel_marque}" for="marque" />
+                        <p:inputText id="marque" value="#{voitureController.selected.marque}" title="#{bundle.EditVoitureTitle_marque}" />
+                        <p:outputLabel value="#{bundle.EditVoitureLabel_puissance}" for="puissance" />
+                        <p:inputText id="puissance" value="#{voitureController.selected.puissance}" title="#{bundle.EditVoitureTitle_puissance}" />
+                        <p:outputLabel value="#{bundle.EditVoitureLabel_idPrixKilo}" for="idPrixKilo" />
+                        <p:selectOneMenu id="idPrixKilo" value="#{voitureController.selected.idPrixKilo}" required="true" requiredMessage="#{bundle.EditVoitureRequiredMessage_idPrixKilo}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{prixkilomitriqueController.itemsAvailableSelectOne}"
+                                           var="idPrixKiloItem"
+                                           itemValue="#{idPrixKiloItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditVoitureLabel_indemntekm}" for="indemntekm" />
+                        <p:selectOneMenu id="indemntekm" value="#{voitureController.selected.indemntekm}" required="true" requiredMessage="#{bundle.EditVoitureRequiredMessage_indemntekm}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{indemntekmController.itemsAvailableSelectOne}"
+                                           var="indemntekmItem"
+                                           itemValue="#{indemntekmItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{voitureController.update}" value="#{bundle.Save}" update="display,:VoitureListForm:datalist,:growl" oncomplete="handleSubmit(args, 'VoitureEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="VoitureEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

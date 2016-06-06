@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DossiervacataireEditDlg" widgetVar="DossiervacataireEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDossiervacataireTitle}">
+            <h:form id="DossiervacataireEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{dossiervacataireController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditDossiervacataireLabel_idDossier}" for="idDossier" />
+                        <p:inputText id="idDossier" value="#{dossiervacataireController.selected.idDossier}" title="#{bundle.EditDossiervacataireTitle_idDossier}" required="true" requiredMessage="#{bundle.EditDossiervacataireRequiredMessage_idDossier}"/>
+                        <p:outputLabel value="#{bundle.EditDossiervacataireLabel_nbrHeures}" for="nbrHeures" />
+                        <p:inputText id="nbrHeures" value="#{dossiervacataireController.selected.nbrHeures}" title="#{bundle.EditDossiervacataireTitle_nbrHeures}" />
+                        <p:outputLabel value="#{bundle.EditDossiervacataireLabel_mois}" for="mois" />
+                        <p:inputText id="mois" value="#{dossiervacataireController.selected.mois}" title="#{bundle.EditDossiervacataireTitle_mois}" />
+                        <p:outputLabel value="#{bundle.EditDossiervacataireLabel_semestre}" for="semestre" />
+                        <p:inputText id="semestre" value="#{dossiervacataireController.selected.semestre}" title="#{bundle.EditDossiervacataireTitle_semestre}" />
+                        <p:outputLabel value="#{bundle.EditDossiervacataireLabel_dateCreance}" for="dateCreance" />
+                        <p:calendar id="dateCreance" pattern="MM/dd/yyyy HH:mm:ss" value="#{dossiervacataireController.selected.dateCreance}" title="#{bundle.EditDossiervacataireTitle_dateCreance}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditDossiervacataireLabel_net}" for="net" />
+                        <p:inputText id="net" value="#{dossiervacataireController.selected.net}" title="#{bundle.EditDossiervacataireTitle_net}" />
+                        <p:outputLabel value="#{bundle.EditDossiervacataireLabel_ir}" for="ir" />
+                        <p:inputText id="ir" value="#{dossiervacataireController.selected.ir}" title="#{bundle.EditDossiervacataireTitle_ir}" />
+                        <p:outputLabel value="#{bundle.EditDossiervacataireLabel_statutDossier}" for="statutDossier" />
+                        <p:inputText id="statutDossier" value="#{dossiervacataireController.selected.statutDossier}" title="#{bundle.EditDossiervacataireTitle_statutDossier}" />
+                        <p:outputLabel value="#{bundle.EditDossiervacataireLabel_idDotation}" for="idDotation" />
+                        <p:selectOneMenu id="idDotation" value="#{dossiervacataireController.selected.idDotation}" required="true" requiredMessage="#{bundle.EditDossiervacataireRequiredMessage_idDotation}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{dotationsecteurController.itemsAvailableSelectOne}"
+                                           var="idDotationItem"
+                                           itemValue="#{idDotationItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDossiervacataireLabel_idGrade}" for="idGrade" />
+                        <p:selectOneMenu id="idGrade" value="#{dossiervacataireController.selected.idGrade}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{graddiplomeController.itemsAvailableSelectOne}"
+                                           var="idGradeItem"
+                                           itemValue="#{idGradeItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDossiervacataireLabel_idDossierProv}" for="idDossierProv" />
+                        <p:selectOneMenu id="idDossierProv" value="#{dossiervacataireController.selected.idDossierProv}" required="true" requiredMessage="#{bundle.EditDossiervacataireRequiredMessage_idDossierProv}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{dossierprovisoirController.itemsAvailableSelectOne}"
+                                           var="idDossierProvItem"
+                                           itemValue="#{idDossierProvItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDossiervacataireLabel_idBordComp}" for="idBordComp" />
+                        <p:selectOneMenu id="idBordComp" value="#{dossiervacataireController.selected.idBordComp}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{bordereaucomptableController.itemsAvailableSelectOne}"
+                                           var="idBordCompItem"
+                                           itemValue="#{idBordCompItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDossiervacataireLabel_idBordAut}" for="idBordAut" />
+                        <p:selectOneMenu id="idBordAut" value="#{dossiervacataireController.selected.idBordAut}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{bordereauautorisationController.itemsAvailableSelectOne}"
+                                           var="idBordAutItem"
+                                           itemValue="#{idBordAutItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDossiervacataireLabel_cinPpr}" for="cinPpr" />
+                        <p:selectOneMenu id="cinPpr" value="#{dossiervacataireController.selected.cinPpr}" required="true" requiredMessage="#{bundle.EditDossiervacataireRequiredMessage_cinPpr}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{intervenantController.itemsAvailableSelectOne}"
+                                           var="cinPprItem"
+                                           itemValue="#{cinPprItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{dossiervacataireController.update}" value="#{bundle.Save}" update="display,:DossiervacataireListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DossiervacataireEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DossiervacataireEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

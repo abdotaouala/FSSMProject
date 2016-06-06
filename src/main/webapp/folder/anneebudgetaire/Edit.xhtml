@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="AnneebudgetaireEditDlg" widgetVar="AnneebudgetaireEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditAnneebudgetaireTitle}">
+            <h:form id="AnneebudgetaireEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{anneebudgetaireController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditAnneebudgetaireLabel_annee}" for="annee" />
+                        <p:inputText id="annee" value="#{anneebudgetaireController.selected.annee}" title="#{bundle.EditAnneebudgetaireTitle_annee}" required="true" requiredMessage="#{bundle.EditAnneebudgetaireRequiredMessage_annee}"/>
+                        <p:outputLabel value="#{bundle.EditAnneebudgetaireLabel_montantRap}" for="montantRap" />
+                        <p:inputText id="montantRap" value="#{anneebudgetaireController.selected.montantRap}" title="#{bundle.EditAnneebudgetaireTitle_montantRap}" />
+                        <p:outputLabel value="#{bundle.EditAnneebudgetaireLabel_reliquatRap}" for="reliquatRap" />
+                        <p:inputText id="reliquatRap" value="#{anneebudgetaireController.selected.reliquatRap}" title="#{bundle.EditAnneebudgetaireTitle_reliquatRap}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{anneebudgetaireController.update}" value="#{bundle.Save}" update="display,:AnneebudgetaireListForm:datalist,:growl" oncomplete="handleSubmit(args, 'AnneebudgetaireEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="AnneebudgetaireEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

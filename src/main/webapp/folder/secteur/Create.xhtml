@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SecteurCreateDlg" widgetVar="SecteurCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateSecteurTitle}">
+            <h:form id="SecteurCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{secteurController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateSecteurLabel_idSecteur}" for="idSecteur" />
+                        <p:inputText id="idSecteur" value="#{secteurController.selected.idSecteur}" title="#{bundle.CreateSecteurTitle_idSecteur}" required="true" requiredMessage="#{bundle.CreateSecteurRequiredMessage_idSecteur}"/>
+                        <p:outputLabel value="#{bundle.CreateSecteurLabel_intituleSecteur}" for="intituleSecteur" />
+                        <p:inputText id="intituleSecteur" value="#{secteurController.selected.intituleSecteur}" title="#{bundle.CreateSecteurTitle_intituleSecteur}" />
+                        <p:outputLabel value="#{bundle.CreateSecteurLabel_idSecteurP}" for="idSecteurP" />
+                        <p:selectOneMenu id="idSecteurP" value="#{secteurController.selected.idSecteurP}" >
+                            <f:selectItems value="#{secteurprincipalController.itemsAvailableSelectOne}"
+                                           var="idSecteurPItem"
+                                           itemValue="#{idSecteurPItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{secteurController.create}" value="#{bundle.Save}" update="display,:SecteurListForm:datalist,:growl" oncomplete="handleSubmit(args,'SecteurCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SecteurCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

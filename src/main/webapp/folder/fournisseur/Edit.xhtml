@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FournisseurEditDlg" widgetVar="FournisseurEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditFournisseurTitle}">
+            <h:form id="FournisseurEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{fournisseurController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditFournisseurLabel_idFournisseur}" for="idFournisseur" />
+                        <p:inputText id="idFournisseur" value="#{fournisseurController.selected.idFournisseur}" title="#{bundle.EditFournisseurTitle_idFournisseur}" required="true" requiredMessage="#{bundle.EditFournisseurRequiredMessage_idFournisseur}"/>
+                        <p:outputLabel value="#{bundle.EditFournisseurLabel_nom}" for="nom" />
+                        <p:inputText id="nom" value="#{fournisseurController.selected.nom}" title="#{bundle.EditFournisseurTitle_nom}" />
+                        <p:outputLabel value="#{bundle.EditFournisseurLabel_adresse}" for="adresse" />
+                        <p:inputText id="adresse" value="#{fournisseurController.selected.adresse}" title="#{bundle.EditFournisseurTitle_adresse}" />
+                        <p:outputLabel value="#{bundle.EditFournisseurLabel_tel}" for="tel" />
+                        <p:inputText id="tel" value="#{fournisseurController.selected.tel}" title="#{bundle.EditFournisseurTitle_tel}" />
+                        <p:outputLabel value="#{bundle.EditFournisseurLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{fournisseurController.selected.email}" title="#{bundle.EditFournisseurTitle_email}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{fournisseurController.update}" value="#{bundle.Save}" update="display,:FournisseurListForm:datalist,:growl" oncomplete="handleSubmit(args, 'FournisseurEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="FournisseurEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

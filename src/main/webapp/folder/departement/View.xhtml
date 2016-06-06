@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DepartementViewDlg" widgetVar="DepartementViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDepartementTitle}">
+            <h:form id="DepartementViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{departementController.selected != null}">
+                        <h:outputText value="#{bundle.ViewDepartementLabel_idDep}"/>
+                        <h:outputText value="#{departementController.selected.idDep}" title="#{bundle.ViewDepartementTitle_idDep}"/>
+                        <h:outputText value="#{bundle.ViewDepartementLabel_nomDep}"/>
+                        <h:outputText value="#{departementController.selected.nomDep}" title="#{bundle.ViewDepartementTitle_nomDep}"/>
+                        <h:outputText value="#{bundle.ViewDepartementLabel_idUser}"/>
+                        <h:outputText value="#{departementController.selected.idUser}" title="#{bundle.ViewDepartementTitle_idUser}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="DepartementViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

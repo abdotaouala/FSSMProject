@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PrixsejourEditDlg" widgetVar="PrixsejourEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPrixsejourTitle}">
+            <h:form id="PrixsejourEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{prixsejourController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditPrixsejourLabel_idPrixSej}" for="idPrixSej" />
+                        <p:inputText id="idPrixSej" value="#{prixsejourController.selected.idPrixSej}" title="#{bundle.EditPrixsejourTitle_idPrixSej}" required="true" requiredMessage="#{bundle.EditPrixsejourRequiredMessage_idPrixSej}"/>
+                        <p:outputLabel value="#{bundle.EditPrixsejourLabel_grade}" for="grade" />
+                        <p:inputText id="grade" value="#{prixsejourController.selected.grade}" title="#{bundle.EditPrixsejourTitle_grade}" />
+                        <p:outputLabel value="#{bundle.EditPrixsejourLabel_prix}" for="prix" />
+                        <p:inputText id="prix" value="#{prixsejourController.selected.prix}" title="#{bundle.EditPrixsejourTitle_prix}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{prixsejourController.update}" value="#{bundle.Save}" update="display,:PrixsejourListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PrixsejourEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PrixsejourEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

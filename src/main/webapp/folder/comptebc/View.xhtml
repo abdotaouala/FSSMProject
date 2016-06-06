@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ComptebcViewDlg" widgetVar="ComptebcViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewComptebcTitle}">
+            <h:form id="ComptebcViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{comptebcController.selected != null}">
+                        <h:outputText value="#{bundle.ViewComptebcLabel_idCptBc}"/>
+                        <h:outputText value="#{comptebcController.selected.idCptBc}" title="#{bundle.ViewComptebcTitle_idCptBc}"/>
+                        <h:outputText value="#{bundle.ViewComptebcLabel_intitule}"/>
+                        <h:outputText value="#{comptebcController.selected.intitule}" title="#{bundle.ViewComptebcTitle_intitule}"/>
+                        <h:outputText value="#{bundle.ViewComptebcLabel_bc}"/>
+                        <h:outputText value="#{comptebcController.selected.bc}" title="#{bundle.ViewComptebcTitle_bc}"/>
+                        <h:outputText value="#{bundle.ViewComptebcLabel_rib}"/>
+                        <h:outputText value="#{comptebcController.selected.rib}" title="#{bundle.ViewComptebcTitle_rib}"/>
+                        <h:outputText value="#{bundle.ViewComptebcLabel_cinPpr}"/>
+                        <h:outputText value="#{comptebcController.selected.cinPpr}" title="#{bundle.ViewComptebcTitle_cinPpr}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ComptebcViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DossierrejeteCreateDlg" widgetVar="DossierrejeteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDossierrejeteTitle}">
+            <h:form id="DossierrejeteCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{dossierrejeteController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateDossierrejeteLabel_idDossierRejete}" for="idDossierRejete" />
+                        <p:inputText id="idDossierRejete" value="#{dossierrejeteController.selected.idDossierRejete}" title="#{bundle.CreateDossierrejeteTitle_idDossierRejete}" required="true" requiredMessage="#{bundle.CreateDossierrejeteRequiredMessage_idDossierRejete}"/>
+                        <p:outputLabel value="#{bundle.CreateDossierrejeteLabel_motifRejet}" for="motifRejet" />
+                        <p:inputText id="motifRejet" value="#{dossierrejeteController.selected.motifRejet}" title="#{bundle.CreateDossierrejeteTitle_motifRejet}" />
+                        <p:outputLabel value="#{bundle.CreateDossierrejeteLabel_dosidDossier}" for="dosidDossier" />
+                        <p:selectOneMenu id="dosidDossier" value="#{dossierrejeteController.selected.dosidDossier}" required="true" requiredMessage="#{bundle.EditDossierrejeteRequiredMessage_dosidDossier}">
+                            <f:selectItems value="#{dossierhsuppController.itemsAvailableSelectOne}"
+                                           var="dosidDossierItem"
+                                           itemValue="#{dosidDossierItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDossierrejeteLabel_idDossier}" for="idDossier" />
+                        <p:selectOneMenu id="idDossier" value="#{dossierrejeteController.selected.idDossier}" required="true" requiredMessage="#{bundle.EditDossierrejeteRequiredMessage_idDossier}">
+                            <f:selectItems value="#{dossiervacataireController.itemsAvailableSelectOne}"
+                                           var="idDossierItem"
+                                           itemValue="#{idDossierItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{dossierrejeteController.create}" value="#{bundle.Save}" update="display,:DossierrejeteListForm:datalist,:growl" oncomplete="handleSubmit(args,'DossierrejeteCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DossierrejeteCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

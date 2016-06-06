@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TypeformationsViewDlg" widgetVar="TypeformationsViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTypeformationsTitle}">
+            <h:form id="TypeformationsViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{typeformationsController.selected != null}">
+                        <h:outputText value="#{bundle.ViewTypeformationsLabel_idType}"/>
+                        <h:outputText value="#{typeformationsController.selected.idType}" title="#{bundle.ViewTypeformationsTitle_idType}"/>
+                        <h:outputText value="#{bundle.ViewTypeformationsLabel_nomType}"/>
+                        <h:outputText value="#{typeformationsController.selected.nomType}" title="#{bundle.ViewTypeformationsTitle_nomType}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="TypeformationsViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

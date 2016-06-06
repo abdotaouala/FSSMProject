@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DepartementEditDlg" widgetVar="DepartementEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDepartementTitle}">
+            <h:form id="DepartementEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{departementController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditDepartementLabel_idDep}" for="idDep" />
+                        <p:inputText id="idDep" value="#{departementController.selected.idDep}" title="#{bundle.EditDepartementTitle_idDep}" required="true" requiredMessage="#{bundle.EditDepartementRequiredMessage_idDep}"/>
+                        <p:outputLabel value="#{bundle.EditDepartementLabel_nomDep}" for="nomDep" />
+                        <p:inputText id="nomDep" value="#{departementController.selected.nomDep}" title="#{bundle.EditDepartementTitle_nomDep}" />
+                        <p:outputLabel value="#{bundle.EditDepartementLabel_idUser}" for="idUser" />
+                        <p:selectOneMenu id="idUser" value="#{departementController.selected.idUser}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usersController.itemsAvailableSelectOne}"
+                                           var="idUserItem"
+                                           itemValue="#{idUserItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{departementController.update}" value="#{bundle.Save}" update="display,:DepartementListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DepartementEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DepartementEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

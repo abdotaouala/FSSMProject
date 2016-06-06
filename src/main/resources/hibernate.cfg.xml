@@ -4,46 +4,7 @@
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/bd_finance_fssm?zeroDateTimeBehavior=convertToNull</property>
+    <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/bd_finance_fssm</property>
     <property name="hibernate.connection.username">root</property>
-    <mapping resource="models/Releve.hbm.xml"/>
-    <mapping resource="models/UserRole.hbm.xml"/>
-    <mapping resource="models/Dotationsecteur.hbm.xml"/>
-    <mapping resource="models/Dossiervacataire.hbm.xml"/>
-    <mapping resource="models/Comptebc.hbm.xml"/>
-    <mapping resource="models/Pays.hbm.xml"/>
-    <mapping resource="models/Bordereaucomptable.hbm.xml"/>
-    <mapping resource="models/Typeformations.hbm.xml"/>
-    <mapping resource="models/Piecejustificativevacation.hbm.xml"/>
-    <mapping resource="models/Etatdossier.hbm.xml"/>
-    <mapping resource="models/Indemnetedeplacementetranger.hbm.xml"/>
-    <mapping resource="models/Prixrepas.hbm.xml"/>
-    <mapping resource="models/Fournisseur.hbm.xml"/>
-    <mapping resource="models/Graddiplome.hbm.xml"/>
-    <mapping resource="models/Piecejustificativedeplacement.hbm.xml"/>
-    <mapping resource="models/Budget.hbm.xml"/>
-    <mapping resource="models/Deplacement.hbm.xml"/>
-    <mapping resource="models/Dossierprovisoir.hbm.xml"/>
-    <mapping resource="models/Departement.hbm.xml"/>
-    <mapping resource="models/Article.hbm.xml"/>
-    <mapping resource="models/Bordereauautorisation.hbm.xml"/>
-    <mapping resource="models/Dossierhsupp.hbm.xml"/>
-    <mapping resource="models/Intervenant.hbm.xml"/>
-    <mapping resource="models/Prixkilomitrique.hbm.xml"/>
-    <mapping resource="models/Dossierrejete.hbm.xml"/>
-    <mapping resource="models/Prixsejour.hbm.xml"/>
-    <mapping resource="models/Secteur.hbm.xml"/>
-    <mapping resource="models/Boncommande.hbm.xml"/>
-    <mapping resource="models/Compte.hbm.xml"/>
-    <mapping resource="models/Indemntekm.hbm.xml"/>
-    <mapping resource="models/Secteurprincipal.hbm.xml"/>
-    <mapping resource="models/Detail.hbm.xml"/>
-    <mapping resource="models/Anneebudgetaire.hbm.xml"/>
-    <mapping resource="models/Voiture.hbm.xml"/>
-    <mapping resource="models/Lignecommande.hbm.xml"/>
-    <mapping resource="models/Indemnetedeplacementinterne.hbm.xml"/>
-    <mapping resource="models/Users.hbm.xml"/>
-    <mapping resource="models/Filiere.hbm.xml"/>
-    <mapping resource="models/Role.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

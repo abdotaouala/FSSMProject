@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="FiliereViewDlg" widgetVar="FiliereViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewFiliereTitle}">
+            <h:form id="FiliereViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{filiereController.selected != null}">
+                        <h:outputText value="#{bundle.ViewFiliereLabel_idFiliere}"/>
+                        <h:outputText value="#{filiereController.selected.idFiliere}" title="#{bundle.ViewFiliereTitle_idFiliere}"/>
+                        <h:outputText value="#{bundle.ViewFiliereLabel_intitule}"/>
+                        <h:outputText value="#{filiereController.selected.intitule}" title="#{bundle.ViewFiliereTitle_intitule}"/>
+                        <h:outputText value="#{bundle.ViewFiliereLabel_idUser}"/>
+                        <h:outputText value="#{filiereController.selected.idUser}" title="#{bundle.ViewFiliereTitle_idUser}"/>
+                        <h:outputText value="#{bundle.ViewFiliereLabel_idDep}"/>
+                        <h:outputText value="#{filiereController.selected.idDep}" title="#{bundle.ViewFiliereTitle_idDep}"/>
+                        <h:outputText value="#{bundle.ViewFiliereLabel_idType}"/>
+                        <h:outputText value="#{filiereController.selected.idType}" title="#{bundle.ViewFiliereTitle_idType}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="FiliereViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListDeplacementTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="DeplacementListForm">
+                <p:panel header="#{bundle.ListDeplacementTitle}">
+                    <p:dataTable id="datalist" value="#{deplacementController.items}" var="item"
+                                 selectionMode="single" selection="#{deplacementController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idDeplacement}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDeplacementTitle_idDeplacement}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idDeplacement}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDeplacementTitle_nbrJours}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nbrJours}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDeplacementTitle_dateDepart}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateDepart}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDeplacementTitle_dateArrive}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateArrive}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDeplacementTitle_annee}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.annee}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDeplacementTitle_motifDeplacement}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.motifDeplacement}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDeplacementTitle_dateCreation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateCreation}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDeplacementTitle_statutMnt}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.statutMnt}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDeplacementTitle_indice}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.indice}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDeplacementTitle_echelle}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.echelle}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDeplacementTitle_grade}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.grade}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDeplacementTitle_idPays}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idPays}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDeplacementTitle_cinPpr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cinPpr}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDeplacementTitle_idUser}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idUser}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{deplacementController.prepareCreate}" update=":DeplacementCreateForm" oncomplete="PF('DeplacementCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DeplacementViewForm" oncomplete="PF('DeplacementViewDialog').show()" disabled="#{empty deplacementController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DeplacementEditForm" oncomplete="PF('DeplacementEditDialog').show()" disabled="#{empty deplacementController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{deplacementController.destroy}" update=":growl,datalist" disabled="#{empty deplacementController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

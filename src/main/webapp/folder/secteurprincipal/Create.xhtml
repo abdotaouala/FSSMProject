@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SecteurprincipalCreateDlg" widgetVar="SecteurprincipalCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateSecteurprincipalTitle}">
+            <h:form id="SecteurprincipalCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{secteurprincipalController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateSecteurprincipalLabel_idSecteurP}" for="idSecteurP" />
+                        <p:inputText id="idSecteurP" value="#{secteurprincipalController.selected.idSecteurP}" title="#{bundle.CreateSecteurprincipalTitle_idSecteurP}" required="true" requiredMessage="#{bundle.CreateSecteurprincipalRequiredMessage_idSecteurP}"/>
+                        <p:outputLabel value="#{bundle.CreateSecteurprincipalLabel_designation}" for="designation" />
+                        <p:inputText id="designation" value="#{secteurprincipalController.selected.designation}" title="#{bundle.CreateSecteurprincipalTitle_designation}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{secteurprincipalController.create}" value="#{bundle.Save}" update="display,:SecteurprincipalListForm:datalist,:growl" oncomplete="handleSubmit(args,'SecteurprincipalCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SecteurprincipalCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

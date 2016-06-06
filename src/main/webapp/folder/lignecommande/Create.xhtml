@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LignecommandeCreateDlg" widgetVar="LignecommandeCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateLignecommandeTitle}">
+            <h:form id="LignecommandeCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{lignecommandeController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateLignecommandeLabel_idLigne}" for="idLigne" />
+                        <p:inputText id="idLigne" value="#{lignecommandeController.selected.idLigne}" title="#{bundle.CreateLignecommandeTitle_idLigne}" required="true" requiredMessage="#{bundle.CreateLignecommandeRequiredMessage_idLigne}"/>
+                        <p:outputLabel value="#{bundle.CreateLignecommandeLabel_quantite}" for="quantite" />
+                        <p:inputText id="quantite" value="#{lignecommandeController.selected.quantite}" title="#{bundle.CreateLignecommandeTitle_quantite}" />
+                        <p:outputLabel value="#{bundle.CreateLignecommandeLabel_pu}" for="pu" />
+                        <p:inputText id="pu" value="#{lignecommandeController.selected.pu}" title="#{bundle.CreateLignecommandeTitle_pu}" />
+                        <p:outputLabel value="#{bundle.CreateLignecommandeLabel_montant}" for="montant" />
+                        <p:inputText id="montant" value="#{lignecommandeController.selected.montant}" title="#{bundle.CreateLignecommandeTitle_montant}" />
+                        <p:outputLabel value="#{bundle.CreateLignecommandeLabel_idArticle}" for="idArticle" />
+                        <p:selectOneMenu id="idArticle" value="#{lignecommandeController.selected.idArticle}" required="true" requiredMessage="#{bundle.EditLignecommandeRequiredMessage_idArticle}">
+                            <f:selectItems value="#{articleController.itemsAvailableSelectOne}"
+                                           var="idArticleItem"
+                                           itemValue="#{idArticleItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateLignecommandeLabel_idBC}" for="idBC" />
+                        <p:selectOneMenu id="idBC" value="#{lignecommandeController.selected.idBC}" required="true" requiredMessage="#{bundle.EditLignecommandeRequiredMessage_idBC}">
+                            <f:selectItems value="#{boncommandeController.itemsAvailableSelectOne}"
+                                           var="idBCItem"
+                                           itemValue="#{idBCItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{lignecommandeController.create}" value="#{bundle.Save}" update="display,:LignecommandeListForm:datalist,:growl" oncomplete="handleSubmit(args,'LignecommandeCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="LignecommandeCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

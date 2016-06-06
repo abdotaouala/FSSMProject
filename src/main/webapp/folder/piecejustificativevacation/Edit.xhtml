@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PiecejustificativevacationEditDlg" widgetVar="PiecejustificativevacationEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPiecejustificativevacationTitle}">
+            <h:form id="PiecejustificativevacationEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{piecejustificativevacationController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditPiecejustificativevacationLabel_idPiece}" for="idPiece" />
+                        <p:inputText id="idPiece" value="#{piecejustificativevacationController.selected.idPiece}" title="#{bundle.EditPiecejustificativevacationTitle_idPiece}" required="true" requiredMessage="#{bundle.EditPiecejustificativevacationRequiredMessage_idPiece}"/>
+                        <p:outputLabel value="#{bundle.EditPiecejustificativevacationLabel_datePiece}" for="datePiece" />
+                        <p:calendar id="datePiece" pattern="MM/dd/yyyy HH:mm:ss" value="#{piecejustificativevacationController.selected.datePiece}" title="#{bundle.EditPiecejustificativevacationTitle_datePiece}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditPiecejustificativevacationLabel_intutilePiece}" for="intutilePiece" />
+                        <p:inputText id="intutilePiece" value="#{piecejustificativevacationController.selected.intutilePiece}" title="#{bundle.EditPiecejustificativevacationTitle_intutilePiece}" />
+                        <p:outputLabel value="#{bundle.EditPiecejustificativevacationLabel_piece}" for="piece" />
+                        <p:inputText id="piece" value="#{piecejustificativevacationController.selected.piece}" title="#{bundle.EditPiecejustificativevacationTitle_piece}" />
+                        <p:outputLabel value="#{bundle.EditPiecejustificativevacationLabel_dosidDossier}" for="dosidDossier" />
+                        <p:selectOneMenu id="dosidDossier" value="#{piecejustificativevacationController.selected.dosidDossier}" required="true" requiredMessage="#{bundle.EditPiecejustificativevacationRequiredMessage_dosidDossier}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{dossierhsuppController.itemsAvailableSelectOne}"
+                                           var="dosidDossierItem"
+                                           itemValue="#{dosidDossierItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditPiecejustificativevacationLabel_idDossier}" for="idDossier" />
+                        <p:selectOneMenu id="idDossier" value="#{piecejustificativevacationController.selected.idDossier}" required="true" requiredMessage="#{bundle.EditPiecejustificativevacationRequiredMessage_idDossier}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{dossiervacataireController.itemsAvailableSelectOne}"
+                                           var="idDossierItem"
+                                           itemValue="#{idDossierItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{piecejustificativevacationController.update}" value="#{bundle.Save}" update="display,:PiecejustificativevacationListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PiecejustificativevacationEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PiecejustificativevacationEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

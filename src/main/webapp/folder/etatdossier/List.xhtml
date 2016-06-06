@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListEtatdossierTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="EtatdossierListForm">
+                <p:panel header="#{bundle.ListEtatdossierTitle}">
+                    <p:dataTable id="datalist" value="#{etatdossierController.items}" var="item"
+                                 selectionMode="single" selection="#{etatdossierController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idEtat}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEtatdossierTitle_idEtat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idEtat}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEtatdossierTitle_etat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.etat}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEtatdossierTitle_motif}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.motif}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEtatdossierTitle_rmq}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rmq}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEtatdossierTitle_observation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.observation}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEtatdossierTitle_dateEtat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateEtat}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEtatdossierTitle_idDeplacement}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idDeplacement}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{etatdossierController.prepareCreate}" update=":EtatdossierCreateForm" oncomplete="PF('EtatdossierCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":EtatdossierViewForm" oncomplete="PF('EtatdossierViewDialog').show()" disabled="#{empty etatdossierController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":EtatdossierEditForm" oncomplete="PF('EtatdossierEditDialog').show()" disabled="#{empty etatdossierController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{etatdossierController.destroy}" update=":growl,datalist" disabled="#{empty etatdossierController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

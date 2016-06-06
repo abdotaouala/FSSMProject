@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BordereaucomptableEditDlg" widgetVar="BordereaucomptableEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditBordereaucomptableTitle}">
+            <h:form id="BordereaucomptableEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{bordereaucomptableController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditBordereaucomptableLabel_idBordComp}" for="idBordComp" />
+                        <p:inputText id="idBordComp" value="#{bordereaucomptableController.selected.idBordComp}" title="#{bundle.EditBordereaucomptableTitle_idBordComp}" required="true" requiredMessage="#{bundle.EditBordereaucomptableRequiredMessage_idBordComp}"/>
+                        <p:outputLabel value="#{bundle.EditBordereaucomptableLabel_dateExercice}" for="dateExercice" />
+                        <p:calendar id="dateExercice" pattern="MM/dd/yyyy HH:mm:ss" value="#{bordereaucomptableController.selected.dateExercice}" title="#{bundle.EditBordereaucomptableTitle_dateExercice}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditBordereaucomptableLabel_totalIr}" for="totalIr" />
+                        <p:inputText id="totalIr" value="#{bordereaucomptableController.selected.totalIr}" title="#{bundle.EditBordereaucomptableTitle_totalIr}" />
+                        <p:outputLabel value="#{bundle.EditBordereaucomptableLabel_totalNet}" for="totalNet" />
+                        <p:inputText id="totalNet" value="#{bordereaucomptableController.selected.totalNet}" title="#{bundle.EditBordereaucomptableTitle_totalNet}" />
+                        <p:outputLabel value="#{bundle.EditBordereaucomptableLabel_annee}" for="annee" />
+                        <p:selectOneMenu id="annee" value="#{bordereaucomptableController.selected.annee}" required="true" requiredMessage="#{bundle.EditBordereaucomptableRequiredMessage_annee}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{anneebudgetaireController.itemsAvailableSelectOne}"
+                                           var="anneeItem"
+                                           itemValue="#{anneeItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{bordereaucomptableController.update}" value="#{bundle.Save}" update="display,:BordereaucomptableListForm:datalist,:growl" oncomplete="handleSubmit(args, 'BordereaucomptableEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="BordereaucomptableEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

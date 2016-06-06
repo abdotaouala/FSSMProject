@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DeplacementCreateDlg" widgetVar="DeplacementCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDeplacementTitle}">
+            <h:form id="DeplacementCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{deplacementController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateDeplacementLabel_idDeplacement}" for="idDeplacement" />
+                        <p:inputText id="idDeplacement" value="#{deplacementController.selected.idDeplacement}" title="#{bundle.CreateDeplacementTitle_idDeplacement}" required="true" requiredMessage="#{bundle.CreateDeplacementRequiredMessage_idDeplacement}"/>
+                        <p:outputLabel value="#{bundle.CreateDeplacementLabel_nbrJours}" for="nbrJours" />
+                        <p:inputText id="nbrJours" value="#{deplacementController.selected.nbrJours}" title="#{bundle.CreateDeplacementTitle_nbrJours}" />
+                        <p:outputLabel value="#{bundle.CreateDeplacementLabel_dateDepart}" for="dateDepart" />
+                        <p:calendar id="dateDepart" pattern="MM/dd/yyyy HH:mm:ss" value="#{deplacementController.selected.dateDepart}" title="#{bundle.EditDeplacementTitle_dateDepart}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateDeplacementLabel_dateArrive}" for="dateArrive" />
+                        <p:calendar id="dateArrive" pattern="MM/dd/yyyy HH:mm:ss" value="#{deplacementController.selected.dateArrive}" title="#{bundle.EditDeplacementTitle_dateArrive}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateDeplacementLabel_annee}" for="annee" />
+                        <p:inputText id="annee" value="#{deplacementController.selected.annee}" title="#{bundle.CreateDeplacementTitle_annee}" />
+                        <p:outputLabel value="#{bundle.CreateDeplacementLabel_motifDeplacement}" for="motifDeplacement" />
+                        <p:inputText id="motifDeplacement" value="#{deplacementController.selected.motifDeplacement}" title="#{bundle.CreateDeplacementTitle_motifDeplacement}" />
+                        <p:outputLabel value="#{bundle.CreateDeplacementLabel_dateCreation}" for="dateCreation" />
+                        <p:calendar id="dateCreation" pattern="MM/dd/yyyy HH:mm:ss" value="#{deplacementController.selected.dateCreation}" title="#{bundle.EditDeplacementTitle_dateCreation}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateDeplacementLabel_statutMnt}" for="statutMnt" />
+                        <p:inputText id="statutMnt" value="#{deplacementController.selected.statutMnt}" title="#{bundle.CreateDeplacementTitle_statutMnt}" />
+                        <p:outputLabel value="#{bundle.CreateDeplacementLabel_indice}" for="indice" />
+                        <p:inputText id="indice" value="#{deplacementController.selected.indice}" title="#{bundle.CreateDeplacementTitle_indice}" />
+                        <p:outputLabel value="#{bundle.CreateDeplacementLabel_echelle}" for="echelle" />
+                        <p:inputText id="echelle" value="#{deplacementController.selected.echelle}" title="#{bundle.CreateDeplacementTitle_echelle}" />
+                        <p:outputLabel value="#{bundle.CreateDeplacementLabel_grade}" for="grade" />
+                        <p:inputText id="grade" value="#{deplacementController.selected.grade}" title="#{bundle.CreateDeplacementTitle_grade}" />
+                        <p:outputLabel value="#{bundle.CreateDeplacementLabel_idPays}" for="idPays" />
+                        <p:selectOneMenu id="idPays" value="#{deplacementController.selected.idPays}" >
+                            <f:selectItems value="#{paysController.itemsAvailableSelectOne}"
+                                           var="idPaysItem"
+                                           itemValue="#{idPaysItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDeplacementLabel_cinPpr}" for="cinPpr" />
+                        <p:selectOneMenu id="cinPpr" value="#{deplacementController.selected.cinPpr}" required="true" requiredMessage="#{bundle.EditDeplacementRequiredMessage_cinPpr}">
+                            <f:selectItems value="#{intervenantController.itemsAvailableSelectOne}"
+                                           var="cinPprItem"
+                                           itemValue="#{cinPprItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDeplacementLabel_idUser}" for="idUser" />
+                        <p:selectOneMenu id="idUser" value="#{deplacementController.selected.idUser}" required="true" requiredMessage="#{bundle.EditDeplacementRequiredMessage_idUser}">
+                            <f:selectItems value="#{usersController.itemsAvailableSelectOne}"
+                                           var="idUserItem"
+                                           itemValue="#{idUserItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{deplacementController.create}" value="#{bundle.Save}" update="display,:DeplacementListForm:datalist,:growl" oncomplete="handleSubmit(args,'DeplacementCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DeplacementCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

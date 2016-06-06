@@ -14,6 +14,7 @@ public class GererBudget {
     public GererBudget() {
     }
     public Anneebudgetaire ajouter(){
+    //recuperation de la session Factory qui represente la connexion et passage pr constructeur
     DAOAnneeBudgetaire DAOab=new DAOAnneeBudgetaire(ConnexionHibernateUtil.getSessionFactory());
     return DAOab.add(ab);
     }

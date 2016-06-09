@@ -12,7 +12,7 @@ import model.Anneebudgetaire;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class AnneebudgetaireFacade extends AbstractFacade<Anneebudgetaire> {

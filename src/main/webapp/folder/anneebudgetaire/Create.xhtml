@@ -1,29 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="AnneebudgetaireCreateDlg" widgetVar="AnneebudgetaireCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateAnneebudgetaireTitle}">
-            <h:form id="AnneebudgetaireCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{anneebudgetaireController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateAnneebudgetaireLabel_annee}" for="annee" />
-                        <p:inputText id="annee" value="#{anneebudgetaireController.selected.annee}" title="#{bundle.CreateAnneebudgetaireTitle_annee}" required="true" requiredMessage="#{bundle.CreateAnneebudgetaireRequiredMessage_annee}"/>
-                        <p:outputLabel value="#{bundle.CreateAnneebudgetaireLabel_montantRap}" for="montantRap" />
-                        <p:inputText id="montantRap" value="#{anneebudgetaireController.selected.montantRap}" title="#{bundle.CreateAnneebudgetaireTitle_montantRap}" />
-                        <p:outputLabel value="#{bundle.CreateAnneebudgetaireLabel_reliquatRap}" for="reliquatRap" />
-                        <p:inputText id="reliquatRap" value="#{anneebudgetaireController.selected.reliquatRap}" title="#{bundle.CreateAnneebudgetaireTitle_reliquatRap}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{anneebudgetaireController.create}" value="#{bundle.Save}" update="display,:AnneebudgetaireListForm:datalist,:growl" oncomplete="handleSubmit(args,'AnneebudgetaireCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="AnneebudgetaireCreateDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateAnneebudgetaireTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateAnneebudgetaireLabel_annee}" for="annee" />
+                    <h:inputText id="annee" value="#{anneebudgetaireController.selected.annee}" title="#{bundle.CreateAnneebudgetaireTitle_annee}" required="true" requiredMessage="#{bundle.CreateAnneebudgetaireRequiredMessage_annee}"/>
+                    <h:outputLabel value="#{bundle.CreateAnneebudgetaireLabel_montantRap}" for="montantRap" />
+                    <h:inputText id="montantRap" value="#{anneebudgetaireController.selected.montantRap}" title="#{bundle.CreateAnneebudgetaireTitle_montantRap}" />
+                    <h:outputLabel value="#{bundle.CreateAnneebudgetaireLabel_reliquatRap}" for="reliquatRap" />
+                    <h:inputText id="reliquatRap" value="#{anneebudgetaireController.selected.reliquatRap}" title="#{bundle.CreateAnneebudgetaireTitle_reliquatRap}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{anneebudgetaireController.create}" value="#{bundle.CreateAnneebudgetaireSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{anneebudgetaireController.prepareList}" value="#{bundle.CreateAnneebudgetaireShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateAnneebudgetaireIndexLink}"/>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

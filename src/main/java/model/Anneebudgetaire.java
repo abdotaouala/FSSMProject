@@ -6,25 +6,19 @@
 package model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "anneebudgetaire")
@@ -38,18 +32,14 @@ public class Anneebudgetaire implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @NotNull
     @Column(name = "annee")
     private Integer annee;
     @Column(name = "montantRap")
     private Integer montantRap;
     @Column(name = "reliquatRap")
     private Integer reliquatRap;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "anneebudgetaire", fetch = FetchType.EAGER)
-    private List<Budget> budgetList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "annee", fetch = FetchType.EAGER)
-    private List<Bordereaucomptable> bordereaucomptableList;
 
     public Anneebudgetaire() {
     }
@@ -80,24 +70,6 @@ public class Anneebudgetaire implements Serializable {
 
     public void setReliquatRap(Integer reliquatRap) {
         this.reliquatRap = reliquatRap;
-    }
-
-    @XmlTransient
-    public List<Budget> getBudgetList() {
-        return budgetList;
-    }
-
-    public void setBudgetList(List<Budget> budgetList) {
-        this.budgetList = budgetList;
-    }
-
-    @XmlTransient
-    public List<Bordereaucomptable> getBordereaucomptableList() {
-        return bordereaucomptableList;
-    }
-
-    public void setBordereaucomptableList(List<Bordereaucomptable> bordereaucomptableList) {
-        this.bordereaucomptableList = bordereaucomptableList;
     }
 
     @Override

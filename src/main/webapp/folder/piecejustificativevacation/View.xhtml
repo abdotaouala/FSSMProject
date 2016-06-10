@@ -1,36 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewPiecejustificativevacationTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewPiecejustificativevacationLabel_idPiece}"/>
+                    <h:outputText value="#{piecejustificativevacationController.selected.idPiece}" title="#{bundle.ViewPiecejustificativevacationTitle_idPiece}"/>
+                    <h:outputText value="#{bundle.ViewPiecejustificativevacationLabel_idDossier}"/>
+                    <h:outputText value="#{piecejustificativevacationController.selected.idDossier}" title="#{bundle.ViewPiecejustificativevacationTitle_idDossier}"/>
+                    <h:outputText value="#{bundle.ViewPiecejustificativevacationLabel_dosidDossier}"/>
+                    <h:outputText value="#{piecejustificativevacationController.selected.dosidDossier}" title="#{bundle.ViewPiecejustificativevacationTitle_dosidDossier}"/>
+                    <h:outputText value="#{bundle.ViewPiecejustificativevacationLabel_datePiece}"/>
+                    <h:outputText value="#{piecejustificativevacationController.selected.datePiece}" title="#{bundle.ViewPiecejustificativevacationTitle_datePiece}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewPiecejustificativevacationLabel_intutilePiece}"/>
+                    <h:outputText value="#{piecejustificativevacationController.selected.intutilePiece}" title="#{bundle.ViewPiecejustificativevacationTitle_intutilePiece}"/>
+                    <h:outputText value="#{bundle.ViewPiecejustificativevacationLabel_piece}"/>
+                    <h:outputText value="#{piecejustificativevacationController.selected.piece}" title="#{bundle.ViewPiecejustificativevacationTitle_piece}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{piecejustificativevacationController.destroyAndView}" value="#{bundle.ViewPiecejustificativevacationDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewPiecejustificativevacationEditLink}"/>
+                <br />
+                <h:commandLink action="#{piecejustificativevacationController.prepareCreate}" value="#{bundle.ViewPiecejustificativevacationCreateLink}" />
+                <br />
+                <h:commandLink action="#{piecejustificativevacationController.prepareList}" value="#{bundle.ViewPiecejustificativevacationShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewPiecejustificativevacationIndexLink}"/>
 
-        <p:dialog id="PiecejustificativevacationViewDlg" widgetVar="PiecejustificativevacationViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPiecejustificativevacationTitle}">
-            <h:form id="PiecejustificativevacationViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{piecejustificativevacationController.selected != null}">
-                        <h:outputText value="#{bundle.ViewPiecejustificativevacationLabel_idPiece}"/>
-                        <h:outputText value="#{piecejustificativevacationController.selected.idPiece}" title="#{bundle.ViewPiecejustificativevacationTitle_idPiece}"/>
-                        <h:outputText value="#{bundle.ViewPiecejustificativevacationLabel_datePiece}"/>
-                        <h:outputText value="#{piecejustificativevacationController.selected.datePiece}" title="#{bundle.ViewPiecejustificativevacationTitle_datePiece}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-                        <h:outputText value="#{bundle.ViewPiecejustificativevacationLabel_intutilePiece}"/>
-                        <h:outputText value="#{piecejustificativevacationController.selected.intutilePiece}" title="#{bundle.ViewPiecejustificativevacationTitle_intutilePiece}"/>
-                        <h:outputText value="#{bundle.ViewPiecejustificativevacationLabel_piece}"/>
-                        <h:outputText value="#{piecejustificativevacationController.selected.piece}" title="#{bundle.ViewPiecejustificativevacationTitle_piece}"/>
-                        <h:outputText value="#{bundle.ViewPiecejustificativevacationLabel_dosidDossier}"/>
-                        <h:outputText value="#{piecejustificativevacationController.selected.dosidDossier}" title="#{bundle.ViewPiecejustificativevacationTitle_dosidDossier}"/>
-                        <h:outputText value="#{bundle.ViewPiecejustificativevacationLabel_idDossier}"/>
-                        <h:outputText value="#{piecejustificativevacationController.selected.idDossier}" title="#{bundle.ViewPiecejustificativevacationTitle_idDossier}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PiecejustificativevacationViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

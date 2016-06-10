@@ -1,45 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="FiliereCreateDlg" widgetVar="FiliereCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateFiliereTitle}">
-            <h:form id="FiliereCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{filiereController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateFiliereLabel_idFiliere}" for="idFiliere" />
-                        <p:inputText id="idFiliere" value="#{filiereController.selected.idFiliere}" title="#{bundle.CreateFiliereTitle_idFiliere}" required="true" requiredMessage="#{bundle.CreateFiliereRequiredMessage_idFiliere}"/>
-                        <p:outputLabel value="#{bundle.CreateFiliereLabel_intitule}" for="intitule" />
-                        <p:inputText id="intitule" value="#{filiereController.selected.intitule}" title="#{bundle.CreateFiliereTitle_intitule}" />
-                        <p:outputLabel value="#{bundle.CreateFiliereLabel_idUser}" for="idUser" />
-                        <p:selectOneMenu id="idUser" value="#{filiereController.selected.idUser}" required="true" requiredMessage="#{bundle.EditFiliereRequiredMessage_idUser}">
-                            <f:selectItems value="#{usersController.itemsAvailableSelectOne}"
-                                           var="idUserItem"
-                                           itemValue="#{idUserItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateFiliereLabel_idDep}" for="idDep" />
-                        <p:selectOneMenu id="idDep" value="#{filiereController.selected.idDep}" required="true" requiredMessage="#{bundle.EditFiliereRequiredMessage_idDep}">
-                            <f:selectItems value="#{departementController.itemsAvailableSelectOne}"
-                                           var="idDepItem"
-                                           itemValue="#{idDepItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateFiliereLabel_idType}" for="idType" />
-                        <p:selectOneMenu id="idType" value="#{filiereController.selected.idType}" required="true" requiredMessage="#{bundle.EditFiliereRequiredMessage_idType}">
-                            <f:selectItems value="#{typeformationsController.itemsAvailableSelectOne}"
-                                           var="idTypeItem"
-                                           itemValue="#{idTypeItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{filiereController.create}" value="#{bundle.Save}" update="display,:FiliereListForm:datalist,:growl" oncomplete="handleSubmit(args,'FiliereCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="FiliereCreateDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateFiliereTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateFiliereLabel_idFiliere}" for="idFiliere" />
+                    <h:inputText id="idFiliere" value="#{filiereController.selected.idFiliere}" title="#{bundle.CreateFiliereTitle_idFiliere}" required="true" requiredMessage="#{bundle.CreateFiliereRequiredMessage_idFiliere}"/>
+                    <h:outputLabel value="#{bundle.CreateFiliereLabel_idDep}" for="idDep" />
+                    <h:inputText id="idDep" value="#{filiereController.selected.idDep}" title="#{bundle.CreateFiliereTitle_idDep}" required="true" requiredMessage="#{bundle.CreateFiliereRequiredMessage_idDep}"/>
+                    <h:outputLabel value="#{bundle.CreateFiliereLabel_idType}" for="idType" />
+                    <h:inputText id="idType" value="#{filiereController.selected.idType}" title="#{bundle.CreateFiliereTitle_idType}" required="true" requiredMessage="#{bundle.CreateFiliereRequiredMessage_idType}"/>
+                    <h:outputLabel value="#{bundle.CreateFiliereLabel_idUser}" for="idUser" />
+                    <h:inputText id="idUser" value="#{filiereController.selected.idUser}" title="#{bundle.CreateFiliereTitle_idUser}" required="true" requiredMessage="#{bundle.CreateFiliereRequiredMessage_idUser}"/>
+                    <h:outputLabel value="#{bundle.CreateFiliereLabel_intitule}" for="intitule" />
+                    <h:inputText id="intitule" value="#{filiereController.selected.intitule}" title="#{bundle.CreateFiliereTitle_intitule}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{filiereController.create}" value="#{bundle.CreateFiliereSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{filiereController.prepareList}" value="#{bundle.CreateFiliereShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateFiliereIndexLink}"/>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

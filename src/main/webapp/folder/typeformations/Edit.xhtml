@@ -1,27 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="TypeformationsEditDlg" widgetVar="TypeformationsEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditTypeformationsTitle}">
-            <h:form id="TypeformationsEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{typeformationsController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditTypeformationsLabel_idType}" for="idType" />
-                        <p:inputText id="idType" value="#{typeformationsController.selected.idType}" title="#{bundle.EditTypeformationsTitle_idType}" required="true" requiredMessage="#{bundle.EditTypeformationsRequiredMessage_idType}"/>
-                        <p:outputLabel value="#{bundle.EditTypeformationsLabel_nomType}" for="nomType" />
-                        <p:inputText id="nomType" value="#{typeformationsController.selected.nomType}" title="#{bundle.EditTypeformationsTitle_nomType}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{typeformationsController.update}" value="#{bundle.Save}" update="display,:TypeformationsListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TypeformationsEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="TypeformationsEditDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditTypeformationsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditTypeformationsLabel_idType}" for="idType" />
+                    <h:inputText id="idType" value="#{typeformationsController.selected.idType}" title="#{bundle.EditTypeformationsTitle_idType}" required="true" requiredMessage="#{bundle.EditTypeformationsRequiredMessage_idType}"/>
+                    <h:outputLabel value="#{bundle.EditTypeformationsLabel_nomType}" for="nomType" />
+                    <h:inputText id="nomType" value="#{typeformationsController.selected.nomType}" title="#{bundle.EditTypeformationsTitle_nomType}" />
+                </h:panelGrid>
+                <h:commandLink action="#{typeformationsController.update}" value="#{bundle.EditTypeformationsSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditTypeformationsViewLink}"/>
+                <br />
+                <h:commandLink action="#{typeformationsController.prepareList}" value="#{bundle.EditTypeformationsShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditTypeformationsIndexLink}" />
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

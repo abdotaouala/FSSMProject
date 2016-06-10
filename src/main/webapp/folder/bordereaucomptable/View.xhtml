@@ -1,34 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewBordereaucomptableTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewBordereaucomptableLabel_idBordComp}"/>
+                    <h:outputText value="#{bordereaucomptableController.selected.idBordComp}" title="#{bundle.ViewBordereaucomptableTitle_idBordComp}"/>
+                    <h:outputText value="#{bundle.ViewBordereaucomptableLabel_annee}"/>
+                    <h:outputText value="#{bordereaucomptableController.selected.annee}" title="#{bundle.ViewBordereaucomptableTitle_annee}"/>
+                    <h:outputText value="#{bundle.ViewBordereaucomptableLabel_dateExercice}"/>
+                    <h:outputText value="#{bordereaucomptableController.selected.dateExercice}" title="#{bundle.ViewBordereaucomptableTitle_dateExercice}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewBordereaucomptableLabel_totalIr}"/>
+                    <h:outputText value="#{bordereaucomptableController.selected.totalIr}" title="#{bundle.ViewBordereaucomptableTitle_totalIr}"/>
+                    <h:outputText value="#{bundle.ViewBordereaucomptableLabel_totalNet}"/>
+                    <h:outputText value="#{bordereaucomptableController.selected.totalNet}" title="#{bundle.ViewBordereaucomptableTitle_totalNet}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{bordereaucomptableController.destroyAndView}" value="#{bundle.ViewBordereaucomptableDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewBordereaucomptableEditLink}"/>
+                <br />
+                <h:commandLink action="#{bordereaucomptableController.prepareCreate}" value="#{bundle.ViewBordereaucomptableCreateLink}" />
+                <br />
+                <h:commandLink action="#{bordereaucomptableController.prepareList}" value="#{bundle.ViewBordereaucomptableShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewBordereaucomptableIndexLink}"/>
 
-        <p:dialog id="BordereaucomptableViewDlg" widgetVar="BordereaucomptableViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewBordereaucomptableTitle}">
-            <h:form id="BordereaucomptableViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{bordereaucomptableController.selected != null}">
-                        <h:outputText value="#{bundle.ViewBordereaucomptableLabel_idBordComp}"/>
-                        <h:outputText value="#{bordereaucomptableController.selected.idBordComp}" title="#{bundle.ViewBordereaucomptableTitle_idBordComp}"/>
-                        <h:outputText value="#{bundle.ViewBordereaucomptableLabel_dateExercice}"/>
-                        <h:outputText value="#{bordereaucomptableController.selected.dateExercice}" title="#{bundle.ViewBordereaucomptableTitle_dateExercice}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-                        <h:outputText value="#{bundle.ViewBordereaucomptableLabel_totalIr}"/>
-                        <h:outputText value="#{bordereaucomptableController.selected.totalIr}" title="#{bundle.ViewBordereaucomptableTitle_totalIr}"/>
-                        <h:outputText value="#{bundle.ViewBordereaucomptableLabel_totalNet}"/>
-                        <h:outputText value="#{bordereaucomptableController.selected.totalNet}" title="#{bundle.ViewBordereaucomptableTitle_totalNet}"/>
-                        <h:outputText value="#{bundle.ViewBordereaucomptableLabel_annee}"/>
-                        <h:outputText value="#{bordereaucomptableController.selected.annee}" title="#{bundle.ViewBordereaucomptableTitle_annee}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="BordereaucomptableViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

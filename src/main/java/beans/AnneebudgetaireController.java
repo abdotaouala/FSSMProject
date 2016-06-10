@@ -129,7 +129,7 @@ public class AnneebudgetaireController implements Serializable {
         }
     }
 
-    private void performDestroy() {
+    public void performDestroy() {
         try {
             getFacade().remove(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AnneebudgetaireDeleted"));

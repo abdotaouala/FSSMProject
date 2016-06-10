@@ -12,7 +12,7 @@ import model.Lignecommande;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class LignecommandeFacade extends AbstractFacade<Lignecommande> {

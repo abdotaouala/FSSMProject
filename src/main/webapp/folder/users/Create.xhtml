@@ -1,39 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="UsersCreateDlg" widgetVar="UsersCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUsersTitle}">
-            <h:form id="UsersCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{usersController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateUsersLabel_idUser}" for="idUser" />
-                        <p:inputText id="idUser" value="#{usersController.selected.idUser}" title="#{bundle.CreateUsersTitle_idUser}" required="true" requiredMessage="#{bundle.CreateUsersRequiredMessage_idUser}"/>
-                        <p:outputLabel value="#{bundle.CreateUsersLabel_login}" for="login" />
-                        <p:inputText id="login" value="#{usersController.selected.login}" title="#{bundle.CreateUsersTitle_login}" />
-                        <p:outputLabel value="#{bundle.CreateUsersLabel_password}" for="password" />
-                        <p:inputText id="password" value="#{usersController.selected.password}" title="#{bundle.CreateUsersTitle_password}" />
-                        <p:outputLabel value="#{bundle.CreateUsersLabel_nom}" for="nom" />
-                        <p:inputText id="nom" value="#{usersController.selected.nom}" title="#{bundle.CreateUsersTitle_nom}" />
-                        <p:outputLabel value="#{bundle.CreateUsersLabel_prenom}" for="prenom" />
-                        <p:inputText id="prenom" value="#{usersController.selected.prenom}" title="#{bundle.CreateUsersTitle_prenom}" />
-                        <p:outputLabel value="#{bundle.CreateUsersLabel_telephone}" for="telephone" />
-                        <p:inputText id="telephone" value="#{usersController.selected.telephone}" title="#{bundle.CreateUsersTitle_telephone}" />
-                        <p:outputLabel value="#{bundle.CreateUsersLabel_email}" for="email" />
-                        <p:inputText id="email" value="#{usersController.selected.email}" title="#{bundle.CreateUsersTitle_email}" />
-                        <p:outputLabel value="#{bundle.CreateUsersLabel_img}" for="img" />
-                        <p:inputText id="img" value="#{usersController.selected.img}" title="#{bundle.CreateUsersTitle_img}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{usersController.create}" value="#{bundle.Save}" update="display,:UsersListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsersCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="UsersCreateDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateUsersTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateUsersLabel_idUser}" for="idUser" />
+                    <h:inputText id="idUser" value="#{usersController.selected.idUser}" title="#{bundle.CreateUsersTitle_idUser}" required="true" requiredMessage="#{bundle.CreateUsersRequiredMessage_idUser}"/>
+                    <h:outputLabel value="#{bundle.CreateUsersLabel_login}" for="login" />
+                    <h:inputText id="login" value="#{usersController.selected.login}" title="#{bundle.CreateUsersTitle_login}" />
+                    <h:outputLabel value="#{bundle.CreateUsersLabel_password}" for="password" />
+                    <h:inputText id="password" value="#{usersController.selected.password}" title="#{bundle.CreateUsersTitle_password}" />
+                    <h:outputLabel value="#{bundle.CreateUsersLabel_nom}" for="nom" />
+                    <h:inputText id="nom" value="#{usersController.selected.nom}" title="#{bundle.CreateUsersTitle_nom}" />
+                    <h:outputLabel value="#{bundle.CreateUsersLabel_prenom}" for="prenom" />
+                    <h:inputText id="prenom" value="#{usersController.selected.prenom}" title="#{bundle.CreateUsersTitle_prenom}" />
+                    <h:outputLabel value="#{bundle.CreateUsersLabel_telephone}" for="telephone" />
+                    <h:inputText id="telephone" value="#{usersController.selected.telephone}" title="#{bundle.CreateUsersTitle_telephone}" />
+                    <h:outputLabel value="#{bundle.CreateUsersLabel_email}" for="email" />
+                    <h:inputText id="email" value="#{usersController.selected.email}" title="#{bundle.CreateUsersTitle_email}" />
+                    <h:outputLabel value="#{bundle.CreateUsersLabel_img}" for="img" />
+                    <h:inputText id="img" value="#{usersController.selected.img}" title="#{bundle.CreateUsersTitle_img}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{usersController.create}" value="#{bundle.CreateUsersSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{usersController.prepareList}" value="#{bundle.CreateUsersShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateUsersIndexLink}"/>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

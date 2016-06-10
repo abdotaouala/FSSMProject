@@ -6,39 +6,43 @@
 package model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "dotationsecteur")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Dotationsecteur.findAll", query = "SELECT d FROM Dotationsecteur d"),
+    @NamedQuery(name = "Dotationsecteur.findByIdCompte", query = "SELECT d FROM Dotationsecteur d WHERE d.idCompte = :idCompte"),
+    @NamedQuery(name = "Dotationsecteur.findByIdSecteur", query = "SELECT d FROM Dotationsecteur d WHERE d.idSecteur = :idSecteur"),
     @NamedQuery(name = "Dotationsecteur.findByIdDotation", query = "SELECT d FROM Dotationsecteur d WHERE d.idDotation = :idDotation"),
     @NamedQuery(name = "Dotationsecteur.findByMontantInitial", query = "SELECT d FROM Dotationsecteur d WHERE d.montantInitial = :montantInitial"),
     @NamedQuery(name = "Dotationsecteur.findByReliquat", query = "SELECT d FROM Dotationsecteur d WHERE d.reliquat = :reliquat")})
 public class Dotationsecteur implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "idCompte")
+    private int idCompte;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "idSecteur")
+    private int idSecteur;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -48,30 +52,34 @@ public class Dotationsecteur implements Serializable {
     private Integer montantInitial;
     @Column(name = "reliquat")
     private Integer reliquat;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDotation", fetch = FetchType.EAGER)
-    private List<Indemntekm> indemntekmList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDotation", fetch = FetchType.EAGER)
-    private List<Dossiervacataire> dossiervacataireList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDotation", fetch = FetchType.EAGER)
-    private List<Boncommande> boncommandeList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDotation", fetch = FetchType.EAGER)
-    private List<Indemnetedeplacementetranger> indemnetedeplacementetrangerList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDotation", fetch = FetchType.EAGER)
-    private List<Dossierhsupp> dossierhsuppList;
-    @JoinColumn(name = "idCompte", referencedColumnName = "idCompte")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Compte idCompte;
-    @JoinColumn(name = "idSecteur", referencedColumnName = "idSecteur")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Secteur idSecteur;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDotation", fetch = FetchType.EAGER)
-    private List<Indemnetedeplacementinterne> indemnetedeplacementinterneList;
 
     public Dotationsecteur() {
     }
 
     public Dotationsecteur(Integer idDotation) {
         this.idDotation = idDotation;
+    }
+
+    public Dotationsecteur(Integer idDotation, int idCompte, int idSecteur) {
+        this.idDotation = idDotation;
+        this.idCompte = idCompte;
+        this.idSecteur = idSecteur;
+    }
+
+    public int getIdCompte() {
+        return idCompte;
+    }
+
+    public void setIdCompte(int idCompte) {
+        this.idCompte = idCompte;
+    }
+
+    public int getIdSecteur() {
+        return idSecteur;
+    }
+
+    public void setIdSecteur(int idSecteur) {
+        this.idSecteur = idSecteur;
     }
 
     public Integer getIdDotation() {
@@ -96,76 +104,6 @@ public class Dotationsecteur implements Serializable {
 
     public void setReliquat(Integer reliquat) {
         this.reliquat = reliquat;
-    }
-
-    @XmlTransient
-    public List<Indemntekm> getIndemntekmList() {
-        return indemntekmList;
-    }
-
-    public void setIndemntekmList(List<Indemntekm> indemntekmList) {
-        this.indemntekmList = indemntekmList;
-    }
-
-    @XmlTransient
-    public List<Dossiervacataire> getDossiervacataireList() {
-        return dossiervacataireList;
-    }
-
-    public void setDossiervacataireList(List<Dossiervacataire> dossiervacataireList) {
-        this.dossiervacataireList = dossiervacataireList;
-    }
-
-    @XmlTransient
-    public List<Boncommande> getBoncommandeList() {
-        return boncommandeList;
-    }
-
-    public void setBoncommandeList(List<Boncommande> boncommandeList) {
-        this.boncommandeList = boncommandeList;
-    }
-
-    @XmlTransient
-    public List<Indemnetedeplacementetranger> getIndemnetedeplacementetrangerList() {
-        return indemnetedeplacementetrangerList;
-    }
-
-    public void setIndemnetedeplacementetrangerList(List<Indemnetedeplacementetranger> indemnetedeplacementetrangerList) {
-        this.indemnetedeplacementetrangerList = indemnetedeplacementetrangerList;
-    }
-
-    @XmlTransient
-    public List<Dossierhsupp> getDossierhsuppList() {
-        return dossierhsuppList;
-    }
-
-    public void setDossierhsuppList(List<Dossierhsupp> dossierhsuppList) {
-        this.dossierhsuppList = dossierhsuppList;
-    }
-
-    public Compte getIdCompte() {
-        return idCompte;
-    }
-
-    public void setIdCompte(Compte idCompte) {
-        this.idCompte = idCompte;
-    }
-
-    public Secteur getIdSecteur() {
-        return idSecteur;
-    }
-
-    public void setIdSecteur(Secteur idSecteur) {
-        this.idSecteur = idSecteur;
-    }
-
-    @XmlTransient
-    public List<Indemnetedeplacementinterne> getIndemnetedeplacementinterneList() {
-        return indemnetedeplacementinterneList;
-    }
-
-    public void setIndemnetedeplacementinterneList(List<Indemnetedeplacementinterne> indemnetedeplacementinterneList) {
-        this.indemnetedeplacementinterneList = indemnetedeplacementinterneList;
     }
 
     @Override

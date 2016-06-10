@@ -1,34 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewPiecejustificativedeplacementTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewPiecejustificativedeplacementLabel_idPiece}"/>
+                    <h:outputText value="#{piecejustificativedeplacementController.selected.idPiece}" title="#{bundle.ViewPiecejustificativedeplacementTitle_idPiece}"/>
+                    <h:outputText value="#{bundle.ViewPiecejustificativedeplacementLabel_idDeplacement}"/>
+                    <h:outputText value="#{piecejustificativedeplacementController.selected.idDeplacement}" title="#{bundle.ViewPiecejustificativedeplacementTitle_idDeplacement}"/>
+                    <h:outputText value="#{bundle.ViewPiecejustificativedeplacementLabel_datePiece}"/>
+                    <h:outputText value="#{piecejustificativedeplacementController.selected.datePiece}" title="#{bundle.ViewPiecejustificativedeplacementTitle_datePiece}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewPiecejustificativedeplacementLabel_intutilePiece}"/>
+                    <h:outputText value="#{piecejustificativedeplacementController.selected.intutilePiece}" title="#{bundle.ViewPiecejustificativedeplacementTitle_intutilePiece}"/>
+                    <h:outputText value="#{bundle.ViewPiecejustificativedeplacementLabel_piece}"/>
+                    <h:outputText value="#{piecejustificativedeplacementController.selected.piece}" title="#{bundle.ViewPiecejustificativedeplacementTitle_piece}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{piecejustificativedeplacementController.destroyAndView}" value="#{bundle.ViewPiecejustificativedeplacementDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewPiecejustificativedeplacementEditLink}"/>
+                <br />
+                <h:commandLink action="#{piecejustificativedeplacementController.prepareCreate}" value="#{bundle.ViewPiecejustificativedeplacementCreateLink}" />
+                <br />
+                <h:commandLink action="#{piecejustificativedeplacementController.prepareList}" value="#{bundle.ViewPiecejustificativedeplacementShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewPiecejustificativedeplacementIndexLink}"/>
 
-        <p:dialog id="PiecejustificativedeplacementViewDlg" widgetVar="PiecejustificativedeplacementViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPiecejustificativedeplacementTitle}">
-            <h:form id="PiecejustificativedeplacementViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{piecejustificativedeplacementController.selected != null}">
-                        <h:outputText value="#{bundle.ViewPiecejustificativedeplacementLabel_idPiece}"/>
-                        <h:outputText value="#{piecejustificativedeplacementController.selected.idPiece}" title="#{bundle.ViewPiecejustificativedeplacementTitle_idPiece}"/>
-                        <h:outputText value="#{bundle.ViewPiecejustificativedeplacementLabel_datePiece}"/>
-                        <h:outputText value="#{piecejustificativedeplacementController.selected.datePiece}" title="#{bundle.ViewPiecejustificativedeplacementTitle_datePiece}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
-                        </h:outputText>
-                        <h:outputText value="#{bundle.ViewPiecejustificativedeplacementLabel_intutilePiece}"/>
-                        <h:outputText value="#{piecejustificativedeplacementController.selected.intutilePiece}" title="#{bundle.ViewPiecejustificativedeplacementTitle_intutilePiece}"/>
-                        <h:outputText value="#{bundle.ViewPiecejustificativedeplacementLabel_piece}"/>
-                        <h:outputText value="#{piecejustificativedeplacementController.selected.piece}" title="#{bundle.ViewPiecejustificativedeplacementTitle_piece}"/>
-                        <h:outputText value="#{bundle.ViewPiecejustificativedeplacementLabel_idDeplacement}"/>
-                        <h:outputText value="#{piecejustificativedeplacementController.selected.idDeplacement}" title="#{bundle.ViewPiecejustificativedeplacementTitle_idDeplacement}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PiecejustificativedeplacementViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

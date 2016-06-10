@@ -12,7 +12,7 @@ import model.Users;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class UsersFacade extends AbstractFacade<Users> {

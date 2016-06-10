@@ -7,30 +7,23 @@ package model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "dossierprovisoir")
@@ -38,6 +31,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Dossierprovisoir.findAll", query = "SELECT d FROM Dossierprovisoir d"),
     @NamedQuery(name = "Dossierprovisoir.findByIdDossierProv", query = "SELECT d FROM Dossierprovisoir d WHERE d.idDossierProv = :idDossierProv"),
+    @NamedQuery(name = "Dossierprovisoir.findByIdRelever", query = "SELECT d FROM Dossierprovisoir d WHERE d.idRelever = :idRelever"),
+    @NamedQuery(name = "Dossierprovisoir.findByIdGrade", query = "SELECT d FROM Dossierprovisoir d WHERE d.idGrade = :idGrade"),
     @NamedQuery(name = "Dossierprovisoir.findByNomComplet", query = "SELECT d FROM Dossierprovisoir d WHERE d.nomComplet = :nomComplet"),
     @NamedQuery(name = "Dossierprovisoir.findByDernierDiplome", query = "SELECT d FROM Dossierprovisoir d WHERE d.dernierDiplome = :dernierDiplome"),
     @NamedQuery(name = "Dossierprovisoir.findByNbrHeures", query = "SELECT d FROM Dossierprovisoir d WHERE d.nbrHeures = :nbrHeures"),
@@ -53,6 +48,10 @@ public class Dossierprovisoir implements Serializable {
     @Basic(optional = false)
     @Column(name = "idDossierProv")
     private Integer idDossierProv;
+    @Column(name = "idRelever")
+    private Integer idRelever;
+    @Column(name = "idGrade")
+    private Integer idGrade;
     @Size(max = 254)
     @Column(name = "nomComplet")
     private String nomComplet;
@@ -72,16 +71,6 @@ public class Dossierprovisoir implements Serializable {
     @Column(name = "dateFin")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateFin;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDossierProv", fetch = FetchType.EAGER)
-    private List<Dossiervacataire> dossiervacataireList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDossierProv", fetch = FetchType.EAGER)
-    private List<Dossierhsupp> dossierhsuppList;
-    @JoinColumn(name = "idGrade", referencedColumnName = "idGrade")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Graddiplome idGrade;
-    @JoinColumn(name = "idRelever", referencedColumnName = "idRelever")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Releve idRelever;
 
     public Dossierprovisoir() {
     }
@@ -96,6 +85,22 @@ public class Dossierprovisoir implements Serializable {
 
     public void setIdDossierProv(Integer idDossierProv) {
         this.idDossierProv = idDossierProv;
+    }
+
+    public Integer getIdRelever() {
+        return idRelever;
+    }
+
+    public void setIdRelever(Integer idRelever) {
+        this.idRelever = idRelever;
+    }
+
+    public Integer getIdGrade() {
+        return idGrade;
+    }
+
+    public void setIdGrade(Integer idGrade) {
+        this.idGrade = idGrade;
     }
 
     public String getNomComplet() {
@@ -152,40 +157,6 @@ public class Dossierprovisoir implements Serializable {
 
     public void setDateFin(Date dateFin) {
         this.dateFin = dateFin;
-    }
-
-    @XmlTransient
-    public List<Dossiervacataire> getDossiervacataireList() {
-        return dossiervacataireList;
-    }
-
-    public void setDossiervacataireList(List<Dossiervacataire> dossiervacataireList) {
-        this.dossiervacataireList = dossiervacataireList;
-    }
-
-    @XmlTransient
-    public List<Dossierhsupp> getDossierhsuppList() {
-        return dossierhsuppList;
-    }
-
-    public void setDossierhsuppList(List<Dossierhsupp> dossierhsuppList) {
-        this.dossierhsuppList = dossierhsuppList;
-    }
-
-    public Graddiplome getIdGrade() {
-        return idGrade;
-    }
-
-    public void setIdGrade(Graddiplome idGrade) {
-        this.idGrade = idGrade;
-    }
-
-    public Releve getIdRelever() {
-        return idRelever;
-    }
-
-    public void setIdRelever(Releve idRelever) {
-        this.idRelever = idRelever;
     }
 
     @Override

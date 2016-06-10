@@ -1,39 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="IntervenantCreateDlg" widgetVar="IntervenantCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateIntervenantTitle}">
-            <h:form id="IntervenantCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{intervenantController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateIntervenantLabel_cinPpr}" for="cinPpr" />
-                        <p:inputText id="cinPpr" value="#{intervenantController.selected.cinPpr}" title="#{bundle.CreateIntervenantTitle_cinPpr}" required="true" requiredMessage="#{bundle.CreateIntervenantRequiredMessage_cinPpr}"/>
-                        <p:outputLabel value="#{bundle.CreateIntervenantLabel_nomComplet}" for="nomComplet" />
-                        <p:inputText id="nomComplet" value="#{intervenantController.selected.nomComplet}" title="#{bundle.CreateIntervenantTitle_nomComplet}" />
-                        <p:outputLabel value="#{bundle.CreateIntervenantLabel_nomArabe}" for="nomArabe" />
-                        <p:inputText id="nomArabe" value="#{intervenantController.selected.nomArabe}" title="#{bundle.CreateIntervenantTitle_nomArabe}" />
-                        <p:outputLabel value="#{bundle.CreateIntervenantLabel_telephone}" for="telephone" />
-                        <p:inputText id="telephone" value="#{intervenantController.selected.telephone}" title="#{bundle.CreateIntervenantTitle_telephone}" />
-                        <p:outputLabel value="#{bundle.CreateIntervenantLabel_mail}" for="mail" />
-                        <p:inputText id="mail" value="#{intervenantController.selected.mail}" title="#{bundle.CreateIntervenantTitle_mail}" />
-                        <p:outputLabel value="#{bundle.CreateIntervenantLabel_idUser}" for="idUser" />
-                        <p:selectOneMenu id="idUser" value="#{intervenantController.selected.idUser}" required="true" requiredMessage="#{bundle.EditIntervenantRequiredMessage_idUser}">
-                            <f:selectItems value="#{usersController.itemsAvailableSelectOne}"
-                                           var="idUserItem"
-                                           itemValue="#{idUserItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{intervenantController.create}" value="#{bundle.Save}" update="display,:IntervenantListForm:datalist,:growl" oncomplete="handleSubmit(args,'IntervenantCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="IntervenantCreateDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateIntervenantTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateIntervenantLabel_cinPpr}" for="cinPpr" />
+                    <h:inputText id="cinPpr" value="#{intervenantController.selected.cinPpr}" title="#{bundle.CreateIntervenantTitle_cinPpr}" required="true" requiredMessage="#{bundle.CreateIntervenantRequiredMessage_cinPpr}"/>
+                    <h:outputLabel value="#{bundle.CreateIntervenantLabel_idUser}" for="idUser" />
+                    <h:inputText id="idUser" value="#{intervenantController.selected.idUser}" title="#{bundle.CreateIntervenantTitle_idUser}" required="true" requiredMessage="#{bundle.CreateIntervenantRequiredMessage_idUser}"/>
+                    <h:outputLabel value="#{bundle.CreateIntervenantLabel_nomComplet}" for="nomComplet" />
+                    <h:inputText id="nomComplet" value="#{intervenantController.selected.nomComplet}" title="#{bundle.CreateIntervenantTitle_nomComplet}" />
+                    <h:outputLabel value="#{bundle.CreateIntervenantLabel_nomArabe}" for="nomArabe" />
+                    <h:inputText id="nomArabe" value="#{intervenantController.selected.nomArabe}" title="#{bundle.CreateIntervenantTitle_nomArabe}" />
+                    <h:outputLabel value="#{bundle.CreateIntervenantLabel_telephone}" for="telephone" />
+                    <h:inputText id="telephone" value="#{intervenantController.selected.telephone}" title="#{bundle.CreateIntervenantTitle_telephone}" />
+                    <h:outputLabel value="#{bundle.CreateIntervenantLabel_mail}" for="mail" />
+                    <h:inputText id="mail" value="#{intervenantController.selected.mail}" title="#{bundle.CreateIntervenantTitle_mail}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{intervenantController.create}" value="#{bundle.CreateIntervenantSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{intervenantController.prepareList}" value="#{bundle.CreateIntervenantShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateIntervenantIndexLink}"/>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

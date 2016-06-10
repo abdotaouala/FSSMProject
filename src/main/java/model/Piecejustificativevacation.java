@@ -10,23 +10,21 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "piecejustificativevacation")
@@ -34,6 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Piecejustificativevacation.findAll", query = "SELECT p FROM Piecejustificativevacation p"),
     @NamedQuery(name = "Piecejustificativevacation.findByIdPiece", query = "SELECT p FROM Piecejustificativevacation p WHERE p.idPiece = :idPiece"),
+    @NamedQuery(name = "Piecejustificativevacation.findByIdDossier", query = "SELECT p FROM Piecejustificativevacation p WHERE p.idDossier = :idDossier"),
+    @NamedQuery(name = "Piecejustificativevacation.findByDosidDossier", query = "SELECT p FROM Piecejustificativevacation p WHERE p.dosidDossier = :dosidDossier"),
     @NamedQuery(name = "Piecejustificativevacation.findByDatePiece", query = "SELECT p FROM Piecejustificativevacation p WHERE p.datePiece = :datePiece"),
     @NamedQuery(name = "Piecejustificativevacation.findByIntutilePiece", query = "SELECT p FROM Piecejustificativevacation p WHERE p.intutilePiece = :intutilePiece"),
     @NamedQuery(name = "Piecejustificativevacation.findByPiece", query = "SELECT p FROM Piecejustificativevacation p WHERE p.piece = :piece")})
@@ -45,6 +45,14 @@ public class Piecejustificativevacation implements Serializable {
     @Basic(optional = false)
     @Column(name = "idPiece")
     private Integer idPiece;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "idDossier")
+    private int idDossier;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "Dos_idDossier")
+    private int dosidDossier;
     @Column(name = "datePiece")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datePiece;
@@ -54,12 +62,6 @@ public class Piecejustificativevacation implements Serializable {
     @Size(max = 254)
     @Column(name = "piece")
     private String piece;
-    @JoinColumn(name = "Dos_idDossier", referencedColumnName = "idDossier")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Dossierhsupp dosidDossier;
-    @JoinColumn(name = "idDossier", referencedColumnName = "idDossier")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Dossiervacataire idDossier;
 
     public Piecejustificativevacation() {
     }
@@ -68,12 +70,34 @@ public class Piecejustificativevacation implements Serializable {
         this.idPiece = idPiece;
     }
 
+    public Piecejustificativevacation(Integer idPiece, int idDossier, int dosidDossier) {
+        this.idPiece = idPiece;
+        this.idDossier = idDossier;
+        this.dosidDossier = dosidDossier;
+    }
+
     public Integer getIdPiece() {
         return idPiece;
     }
 
     public void setIdPiece(Integer idPiece) {
         this.idPiece = idPiece;
+    }
+
+    public int getIdDossier() {
+        return idDossier;
+    }
+
+    public void setIdDossier(int idDossier) {
+        this.idDossier = idDossier;
+    }
+
+    public int getDosidDossier() {
+        return dosidDossier;
+    }
+
+    public void setDosidDossier(int dosidDossier) {
+        this.dosidDossier = dosidDossier;
     }
 
     public Date getDatePiece() {
@@ -98,22 +122,6 @@ public class Piecejustificativevacation implements Serializable {
 
     public void setPiece(String piece) {
         this.piece = piece;
-    }
-
-    public Dossierhsupp getDosidDossier() {
-        return dosidDossier;
-    }
-
-    public void setDosidDossier(Dossierhsupp dosidDossier) {
-        this.dosidDossier = dosidDossier;
-    }
-
-    public Dossiervacataire getIdDossier() {
-        return idDossier;
-    }
-
-    public void setIdDossier(Dossiervacataire idDossier) {
-        this.idDossier = idDossier;
     }
 
     @Override

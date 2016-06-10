@@ -12,7 +12,7 @@ import model.Fournisseur;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class FournisseurFacade extends AbstractFacade<Fournisseur> {

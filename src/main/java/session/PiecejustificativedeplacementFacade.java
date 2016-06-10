@@ -12,7 +12,7 @@ import model.Piecejustificativedeplacement;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class PiecejustificativedeplacementFacade extends AbstractFacade<Piecejustificativedeplacement> {

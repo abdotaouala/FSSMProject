@@ -1,69 +1,67 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template.xhtml">
-
-
         <ui:define name="title">
             <h:outputText value="#{bundle.ListDossierrejeteTitle}"></h:outputText>
         </ui:define>
-
         <ui:define name="body">
-            <h:form id="DossierrejeteListForm">
-                <p:panel header="#{bundle.ListDossierrejeteTitle}">
-                    <p:dataTable id="datalist" value="#{dossierrejeteController.items}" var="item"
-                                 selectionMode="single" selection="#{dossierrejeteController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.idDossierRejete}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
-                        <p:column>
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListDossierrejeteEmpty}" rendered="#{dossierrejeteController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{dossierrejeteController.items.rowCount > 0}">
+                    <h:outputText value="#{dossierrejeteController.pagination.pageFirstItem + 1}..#{dossierrejeteController.pagination.pageLastItem + 1}/#{dossierrejeteController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{dossierrejeteController.previous}" value="#{bundle.Previous} #{dossierrejeteController.pagination.pageSize}" rendered="#{dossierrejeteController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{dossierrejeteController.next}" value="#{bundle.Next} #{dossierrejeteController.pagination.pageSize}" rendered="#{dossierrejeteController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{dossierrejeteController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDossierrejeteTitle_idDossierRejete}"/>
                             </f:facet>
                             <h:outputText value="#{item.idDossierRejete}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDossierrejeteTitle_motifRejet}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.motifRejet}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDossierrejeteTitle_dosidDossier}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.dosidDossier}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDossierrejeteTitle_idDossier}"/>
                             </f:facet>
                             <h:outputText value="#{item.idDossier}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{dossierrejeteController.prepareCreate}" update=":DossierrejeteCreateForm" oncomplete="PF('DossierrejeteCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DossierrejeteViewForm" oncomplete="PF('DossierrejeteViewDialog').show()" disabled="#{empty dossierrejeteController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DossierrejeteEditForm" oncomplete="PF('DossierrejeteEditDialog').show()" disabled="#{empty dossierrejeteController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{dossierrejeteController.destroy}" update=":growl,datalist" disabled="#{empty dossierrejeteController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossierrejeteTitle_dosidDossier}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dosidDossier}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossierrejeteTitle_motifRejet}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.motifRejet}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{dossierrejeteController.prepareView}" value="#{bundle.ListDossierrejeteViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{dossierrejeteController.prepareEdit}" value="#{bundle.ListDossierrejeteEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{dossierrejeteController.destroy}" value="#{bundle.ListDossierrejeteDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{dossierrejeteController.prepareCreate}" value="#{bundle.ListDossierrejeteCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListDossierrejeteIndexLink}"/>
             </h:form>
-
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

@@ -6,24 +6,20 @@
 package model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "bordereauautorisation")
@@ -42,10 +38,6 @@ public class Bordereauautorisation implements Serializable {
     private Integer idBordAut;
     @Column(name = "anneeUniversitaire")
     private Integer anneeUniversitaire;
-    @OneToMany(mappedBy = "idBordAut", fetch = FetchType.EAGER)
-    private List<Dossiervacataire> dossiervacataireList;
-    @OneToMany(mappedBy = "idBordAut", fetch = FetchType.EAGER)
-    private List<Dossierhsupp> dossierhsuppList;
 
     public Bordereauautorisation() {
     }
@@ -68,24 +60,6 @@ public class Bordereauautorisation implements Serializable {
 
     public void setAnneeUniversitaire(Integer anneeUniversitaire) {
         this.anneeUniversitaire = anneeUniversitaire;
-    }
-
-    @XmlTransient
-    public List<Dossiervacataire> getDossiervacataireList() {
-        return dossiervacataireList;
-    }
-
-    public void setDossiervacataireList(List<Dossiervacataire> dossiervacataireList) {
-        this.dossiervacataireList = dossiervacataireList;
-    }
-
-    @XmlTransient
-    public List<Dossierhsupp> getDossierhsuppList() {
-        return dossierhsuppList;
-    }
-
-    public void setDossierhsuppList(List<Dossierhsupp> dossierhsuppList) {
-        this.dossierhsuppList = dossierhsuppList;
     }
 
     @Override

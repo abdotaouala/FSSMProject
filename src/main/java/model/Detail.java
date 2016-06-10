@@ -6,26 +6,21 @@
 package model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "detail")
@@ -97,8 +92,6 @@ public class Detail implements Serializable {
     @Size(max = 254)
     @Column(name = "echelon")
     private String echelon;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDetail", fetch = FetchType.EAGER)
-    private List<Dossierhsupp> dossierhsuppList;
 
     public Detail() {
     }
@@ -257,15 +250,6 @@ public class Detail implements Serializable {
 
     public void setEchelon(String echelon) {
         this.echelon = echelon;
-    }
-
-    @XmlTransient
-    public List<Dossierhsupp> getDossierhsuppList() {
-        return dossierhsuppList;
-    }
-
-    public void setDossierhsuppList(List<Dossierhsupp> dossierhsuppList) {
-        this.dossierhsuppList = dossierhsuppList;
     }
 
     @Override

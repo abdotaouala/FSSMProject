@@ -7,30 +7,24 @@ package model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "dossiervacataire")
@@ -38,6 +32,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Dossiervacataire.findAll", query = "SELECT d FROM Dossiervacataire d"),
     @NamedQuery(name = "Dossiervacataire.findByIdDossier", query = "SELECT d FROM Dossiervacataire d WHERE d.idDossier = :idDossier"),
+    @NamedQuery(name = "Dossiervacataire.findByCinPpr", query = "SELECT d FROM Dossiervacataire d WHERE d.cinPpr = :cinPpr"),
+    @NamedQuery(name = "Dossiervacataire.findByIdBordAut", query = "SELECT d FROM Dossiervacataire d WHERE d.idBordAut = :idBordAut"),
+    @NamedQuery(name = "Dossiervacataire.findByIdDossierProv", query = "SELECT d FROM Dossiervacataire d WHERE d.idDossierProv = :idDossierProv"),
+    @NamedQuery(name = "Dossiervacataire.findByIdBordComp", query = "SELECT d FROM Dossiervacataire d WHERE d.idBordComp = :idBordComp"),
+    @NamedQuery(name = "Dossiervacataire.findByIdDotation", query = "SELECT d FROM Dossiervacataire d WHERE d.idDotation = :idDotation"),
+    @NamedQuery(name = "Dossiervacataire.findByIdGrade", query = "SELECT d FROM Dossiervacataire d WHERE d.idGrade = :idGrade"),
     @NamedQuery(name = "Dossiervacataire.findByNbrHeures", query = "SELECT d FROM Dossiervacataire d WHERE d.nbrHeures = :nbrHeures"),
     @NamedQuery(name = "Dossiervacataire.findByMois", query = "SELECT d FROM Dossiervacataire d WHERE d.mois = :mois"),
     @NamedQuery(name = "Dossiervacataire.findBySemestre", query = "SELECT d FROM Dossiervacataire d WHERE d.semestre = :semestre"),
@@ -53,6 +53,25 @@ public class Dossiervacataire implements Serializable {
     @Basic(optional = false)
     @Column(name = "idDossier")
     private Integer idDossier;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 254)
+    @Column(name = "cinPpr")
+    private String cinPpr;
+    @Column(name = "idBordAut")
+    private Integer idBordAut;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "idDossierProv")
+    private int idDossierProv;
+    @Column(name = "idBordComp")
+    private Integer idBordComp;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "idDotation")
+    private int idDotation;
+    @Column(name = "idGrade")
+    private Integer idGrade;
     @Column(name = "nbrHeures")
     private Integer nbrHeures;
     @Size(max = 254)
@@ -71,28 +90,6 @@ public class Dossiervacataire implements Serializable {
     @Size(max = 254)
     @Column(name = "statutDossier")
     private String statutDossier;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDossier", fetch = FetchType.EAGER)
-    private List<Dossierrejete> dossierrejeteList;
-    @JoinColumn(name = "idDotation", referencedColumnName = "idDotation")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Dotationsecteur idDotation;
-    @JoinColumn(name = "idGrade", referencedColumnName = "idGrade")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Graddiplome idGrade;
-    @JoinColumn(name = "idDossierProv", referencedColumnName = "idDossierProv")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Dossierprovisoir idDossierProv;
-    @JoinColumn(name = "idBordComp", referencedColumnName = "idBordComp")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Bordereaucomptable idBordComp;
-    @JoinColumn(name = "idBordAut", referencedColumnName = "idBordAut")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Bordereauautorisation idBordAut;
-    @JoinColumn(name = "cinPpr", referencedColumnName = "cinPpr")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Intervenant cinPpr;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDossier", fetch = FetchType.EAGER)
-    private List<Piecejustificativevacation> piecejustificativevacationList;
 
     public Dossiervacataire() {
     }
@@ -101,12 +98,67 @@ public class Dossiervacataire implements Serializable {
         this.idDossier = idDossier;
     }
 
+    public Dossiervacataire(Integer idDossier, String cinPpr, int idDossierProv, int idDotation) {
+        this.idDossier = idDossier;
+        this.cinPpr = cinPpr;
+        this.idDossierProv = idDossierProv;
+        this.idDotation = idDotation;
+    }
+
     public Integer getIdDossier() {
         return idDossier;
     }
 
     public void setIdDossier(Integer idDossier) {
         this.idDossier = idDossier;
+    }
+
+    public String getCinPpr() {
+        return cinPpr;
+    }
+
+    public void setCinPpr(String cinPpr) {
+        this.cinPpr = cinPpr;
+    }
+
+    public Integer getIdBordAut() {
+        return idBordAut;
+    }
+
+    public void setIdBordAut(Integer idBordAut) {
+        this.idBordAut = idBordAut;
+    }
+
+    public int getIdDossierProv() {
+        return idDossierProv;
+    }
+
+    public void setIdDossierProv(int idDossierProv) {
+        this.idDossierProv = idDossierProv;
+    }
+
+    public Integer getIdBordComp() {
+        return idBordComp;
+    }
+
+    public void setIdBordComp(Integer idBordComp) {
+        this.idBordComp = idBordComp;
+    }
+
+    public int getIdDotation() {
+        return idDotation;
+    }
+
+    public void setIdDotation(int idDotation) {
+        this.idDotation = idDotation;
+    }
+
+    public Integer getIdGrade() {
+        return idGrade;
+    }
+
+    public void setIdGrade(Integer idGrade) {
+        this.idGrade = idGrade;
     }
 
     public Integer getNbrHeures() {
@@ -163,72 +215,6 @@ public class Dossiervacataire implements Serializable {
 
     public void setStatutDossier(String statutDossier) {
         this.statutDossier = statutDossier;
-    }
-
-    @XmlTransient
-    public List<Dossierrejete> getDossierrejeteList() {
-        return dossierrejeteList;
-    }
-
-    public void setDossierrejeteList(List<Dossierrejete> dossierrejeteList) {
-        this.dossierrejeteList = dossierrejeteList;
-    }
-
-    public Dotationsecteur getIdDotation() {
-        return idDotation;
-    }
-
-    public void setIdDotation(Dotationsecteur idDotation) {
-        this.idDotation = idDotation;
-    }
-
-    public Graddiplome getIdGrade() {
-        return idGrade;
-    }
-
-    public void setIdGrade(Graddiplome idGrade) {
-        this.idGrade = idGrade;
-    }
-
-    public Dossierprovisoir getIdDossierProv() {
-        return idDossierProv;
-    }
-
-    public void setIdDossierProv(Dossierprovisoir idDossierProv) {
-        this.idDossierProv = idDossierProv;
-    }
-
-    public Bordereaucomptable getIdBordComp() {
-        return idBordComp;
-    }
-
-    public void setIdBordComp(Bordereaucomptable idBordComp) {
-        this.idBordComp = idBordComp;
-    }
-
-    public Bordereauautorisation getIdBordAut() {
-        return idBordAut;
-    }
-
-    public void setIdBordAut(Bordereauautorisation idBordAut) {
-        this.idBordAut = idBordAut;
-    }
-
-    public Intervenant getCinPpr() {
-        return cinPpr;
-    }
-
-    public void setCinPpr(Intervenant cinPpr) {
-        this.cinPpr = cinPpr;
-    }
-
-    @XmlTransient
-    public List<Piecejustificativevacation> getPiecejustificativevacationList() {
-        return piecejustificativevacationList;
-    }
-
-    public void setPiecejustificativevacationList(List<Piecejustificativevacation> piecejustificativevacationList) {
-        this.piecejustificativevacationList = piecejustificativevacationList;
     }
 
     @Override

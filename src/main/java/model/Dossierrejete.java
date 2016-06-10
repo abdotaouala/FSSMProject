@@ -9,21 +9,19 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "dossierrejete")
@@ -31,6 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Dossierrejete.findAll", query = "SELECT d FROM Dossierrejete d"),
     @NamedQuery(name = "Dossierrejete.findByIdDossierRejete", query = "SELECT d FROM Dossierrejete d WHERE d.idDossierRejete = :idDossierRejete"),
+    @NamedQuery(name = "Dossierrejete.findByIdDossier", query = "SELECT d FROM Dossierrejete d WHERE d.idDossier = :idDossier"),
+    @NamedQuery(name = "Dossierrejete.findByDosidDossier", query = "SELECT d FROM Dossierrejete d WHERE d.dosidDossier = :dosidDossier"),
     @NamedQuery(name = "Dossierrejete.findByMotifRejet", query = "SELECT d FROM Dossierrejete d WHERE d.motifRejet = :motifRejet")})
 public class Dossierrejete implements Serializable {
 
@@ -40,21 +40,29 @@ public class Dossierrejete implements Serializable {
     @Basic(optional = false)
     @Column(name = "idDossierRejete")
     private Integer idDossierRejete;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "idDossier")
+    private int idDossier;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "Dos_idDossier")
+    private int dosidDossier;
     @Size(max = 254)
     @Column(name = "motifRejet")
     private String motifRejet;
-    @JoinColumn(name = "Dos_idDossier", referencedColumnName = "idDossier")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Dossierhsupp dosidDossier;
-    @JoinColumn(name = "idDossier", referencedColumnName = "idDossier")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Dossiervacataire idDossier;
 
     public Dossierrejete() {
     }
 
     public Dossierrejete(Integer idDossierRejete) {
         this.idDossierRejete = idDossierRejete;
+    }
+
+    public Dossierrejete(Integer idDossierRejete, int idDossier, int dosidDossier) {
+        this.idDossierRejete = idDossierRejete;
+        this.idDossier = idDossier;
+        this.dosidDossier = dosidDossier;
     }
 
     public Integer getIdDossierRejete() {
@@ -65,28 +73,28 @@ public class Dossierrejete implements Serializable {
         this.idDossierRejete = idDossierRejete;
     }
 
+    public int getIdDossier() {
+        return idDossier;
+    }
+
+    public void setIdDossier(int idDossier) {
+        this.idDossier = idDossier;
+    }
+
+    public int getDosidDossier() {
+        return dosidDossier;
+    }
+
+    public void setDosidDossier(int dosidDossier) {
+        this.dosidDossier = dosidDossier;
+    }
+
     public String getMotifRejet() {
         return motifRejet;
     }
 
     public void setMotifRejet(String motifRejet) {
         this.motifRejet = motifRejet;
-    }
-
-    public Dossierhsupp getDosidDossier() {
-        return dosidDossier;
-    }
-
-    public void setDosidDossier(Dossierhsupp dosidDossier) {
-        this.dosidDossier = dosidDossier;
-    }
-
-    public Dossiervacataire getIdDossier() {
-        return idDossier;
-    }
-
-    public void setIdDossier(Dossiervacataire idDossier) {
-        this.idDossier = idDossier;
     }
 
     @Override

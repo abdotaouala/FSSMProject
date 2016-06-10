@@ -12,7 +12,7 @@ import model.Boncommande;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class BoncommandeFacade extends AbstractFacade<Boncommande> {

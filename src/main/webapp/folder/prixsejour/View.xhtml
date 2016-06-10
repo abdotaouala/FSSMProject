@@ -1,28 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewPrixsejourTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewPrixsejourLabel_idPrixSej}"/>
+                    <h:outputText value="#{prixsejourController.selected.idPrixSej}" title="#{bundle.ViewPrixsejourTitle_idPrixSej}"/>
+                    <h:outputText value="#{bundle.ViewPrixsejourLabel_grade}"/>
+                    <h:outputText value="#{prixsejourController.selected.grade}" title="#{bundle.ViewPrixsejourTitle_grade}"/>
+                    <h:outputText value="#{bundle.ViewPrixsejourLabel_prix}"/>
+                    <h:outputText value="#{prixsejourController.selected.prix}" title="#{bundle.ViewPrixsejourTitle_prix}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{prixsejourController.destroyAndView}" value="#{bundle.ViewPrixsejourDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewPrixsejourEditLink}"/>
+                <br />
+                <h:commandLink action="#{prixsejourController.prepareCreate}" value="#{bundle.ViewPrixsejourCreateLink}" />
+                <br />
+                <h:commandLink action="#{prixsejourController.prepareList}" value="#{bundle.ViewPrixsejourShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewPrixsejourIndexLink}"/>
 
-        <p:dialog id="PrixsejourViewDlg" widgetVar="PrixsejourViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPrixsejourTitle}">
-            <h:form id="PrixsejourViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{prixsejourController.selected != null}">
-                        <h:outputText value="#{bundle.ViewPrixsejourLabel_idPrixSej}"/>
-                        <h:outputText value="#{prixsejourController.selected.idPrixSej}" title="#{bundle.ViewPrixsejourTitle_idPrixSej}"/>
-                        <h:outputText value="#{bundle.ViewPrixsejourLabel_grade}"/>
-                        <h:outputText value="#{prixsejourController.selected.grade}" title="#{bundle.ViewPrixsejourTitle_grade}"/>
-                        <h:outputText value="#{bundle.ViewPrixsejourLabel_prix}"/>
-                        <h:outputText value="#{prixsejourController.selected.prix}" title="#{bundle.ViewPrixsejourTitle_prix}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="PrixsejourViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

@@ -12,7 +12,7 @@ import model.Role;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class RoleFacade extends AbstractFacade<Role> {

@@ -6,25 +6,21 @@
 package model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "pays")
@@ -48,8 +44,6 @@ public class Pays implements Serializable {
     @Size(max = 254)
     @Column(name = "nomPays")
     private String nomPays;
-    @OneToMany(mappedBy = "idPays", fetch = FetchType.EAGER)
-    private List<Deplacement> deplacementList;
 
     public Pays() {
     }
@@ -80,15 +74,6 @@ public class Pays implements Serializable {
 
     public void setNomPays(String nomPays) {
         this.nomPays = nomPays;
-    }
-
-    @XmlTransient
-    public List<Deplacement> getDeplacementList() {
-        return deplacementList;
-    }
-
-    public void setDeplacementList(List<Deplacement> deplacementList) {
-        this.deplacementList = deplacementList;
     }
 
     @Override

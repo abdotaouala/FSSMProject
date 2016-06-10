@@ -1,33 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="FournisseurEditDlg" widgetVar="FournisseurEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditFournisseurTitle}">
-            <h:form id="FournisseurEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{fournisseurController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditFournisseurLabel_idFournisseur}" for="idFournisseur" />
-                        <p:inputText id="idFournisseur" value="#{fournisseurController.selected.idFournisseur}" title="#{bundle.EditFournisseurTitle_idFournisseur}" required="true" requiredMessage="#{bundle.EditFournisseurRequiredMessage_idFournisseur}"/>
-                        <p:outputLabel value="#{bundle.EditFournisseurLabel_nom}" for="nom" />
-                        <p:inputText id="nom" value="#{fournisseurController.selected.nom}" title="#{bundle.EditFournisseurTitle_nom}" />
-                        <p:outputLabel value="#{bundle.EditFournisseurLabel_adresse}" for="adresse" />
-                        <p:inputText id="adresse" value="#{fournisseurController.selected.adresse}" title="#{bundle.EditFournisseurTitle_adresse}" />
-                        <p:outputLabel value="#{bundle.EditFournisseurLabel_tel}" for="tel" />
-                        <p:inputText id="tel" value="#{fournisseurController.selected.tel}" title="#{bundle.EditFournisseurTitle_tel}" />
-                        <p:outputLabel value="#{bundle.EditFournisseurLabel_email}" for="email" />
-                        <p:inputText id="email" value="#{fournisseurController.selected.email}" title="#{bundle.EditFournisseurTitle_email}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{fournisseurController.update}" value="#{bundle.Save}" update="display,:FournisseurListForm:datalist,:growl" oncomplete="handleSubmit(args, 'FournisseurEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="FournisseurEditDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditFournisseurTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditFournisseurLabel_idFournisseur}" for="idFournisseur" />
+                    <h:inputText id="idFournisseur" value="#{fournisseurController.selected.idFournisseur}" title="#{bundle.EditFournisseurTitle_idFournisseur}" required="true" requiredMessage="#{bundle.EditFournisseurRequiredMessage_idFournisseur}"/>
+                    <h:outputLabel value="#{bundle.EditFournisseurLabel_nom}" for="nom" />
+                    <h:inputText id="nom" value="#{fournisseurController.selected.nom}" title="#{bundle.EditFournisseurTitle_nom}" />
+                    <h:outputLabel value="#{bundle.EditFournisseurLabel_adresse}" for="adresse" />
+                    <h:inputText id="adresse" value="#{fournisseurController.selected.adresse}" title="#{bundle.EditFournisseurTitle_adresse}" />
+                    <h:outputLabel value="#{bundle.EditFournisseurLabel_tel}" for="tel" />
+                    <h:inputText id="tel" value="#{fournisseurController.selected.tel}" title="#{bundle.EditFournisseurTitle_tel}" />
+                    <h:outputLabel value="#{bundle.EditFournisseurLabel_email}" for="email" />
+                    <h:inputText id="email" value="#{fournisseurController.selected.email}" title="#{bundle.EditFournisseurTitle_email}" />
+                </h:panelGrid>
+                <h:commandLink action="#{fournisseurController.update}" value="#{bundle.EditFournisseurSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditFournisseurViewLink}"/>
+                <br />
+                <h:commandLink action="#{fournisseurController.prepareList}" value="#{bundle.EditFournisseurShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditFournisseurIndexLink}" />
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

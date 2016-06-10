@@ -10,23 +10,21 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "etatdossier")
@@ -34,6 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Etatdossier.findAll", query = "SELECT e FROM Etatdossier e"),
     @NamedQuery(name = "Etatdossier.findByIdEtat", query = "SELECT e FROM Etatdossier e WHERE e.idEtat = :idEtat"),
+    @NamedQuery(name = "Etatdossier.findByIdDeplacement", query = "SELECT e FROM Etatdossier e WHERE e.idDeplacement = :idDeplacement"),
     @NamedQuery(name = "Etatdossier.findByEtat", query = "SELECT e FROM Etatdossier e WHERE e.etat = :etat"),
     @NamedQuery(name = "Etatdossier.findByMotif", query = "SELECT e FROM Etatdossier e WHERE e.motif = :motif"),
     @NamedQuery(name = "Etatdossier.findByRmq", query = "SELECT e FROM Etatdossier e WHERE e.rmq = :rmq"),
@@ -47,6 +46,10 @@ public class Etatdossier implements Serializable {
     @Basic(optional = false)
     @Column(name = "idEtat")
     private Integer idEtat;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "idDeplacement")
+    private int idDeplacement;
     @Column(name = "etat")
     private Integer etat;
     @Size(max = 254)
@@ -61,9 +64,6 @@ public class Etatdossier implements Serializable {
     @Column(name = "dateEtat")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateEtat;
-    @JoinColumn(name = "idDeplacement", referencedColumnName = "idDeplacement")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Deplacement idDeplacement;
 
     public Etatdossier() {
     }
@@ -72,12 +72,25 @@ public class Etatdossier implements Serializable {
         this.idEtat = idEtat;
     }
 
+    public Etatdossier(Integer idEtat, int idDeplacement) {
+        this.idEtat = idEtat;
+        this.idDeplacement = idDeplacement;
+    }
+
     public Integer getIdEtat() {
         return idEtat;
     }
 
     public void setIdEtat(Integer idEtat) {
         this.idEtat = idEtat;
+    }
+
+    public int getIdDeplacement() {
+        return idDeplacement;
+    }
+
+    public void setIdDeplacement(int idDeplacement) {
+        this.idDeplacement = idDeplacement;
     }
 
     public Integer getEtat() {
@@ -118,14 +131,6 @@ public class Etatdossier implements Serializable {
 
     public void setDateEtat(Date dateEtat) {
         this.dateEtat = dateEtat;
-    }
-
-    public Deplacement getIdDeplacement() {
-        return idDeplacement;
-    }
-
-    public void setIdDeplacement(Deplacement idDeplacement) {
-        this.idDeplacement = idDeplacement;
     }
 
     @Override

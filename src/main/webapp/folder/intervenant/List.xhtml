@@ -1,81 +1,79 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template.xhtml">
-
-
         <ui:define name="title">
             <h:outputText value="#{bundle.ListIntervenantTitle}"></h:outputText>
         </ui:define>
-
         <ui:define name="body">
-            <h:form id="IntervenantListForm">
-                <p:panel header="#{bundle.ListIntervenantTitle}">
-                    <p:dataTable id="datalist" value="#{intervenantController.items}" var="item"
-                                 selectionMode="single" selection="#{intervenantController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.cinPpr}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
-                        <p:column>
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListIntervenantEmpty}" rendered="#{intervenantController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{intervenantController.items.rowCount > 0}">
+                    <h:outputText value="#{intervenantController.pagination.pageFirstItem + 1}..#{intervenantController.pagination.pageLastItem + 1}/#{intervenantController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{intervenantController.previous}" value="#{bundle.Previous} #{intervenantController.pagination.pageSize}" rendered="#{intervenantController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{intervenantController.next}" value="#{bundle.Next} #{intervenantController.pagination.pageSize}" rendered="#{intervenantController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{intervenantController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListIntervenantTitle_cinPpr}"/>
                             </f:facet>
                             <h:outputText value="#{item.cinPpr}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListIntervenantTitle_nomComplet}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nomComplet}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListIntervenantTitle_nomArabe}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.nomArabe}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListIntervenantTitle_telephone}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.telephone}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListIntervenantTitle_mail}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.mail}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListIntervenantTitle_idUser}"/>
                             </f:facet>
                             <h:outputText value="#{item.idUser}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{intervenantController.prepareCreate}" update=":IntervenantCreateForm" oncomplete="PF('IntervenantCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":IntervenantViewForm" oncomplete="PF('IntervenantViewDialog').show()" disabled="#{empty intervenantController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":IntervenantEditForm" oncomplete="PF('IntervenantEditDialog').show()" disabled="#{empty intervenantController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{intervenantController.destroy}" update=":growl,datalist" disabled="#{empty intervenantController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIntervenantTitle_nomComplet}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nomComplet}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIntervenantTitle_nomArabe}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nomArabe}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIntervenantTitle_telephone}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.telephone}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIntervenantTitle_mail}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.mail}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{intervenantController.prepareView}" value="#{bundle.ListIntervenantViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{intervenantController.prepareEdit}" value="#{bundle.ListIntervenantEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{intervenantController.destroy}" value="#{bundle.ListIntervenantDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{intervenantController.prepareCreate}" value="#{bundle.ListIntervenantCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListIntervenantIndexLink}"/>
             </h:form>
-
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

@@ -1,29 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="CompteEditDlg" widgetVar="CompteEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditCompteTitle}">
-            <h:form id="CompteEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{compteController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditCompteLabel_idCompte}" for="idCompte" />
-                        <p:inputText id="idCompte" value="#{compteController.selected.idCompte}" title="#{bundle.EditCompteTitle_idCompte}" required="true" requiredMessage="#{bundle.EditCompteRequiredMessage_idCompte}"/>
-                        <p:outputLabel value="#{bundle.EditCompteLabel_intitule}" for="intitule" />
-                        <p:inputText id="intitule" value="#{compteController.selected.intitule}" title="#{bundle.EditCompteTitle_intitule}" />
-                        <p:outputLabel value="#{bundle.EditCompteLabel_rap}" for="rap" />
-                        <p:inputText id="rap" value="#{compteController.selected.rap}" title="#{bundle.EditCompteTitle_rap}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{compteController.update}" value="#{bundle.Save}" update="display,:CompteListForm:datalist,:growl" oncomplete="handleSubmit(args, 'CompteEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="CompteEditDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditCompteTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditCompteLabel_idCompte}" for="idCompte" />
+                    <h:inputText id="idCompte" value="#{compteController.selected.idCompte}" title="#{bundle.EditCompteTitle_idCompte}" required="true" requiredMessage="#{bundle.EditCompteRequiredMessage_idCompte}"/>
+                    <h:outputLabel value="#{bundle.EditCompteLabel_intitule}" for="intitule" />
+                    <h:inputText id="intitule" value="#{compteController.selected.intitule}" title="#{bundle.EditCompteTitle_intitule}" />
+                    <h:outputLabel value="#{bundle.EditCompteLabel_rap}" for="rap" />
+                    <h:inputText id="rap" value="#{compteController.selected.rap}" title="#{bundle.EditCompteTitle_rap}" />
+                </h:panelGrid>
+                <h:commandLink action="#{compteController.update}" value="#{bundle.EditCompteSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditCompteViewLink}"/>
+                <br />
+                <h:commandLink action="#{compteController.prepareList}" value="#{bundle.EditCompteShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditCompteIndexLink}" />
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

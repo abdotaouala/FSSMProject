@@ -12,7 +12,7 @@ import model.Dossierhsupp;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class DossierhsuppFacade extends AbstractFacade<Dossierhsupp> {

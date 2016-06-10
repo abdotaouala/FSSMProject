@@ -12,7 +12,7 @@ import model.Voiture;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class VoitureFacade extends AbstractFacade<Voiture> {

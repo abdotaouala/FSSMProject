@@ -6,24 +6,20 @@
 package model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "prixsejour")
@@ -45,8 +41,6 @@ public class Prixsejour implements Serializable {
     private Integer grade;
     @Column(name = "prix")
     private Integer prix;
-    @OneToMany(mappedBy = "idPrixSej", fetch = FetchType.EAGER)
-    private List<Indemnetedeplacementetranger> indemnetedeplacementetrangerList;
 
     public Prixsejour() {
     }
@@ -77,15 +71,6 @@ public class Prixsejour implements Serializable {
 
     public void setPrix(Integer prix) {
         this.prix = prix;
-    }
-
-    @XmlTransient
-    public List<Indemnetedeplacementetranger> getIndemnetedeplacementetrangerList() {
-        return indemnetedeplacementetrangerList;
-    }
-
-    public void setIndemnetedeplacementetrangerList(List<Indemnetedeplacementetranger> indemnetedeplacementetrangerList) {
-        this.indemnetedeplacementetrangerList = indemnetedeplacementetrangerList;
     }
 
     @Override

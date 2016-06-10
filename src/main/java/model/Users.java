@@ -6,26 +6,21 @@
 package model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "users")
@@ -70,18 +65,6 @@ public class Users implements Serializable {
     @Size(max = 254)
     @Column(name = "img")
     private String img;
-    @OneToMany(mappedBy = "idUser", fetch = FetchType.EAGER)
-    private List<Departement> departementList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUser", fetch = FetchType.EAGER)
-    private List<UserRole> userRoleList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUser", fetch = FetchType.EAGER)
-    private List<Filiere> filiereList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUser", fetch = FetchType.EAGER)
-    private List<Boncommande> boncommandeList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUser", fetch = FetchType.EAGER)
-    private List<Intervenant> intervenantList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUser", fetch = FetchType.EAGER)
-    private List<Deplacement> deplacementList;
 
     public Users() {
     }
@@ -152,60 +135,6 @@ public class Users implements Serializable {
 
     public void setImg(String img) {
         this.img = img;
-    }
-
-    @XmlTransient
-    public List<Departement> getDepartementList() {
-        return departementList;
-    }
-
-    public void setDepartementList(List<Departement> departementList) {
-        this.departementList = departementList;
-    }
-
-    @XmlTransient
-    public List<UserRole> getUserRoleList() {
-        return userRoleList;
-    }
-
-    public void setUserRoleList(List<UserRole> userRoleList) {
-        this.userRoleList = userRoleList;
-    }
-
-    @XmlTransient
-    public List<Filiere> getFiliereList() {
-        return filiereList;
-    }
-
-    public void setFiliereList(List<Filiere> filiereList) {
-        this.filiereList = filiereList;
-    }
-
-    @XmlTransient
-    public List<Boncommande> getBoncommandeList() {
-        return boncommandeList;
-    }
-
-    public void setBoncommandeList(List<Boncommande> boncommandeList) {
-        this.boncommandeList = boncommandeList;
-    }
-
-    @XmlTransient
-    public List<Intervenant> getIntervenantList() {
-        return intervenantList;
-    }
-
-    public void setIntervenantList(List<Intervenant> intervenantList) {
-        this.intervenantList = intervenantList;
-    }
-
-    @XmlTransient
-    public List<Deplacement> getDeplacementList() {
-        return deplacementList;
-    }
-
-    public void setDeplacementList(List<Deplacement> deplacementList) {
-        this.deplacementList = deplacementList;
     }
 
     @Override

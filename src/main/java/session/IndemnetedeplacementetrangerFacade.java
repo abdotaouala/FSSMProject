@@ -12,7 +12,7 @@ import model.Indemnetedeplacementetranger;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class IndemnetedeplacementetrangerFacade extends AbstractFacade<Indemnetedeplacementetranger> {

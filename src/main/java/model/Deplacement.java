@@ -7,30 +7,24 @@ package model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "deplacement")
@@ -38,6 +32,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Deplacement.findAll", query = "SELECT d FROM Deplacement d"),
     @NamedQuery(name = "Deplacement.findByIdDeplacement", query = "SELECT d FROM Deplacement d WHERE d.idDeplacement = :idDeplacement"),
+    @NamedQuery(name = "Deplacement.findByCinPpr", query = "SELECT d FROM Deplacement d WHERE d.cinPpr = :cinPpr"),
+    @NamedQuery(name = "Deplacement.findByIdUser", query = "SELECT d FROM Deplacement d WHERE d.idUser = :idUser"),
+    @NamedQuery(name = "Deplacement.findByIdPays", query = "SELECT d FROM Deplacement d WHERE d.idPays = :idPays"),
     @NamedQuery(name = "Deplacement.findByNbrJours", query = "SELECT d FROM Deplacement d WHERE d.nbrJours = :nbrJours"),
     @NamedQuery(name = "Deplacement.findByDateDepart", query = "SELECT d FROM Deplacement d WHERE d.dateDepart = :dateDepart"),
     @NamedQuery(name = "Deplacement.findByDateArrive", query = "SELECT d FROM Deplacement d WHERE d.dateArrive = :dateArrive"),
@@ -56,6 +53,17 @@ public class Deplacement implements Serializable {
     @Basic(optional = false)
     @Column(name = "idDeplacement")
     private Integer idDeplacement;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 254)
+    @Column(name = "cinPpr")
+    private String cinPpr;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "idUser")
+    private int idUser;
+    @Column(name = "idPays")
+    private Integer idPays;
     @Column(name = "nbrJours")
     private Integer nbrJours;
     @Column(name = "dateDepart")
@@ -81,25 +89,6 @@ public class Deplacement implements Serializable {
     @Size(max = 254)
     @Column(name = "grade")
     private String grade;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "deplacement", fetch = FetchType.EAGER)
-    private List<Indemntekm> indemntekmList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "deplacement", fetch = FetchType.EAGER)
-    private List<Indemnetedeplacementetranger> indemnetedeplacementetrangerList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDeplacement", fetch = FetchType.EAGER)
-    private List<Piecejustificativedeplacement> piecejustificativedeplacementList;
-    @JoinColumn(name = "idPays", referencedColumnName = "idPays")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Pays idPays;
-    @JoinColumn(name = "cinPpr", referencedColumnName = "cinPpr")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Intervenant cinPpr;
-    @JoinColumn(name = "idUser", referencedColumnName = "idUser")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Users idUser;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDeplacement", fetch = FetchType.EAGER)
-    private List<Etatdossier> etatdossierList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "deplacement", fetch = FetchType.EAGER)
-    private List<Indemnetedeplacementinterne> indemnetedeplacementinterneList;
 
     public Deplacement() {
     }
@@ -108,12 +97,42 @@ public class Deplacement implements Serializable {
         this.idDeplacement = idDeplacement;
     }
 
+    public Deplacement(Integer idDeplacement, String cinPpr, int idUser) {
+        this.idDeplacement = idDeplacement;
+        this.cinPpr = cinPpr;
+        this.idUser = idUser;
+    }
+
     public Integer getIdDeplacement() {
         return idDeplacement;
     }
 
     public void setIdDeplacement(Integer idDeplacement) {
         this.idDeplacement = idDeplacement;
+    }
+
+    public String getCinPpr() {
+        return cinPpr;
+    }
+
+    public void setCinPpr(String cinPpr) {
+        this.cinPpr = cinPpr;
+    }
+
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
+    }
+
+    public Integer getIdPays() {
+        return idPays;
+    }
+
+    public void setIdPays(Integer idPays) {
+        this.idPays = idPays;
     }
 
     public Integer getNbrJours() {
@@ -194,75 +213,6 @@ public class Deplacement implements Serializable {
 
     public void setGrade(String grade) {
         this.grade = grade;
-    }
-
-    @XmlTransient
-    public List<Indemntekm> getIndemntekmList() {
-        return indemntekmList;
-    }
-
-    public void setIndemntekmList(List<Indemntekm> indemntekmList) {
-        this.indemntekmList = indemntekmList;
-    }
-
-    @XmlTransient
-    public List<Indemnetedeplacementetranger> getIndemnetedeplacementetrangerList() {
-        return indemnetedeplacementetrangerList;
-    }
-
-    public void setIndemnetedeplacementetrangerList(List<Indemnetedeplacementetranger> indemnetedeplacementetrangerList) {
-        this.indemnetedeplacementetrangerList = indemnetedeplacementetrangerList;
-    }
-
-    @XmlTransient
-    public List<Piecejustificativedeplacement> getPiecejustificativedeplacementList() {
-        return piecejustificativedeplacementList;
-    }
-
-    public void setPiecejustificativedeplacementList(List<Piecejustificativedeplacement> piecejustificativedeplacementList) {
-        this.piecejustificativedeplacementList = piecejustificativedeplacementList;
-    }
-
-    public Pays getIdPays() {
-        return idPays;
-    }
-
-    public void setIdPays(Pays idPays) {
-        this.idPays = idPays;
-    }
-
-    public Intervenant getCinPpr() {
-        return cinPpr;
-    }
-
-    public void setCinPpr(Intervenant cinPpr) {
-        this.cinPpr = cinPpr;
-    }
-
-    public Users getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(Users idUser) {
-        this.idUser = idUser;
-    }
-
-    @XmlTransient
-    public List<Etatdossier> getEtatdossierList() {
-        return etatdossierList;
-    }
-
-    public void setEtatdossierList(List<Etatdossier> etatdossierList) {
-        this.etatdossierList = etatdossierList;
-    }
-
-    @XmlTransient
-    public List<Indemnetedeplacementinterne> getIndemnetedeplacementinterneList() {
-        return indemnetedeplacementinterneList;
-    }
-
-    public void setIndemnetedeplacementinterneList(List<Indemnetedeplacementinterne> indemnetedeplacementinterneList) {
-        this.indemnetedeplacementinterneList = indemnetedeplacementinterneList;
     }
 
     @Override

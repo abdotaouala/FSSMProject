@@ -1,27 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="SecteurprincipalEditDlg" widgetVar="SecteurprincipalEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditSecteurprincipalTitle}">
-            <h:form id="SecteurprincipalEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{secteurprincipalController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditSecteurprincipalLabel_idSecteurP}" for="idSecteurP" />
-                        <p:inputText id="idSecteurP" value="#{secteurprincipalController.selected.idSecteurP}" title="#{bundle.EditSecteurprincipalTitle_idSecteurP}" required="true" requiredMessage="#{bundle.EditSecteurprincipalRequiredMessage_idSecteurP}"/>
-                        <p:outputLabel value="#{bundle.EditSecteurprincipalLabel_designation}" for="designation" />
-                        <p:inputText id="designation" value="#{secteurprincipalController.selected.designation}" title="#{bundle.EditSecteurprincipalTitle_designation}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{secteurprincipalController.update}" value="#{bundle.Save}" update="display,:SecteurprincipalListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SecteurprincipalEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="SecteurprincipalEditDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditSecteurprincipalTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditSecteurprincipalLabel_idSecteurP}" for="idSecteurP" />
+                    <h:inputText id="idSecteurP" value="#{secteurprincipalController.selected.idSecteurP}" title="#{bundle.EditSecteurprincipalTitle_idSecteurP}" required="true" requiredMessage="#{bundle.EditSecteurprincipalRequiredMessage_idSecteurP}"/>
+                    <h:outputLabel value="#{bundle.EditSecteurprincipalLabel_designation}" for="designation" />
+                    <h:inputText id="designation" value="#{secteurprincipalController.selected.designation}" title="#{bundle.EditSecteurprincipalTitle_designation}" />
+                </h:panelGrid>
+                <h:commandLink action="#{secteurprincipalController.update}" value="#{bundle.EditSecteurprincipalSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditSecteurprincipalViewLink}"/>
+                <br />
+                <h:commandLink action="#{secteurprincipalController.prepareList}" value="#{bundle.EditSecteurprincipalShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditSecteurprincipalIndexLink}" />
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

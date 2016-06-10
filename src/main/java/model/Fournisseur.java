@@ -6,26 +6,21 @@
 package model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "fournisseur")
@@ -58,8 +53,6 @@ public class Fournisseur implements Serializable {
     @Size(max = 254)
     @Column(name = "email")
     private String email;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idFournisseur", fetch = FetchType.EAGER)
-    private List<Boncommande> boncommandeList;
 
     public Fournisseur() {
     }
@@ -106,15 +99,6 @@ public class Fournisseur implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    @XmlTransient
-    public List<Boncommande> getBoncommandeList() {
-        return boncommandeList;
-    }
-
-    public void setBoncommandeList(List<Boncommande> boncommandeList) {
-        this.boncommandeList = boncommandeList;
     }
 
     @Override

@@ -1,33 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="PrixkilomitriqueEditDlg" widgetVar="PrixkilomitriqueEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPrixkilomitriqueTitle}">
-            <h:form id="PrixkilomitriqueEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{prixkilomitriqueController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditPrixkilomitriqueLabel_idPrixKilo}" for="idPrixKilo" />
-                        <p:inputText id="idPrixKilo" value="#{prixkilomitriqueController.selected.idPrixKilo}" title="#{bundle.EditPrixkilomitriqueTitle_idPrixKilo}" required="true" requiredMessage="#{bundle.EditPrixkilomitriqueRequiredMessage_idPrixKilo}"/>
-                        <p:outputLabel value="#{bundle.EditPrixkilomitriqueLabel_kmSup}" for="kmSup" />
-                        <p:inputText id="kmSup" value="#{prixkilomitriqueController.selected.kmSup}" title="#{bundle.EditPrixkilomitriqueTitle_kmSup}" />
-                        <p:outputLabel value="#{bundle.EditPrixkilomitriqueLabel_kmInf}" for="kmInf" />
-                        <p:inputText id="kmInf" value="#{prixkilomitriqueController.selected.kmInf}" title="#{bundle.EditPrixkilomitriqueTitle_kmInf}" />
-                        <p:outputLabel value="#{bundle.EditPrixkilomitriqueLabel_prixRoute}" for="prixRoute" />
-                        <p:inputText id="prixRoute" value="#{prixkilomitriqueController.selected.prixRoute}" title="#{bundle.EditPrixkilomitriqueTitle_prixRoute}" />
-                        <p:outputLabel value="#{bundle.EditPrixkilomitriqueLabel_prixPiste}" for="prixPiste" />
-                        <p:inputText id="prixPiste" value="#{prixkilomitriqueController.selected.prixPiste}" title="#{bundle.EditPrixkilomitriqueTitle_prixPiste}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{prixkilomitriqueController.update}" value="#{bundle.Save}" update="display,:PrixkilomitriqueListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PrixkilomitriqueEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PrixkilomitriqueEditDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditPrixkilomitriqueTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditPrixkilomitriqueLabel_idPrixKilo}" for="idPrixKilo" />
+                    <h:inputText id="idPrixKilo" value="#{prixkilomitriqueController.selected.idPrixKilo}" title="#{bundle.EditPrixkilomitriqueTitle_idPrixKilo}" required="true" requiredMessage="#{bundle.EditPrixkilomitriqueRequiredMessage_idPrixKilo}"/>
+                    <h:outputLabel value="#{bundle.EditPrixkilomitriqueLabel_kmSup}" for="kmSup" />
+                    <h:inputText id="kmSup" value="#{prixkilomitriqueController.selected.kmSup}" title="#{bundle.EditPrixkilomitriqueTitle_kmSup}" />
+                    <h:outputLabel value="#{bundle.EditPrixkilomitriqueLabel_kmInf}" for="kmInf" />
+                    <h:inputText id="kmInf" value="#{prixkilomitriqueController.selected.kmInf}" title="#{bundle.EditPrixkilomitriqueTitle_kmInf}" />
+                    <h:outputLabel value="#{bundle.EditPrixkilomitriqueLabel_prixRoute}" for="prixRoute" />
+                    <h:inputText id="prixRoute" value="#{prixkilomitriqueController.selected.prixRoute}" title="#{bundle.EditPrixkilomitriqueTitle_prixRoute}" />
+                    <h:outputLabel value="#{bundle.EditPrixkilomitriqueLabel_prixPiste}" for="prixPiste" />
+                    <h:inputText id="prixPiste" value="#{prixkilomitriqueController.selected.prixPiste}" title="#{bundle.EditPrixkilomitriqueTitle_prixPiste}" />
+                </h:panelGrid>
+                <h:commandLink action="#{prixkilomitriqueController.update}" value="#{bundle.EditPrixkilomitriqueSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditPrixkilomitriqueViewLink}"/>
+                <br />
+                <h:commandLink action="#{prixkilomitriqueController.prepareList}" value="#{bundle.EditPrixkilomitriqueShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditPrixkilomitriqueIndexLink}" />
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

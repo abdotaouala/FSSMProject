@@ -7,28 +7,23 @@ package model;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "bordereaucomptable")
@@ -36,6 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Bordereaucomptable.findAll", query = "SELECT b FROM Bordereaucomptable b"),
     @NamedQuery(name = "Bordereaucomptable.findByIdBordComp", query = "SELECT b FROM Bordereaucomptable b WHERE b.idBordComp = :idBordComp"),
+    @NamedQuery(name = "Bordereaucomptable.findByAnnee", query = "SELECT b FROM Bordereaucomptable b WHERE b.annee = :annee"),
     @NamedQuery(name = "Bordereaucomptable.findByDateExercice", query = "SELECT b FROM Bordereaucomptable b WHERE b.dateExercice = :dateExercice"),
     @NamedQuery(name = "Bordereaucomptable.findByTotalIr", query = "SELECT b FROM Bordereaucomptable b WHERE b.totalIr = :totalIr"),
     @NamedQuery(name = "Bordereaucomptable.findByTotalNet", query = "SELECT b FROM Bordereaucomptable b WHERE b.totalNet = :totalNet")})
@@ -47,6 +43,10 @@ public class Bordereaucomptable implements Serializable {
     @Basic(optional = false)
     @Column(name = "idBordComp")
     private Integer idBordComp;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "annee")
+    private int annee;
     @Column(name = "dateExercice")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateExercice;
@@ -54,13 +54,6 @@ public class Bordereaucomptable implements Serializable {
     private Integer totalIr;
     @Column(name = "totalNet")
     private Integer totalNet;
-    @OneToMany(mappedBy = "idBordComp", fetch = FetchType.EAGER)
-    private List<Dossiervacataire> dossiervacataireList;
-    @OneToMany(mappedBy = "idBordComp", fetch = FetchType.EAGER)
-    private List<Dossierhsupp> dossierhsuppList;
-    @JoinColumn(name = "annee", referencedColumnName = "annee")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Anneebudgetaire annee;
 
     public Bordereaucomptable() {
     }
@@ -69,12 +62,25 @@ public class Bordereaucomptable implements Serializable {
         this.idBordComp = idBordComp;
     }
 
+    public Bordereaucomptable(Integer idBordComp, int annee) {
+        this.idBordComp = idBordComp;
+        this.annee = annee;
+    }
+
     public Integer getIdBordComp() {
         return idBordComp;
     }
 
     public void setIdBordComp(Integer idBordComp) {
         this.idBordComp = idBordComp;
+    }
+
+    public int getAnnee() {
+        return annee;
+    }
+
+    public void setAnnee(int annee) {
+        this.annee = annee;
     }
 
     public Date getDateExercice() {
@@ -99,32 +105,6 @@ public class Bordereaucomptable implements Serializable {
 
     public void setTotalNet(Integer totalNet) {
         this.totalNet = totalNet;
-    }
-
-    @XmlTransient
-    public List<Dossiervacataire> getDossiervacataireList() {
-        return dossiervacataireList;
-    }
-
-    public void setDossiervacataireList(List<Dossiervacataire> dossiervacataireList) {
-        this.dossiervacataireList = dossiervacataireList;
-    }
-
-    @XmlTransient
-    public List<Dossierhsupp> getDossierhsuppList() {
-        return dossierhsuppList;
-    }
-
-    public void setDossierhsuppList(List<Dossierhsupp> dossierhsuppList) {
-        this.dossierhsuppList = dossierhsuppList;
-    }
-
-    public Anneebudgetaire getAnnee() {
-        return annee;
-    }
-
-    public void setAnnee(Anneebudgetaire annee) {
-        this.annee = annee;
     }
 
     @Override

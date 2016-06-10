@@ -1,29 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="PaysCreateDlg" widgetVar="PaysCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePaysTitle}">
-            <h:form id="PaysCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{paysController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreatePaysLabel_idPays}" for="idPays" />
-                        <p:inputText id="idPays" value="#{paysController.selected.idPays}" title="#{bundle.CreatePaysTitle_idPays}" required="true" requiredMessage="#{bundle.CreatePaysRequiredMessage_idPays}"/>
-                        <p:outputLabel value="#{bundle.CreatePaysLabel_ville}" for="ville" />
-                        <p:inputText id="ville" value="#{paysController.selected.ville}" title="#{bundle.CreatePaysTitle_ville}" />
-                        <p:outputLabel value="#{bundle.CreatePaysLabel_nomPays}" for="nomPays" />
-                        <p:inputText id="nomPays" value="#{paysController.selected.nomPays}" title="#{bundle.CreatePaysTitle_nomPays}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{paysController.create}" value="#{bundle.Save}" update="display,:PaysListForm:datalist,:growl" oncomplete="handleSubmit(args,'PaysCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PaysCreateDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreatePaysTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreatePaysLabel_idPays}" for="idPays" />
+                    <h:inputText id="idPays" value="#{paysController.selected.idPays}" title="#{bundle.CreatePaysTitle_idPays}" required="true" requiredMessage="#{bundle.CreatePaysRequiredMessage_idPays}"/>
+                    <h:outputLabel value="#{bundle.CreatePaysLabel_ville}" for="ville" />
+                    <h:inputText id="ville" value="#{paysController.selected.ville}" title="#{bundle.CreatePaysTitle_ville}" />
+                    <h:outputLabel value="#{bundle.CreatePaysLabel_nomPays}" for="nomPays" />
+                    <h:inputText id="nomPays" value="#{paysController.selected.nomPays}" title="#{bundle.CreatePaysTitle_nomPays}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{paysController.create}" value="#{bundle.CreatePaysSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{paysController.prepareList}" value="#{bundle.CreatePaysShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreatePaysIndexLink}"/>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

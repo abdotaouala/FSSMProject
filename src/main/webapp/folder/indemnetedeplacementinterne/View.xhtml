@@ -1,32 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewIndemnetedeplacementinterneTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewIndemnetedeplacementinterneLabel_indemnetedeplacementinternePK_idDeplacement}"/>
+                    <h:outputText value="#{indemnetedeplacementinterneController.selected.indemnetedeplacementinternePK.idDeplacement}" title="#{bundle.ViewIndemnetedeplacementinterneTitle_indemnetedeplacementinternePK_idDeplacement}"/>
+                    <h:outputText value="#{bundle.ViewIndemnetedeplacementinterneLabel_indemnetedeplacementinternePK_idIndDep}"/>
+                    <h:outputText value="#{indemnetedeplacementinterneController.selected.indemnetedeplacementinternePK.idIndDep}" title="#{bundle.ViewIndemnetedeplacementinterneTitle_indemnetedeplacementinternePK_idIndDep}"/>
+                    <h:outputText value="#{bundle.ViewIndemnetedeplacementinterneLabel_idPrixRepas}"/>
+                    <h:outputText value="#{indemnetedeplacementinterneController.selected.idPrixRepas}" title="#{bundle.ViewIndemnetedeplacementinterneTitle_idPrixRepas}"/>
+                    <h:outputText value="#{bundle.ViewIndemnetedeplacementinterneLabel_idDotation}"/>
+                    <h:outputText value="#{indemnetedeplacementinterneController.selected.idDotation}" title="#{bundle.ViewIndemnetedeplacementinterneTitle_idDotation}"/>
+                    <h:outputText value="#{bundle.ViewIndemnetedeplacementinterneLabel_montantDepInt}"/>
+                    <h:outputText value="#{indemnetedeplacementinterneController.selected.montantDepInt}" title="#{bundle.ViewIndemnetedeplacementinterneTitle_montantDepInt}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{indemnetedeplacementinterneController.destroyAndView}" value="#{bundle.ViewIndemnetedeplacementinterneDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewIndemnetedeplacementinterneEditLink}"/>
+                <br />
+                <h:commandLink action="#{indemnetedeplacementinterneController.prepareCreate}" value="#{bundle.ViewIndemnetedeplacementinterneCreateLink}" />
+                <br />
+                <h:commandLink action="#{indemnetedeplacementinterneController.prepareList}" value="#{bundle.ViewIndemnetedeplacementinterneShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewIndemnetedeplacementinterneIndexLink}"/>
 
-        <p:dialog id="IndemnetedeplacementinterneViewDlg" widgetVar="IndemnetedeplacementinterneViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewIndemnetedeplacementinterneTitle}">
-            <h:form id="IndemnetedeplacementinterneViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{indemnetedeplacementinterneController.selected != null}">
-                        <h:outputText value="#{bundle.ViewIndemnetedeplacementinterneLabel_indemnetedeplacementinternePK_idIndDep}"/>
-                        <h:outputText value="#{indemnetedeplacementinterneController.selected.indemnetedeplacementinternePK.idIndDep}" title="#{bundle.ViewIndemnetedeplacementinterneTitle_indemnetedeplacementinternePK_idIndDep}"/>
-                        <h:outputText value="#{bundle.ViewIndemnetedeplacementinterneLabel_montantDepInt}"/>
-                        <h:outputText value="#{indemnetedeplacementinterneController.selected.montantDepInt}" title="#{bundle.ViewIndemnetedeplacementinterneTitle_montantDepInt}"/>
-                        <h:outputText value="#{bundle.ViewIndemnetedeplacementinterneLabel_idPrixRepas}"/>
-                        <h:outputText value="#{indemnetedeplacementinterneController.selected.idPrixRepas}" title="#{bundle.ViewIndemnetedeplacementinterneTitle_idPrixRepas}"/>
-                        <h:outputText value="#{bundle.ViewIndemnetedeplacementinterneLabel_idDotation}"/>
-                        <h:outputText value="#{indemnetedeplacementinterneController.selected.idDotation}" title="#{bundle.ViewIndemnetedeplacementinterneTitle_idDotation}"/>
-                        <h:outputText value="#{bundle.ViewIndemnetedeplacementinterneLabel_deplacement}"/>
-                        <h:outputText value="#{indemnetedeplacementinterneController.selected.deplacement}" title="#{bundle.ViewIndemnetedeplacementinterneTitle_deplacement}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="IndemnetedeplacementinterneViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

@@ -1,45 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="PiecejustificativevacationEditDlg" widgetVar="PiecejustificativevacationEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPiecejustificativevacationTitle}">
-            <h:form id="PiecejustificativevacationEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{piecejustificativevacationController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditPiecejustificativevacationLabel_idPiece}" for="idPiece" />
-                        <p:inputText id="idPiece" value="#{piecejustificativevacationController.selected.idPiece}" title="#{bundle.EditPiecejustificativevacationTitle_idPiece}" required="true" requiredMessage="#{bundle.EditPiecejustificativevacationRequiredMessage_idPiece}"/>
-                        <p:outputLabel value="#{bundle.EditPiecejustificativevacationLabel_datePiece}" for="datePiece" />
-                        <p:calendar id="datePiece" pattern="MM/dd/yyyy HH:mm:ss" value="#{piecejustificativevacationController.selected.datePiece}" title="#{bundle.EditPiecejustificativevacationTitle_datePiece}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.EditPiecejustificativevacationLabel_intutilePiece}" for="intutilePiece" />
-                        <p:inputText id="intutilePiece" value="#{piecejustificativevacationController.selected.intutilePiece}" title="#{bundle.EditPiecejustificativevacationTitle_intutilePiece}" />
-                        <p:outputLabel value="#{bundle.EditPiecejustificativevacationLabel_piece}" for="piece" />
-                        <p:inputText id="piece" value="#{piecejustificativevacationController.selected.piece}" title="#{bundle.EditPiecejustificativevacationTitle_piece}" />
-                        <p:outputLabel value="#{bundle.EditPiecejustificativevacationLabel_dosidDossier}" for="dosidDossier" />
-                        <p:selectOneMenu id="dosidDossier" value="#{piecejustificativevacationController.selected.dosidDossier}" required="true" requiredMessage="#{bundle.EditPiecejustificativevacationRequiredMessage_dosidDossier}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{dossierhsuppController.itemsAvailableSelectOne}"
-                                           var="dosidDossierItem"
-                                           itemValue="#{dosidDossierItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.EditPiecejustificativevacationLabel_idDossier}" for="idDossier" />
-                        <p:selectOneMenu id="idDossier" value="#{piecejustificativevacationController.selected.idDossier}" required="true" requiredMessage="#{bundle.EditPiecejustificativevacationRequiredMessage_idDossier}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{dossiervacataireController.itemsAvailableSelectOne}"
-                                           var="idDossierItem"
-                                           itemValue="#{idDossierItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{piecejustificativevacationController.update}" value="#{bundle.Save}" update="display,:PiecejustificativevacationListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PiecejustificativevacationEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="PiecejustificativevacationEditDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditPiecejustificativevacationTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditPiecejustificativevacationLabel_idPiece}" for="idPiece" />
+                    <h:inputText id="idPiece" value="#{piecejustificativevacationController.selected.idPiece}" title="#{bundle.EditPiecejustificativevacationTitle_idPiece}" required="true" requiredMessage="#{bundle.EditPiecejustificativevacationRequiredMessage_idPiece}"/>
+                    <h:outputLabel value="#{bundle.EditPiecejustificativevacationLabel_idDossier}" for="idDossier" />
+                    <h:inputText id="idDossier" value="#{piecejustificativevacationController.selected.idDossier}" title="#{bundle.EditPiecejustificativevacationTitle_idDossier}" required="true" requiredMessage="#{bundle.EditPiecejustificativevacationRequiredMessage_idDossier}"/>
+                    <h:outputLabel value="#{bundle.EditPiecejustificativevacationLabel_dosidDossier}" for="dosidDossier" />
+                    <h:inputText id="dosidDossier" value="#{piecejustificativevacationController.selected.dosidDossier}" title="#{bundle.EditPiecejustificativevacationTitle_dosidDossier}" required="true" requiredMessage="#{bundle.EditPiecejustificativevacationRequiredMessage_dosidDossier}"/>
+                    <h:outputLabel value="#{bundle.EditPiecejustificativevacationLabel_datePiece}" for="datePiece" />
+                    <h:inputText id="datePiece" value="#{piecejustificativevacationController.selected.datePiece}" title="#{bundle.EditPiecejustificativevacationTitle_datePiece}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditPiecejustificativevacationLabel_intutilePiece}" for="intutilePiece" />
+                    <h:inputText id="intutilePiece" value="#{piecejustificativevacationController.selected.intutilePiece}" title="#{bundle.EditPiecejustificativevacationTitle_intutilePiece}" />
+                    <h:outputLabel value="#{bundle.EditPiecejustificativevacationLabel_piece}" for="piece" />
+                    <h:inputText id="piece" value="#{piecejustificativevacationController.selected.piece}" title="#{bundle.EditPiecejustificativevacationTitle_piece}" />
+                </h:panelGrid>
+                <h:commandLink action="#{piecejustificativevacationController.update}" value="#{bundle.EditPiecejustificativevacationSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditPiecejustificativevacationViewLink}"/>
+                <br />
+                <h:commandLink action="#{piecejustificativevacationController.prepareList}" value="#{bundle.EditPiecejustificativevacationShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditPiecejustificativevacationIndexLink}" />
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

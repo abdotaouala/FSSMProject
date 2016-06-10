@@ -1,63 +1,61 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template.xhtml">
-
-
         <ui:define name="title">
             <h:outputText value="#{bundle.ListArticleTitle}"></h:outputText>
         </ui:define>
-
-        <ui:define name="content">
-            <h:form id="ArticleListForm">
-                <p:panel header="#{bundle.ListArticleTitle}">
-                    <p:dataTable id="datalist" value="#{articleController.items}" var="item"
-                                 selectionMode="single" selection="#{articleController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.idArticle}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
-                        <p:column>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListArticleEmpty}" rendered="#{articleController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{articleController.items.rowCount > 0}">
+                    <h:outputText value="#{articleController.pagination.pageFirstItem + 1}..#{articleController.pagination.pageLastItem + 1}/#{articleController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{articleController.previous}" value="#{bundle.Previous} #{articleController.pagination.pageSize}" rendered="#{articleController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{articleController.next}" value="#{bundle.Next} #{articleController.pagination.pageSize}" rendered="#{articleController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{articleController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListArticleTitle_idArticle}"/>
                             </f:facet>
                             <h:outputText value="#{item.idArticle}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListArticleTitle_description}"/>
                             </f:facet>
                             <h:outputText value="#{item.description}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListArticleTitle_pu}"/>
                             </f:facet>
                             <h:outputText value="#{item.pu}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{articleController.prepareCreate}" update=":ArticleCreateForm" oncomplete="PF('ArticleCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ArticleViewForm" oncomplete="PF('ArticleViewDialog').show()" disabled="#{empty articleController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ArticleEditForm" oncomplete="PF('ArticleEditDialog').show()" disabled="#{empty articleController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{articleController.destroy}" update=":growl,datalist" disabled="#{empty articleController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{articleController.prepareView}" value="#{bundle.ListArticleViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{articleController.prepareEdit}" value="#{bundle.ListArticleEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{articleController.destroy}" value="#{bundle.ListArticleDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{articleController.prepareCreate}" value="#{bundle.ListArticleCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListArticleIndexLink}"/>
             </h:form>
-
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

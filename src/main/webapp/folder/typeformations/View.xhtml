@@ -1,26 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewTypeformationsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewTypeformationsLabel_idType}"/>
+                    <h:outputText value="#{typeformationsController.selected.idType}" title="#{bundle.ViewTypeformationsTitle_idType}"/>
+                    <h:outputText value="#{bundle.ViewTypeformationsLabel_nomType}"/>
+                    <h:outputText value="#{typeformationsController.selected.nomType}" title="#{bundle.ViewTypeformationsTitle_nomType}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{typeformationsController.destroyAndView}" value="#{bundle.ViewTypeformationsDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewTypeformationsEditLink}"/>
+                <br />
+                <h:commandLink action="#{typeformationsController.prepareCreate}" value="#{bundle.ViewTypeformationsCreateLink}" />
+                <br />
+                <h:commandLink action="#{typeformationsController.prepareList}" value="#{bundle.ViewTypeformationsShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewTypeformationsIndexLink}"/>
 
-        <p:dialog id="TypeformationsViewDlg" widgetVar="TypeformationsViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewTypeformationsTitle}">
-            <h:form id="TypeformationsViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{typeformationsController.selected != null}">
-                        <h:outputText value="#{bundle.ViewTypeformationsLabel_idType}"/>
-                        <h:outputText value="#{typeformationsController.selected.idType}" title="#{bundle.ViewTypeformationsTitle_idType}"/>
-                        <h:outputText value="#{bundle.ViewTypeformationsLabel_nomType}"/>
-                        <h:outputText value="#{typeformationsController.selected.nomType}" title="#{bundle.ViewTypeformationsTitle_nomType}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="TypeformationsViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

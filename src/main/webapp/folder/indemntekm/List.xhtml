@@ -1,87 +1,85 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template.xhtml">
-
-
         <ui:define name="title">
             <h:outputText value="#{bundle.ListIndemntekmTitle}"></h:outputText>
         </ui:define>
-
         <ui:define name="body">
-            <h:form id="IndemntekmListForm">
-                <p:panel header="#{bundle.ListIndemntekmTitle}">
-                    <p:dataTable id="datalist" value="#{indemntekmController.items}" var="item"
-                                 selectionMode="single" selection="#{indemntekmController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.indemntekmPK}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
-                        <p:column>
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListIndemntekmEmpty}" rendered="#{indemntekmController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{indemntekmController.items.rowCount > 0}">
+                    <h:outputText value="#{indemntekmController.pagination.pageFirstItem + 1}..#{indemntekmController.pagination.pageLastItem + 1}/#{indemntekmController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{indemntekmController.previous}" value="#{bundle.Previous} #{indemntekmController.pagination.pageSize}" rendered="#{indemntekmController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{indemntekmController.next}" value="#{bundle.Next} #{indemntekmController.pagination.pageSize}" rendered="#{indemntekmController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{indemntekmController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIndemntekmTitle_indemntekmPK_idDeplacement}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.indemntekmPK.idDeplacement}"/>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListIndemntekmTitle_indemntekmPK_idIndKm}"/>
                             </f:facet>
                             <h:outputText value="#{item.indemntekmPK.idIndKm}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListIndemntekmTitle_montantDepInt}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.montantDepInt}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListIndemntekmTitle_kmRoute}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.kmRoute}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListIndemntekmTitle_kmPiste}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.kmPiste}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListIndemntekmTitle_mntKm}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.mntKm}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListIndemntekmTitle_idDotation}"/>
                             </f:facet>
                             <h:outputText value="#{item.idDotation}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListIndemntekmTitle_deplacement}"/>
+                                <h:outputText value="#{bundle.ListIndemntekmTitle_montantDepInt}"/>
                             </f:facet>
-                            <h:outputText value="#{item.deplacement}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{indemntekmController.prepareCreate}" update=":IndemntekmCreateForm" oncomplete="PF('IndemntekmCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":IndemntekmViewForm" oncomplete="PF('IndemntekmViewDialog').show()" disabled="#{empty indemntekmController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":IndemntekmEditForm" oncomplete="PF('IndemntekmEditDialog').show()" disabled="#{empty indemntekmController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{indemntekmController.destroy}" update=":growl,datalist" disabled="#{empty indemntekmController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
+                            <h:outputText value="#{item.montantDepInt}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIndemntekmTitle_kmRoute}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.kmRoute}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIndemntekmTitle_kmPiste}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.kmPiste}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIndemntekmTitle_mntKm}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.mntKm}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{indemntekmController.prepareView}" value="#{bundle.ListIndemntekmViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{indemntekmController.prepareEdit}" value="#{bundle.ListIndemntekmEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{indemntekmController.destroy}" value="#{bundle.ListIndemntekmDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{indemntekmController.prepareCreate}" value="#{bundle.ListIndemntekmCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListIndemntekmIndexLink}"/>
             </h:form>
-
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

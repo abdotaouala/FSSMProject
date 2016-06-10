@@ -12,7 +12,7 @@ import model.Graddiplome;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class GraddiplomeFacade extends AbstractFacade<Graddiplome> {

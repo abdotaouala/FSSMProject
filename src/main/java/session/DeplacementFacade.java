@@ -12,7 +12,7 @@ import model.Deplacement;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class DeplacementFacade extends AbstractFacade<Deplacement> {

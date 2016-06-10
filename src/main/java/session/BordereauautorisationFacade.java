@@ -12,7 +12,7 @@ import model.Bordereauautorisation;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class BordereauautorisationFacade extends AbstractFacade<Bordereauautorisation> {

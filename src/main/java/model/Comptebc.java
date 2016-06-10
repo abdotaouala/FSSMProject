@@ -9,21 +9,19 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "comptebc")
@@ -31,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Comptebc.findAll", query = "SELECT c FROM Comptebc c"),
     @NamedQuery(name = "Comptebc.findByIdCptBc", query = "SELECT c FROM Comptebc c WHERE c.idCptBc = :idCptBc"),
+    @NamedQuery(name = "Comptebc.findByCinPpr", query = "SELECT c FROM Comptebc c WHERE c.cinPpr = :cinPpr"),
     @NamedQuery(name = "Comptebc.findByIntitule", query = "SELECT c FROM Comptebc c WHERE c.intitule = :intitule"),
     @NamedQuery(name = "Comptebc.findByBc", query = "SELECT c FROM Comptebc c WHERE c.bc = :bc"),
     @NamedQuery(name = "Comptebc.findByRib", query = "SELECT c FROM Comptebc c WHERE c.rib = :rib")})
@@ -42,6 +41,11 @@ public class Comptebc implements Serializable {
     @Basic(optional = false)
     @Column(name = "idCptBc")
     private Integer idCptBc;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 254)
+    @Column(name = "cinPpr")
+    private String cinPpr;
     @Size(max = 254)
     @Column(name = "intitule")
     private String intitule;
@@ -51,9 +55,6 @@ public class Comptebc implements Serializable {
     @Size(max = 254)
     @Column(name = "rib")
     private String rib;
-    @JoinColumn(name = "cinPpr", referencedColumnName = "cinPpr")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Intervenant cinPpr;
 
     public Comptebc() {
     }
@@ -62,12 +63,25 @@ public class Comptebc implements Serializable {
         this.idCptBc = idCptBc;
     }
 
+    public Comptebc(Integer idCptBc, String cinPpr) {
+        this.idCptBc = idCptBc;
+        this.cinPpr = cinPpr;
+    }
+
     public Integer getIdCptBc() {
         return idCptBc;
     }
 
     public void setIdCptBc(Integer idCptBc) {
         this.idCptBc = idCptBc;
+    }
+
+    public String getCinPpr() {
+        return cinPpr;
+    }
+
+    public void setCinPpr(String cinPpr) {
+        this.cinPpr = cinPpr;
     }
 
     public String getIntitule() {
@@ -92,14 +106,6 @@ public class Comptebc implements Serializable {
 
     public void setRib(String rib) {
         this.rib = rib;
-    }
-
-    public Intervenant getCinPpr() {
-        return cinPpr;
-    }
-
-    public void setCinPpr(Intervenant cinPpr) {
-        this.cinPpr = cinPpr;
     }
 
     @Override

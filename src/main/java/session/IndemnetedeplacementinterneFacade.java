@@ -12,7 +12,7 @@ import model.Indemnetedeplacementinterne;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class IndemnetedeplacementinterneFacade extends AbstractFacade<Indemnetedeplacementinterne> {

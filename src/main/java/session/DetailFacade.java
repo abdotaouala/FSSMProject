@@ -12,7 +12,7 @@ import model.Detail;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class DetailFacade extends AbstractFacade<Detail> {

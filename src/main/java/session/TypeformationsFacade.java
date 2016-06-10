@@ -12,7 +12,7 @@ import model.Typeformations;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class TypeformationsFacade extends AbstractFacade<Typeformations> {

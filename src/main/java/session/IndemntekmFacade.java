@@ -12,7 +12,7 @@ import model.Indemntekm;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class IndemntekmFacade extends AbstractFacade<Indemntekm> {

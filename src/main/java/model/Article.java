@@ -6,26 +6,21 @@
 package model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "article")
@@ -48,8 +43,6 @@ public class Article implements Serializable {
     private String description;
     @Column(name = "pu")
     private Integer pu;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idArticle", fetch = FetchType.EAGER)
-    private List<Lignecommande> lignecommandeList;
 
     public Article() {
     }
@@ -80,15 +73,6 @@ public class Article implements Serializable {
 
     public void setPu(Integer pu) {
         this.pu = pu;
-    }
-
-    @XmlTransient
-    public List<Lignecommande> getLignecommandeList() {
-        return lignecommandeList;
-    }
-
-    public void setLignecommandeList(List<Lignecommande> lignecommandeList) {
-        this.lignecommandeList = lignecommandeList;
     }
 
     @Override

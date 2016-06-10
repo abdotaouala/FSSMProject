@@ -6,24 +6,19 @@
 package model;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.CascadeType;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "indemntekm")
@@ -32,6 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Indemntekm.findAll", query = "SELECT i FROM Indemntekm i"),
     @NamedQuery(name = "Indemntekm.findByIdDeplacement", query = "SELECT i FROM Indemntekm i WHERE i.indemntekmPK.idDeplacement = :idDeplacement"),
     @NamedQuery(name = "Indemntekm.findByIdIndKm", query = "SELECT i FROM Indemntekm i WHERE i.indemntekmPK.idIndKm = :idIndKm"),
+    @NamedQuery(name = "Indemntekm.findByIdDotation", query = "SELECT i FROM Indemntekm i WHERE i.idDotation = :idDotation"),
     @NamedQuery(name = "Indemntekm.findByMontantDepInt", query = "SELECT i FROM Indemntekm i WHERE i.montantDepInt = :montantDepInt"),
     @NamedQuery(name = "Indemntekm.findByKmRoute", query = "SELECT i FROM Indemntekm i WHERE i.kmRoute = :kmRoute"),
     @NamedQuery(name = "Indemntekm.findByKmPiste", query = "SELECT i FROM Indemntekm i WHERE i.kmPiste = :kmPiste"),
@@ -41,6 +37,10 @@ public class Indemntekm implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected IndemntekmPK indemntekmPK;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "idDotation")
+    private int idDotation;
     @Column(name = "montantDepInt")
     private Integer montantDepInt;
     @Column(name = "kmRoute")
@@ -49,20 +49,17 @@ public class Indemntekm implements Serializable {
     private Integer kmPiste;
     @Column(name = "mntKm")
     private Integer mntKm;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "indemntekm", fetch = FetchType.EAGER)
-    private List<Voiture> voitureList;
-    @JoinColumn(name = "idDotation", referencedColumnName = "idDotation")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Dotationsecteur idDotation;
-    @JoinColumn(name = "idDeplacement", referencedColumnName = "idDeplacement", insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Deplacement deplacement;
 
     public Indemntekm() {
     }
 
     public Indemntekm(IndemntekmPK indemntekmPK) {
         this.indemntekmPK = indemntekmPK;
+    }
+
+    public Indemntekm(IndemntekmPK indemntekmPK, int idDotation) {
+        this.indemntekmPK = indemntekmPK;
+        this.idDotation = idDotation;
     }
 
     public Indemntekm(int idDeplacement, int idIndKm) {
@@ -75,6 +72,14 @@ public class Indemntekm implements Serializable {
 
     public void setIndemntekmPK(IndemntekmPK indemntekmPK) {
         this.indemntekmPK = indemntekmPK;
+    }
+
+    public int getIdDotation() {
+        return idDotation;
+    }
+
+    public void setIdDotation(int idDotation) {
+        this.idDotation = idDotation;
     }
 
     public Integer getMontantDepInt() {
@@ -107,31 +112,6 @@ public class Indemntekm implements Serializable {
 
     public void setMntKm(Integer mntKm) {
         this.mntKm = mntKm;
-    }
-
-    @XmlTransient
-    public List<Voiture> getVoitureList() {
-        return voitureList;
-    }
-
-    public void setVoitureList(List<Voiture> voitureList) {
-        this.voitureList = voitureList;
-    }
-
-    public Dotationsecteur getIdDotation() {
-        return idDotation;
-    }
-
-    public void setIdDotation(Dotationsecteur idDotation) {
-        this.idDotation = idDotation;
-    }
-
-    public Deplacement getDeplacement() {
-        return deplacement;
-    }
-
-    public void setDeplacement(Deplacement deplacement) {
-        this.deplacement = deplacement;
     }
 
     @Override

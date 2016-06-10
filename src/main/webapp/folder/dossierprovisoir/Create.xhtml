@@ -1,51 +1,55 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="DossierprovisoirCreateDlg" widgetVar="DossierprovisoirCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDossierprovisoirTitle}">
-            <h:form id="DossierprovisoirCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{dossierprovisoirController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateDossierprovisoirLabel_idDossierProv}" for="idDossierProv" />
-                        <p:inputText id="idDossierProv" value="#{dossierprovisoirController.selected.idDossierProv}" title="#{bundle.CreateDossierprovisoirTitle_idDossierProv}" required="true" requiredMessage="#{bundle.CreateDossierprovisoirRequiredMessage_idDossierProv}"/>
-                        <p:outputLabel value="#{bundle.CreateDossierprovisoirLabel_nomComplet}" for="nomComplet" />
-                        <p:inputText id="nomComplet" value="#{dossierprovisoirController.selected.nomComplet}" title="#{bundle.CreateDossierprovisoirTitle_nomComplet}" />
-                        <p:outputLabel value="#{bundle.CreateDossierprovisoirLabel_dernierDiplome}" for="dernierDiplome" />
-                        <p:inputText id="dernierDiplome" value="#{dossierprovisoirController.selected.dernierDiplome}" title="#{bundle.CreateDossierprovisoirTitle_dernierDiplome}" />
-                        <p:outputLabel value="#{bundle.CreateDossierprovisoirLabel_nbrHeures}" for="nbrHeures" />
-                        <p:inputText id="nbrHeures" value="#{dossierprovisoirController.selected.nbrHeures}" title="#{bundle.CreateDossierprovisoirTitle_nbrHeures}" />
-                        <p:outputLabel value="#{bundle.CreateDossierprovisoirLabel_module}" for="module" />
-                        <p:inputText id="module" value="#{dossierprovisoirController.selected.module}" title="#{bundle.CreateDossierprovisoirTitle_module}" />
-                        <p:outputLabel value="#{bundle.CreateDossierprovisoirLabel_etat}" for="etat" />
-                        <p:selectBooleanCheckbox id="etat" value="#{dossierprovisoirController.selected.etat}" />
-                        <p:outputLabel value="#{bundle.CreateDossierprovisoirLabel_dateDebut}" for="dateDebut" />
-                        <p:calendar id="dateDebut" pattern="MM/dd/yyyy HH:mm:ss" value="#{dossierprovisoirController.selected.dateDebut}" title="#{bundle.EditDossierprovisoirTitle_dateDebut}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateDossierprovisoirLabel_dateFin}" for="dateFin" />
-                        <p:calendar id="dateFin" pattern="MM/dd/yyyy HH:mm:ss" value="#{dossierprovisoirController.selected.dateFin}" title="#{bundle.EditDossierprovisoirTitle_dateFin}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateDossierprovisoirLabel_idGrade}" for="idGrade" />
-                        <p:selectOneMenu id="idGrade" value="#{dossierprovisoirController.selected.idGrade}" >
-                            <f:selectItems value="#{graddiplomeController.itemsAvailableSelectOne}"
-                                           var="idGradeItem"
-                                           itemValue="#{idGradeItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateDossierprovisoirLabel_idRelever}" for="idRelever" />
-                        <p:selectOneMenu id="idRelever" value="#{dossierprovisoirController.selected.idRelever}" >
-                            <f:selectItems value="#{releveController.itemsAvailableSelectOne}"
-                                           var="idReleverItem"
-                                           itemValue="#{idReleverItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{dossierprovisoirController.create}" value="#{bundle.Save}" update="display,:DossierprovisoirListForm:datalist,:growl" oncomplete="handleSubmit(args,'DossierprovisoirCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="DossierprovisoirCreateDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateDossierprovisoirTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateDossierprovisoirLabel_idDossierProv}" for="idDossierProv" />
+                    <h:inputText id="idDossierProv" value="#{dossierprovisoirController.selected.idDossierProv}" title="#{bundle.CreateDossierprovisoirTitle_idDossierProv}" required="true" requiredMessage="#{bundle.CreateDossierprovisoirRequiredMessage_idDossierProv}"/>
+                    <h:outputLabel value="#{bundle.CreateDossierprovisoirLabel_idRelever}" for="idRelever" />
+                    <h:inputText id="idRelever" value="#{dossierprovisoirController.selected.idRelever}" title="#{bundle.CreateDossierprovisoirTitle_idRelever}" />
+                    <h:outputLabel value="#{bundle.CreateDossierprovisoirLabel_idGrade}" for="idGrade" />
+                    <h:inputText id="idGrade" value="#{dossierprovisoirController.selected.idGrade}" title="#{bundle.CreateDossierprovisoirTitle_idGrade}" />
+                    <h:outputLabel value="#{bundle.CreateDossierprovisoirLabel_nomComplet}" for="nomComplet" />
+                    <h:inputText id="nomComplet" value="#{dossierprovisoirController.selected.nomComplet}" title="#{bundle.CreateDossierprovisoirTitle_nomComplet}" />
+                    <h:outputLabel value="#{bundle.CreateDossierprovisoirLabel_dernierDiplome}" for="dernierDiplome" />
+                    <h:inputText id="dernierDiplome" value="#{dossierprovisoirController.selected.dernierDiplome}" title="#{bundle.CreateDossierprovisoirTitle_dernierDiplome}" />
+                    <h:outputLabel value="#{bundle.CreateDossierprovisoirLabel_nbrHeures}" for="nbrHeures" />
+                    <h:inputText id="nbrHeures" value="#{dossierprovisoirController.selected.nbrHeures}" title="#{bundle.CreateDossierprovisoirTitle_nbrHeures}" />
+                    <h:outputLabel value="#{bundle.CreateDossierprovisoirLabel_module}" for="module" />
+                    <h:inputText id="module" value="#{dossierprovisoirController.selected.module}" title="#{bundle.CreateDossierprovisoirTitle_module}" />
+                    <h:outputLabel value="#{bundle.CreateDossierprovisoirLabel_etat}" for="etat" />
+                    <h:inputText id="etat" value="#{dossierprovisoirController.selected.etat}" title="#{bundle.CreateDossierprovisoirTitle_etat}" />
+                    <h:outputLabel value="#{bundle.CreateDossierprovisoirLabel_dateDebut}" for="dateDebut" />
+                    <h:inputText id="dateDebut" value="#{dossierprovisoirController.selected.dateDebut}" title="#{bundle.CreateDossierprovisoirTitle_dateDebut}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateDossierprovisoirLabel_dateFin}" for="dateFin" />
+                    <h:inputText id="dateFin" value="#{dossierprovisoirController.selected.dateFin}" title="#{bundle.CreateDossierprovisoirTitle_dateFin}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{dossierprovisoirController.create}" value="#{bundle.CreateDossierprovisoirSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{dossierprovisoirController.prepareList}" value="#{bundle.CreateDossierprovisoirShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateDossierprovisoirIndexLink}"/>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

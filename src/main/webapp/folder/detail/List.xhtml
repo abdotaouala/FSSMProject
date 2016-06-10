@@ -1,159 +1,157 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template.xhtml">
-
-
         <ui:define name="title">
             <h:outputText value="#{bundle.ListDetailTitle}"></h:outputText>
         </ui:define>
-
         <ui:define name="body">
-            <h:form id="DetailListForm">
-                <p:panel header="#{bundle.ListDetailTitle}">
-                    <p:dataTable id="datalist" value="#{detailController.items}" var="item"
-                                 selectionMode="single" selection="#{detailController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.idDetail}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
-                        <p:column>
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListDetailEmpty}" rendered="#{detailController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{detailController.items.rowCount > 0}">
+                    <h:outputText value="#{detailController.pagination.pageFirstItem + 1}..#{detailController.pagination.pageLastItem + 1}/#{detailController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{detailController.previous}" value="#{bundle.Previous} #{detailController.pagination.pageSize}" rendered="#{detailController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{detailController.next}" value="#{bundle.Next} #{detailController.pagination.pageSize}" rendered="#{detailController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{detailController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetailTitle_idDetail}"/>
                             </f:facet>
                             <h:outputText value="#{item.idDetail}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetailTitle_salaireAnnuelleBrut}"/>
                             </f:facet>
                             <h:outputText value="#{item.salaireAnnuelleBrut}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetailTitle_allocationFamiliale}"/>
                             </f:facet>
                             <h:outputText value="#{item.allocationFamiliale}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetailTitle_brutAdditionner}"/>
                             </f:facet>
                             <h:outputText value="#{item.brutAdditionner}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetailTitle_amo}"/>
                             </f:facet>
                             <h:outputText value="#{item.amo}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetailTitle_retenuCmr}"/>
                             </f:facet>
                             <h:outputText value="#{item.retenuCmr}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetailTitle_mutuelleMutialiste}"/>
                             </f:facet>
                             <h:outputText value="#{item.mutuelleMutialiste}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetailTitle_mutuelleCaisse}"/>
                             </f:facet>
                             <h:outputText value="#{item.mutuelleCaisse}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetailTitle_rachatCmr}"/>
                             </f:facet>
                             <h:outputText value="#{item.rachatCmr}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetailTitle_sommeDeduire}"/>
                             </f:facet>
                             <h:outputText value="#{item.sommeDeduire}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetailTitle_nbrEnfant}"/>
                             </f:facet>
                             <h:outputText value="#{item.nbrEnfant}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetailTitle_conjoint}"/>
                             </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.conjoint}" disabled="true"/>
-                        </p:column>
-                        <p:column>
+                            <h:outputText value="#{item.conjoint}"/>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetailTitle_chargeFamiliale}"/>
                             </f:facet>
                             <h:outputText value="#{item.chargeFamiliale}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetailTitle_irSource}"/>
                             </f:facet>
                             <h:outputText value="#{item.irSource}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetailTitle_irComplement}"/>
                             </f:facet>
                             <h:outputText value="#{item.irComplement}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetailTitle_net}"/>
                             </f:facet>
                             <h:outputText value="#{item.net}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetailTitle_ir}"/>
                             </f:facet>
                             <h:outputText value="#{item.ir}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetailTitle_echelle}"/>
                             </f:facet>
                             <h:outputText value="#{item.echelle}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetailTitle_echelon}"/>
                             </f:facet>
                             <h:outputText value="#{item.echelon}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{detailController.prepareCreate}" update=":DetailCreateForm" oncomplete="PF('DetailCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DetailViewForm" oncomplete="PF('DetailViewDialog').show()" disabled="#{empty detailController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DetailEditForm" oncomplete="PF('DetailEditDialog').show()" disabled="#{empty detailController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{detailController.destroy}" update=":growl,datalist" disabled="#{empty detailController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{detailController.prepareView}" value="#{bundle.ListDetailViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{detailController.prepareEdit}" value="#{bundle.ListDetailEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{detailController.destroy}" value="#{bundle.ListDetailDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{detailController.prepareCreate}" value="#{bundle.ListDetailCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListDetailIndexLink}"/>
             </h:form>
-
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

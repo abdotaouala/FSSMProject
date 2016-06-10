@@ -6,25 +6,21 @@
 package model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "graddiplome")
@@ -47,12 +43,6 @@ public class Graddiplome implements Serializable {
     private String intituleGrade;
     @Column(name = "taux")
     private Integer taux;
-    @OneToMany(mappedBy = "idGrade", fetch = FetchType.EAGER)
-    private List<Dossiervacataire> dossiervacataireList;
-    @OneToMany(mappedBy = "idGrade", fetch = FetchType.EAGER)
-    private List<Dossierhsupp> dossierhsuppList;
-    @OneToMany(mappedBy = "idGrade", fetch = FetchType.EAGER)
-    private List<Dossierprovisoir> dossierprovisoirList;
 
     public Graddiplome() {
     }
@@ -83,33 +73,6 @@ public class Graddiplome implements Serializable {
 
     public void setTaux(Integer taux) {
         this.taux = taux;
-    }
-
-    @XmlTransient
-    public List<Dossiervacataire> getDossiervacataireList() {
-        return dossiervacataireList;
-    }
-
-    public void setDossiervacataireList(List<Dossiervacataire> dossiervacataireList) {
-        this.dossiervacataireList = dossiervacataireList;
-    }
-
-    @XmlTransient
-    public List<Dossierhsupp> getDossierhsuppList() {
-        return dossierhsuppList;
-    }
-
-    public void setDossierhsuppList(List<Dossierhsupp> dossierhsuppList) {
-        this.dossierhsuppList = dossierhsuppList;
-    }
-
-    @XmlTransient
-    public List<Dossierprovisoir> getDossierprovisoirList() {
-        return dossierprovisoirList;
-    }
-
-    public void setDossierprovisoirList(List<Dossierprovisoir> dossierprovisoirList) {
-        this.dossierprovisoirList = dossierprovisoirList;
     }
 
     @Override

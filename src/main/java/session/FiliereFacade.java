@@ -12,7 +12,7 @@ import model.Filiere;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class FiliereFacade extends AbstractFacade<Filiere> {

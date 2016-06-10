@@ -12,7 +12,7 @@ import model.Etatdossier;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class EtatdossierFacade extends AbstractFacade<Etatdossier> {

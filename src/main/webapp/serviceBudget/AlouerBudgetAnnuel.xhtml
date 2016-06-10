@@ -30,7 +30,15 @@
                         <td><p:inputText id="montantRap" value="#{anneebudgetaireController.selected.montantRap}" title="#{bundle.CreateAnneebudgetaireTitle_montantRap}"/></td>
                     </tr>
                     <tr>
-                        <td class="olab"><h:commandButton id="ajax"  action="#{anneebudgetaireController.create()}" value="#{bundle.CreateAnneebudgetaireSaveLink}">
+                        <td class="olab"><h:commandButton id="ajaxcreate"  action="#{anneebudgetaireController.create()}" value="#{bundle.CreateAnneebudgetaireSaveLink}">
+                        <f:actionListener binding="#{ buttonView.buttonAction()}" />
+                        </h:commandButton>
+                        </td>
+                        <td class="olab"><h:commandButton id="ajaxupdate"  action="#{anneebudgetaireController.update}" value="#{bundle.EditAnneebudgetaireSaveLink}">
+                        <f:actionListener binding="#{ buttonView.buttonAction()}" />
+                        </h:commandButton>
+                        </td>
+                        <td class="olab"><h:commandButton id="ajaxdelete"  action="#{anneebudgetaireController.performDestroy}" value="#{bundle.ListAnneebudgetaireDestroyLink}">
                         <f:actionListener binding="#{ buttonView.buttonAction()}" />
                         </h:commandButton>
                         </td>

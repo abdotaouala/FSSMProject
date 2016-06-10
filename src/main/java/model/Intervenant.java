@@ -6,27 +6,20 @@
 package model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "intervenant")
@@ -34,6 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Intervenant.findAll", query = "SELECT i FROM Intervenant i"),
     @NamedQuery(name = "Intervenant.findByCinPpr", query = "SELECT i FROM Intervenant i WHERE i.cinPpr = :cinPpr"),
+    @NamedQuery(name = "Intervenant.findByIdUser", query = "SELECT i FROM Intervenant i WHERE i.idUser = :idUser"),
     @NamedQuery(name = "Intervenant.findByNomComplet", query = "SELECT i FROM Intervenant i WHERE i.nomComplet = :nomComplet"),
     @NamedQuery(name = "Intervenant.findByNomArabe", query = "SELECT i FROM Intervenant i WHERE i.nomArabe = :nomArabe"),
     @NamedQuery(name = "Intervenant.findByTelephone", query = "SELECT i FROM Intervenant i WHERE i.telephone = :telephone"),
@@ -47,6 +41,10 @@ public class Intervenant implements Serializable {
     @Size(min = 1, max = 254)
     @Column(name = "cinPpr")
     private String cinPpr;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "idUser")
+    private int idUser;
     @Size(max = 254)
     @Column(name = "nomComplet")
     private String nomComplet;
@@ -59,17 +57,6 @@ public class Intervenant implements Serializable {
     @Size(max = 254)
     @Column(name = "mail")
     private String mail;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cinPpr", fetch = FetchType.EAGER)
-    private List<Comptebc> comptebcList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cinPpr", fetch = FetchType.EAGER)
-    private List<Dossiervacataire> dossiervacataireList;
-    @JoinColumn(name = "idUser", referencedColumnName = "idUser")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Users idUser;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cinPpr", fetch = FetchType.EAGER)
-    private List<Deplacement> deplacementList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cinPpr", fetch = FetchType.EAGER)
-    private List<Dossierhsupp> dossierhsuppList;
 
     public Intervenant() {
     }
@@ -78,12 +65,25 @@ public class Intervenant implements Serializable {
         this.cinPpr = cinPpr;
     }
 
+    public Intervenant(String cinPpr, int idUser) {
+        this.cinPpr = cinPpr;
+        this.idUser = idUser;
+    }
+
     public String getCinPpr() {
         return cinPpr;
     }
 
     public void setCinPpr(String cinPpr) {
         this.cinPpr = cinPpr;
+    }
+
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 
     public String getNomComplet() {
@@ -116,50 +116,6 @@ public class Intervenant implements Serializable {
 
     public void setMail(String mail) {
         this.mail = mail;
-    }
-
-    @XmlTransient
-    public List<Comptebc> getComptebcList() {
-        return comptebcList;
-    }
-
-    public void setComptebcList(List<Comptebc> comptebcList) {
-        this.comptebcList = comptebcList;
-    }
-
-    @XmlTransient
-    public List<Dossiervacataire> getDossiervacataireList() {
-        return dossiervacataireList;
-    }
-
-    public void setDossiervacataireList(List<Dossiervacataire> dossiervacataireList) {
-        this.dossiervacataireList = dossiervacataireList;
-    }
-
-    public Users getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(Users idUser) {
-        this.idUser = idUser;
-    }
-
-    @XmlTransient
-    public List<Deplacement> getDeplacementList() {
-        return deplacementList;
-    }
-
-    public void setDeplacementList(List<Deplacement> deplacementList) {
-        this.deplacementList = deplacementList;
-    }
-
-    @XmlTransient
-    public List<Dossierhsupp> getDossierhsuppList() {
-        return dossierhsuppList;
-    }
-
-    public void setDossierhsuppList(List<Dossierhsupp> dossierhsuppList) {
-        this.dossierhsuppList = dossierhsuppList;
     }
 
     @Override

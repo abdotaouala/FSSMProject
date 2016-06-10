@@ -1,81 +1,79 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template.xhtml">
-
-
         <ui:define name="title">
             <h:outputText value="#{bundle.ListLignecommandeTitle}"></h:outputText>
         </ui:define>
-
         <ui:define name="body">
-            <h:form id="LignecommandeListForm">
-                <p:panel header="#{bundle.ListLignecommandeTitle}">
-                    <p:dataTable id="datalist" value="#{lignecommandeController.items}" var="item"
-                                 selectionMode="single" selection="#{lignecommandeController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.idLigne}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListLignecommandeTitle_idLigne}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idLigne}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListLignecommandeTitle_quantite}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.quantite}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListLignecommandeTitle_pu}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.pu}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListLignecommandeTitle_montant}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.montant}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListLignecommandeTitle_idArticle}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idArticle}"/>
-                        </p:column>
-                        <p:column>
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListLignecommandeEmpty}" rendered="#{lignecommandeController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{lignecommandeController.items.rowCount > 0}">
+                    <h:outputText value="#{lignecommandeController.pagination.pageFirstItem + 1}..#{lignecommandeController.pagination.pageLastItem + 1}/#{lignecommandeController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{lignecommandeController.previous}" value="#{bundle.Previous} #{lignecommandeController.pagination.pageSize}" rendered="#{lignecommandeController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{lignecommandeController.next}" value="#{bundle.Next} #{lignecommandeController.pagination.pageSize}" rendered="#{lignecommandeController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{lignecommandeController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListLignecommandeTitle_idBC}"/>
                             </f:facet>
                             <h:outputText value="#{item.idBC}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{lignecommandeController.prepareCreate}" update=":LignecommandeCreateForm" oncomplete="PF('LignecommandeCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":LignecommandeViewForm" oncomplete="PF('LignecommandeViewDialog').show()" disabled="#{empty lignecommandeController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":LignecommandeEditForm" oncomplete="PF('LignecommandeEditDialog').show()" disabled="#{empty lignecommandeController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{lignecommandeController.destroy}" update=":growl,datalist" disabled="#{empty lignecommandeController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLignecommandeTitle_idArticle}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idArticle}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLignecommandeTitle_idLigne}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idLigne}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLignecommandeTitle_quantite}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.quantite}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLignecommandeTitle_pu}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.pu}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListLignecommandeTitle_montant}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.montant}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{lignecommandeController.prepareView}" value="#{bundle.ListLignecommandeViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{lignecommandeController.prepareEdit}" value="#{bundle.ListLignecommandeEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{lignecommandeController.destroy}" value="#{bundle.ListLignecommandeDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{lignecommandeController.prepareCreate}" value="#{bundle.ListLignecommandeCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListLignecommandeIndexLink}"/>
             </h:form>
-
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

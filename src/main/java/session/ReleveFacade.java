@@ -12,7 +12,7 @@ import model.Releve;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class ReleveFacade extends AbstractFacade<Releve> {

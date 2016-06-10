@@ -1,79 +1,61 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="DossierhsuppCreateDlg" widgetVar="DossierhsuppCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDossierhsuppTitle}">
-            <h:form id="DossierhsuppCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{dossierhsuppController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateDossierhsuppLabel_idDossier}" for="idDossier" />
-                        <p:inputText id="idDossier" value="#{dossierhsuppController.selected.idDossier}" title="#{bundle.CreateDossierhsuppTitle_idDossier}" required="true" requiredMessage="#{bundle.CreateDossierhsuppRequiredMessage_idDossier}"/>
-                        <p:outputLabel value="#{bundle.CreateDossierhsuppLabel_nbrHeures}" for="nbrHeures" />
-                        <p:inputText id="nbrHeures" value="#{dossierhsuppController.selected.nbrHeures}" title="#{bundle.CreateDossierhsuppTitle_nbrHeures}" />
-                        <p:outputLabel value="#{bundle.CreateDossierhsuppLabel_mois}" for="mois" />
-                        <p:inputText id="mois" value="#{dossierhsuppController.selected.mois}" title="#{bundle.CreateDossierhsuppTitle_mois}" />
-                        <p:outputLabel value="#{bundle.CreateDossierhsuppLabel_semestre}" for="semestre" />
-                        <p:inputText id="semestre" value="#{dossierhsuppController.selected.semestre}" title="#{bundle.CreateDossierhsuppTitle_semestre}" />
-                        <p:outputLabel value="#{bundle.CreateDossierhsuppLabel_dateCreance}" for="dateCreance" />
-                        <p:calendar id="dateCreance" pattern="MM/dd/yyyy HH:mm:ss" value="#{dossierhsuppController.selected.dateCreance}" title="#{bundle.EditDossierhsuppTitle_dateCreance}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateDossierhsuppLabel_montantHsupp}" for="montantHsupp" />
-                        <p:inputText id="montantHsupp" value="#{dossierhsuppController.selected.montantHsupp}" title="#{bundle.CreateDossierhsuppTitle_montantHsupp}" />
-                        <p:outputLabel value="#{bundle.CreateDossierhsuppLabel_statutDossier}" for="statutDossier" />
-                        <p:inputText id="statutDossier" value="#{dossierhsuppController.selected.statutDossier}" title="#{bundle.CreateDossierhsuppTitle_statutDossier}" />
-                        <p:outputLabel value="#{bundle.CreateDossierhsuppLabel_idDotation}" for="idDotation" />
-                        <p:selectOneMenu id="idDotation" value="#{dossierhsuppController.selected.idDotation}" required="true" requiredMessage="#{bundle.EditDossierhsuppRequiredMessage_idDotation}">
-                            <f:selectItems value="#{dotationsecteurController.itemsAvailableSelectOne}"
-                                           var="idDotationItem"
-                                           itemValue="#{idDotationItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateDossierhsuppLabel_idGrade}" for="idGrade" />
-                        <p:selectOneMenu id="idGrade" value="#{dossierhsuppController.selected.idGrade}" >
-                            <f:selectItems value="#{graddiplomeController.itemsAvailableSelectOne}"
-                                           var="idGradeItem"
-                                           itemValue="#{idGradeItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateDossierhsuppLabel_idDetail}" for="idDetail" />
-                        <p:selectOneMenu id="idDetail" value="#{dossierhsuppController.selected.idDetail}" required="true" requiredMessage="#{bundle.EditDossierhsuppRequiredMessage_idDetail}">
-                            <f:selectItems value="#{detailController.itemsAvailableSelectOne}"
-                                           var="idDetailItem"
-                                           itemValue="#{idDetailItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateDossierhsuppLabel_idDossierProv}" for="idDossierProv" />
-                        <p:selectOneMenu id="idDossierProv" value="#{dossierhsuppController.selected.idDossierProv}" required="true" requiredMessage="#{bundle.EditDossierhsuppRequiredMessage_idDossierProv}">
-                            <f:selectItems value="#{dossierprovisoirController.itemsAvailableSelectOne}"
-                                           var="idDossierProvItem"
-                                           itemValue="#{idDossierProvItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateDossierhsuppLabel_idBordAut}" for="idBordAut" />
-                        <p:selectOneMenu id="idBordAut" value="#{dossierhsuppController.selected.idBordAut}" >
-                            <f:selectItems value="#{bordereauautorisationController.itemsAvailableSelectOne}"
-                                           var="idBordAutItem"
-                                           itemValue="#{idBordAutItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateDossierhsuppLabel_idBordComp}" for="idBordComp" />
-                        <p:selectOneMenu id="idBordComp" value="#{dossierhsuppController.selected.idBordComp}" >
-                            <f:selectItems value="#{bordereaucomptableController.itemsAvailableSelectOne}"
-                                           var="idBordCompItem"
-                                           itemValue="#{idBordCompItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateDossierhsuppLabel_cinPpr}" for="cinPpr" />
-                        <p:selectOneMenu id="cinPpr" value="#{dossierhsuppController.selected.cinPpr}" required="true" requiredMessage="#{bundle.EditDossierhsuppRequiredMessage_cinPpr}">
-                            <f:selectItems value="#{intervenantController.itemsAvailableSelectOne}"
-                                           var="cinPprItem"
-                                           itemValue="#{cinPprItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{dossierhsuppController.create}" value="#{bundle.Save}" update="display,:DossierhsuppListForm:datalist,:growl" oncomplete="handleSubmit(args,'DossierhsuppCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="DossierhsuppCreateDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateDossierhsuppTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateDossierhsuppLabel_idDossier}" for="idDossier" />
+                    <h:inputText id="idDossier" value="#{dossierhsuppController.selected.idDossier}" title="#{bundle.CreateDossierhsuppTitle_idDossier}" required="true" requiredMessage="#{bundle.CreateDossierhsuppRequiredMessage_idDossier}"/>
+                    <h:outputLabel value="#{bundle.CreateDossierhsuppLabel_cinPpr}" for="cinPpr" />
+                    <h:inputText id="cinPpr" value="#{dossierhsuppController.selected.cinPpr}" title="#{bundle.CreateDossierhsuppTitle_cinPpr}" required="true" requiredMessage="#{bundle.CreateDossierhsuppRequiredMessage_cinPpr}"/>
+                    <h:outputLabel value="#{bundle.CreateDossierhsuppLabel_idBordAut}" for="idBordAut" />
+                    <h:inputText id="idBordAut" value="#{dossierhsuppController.selected.idBordAut}" title="#{bundle.CreateDossierhsuppTitle_idBordAut}" />
+                    <h:outputLabel value="#{bundle.CreateDossierhsuppLabel_idDossierProv}" for="idDossierProv" />
+                    <h:inputText id="idDossierProv" value="#{dossierhsuppController.selected.idDossierProv}" title="#{bundle.CreateDossierhsuppTitle_idDossierProv}" required="true" requiredMessage="#{bundle.CreateDossierhsuppRequiredMessage_idDossierProv}"/>
+                    <h:outputLabel value="#{bundle.CreateDossierhsuppLabel_idBordComp}" for="idBordComp" />
+                    <h:inputText id="idBordComp" value="#{dossierhsuppController.selected.idBordComp}" title="#{bundle.CreateDossierhsuppTitle_idBordComp}" />
+                    <h:outputLabel value="#{bundle.CreateDossierhsuppLabel_idDotation}" for="idDotation" />
+                    <h:inputText id="idDotation" value="#{dossierhsuppController.selected.idDotation}" title="#{bundle.CreateDossierhsuppTitle_idDotation}" required="true" requiredMessage="#{bundle.CreateDossierhsuppRequiredMessage_idDotation}"/>
+                    <h:outputLabel value="#{bundle.CreateDossierhsuppLabel_idGrade}" for="idGrade" />
+                    <h:inputText id="idGrade" value="#{dossierhsuppController.selected.idGrade}" title="#{bundle.CreateDossierhsuppTitle_idGrade}" />
+                    <h:outputLabel value="#{bundle.CreateDossierhsuppLabel_idDetail}" for="idDetail" />
+                    <h:inputText id="idDetail" value="#{dossierhsuppController.selected.idDetail}" title="#{bundle.CreateDossierhsuppTitle_idDetail}" required="true" requiredMessage="#{bundle.CreateDossierhsuppRequiredMessage_idDetail}"/>
+                    <h:outputLabel value="#{bundle.CreateDossierhsuppLabel_nbrHeures}" for="nbrHeures" />
+                    <h:inputText id="nbrHeures" value="#{dossierhsuppController.selected.nbrHeures}" title="#{bundle.CreateDossierhsuppTitle_nbrHeures}" />
+                    <h:outputLabel value="#{bundle.CreateDossierhsuppLabel_mois}" for="mois" />
+                    <h:inputText id="mois" value="#{dossierhsuppController.selected.mois}" title="#{bundle.CreateDossierhsuppTitle_mois}" />
+                    <h:outputLabel value="#{bundle.CreateDossierhsuppLabel_semestre}" for="semestre" />
+                    <h:inputText id="semestre" value="#{dossierhsuppController.selected.semestre}" title="#{bundle.CreateDossierhsuppTitle_semestre}" />
+                    <h:outputLabel value="#{bundle.CreateDossierhsuppLabel_dateCreance}" for="dateCreance" />
+                    <h:inputText id="dateCreance" value="#{dossierhsuppController.selected.dateCreance}" title="#{bundle.CreateDossierhsuppTitle_dateCreance}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateDossierhsuppLabel_montantHsupp}" for="montantHsupp" />
+                    <h:inputText id="montantHsupp" value="#{dossierhsuppController.selected.montantHsupp}" title="#{bundle.CreateDossierhsuppTitle_montantHsupp}" />
+                    <h:outputLabel value="#{bundle.CreateDossierhsuppLabel_statutDossier}" for="statutDossier" />
+                    <h:inputText id="statutDossier" value="#{dossierhsuppController.selected.statutDossier}" title="#{bundle.CreateDossierhsuppTitle_statutDossier}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{dossierhsuppController.create}" value="#{bundle.CreateDossierhsuppSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{dossierhsuppController.prepareList}" value="#{bundle.CreateDossierhsuppShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateDossierhsuppIndexLink}"/>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

@@ -12,7 +12,7 @@ import model.Secteurprincipal;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class SecteurprincipalFacade extends AbstractFacade<Secteurprincipal> {

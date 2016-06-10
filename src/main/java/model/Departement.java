@@ -6,28 +6,21 @@
 package model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "departement")
@@ -35,6 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Departement.findAll", query = "SELECT d FROM Departement d"),
     @NamedQuery(name = "Departement.findByIdDep", query = "SELECT d FROM Departement d WHERE d.idDep = :idDep"),
+    @NamedQuery(name = "Departement.findByIdUser", query = "SELECT d FROM Departement d WHERE d.idUser = :idUser"),
     @NamedQuery(name = "Departement.findByNomDep", query = "SELECT d FROM Departement d WHERE d.nomDep = :nomDep")})
 public class Departement implements Serializable {
 
@@ -44,14 +38,11 @@ public class Departement implements Serializable {
     @Basic(optional = false)
     @Column(name = "idDep")
     private Integer idDep;
+    @Column(name = "idUser")
+    private Integer idUser;
     @Size(max = 254)
     @Column(name = "nomDep")
     private String nomDep;
-    @JoinColumn(name = "idUser", referencedColumnName = "idUser")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Users idUser;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idDep", fetch = FetchType.EAGER)
-    private List<Filiere> filiereList;
 
     public Departement() {
     }
@@ -68,29 +59,20 @@ public class Departement implements Serializable {
         this.idDep = idDep;
     }
 
+    public Integer getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
+    }
+
     public String getNomDep() {
         return nomDep;
     }
 
     public void setNomDep(String nomDep) {
         this.nomDep = nomDep;
-    }
-
-    public Users getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(Users idUser) {
-        this.idUser = idUser;
-    }
-
-    @XmlTransient
-    public List<Filiere> getFiliereList() {
-        return filiereList;
-    }
-
-    public void setFiliereList(List<Filiere> filiereList) {
-        this.filiereList = filiereList;
     }
 
     @Override

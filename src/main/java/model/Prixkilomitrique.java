@@ -6,25 +6,20 @@
 package model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "prixkilomitrique")
@@ -52,8 +47,6 @@ public class Prixkilomitrique implements Serializable {
     private Integer prixRoute;
     @Column(name = "prixPiste")
     private Integer prixPiste;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPrixKilo", fetch = FetchType.EAGER)
-    private List<Voiture> voitureList;
 
     public Prixkilomitrique() {
     }
@@ -100,15 +93,6 @@ public class Prixkilomitrique implements Serializable {
 
     public void setPrixPiste(Integer prixPiste) {
         this.prixPiste = prixPiste;
-    }
-
-    @XmlTransient
-    public List<Voiture> getVoitureList() {
-        return voitureList;
-    }
-
-    public void setVoitureList(List<Voiture> voitureList) {
-        this.voitureList = voitureList;
     }
 
     @Override

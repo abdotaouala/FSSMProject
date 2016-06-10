@@ -9,9 +9,6 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -19,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "budget")
@@ -39,12 +36,6 @@ public class Budget implements Serializable {
     private Integer budgetAnnuel;
     @Column(name = "reliquat")
     private Integer reliquat;
-    @JoinColumn(name = "annee", referencedColumnName = "annee", insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Anneebudgetaire anneebudgetaire;
-    @JoinColumn(name = "idCompte", referencedColumnName = "idCompte", insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Compte compte;
 
     public Budget() {
     }
@@ -79,22 +70,6 @@ public class Budget implements Serializable {
 
     public void setReliquat(Integer reliquat) {
         this.reliquat = reliquat;
-    }
-
-    public Anneebudgetaire getAnneebudgetaire() {
-        return anneebudgetaire;
-    }
-
-    public void setAnneebudgetaire(Anneebudgetaire anneebudgetaire) {
-        this.anneebudgetaire = anneebudgetaire;
-    }
-
-    public Compte getCompte() {
-        return compte;
-    }
-
-    public void setCompte(Compte compte) {
-        this.compte = compte;
     }
 
     @Override

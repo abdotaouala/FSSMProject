@@ -10,23 +10,21 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "piecejustificativedeplacement")
@@ -34,6 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Piecejustificativedeplacement.findAll", query = "SELECT p FROM Piecejustificativedeplacement p"),
     @NamedQuery(name = "Piecejustificativedeplacement.findByIdPiece", query = "SELECT p FROM Piecejustificativedeplacement p WHERE p.idPiece = :idPiece"),
+    @NamedQuery(name = "Piecejustificativedeplacement.findByIdDeplacement", query = "SELECT p FROM Piecejustificativedeplacement p WHERE p.idDeplacement = :idDeplacement"),
     @NamedQuery(name = "Piecejustificativedeplacement.findByDatePiece", query = "SELECT p FROM Piecejustificativedeplacement p WHERE p.datePiece = :datePiece"),
     @NamedQuery(name = "Piecejustificativedeplacement.findByIntutilePiece", query = "SELECT p FROM Piecejustificativedeplacement p WHERE p.intutilePiece = :intutilePiece"),
     @NamedQuery(name = "Piecejustificativedeplacement.findByPiece", query = "SELECT p FROM Piecejustificativedeplacement p WHERE p.piece = :piece")})
@@ -45,6 +44,10 @@ public class Piecejustificativedeplacement implements Serializable {
     @Basic(optional = false)
     @Column(name = "idPiece")
     private Integer idPiece;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "idDeplacement")
+    private int idDeplacement;
     @Column(name = "datePiece")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datePiece;
@@ -54,9 +57,6 @@ public class Piecejustificativedeplacement implements Serializable {
     @Size(max = 254)
     @Column(name = "piece")
     private String piece;
-    @JoinColumn(name = "idDeplacement", referencedColumnName = "idDeplacement")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Deplacement idDeplacement;
 
     public Piecejustificativedeplacement() {
     }
@@ -65,12 +65,25 @@ public class Piecejustificativedeplacement implements Serializable {
         this.idPiece = idPiece;
     }
 
+    public Piecejustificativedeplacement(Integer idPiece, int idDeplacement) {
+        this.idPiece = idPiece;
+        this.idDeplacement = idDeplacement;
+    }
+
     public Integer getIdPiece() {
         return idPiece;
     }
 
     public void setIdPiece(Integer idPiece) {
         this.idPiece = idPiece;
+    }
+
+    public int getIdDeplacement() {
+        return idDeplacement;
+    }
+
+    public void setIdDeplacement(int idDeplacement) {
+        this.idDeplacement = idDeplacement;
     }
 
     public Date getDatePiece() {
@@ -95,14 +108,6 @@ public class Piecejustificativedeplacement implements Serializable {
 
     public void setPiece(String piece) {
         this.piece = piece;
-    }
-
-    public Deplacement getIdDeplacement() {
-        return idDeplacement;
-    }
-
-    public void setIdDeplacement(Deplacement idDeplacement) {
-        this.idDeplacement = idDeplacement;
     }
 
     @Override

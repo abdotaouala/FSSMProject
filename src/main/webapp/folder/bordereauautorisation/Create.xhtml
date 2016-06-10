@@ -1,27 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="BordereauautorisationCreateDlg" widgetVar="BordereauautorisationCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateBordereauautorisationTitle}">
-            <h:form id="BordereauautorisationCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{bordereauautorisationController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateBordereauautorisationLabel_idBordAut}" for="idBordAut" />
-                        <p:inputText id="idBordAut" value="#{bordereauautorisationController.selected.idBordAut}" title="#{bundle.CreateBordereauautorisationTitle_idBordAut}" required="true" requiredMessage="#{bundle.CreateBordereauautorisationRequiredMessage_idBordAut}"/>
-                        <p:outputLabel value="#{bundle.CreateBordereauautorisationLabel_anneeUniversitaire}" for="anneeUniversitaire" />
-                        <p:inputText id="anneeUniversitaire" value="#{bordereauautorisationController.selected.anneeUniversitaire}" title="#{bundle.CreateBordereauautorisationTitle_anneeUniversitaire}" />
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{bordereauautorisationController.create}" value="#{bundle.Save}" update="display,:BordereauautorisationListForm:datalist,:growl" oncomplete="handleSubmit(args,'BordereauautorisationCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="BordereauautorisationCreateDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateBordereauautorisationTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateBordereauautorisationLabel_idBordAut}" for="idBordAut" />
+                    <h:inputText id="idBordAut" value="#{bordereauautorisationController.selected.idBordAut}" title="#{bundle.CreateBordereauautorisationTitle_idBordAut}" required="true" requiredMessage="#{bundle.CreateBordereauautorisationRequiredMessage_idBordAut}"/>
+                    <h:outputLabel value="#{bundle.CreateBordereauautorisationLabel_anneeUniversitaire}" for="anneeUniversitaire" />
+                    <h:inputText id="anneeUniversitaire" value="#{bordereauautorisationController.selected.anneeUniversitaire}" title="#{bundle.CreateBordereauautorisationTitle_anneeUniversitaire}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{bordereauautorisationController.create}" value="#{bundle.CreateBordereauautorisationSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{bordereauautorisationController.prepareList}" value="#{bundle.CreateBordereauautorisationShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateBordereauautorisationIndexLink}"/>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

@@ -6,20 +6,19 @@
 package model;
 
 import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "indemnetedeplacementinterne")
@@ -28,29 +27,33 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Indemnetedeplacementinterne.findAll", query = "SELECT i FROM Indemnetedeplacementinterne i"),
     @NamedQuery(name = "Indemnetedeplacementinterne.findByIdDeplacement", query = "SELECT i FROM Indemnetedeplacementinterne i WHERE i.indemnetedeplacementinternePK.idDeplacement = :idDeplacement"),
     @NamedQuery(name = "Indemnetedeplacementinterne.findByIdIndDep", query = "SELECT i FROM Indemnetedeplacementinterne i WHERE i.indemnetedeplacementinternePK.idIndDep = :idIndDep"),
+    @NamedQuery(name = "Indemnetedeplacementinterne.findByIdPrixRepas", query = "SELECT i FROM Indemnetedeplacementinterne i WHERE i.idPrixRepas = :idPrixRepas"),
+    @NamedQuery(name = "Indemnetedeplacementinterne.findByIdDotation", query = "SELECT i FROM Indemnetedeplacementinterne i WHERE i.idDotation = :idDotation"),
     @NamedQuery(name = "Indemnetedeplacementinterne.findByMontantDepInt", query = "SELECT i FROM Indemnetedeplacementinterne i WHERE i.montantDepInt = :montantDepInt")})
 public class Indemnetedeplacementinterne implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected IndemnetedeplacementinternePK indemnetedeplacementinternePK;
+    @Column(name = "idPrixRepas")
+    private Integer idPrixRepas;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "idDotation")
+    private int idDotation;
     @Column(name = "montantDepInt")
     private Integer montantDepInt;
-    @JoinColumn(name = "idPrixRepas", referencedColumnName = "idPrixRepas")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Prixrepas idPrixRepas;
-    @JoinColumn(name = "idDotation", referencedColumnName = "idDotation")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Dotationsecteur idDotation;
-    @JoinColumn(name = "idDeplacement", referencedColumnName = "idDeplacement", insertable = false, updatable = false)
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Deplacement deplacement;
 
     public Indemnetedeplacementinterne() {
     }
 
     public Indemnetedeplacementinterne(IndemnetedeplacementinternePK indemnetedeplacementinternePK) {
         this.indemnetedeplacementinternePK = indemnetedeplacementinternePK;
+    }
+
+    public Indemnetedeplacementinterne(IndemnetedeplacementinternePK indemnetedeplacementinternePK, int idDotation) {
+        this.indemnetedeplacementinternePK = indemnetedeplacementinternePK;
+        this.idDotation = idDotation;
     }
 
     public Indemnetedeplacementinterne(int idDeplacement, int idIndDep) {
@@ -65,36 +68,28 @@ public class Indemnetedeplacementinterne implements Serializable {
         this.indemnetedeplacementinternePK = indemnetedeplacementinternePK;
     }
 
+    public Integer getIdPrixRepas() {
+        return idPrixRepas;
+    }
+
+    public void setIdPrixRepas(Integer idPrixRepas) {
+        this.idPrixRepas = idPrixRepas;
+    }
+
+    public int getIdDotation() {
+        return idDotation;
+    }
+
+    public void setIdDotation(int idDotation) {
+        this.idDotation = idDotation;
+    }
+
     public Integer getMontantDepInt() {
         return montantDepInt;
     }
 
     public void setMontantDepInt(Integer montantDepInt) {
         this.montantDepInt = montantDepInt;
-    }
-
-    public Prixrepas getIdPrixRepas() {
-        return idPrixRepas;
-    }
-
-    public void setIdPrixRepas(Prixrepas idPrixRepas) {
-        this.idPrixRepas = idPrixRepas;
-    }
-
-    public Dotationsecteur getIdDotation() {
-        return idDotation;
-    }
-
-    public void setIdDotation(Dotationsecteur idDotation) {
-        this.idDotation = idDotation;
-    }
-
-    public Deplacement getDeplacement() {
-        return deplacement;
-    }
-
-    public void setDeplacement(Deplacement deplacement) {
-        this.deplacement = deplacement;
     }
 
     @Override

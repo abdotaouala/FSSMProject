@@ -12,7 +12,7 @@ import model.Dossierrejete;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class DossierrejeteFacade extends AbstractFacade<Dossierrejete> {

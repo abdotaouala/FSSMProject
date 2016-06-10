@@ -1,109 +1,107 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:composition template="/template.xhtml">
-
-
         <ui:define name="title">
             <h:outputText value="#{bundle.ListDossierprovisoirTitle}"></h:outputText>
         </ui:define>
-
         <ui:define name="body">
-            <h:form id="DossierprovisoirListForm">
-                <p:panel header="#{bundle.ListDossierprovisoirTitle}">
-                    <p:dataTable id="datalist" value="#{dossierprovisoirController.items}" var="item"
-                                 selectionMode="single" selection="#{dossierprovisoirController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.idDossierProv}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
-
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
-                        <p:column>
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListDossierprovisoirEmpty}" rendered="#{dossierprovisoirController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{dossierprovisoirController.items.rowCount > 0}">
+                    <h:outputText value="#{dossierprovisoirController.pagination.pageFirstItem + 1}..#{dossierprovisoirController.pagination.pageLastItem + 1}/#{dossierprovisoirController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{dossierprovisoirController.previous}" value="#{bundle.Previous} #{dossierprovisoirController.pagination.pageSize}" rendered="#{dossierprovisoirController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{dossierprovisoirController.next}" value="#{bundle.Next} #{dossierprovisoirController.pagination.pageSize}" rendered="#{dossierprovisoirController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{dossierprovisoirController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDossierprovisoirTitle_idDossierProv}"/>
                             </f:facet>
                             <h:outputText value="#{item.idDossierProv}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossierprovisoirTitle_idRelever}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idRelever}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossierprovisoirTitle_idGrade}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idGrade}"/>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDossierprovisoirTitle_nomComplet}"/>
                             </f:facet>
                             <h:outputText value="#{item.nomComplet}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDossierprovisoirTitle_dernierDiplome}"/>
                             </f:facet>
                             <h:outputText value="#{item.dernierDiplome}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDossierprovisoirTitle_nbrHeures}"/>
                             </f:facet>
                             <h:outputText value="#{item.nbrHeures}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDossierprovisoirTitle_module}"/>
                             </f:facet>
                             <h:outputText value="#{item.module}"/>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDossierprovisoirTitle_etat}"/>
                             </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.etat}" disabled="true"/>
-                        </p:column>
-                        <p:column>
+                            <h:outputText value="#{item.etat}"/>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDossierprovisoirTitle_dateDebut}"/>
                             </f:facet>
                             <h:outputText value="#{item.dateDebut}">
                                 <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                             </h:outputText>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDossierprovisoirTitle_dateFin}"/>
                             </f:facet>
                             <h:outputText value="#{item.dateFin}">
                                 <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                             </h:outputText>
-                        </p:column>
-                        <p:column>
+                        </h:column>
+                        <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDossierprovisoirTitle_idGrade}"/>
+                                <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <h:outputText value="#{item.idGrade}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDossierprovisoirTitle_idRelever}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.idRelever}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{dossierprovisoirController.prepareCreate}" update=":DossierprovisoirCreateForm" oncomplete="PF('DossierprovisoirCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DossierprovisoirViewForm" oncomplete="PF('DossierprovisoirViewDialog').show()" disabled="#{empty dossierprovisoirController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DossierprovisoirEditForm" oncomplete="PF('DossierprovisoirEditDialog').show()" disabled="#{empty dossierprovisoirController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{dossierprovisoirController.destroy}" update=":growl,datalist" disabled="#{empty dossierprovisoirController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
+                            <h:commandLink action="#{dossierprovisoirController.prepareView}" value="#{bundle.ListDossierprovisoirViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{dossierprovisoirController.prepareEdit}" value="#{bundle.ListDossierprovisoirEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{dossierprovisoirController.destroy}" value="#{bundle.ListDossierprovisoirDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{dossierprovisoirController.prepareCreate}" value="#{bundle.ListDossierprovisoirCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListDossierprovisoirIndexLink}"/>
             </h:form>
-
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>
 

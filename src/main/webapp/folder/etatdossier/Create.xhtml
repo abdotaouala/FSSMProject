@@ -1,41 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="EtatdossierCreateDlg" widgetVar="EtatdossierCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateEtatdossierTitle}">
-            <h:form id="EtatdossierCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{etatdossierController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateEtatdossierLabel_idEtat}" for="idEtat" />
-                        <p:inputText id="idEtat" value="#{etatdossierController.selected.idEtat}" title="#{bundle.CreateEtatdossierTitle_idEtat}" required="true" requiredMessage="#{bundle.CreateEtatdossierRequiredMessage_idEtat}"/>
-                        <p:outputLabel value="#{bundle.CreateEtatdossierLabel_etat}" for="etat" />
-                        <p:inputText id="etat" value="#{etatdossierController.selected.etat}" title="#{bundle.CreateEtatdossierTitle_etat}" />
-                        <p:outputLabel value="#{bundle.CreateEtatdossierLabel_motif}" for="motif" />
-                        <p:inputText id="motif" value="#{etatdossierController.selected.motif}" title="#{bundle.CreateEtatdossierTitle_motif}" />
-                        <p:outputLabel value="#{bundle.CreateEtatdossierLabel_rmq}" for="rmq" />
-                        <p:inputText id="rmq" value="#{etatdossierController.selected.rmq}" title="#{bundle.CreateEtatdossierTitle_rmq}" />
-                        <p:outputLabel value="#{bundle.CreateEtatdossierLabel_observation}" for="observation" />
-                        <p:inputText id="observation" value="#{etatdossierController.selected.observation}" title="#{bundle.CreateEtatdossierTitle_observation}" />
-                        <p:outputLabel value="#{bundle.CreateEtatdossierLabel_dateEtat}" for="dateEtat" />
-                        <p:calendar id="dateEtat" pattern="MM/dd/yyyy HH:mm:ss" value="#{etatdossierController.selected.dateEtat}" title="#{bundle.EditEtatdossierTitle_dateEtat}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateEtatdossierLabel_idDeplacement}" for="idDeplacement" />
-                        <p:selectOneMenu id="idDeplacement" value="#{etatdossierController.selected.idDeplacement}" required="true" requiredMessage="#{bundle.EditEtatdossierRequiredMessage_idDeplacement}">
-                            <f:selectItems value="#{deplacementController.itemsAvailableSelectOne}"
-                                           var="idDeplacementItem"
-                                           itemValue="#{idDeplacementItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{etatdossierController.create}" value="#{bundle.Save}" update="display,:EtatdossierListForm:datalist,:growl" oncomplete="handleSubmit(args,'EtatdossierCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="EtatdossierCreateDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateEtatdossierTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateEtatdossierLabel_idEtat}" for="idEtat" />
+                    <h:inputText id="idEtat" value="#{etatdossierController.selected.idEtat}" title="#{bundle.CreateEtatdossierTitle_idEtat}" required="true" requiredMessage="#{bundle.CreateEtatdossierRequiredMessage_idEtat}"/>
+                    <h:outputLabel value="#{bundle.CreateEtatdossierLabel_idDeplacement}" for="idDeplacement" />
+                    <h:inputText id="idDeplacement" value="#{etatdossierController.selected.idDeplacement}" title="#{bundle.CreateEtatdossierTitle_idDeplacement}" required="true" requiredMessage="#{bundle.CreateEtatdossierRequiredMessage_idDeplacement}"/>
+                    <h:outputLabel value="#{bundle.CreateEtatdossierLabel_etat}" for="etat" />
+                    <h:inputText id="etat" value="#{etatdossierController.selected.etat}" title="#{bundle.CreateEtatdossierTitle_etat}" />
+                    <h:outputLabel value="#{bundle.CreateEtatdossierLabel_motif}" for="motif" />
+                    <h:inputText id="motif" value="#{etatdossierController.selected.motif}" title="#{bundle.CreateEtatdossierTitle_motif}" />
+                    <h:outputLabel value="#{bundle.CreateEtatdossierLabel_rmq}" for="rmq" />
+                    <h:inputText id="rmq" value="#{etatdossierController.selected.rmq}" title="#{bundle.CreateEtatdossierTitle_rmq}" />
+                    <h:outputLabel value="#{bundle.CreateEtatdossierLabel_observation}" for="observation" />
+                    <h:inputText id="observation" value="#{etatdossierController.selected.observation}" title="#{bundle.CreateEtatdossierTitle_observation}" />
+                    <h:outputLabel value="#{bundle.CreateEtatdossierLabel_dateEtat}" for="dateEtat" />
+                    <h:inputText id="dateEtat" value="#{etatdossierController.selected.dateEtat}" title="#{bundle.CreateEtatdossierTitle_dateEtat}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{etatdossierController.create}" value="#{bundle.CreateEtatdossierSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{etatdossierController.prepareList}" value="#{bundle.CreateEtatdossierShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateEtatdossierIndexLink}"/>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

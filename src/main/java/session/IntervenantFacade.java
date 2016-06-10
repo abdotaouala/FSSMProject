@@ -12,7 +12,7 @@ import model.Intervenant;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class IntervenantFacade extends AbstractFacade<Intervenant> {

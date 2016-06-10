@@ -6,26 +6,21 @@
 package model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "compte")
@@ -48,10 +43,6 @@ public class Compte implements Serializable {
     private String intitule;
     @Column(name = "rap")
     private Integer rap;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "compte", fetch = FetchType.EAGER)
-    private List<Budget> budgetList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCompte", fetch = FetchType.EAGER)
-    private List<Dotationsecteur> dotationsecteurList;
 
     public Compte() {
     }
@@ -82,24 +73,6 @@ public class Compte implements Serializable {
 
     public void setRap(Integer rap) {
         this.rap = rap;
-    }
-
-    @XmlTransient
-    public List<Budget> getBudgetList() {
-        return budgetList;
-    }
-
-    public void setBudgetList(List<Budget> budgetList) {
-        this.budgetList = budgetList;
-    }
-
-    @XmlTransient
-    public List<Dotationsecteur> getDotationsecteurList() {
-        return dotationsecteurList;
-    }
-
-    public void setDotationsecteurList(List<Dotationsecteur> dotationsecteurList) {
-        this.dotationsecteurList = dotationsecteurList;
     }
 
     @Override

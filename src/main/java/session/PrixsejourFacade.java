@@ -12,7 +12,7 @@ import model.Prixsejour;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class PrixsejourFacade extends AbstractFacade<Prixsejour> {

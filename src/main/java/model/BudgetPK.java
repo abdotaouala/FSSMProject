@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Embeddable
 public class BudgetPK implements Serializable {

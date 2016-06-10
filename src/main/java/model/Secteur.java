@@ -6,28 +6,21 @@
 package model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "secteur")
@@ -35,6 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Secteur.findAll", query = "SELECT s FROM Secteur s"),
     @NamedQuery(name = "Secteur.findByIdSecteur", query = "SELECT s FROM Secteur s WHERE s.idSecteur = :idSecteur"),
+    @NamedQuery(name = "Secteur.findByIdSecteurP", query = "SELECT s FROM Secteur s WHERE s.idSecteurP = :idSecteurP"),
     @NamedQuery(name = "Secteur.findByIntituleSecteur", query = "SELECT s FROM Secteur s WHERE s.intituleSecteur = :intituleSecteur")})
 public class Secteur implements Serializable {
 
@@ -44,14 +38,11 @@ public class Secteur implements Serializable {
     @Basic(optional = false)
     @Column(name = "idSecteur")
     private Integer idSecteur;
+    @Column(name = "idSecteurP")
+    private Integer idSecteurP;
     @Size(max = 254)
     @Column(name = "intituleSecteur")
     private String intituleSecteur;
-    @JoinColumn(name = "idSecteurP", referencedColumnName = "idSecteurP")
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Secteurprincipal idSecteurP;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSecteur", fetch = FetchType.EAGER)
-    private List<Dotationsecteur> dotationsecteurList;
 
     public Secteur() {
     }
@@ -68,29 +59,20 @@ public class Secteur implements Serializable {
         this.idSecteur = idSecteur;
     }
 
+    public Integer getIdSecteurP() {
+        return idSecteurP;
+    }
+
+    public void setIdSecteurP(Integer idSecteurP) {
+        this.idSecteurP = idSecteurP;
+    }
+
     public String getIntituleSecteur() {
         return intituleSecteur;
     }
 
     public void setIntituleSecteur(String intituleSecteur) {
         this.intituleSecteur = intituleSecteur;
-    }
-
-    public Secteurprincipal getIdSecteurP() {
-        return idSecteurP;
-    }
-
-    public void setIdSecteurP(Secteurprincipal idSecteurP) {
-        this.idSecteurP = idSecteurP;
-    }
-
-    @XmlTransient
-    public List<Dotationsecteur> getDotationsecteurList() {
-        return dotationsecteurList;
-    }
-
-    public void setDotationsecteurList(List<Dotationsecteur> dotationsecteurList) {
-        this.dotationsecteurList = dotationsecteurList;
     }
 
     @Override

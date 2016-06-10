@@ -1,30 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewDossierrejeteTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewDossierrejeteLabel_idDossierRejete}"/>
+                    <h:outputText value="#{dossierrejeteController.selected.idDossierRejete}" title="#{bundle.ViewDossierrejeteTitle_idDossierRejete}"/>
+                    <h:outputText value="#{bundle.ViewDossierrejeteLabel_idDossier}"/>
+                    <h:outputText value="#{dossierrejeteController.selected.idDossier}" title="#{bundle.ViewDossierrejeteTitle_idDossier}"/>
+                    <h:outputText value="#{bundle.ViewDossierrejeteLabel_dosidDossier}"/>
+                    <h:outputText value="#{dossierrejeteController.selected.dosidDossier}" title="#{bundle.ViewDossierrejeteTitle_dosidDossier}"/>
+                    <h:outputText value="#{bundle.ViewDossierrejeteLabel_motifRejet}"/>
+                    <h:outputText value="#{dossierrejeteController.selected.motifRejet}" title="#{bundle.ViewDossierrejeteTitle_motifRejet}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{dossierrejeteController.destroyAndView}" value="#{bundle.ViewDossierrejeteDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewDossierrejeteEditLink}"/>
+                <br />
+                <h:commandLink action="#{dossierrejeteController.prepareCreate}" value="#{bundle.ViewDossierrejeteCreateLink}" />
+                <br />
+                <h:commandLink action="#{dossierrejeteController.prepareList}" value="#{bundle.ViewDossierrejeteShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewDossierrejeteIndexLink}"/>
 
-        <p:dialog id="DossierrejeteViewDlg" widgetVar="DossierrejeteViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDossierrejeteTitle}">
-            <h:form id="DossierrejeteViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{dossierrejeteController.selected != null}">
-                        <h:outputText value="#{bundle.ViewDossierrejeteLabel_idDossierRejete}"/>
-                        <h:outputText value="#{dossierrejeteController.selected.idDossierRejete}" title="#{bundle.ViewDossierrejeteTitle_idDossierRejete}"/>
-                        <h:outputText value="#{bundle.ViewDossierrejeteLabel_motifRejet}"/>
-                        <h:outputText value="#{dossierrejeteController.selected.motifRejet}" title="#{bundle.ViewDossierrejeteTitle_motifRejet}"/>
-                        <h:outputText value="#{bundle.ViewDossierrejeteLabel_dosidDossier}"/>
-                        <h:outputText value="#{dossierrejeteController.selected.dosidDossier}" title="#{bundle.ViewDossierrejeteTitle_dosidDossier}"/>
-                        <h:outputText value="#{bundle.ViewDossierrejeteLabel_idDossier}"/>
-                        <h:outputText value="#{dossierrejeteController.selected.idDossier}" title="#{bundle.ViewDossierrejeteTitle_idDossier}"/>
-                    </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="DossierrejeteViewDialog.hide()"/>
-                </h:panelGroup>
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

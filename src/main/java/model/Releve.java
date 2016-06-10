@@ -6,27 +6,22 @@
 package model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Entity
 @Table(name = "releve")
@@ -34,6 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Releve.findAll", query = "SELECT r FROM Releve r"),
     @NamedQuery(name = "Releve.findByIdRelever", query = "SELECT r FROM Releve r WHERE r.idRelever = :idRelever"),
+    @NamedQuery(name = "Releve.findByIdFiliere", query = "SELECT r FROM Releve r WHERE r.idFiliere = :idFiliere"),
     @NamedQuery(name = "Releve.findBySemestre", query = "SELECT r FROM Releve r WHERE r.semestre = :semestre"),
     @NamedQuery(name = "Releve.findByAnneeUniversitaire", query = "SELECT r FROM Releve r WHERE r.anneeUniversitaire = :anneeUniversitaire")})
 public class Releve implements Serializable {
@@ -44,17 +40,16 @@ public class Releve implements Serializable {
     @Basic(optional = false)
     @Column(name = "idRelever")
     private Integer idRelever;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "idFiliere")
+    private int idFiliere;
     @Size(max = 254)
     @Column(name = "semestre")
     private String semestre;
     @Size(max = 254)
     @Column(name = "anneeUniversitaire")
     private String anneeUniversitaire;
-    @JoinColumn(name = "idFiliere", referencedColumnName = "idFiliere")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    private Filiere idFiliere;
-    @OneToMany(mappedBy = "idRelever", fetch = FetchType.EAGER)
-    private List<Dossierprovisoir> dossierprovisoirList;
 
     public Releve() {
     }
@@ -63,12 +58,25 @@ public class Releve implements Serializable {
         this.idRelever = idRelever;
     }
 
+    public Releve(Integer idRelever, int idFiliere) {
+        this.idRelever = idRelever;
+        this.idFiliere = idFiliere;
+    }
+
     public Integer getIdRelever() {
         return idRelever;
     }
 
     public void setIdRelever(Integer idRelever) {
         this.idRelever = idRelever;
+    }
+
+    public int getIdFiliere() {
+        return idFiliere;
+    }
+
+    public void setIdFiliere(int idFiliere) {
+        this.idFiliere = idFiliere;
     }
 
     public String getSemestre() {
@@ -85,23 +93,6 @@ public class Releve implements Serializable {
 
     public void setAnneeUniversitaire(String anneeUniversitaire) {
         this.anneeUniversitaire = anneeUniversitaire;
-    }
-
-    public Filiere getIdFiliere() {
-        return idFiliere;
-    }
-
-    public void setIdFiliere(Filiere idFiliere) {
-        this.idFiliere = idFiliere;
-    }
-
-    @XmlTransient
-    public List<Dossierprovisoir> getDossierprovisoirList() {
-        return dossierprovisoirList;
-    }
-
-    public void setDossierprovisoirList(List<Dossierprovisoir> dossierprovisoirList) {
-        this.dossierprovisoirList = dossierprovisoirList;
     }
 
     @Override

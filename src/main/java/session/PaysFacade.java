@@ -12,7 +12,7 @@ import model.Pays;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class PaysFacade extends AbstractFacade<Pays> {

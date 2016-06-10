@@ -12,7 +12,7 @@ import model.Budget;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class BudgetFacade extends AbstractFacade<Budget> {

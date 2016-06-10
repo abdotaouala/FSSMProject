@@ -12,7 +12,7 @@ import model.Prixkilomitrique;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class PrixkilomitriqueFacade extends AbstractFacade<Prixkilomitrique> {

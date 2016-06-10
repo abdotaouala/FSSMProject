@@ -12,7 +12,7 @@ import model.Comptebc;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class ComptebcFacade extends AbstractFacade<Comptebc> {

@@ -1,38 +1,42 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <ui:composition>
-
-        <p:dialog id="ComptebcEditDlg" widgetVar="ComptebcEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditComptebcTitle}">
-            <h:form id="ComptebcEditForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{comptebcController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditComptebcLabel_idCptBc}" for="idCptBc" />
-                        <p:inputText id="idCptBc" value="#{comptebcController.selected.idCptBc}" title="#{bundle.EditComptebcTitle_idCptBc}" required="true" requiredMessage="#{bundle.EditComptebcRequiredMessage_idCptBc}"/>
-                        <p:outputLabel value="#{bundle.EditComptebcLabel_intitule}" for="intitule" />
-                        <p:inputText id="intitule" value="#{comptebcController.selected.intitule}" title="#{bundle.EditComptebcTitle_intitule}" />
-                        <p:outputLabel value="#{bundle.EditComptebcLabel_bc}" for="bc" />
-                        <p:inputText id="bc" value="#{comptebcController.selected.bc}" title="#{bundle.EditComptebcTitle_bc}" />
-                        <p:outputLabel value="#{bundle.EditComptebcLabel_rib}" for="rib" />
-                        <p:inputText id="rib" value="#{comptebcController.selected.rib}" title="#{bundle.EditComptebcTitle_rib}" />
-                        <p:outputLabel value="#{bundle.EditComptebcLabel_cinPpr}" for="cinPpr" />
-                        <p:selectOneMenu id="cinPpr" value="#{comptebcController.selected.cinPpr}" required="true" requiredMessage="#{bundle.EditComptebcRequiredMessage_cinPpr}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{intervenantController.itemsAvailableSelectOne}"
-                                           var="cinPprItem"
-                                           itemValue="#{cinPprItem}"/>
-                        </p:selectOneMenu>
-                    </p:panelGrid>
-                    <p:commandButton actionListener="#{comptebcController.update}" value="#{bundle.Save}" update="display,:ComptebcListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ComptebcEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ComptebcEditDialog.hide()"/>
-                </h:panelGroup>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditComptebcTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditComptebcLabel_idCptBc}" for="idCptBc" />
+                    <h:inputText id="idCptBc" value="#{comptebcController.selected.idCptBc}" title="#{bundle.EditComptebcTitle_idCptBc}" required="true" requiredMessage="#{bundle.EditComptebcRequiredMessage_idCptBc}"/>
+                    <h:outputLabel value="#{bundle.EditComptebcLabel_cinPpr}" for="cinPpr" />
+                    <h:inputText id="cinPpr" value="#{comptebcController.selected.cinPpr}" title="#{bundle.EditComptebcTitle_cinPpr}" required="true" requiredMessage="#{bundle.EditComptebcRequiredMessage_cinPpr}"/>
+                    <h:outputLabel value="#{bundle.EditComptebcLabel_intitule}" for="intitule" />
+                    <h:inputText id="intitule" value="#{comptebcController.selected.intitule}" title="#{bundle.EditComptebcTitle_intitule}" />
+                    <h:outputLabel value="#{bundle.EditComptebcLabel_bc}" for="bc" />
+                    <h:inputText id="bc" value="#{comptebcController.selected.bc}" title="#{bundle.EditComptebcTitle_bc}" />
+                    <h:outputLabel value="#{bundle.EditComptebcLabel_rib}" for="rib" />
+                    <h:inputText id="rib" value="#{comptebcController.selected.rib}" title="#{bundle.EditComptebcTitle_rib}" />
+                </h:panelGrid>
+                <h:commandLink action="#{comptebcController.update}" value="#{bundle.EditComptebcSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditComptebcViewLink}"/>
+                <br />
+                <h:commandLink action="#{comptebcController.prepareList}" value="#{bundle.EditComptebcShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditComptebcIndexLink}" />
             </h:form>
-        </p:dialog>
-
+        </ui:define>
     </ui:composition>
+
 </html>

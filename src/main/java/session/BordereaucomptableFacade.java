@@ -12,7 +12,7 @@ import model.Bordereaucomptable;
 
 /**
  *
- * @author Mounir
+ * @author user
  */
 @Stateless
 public class BordereaucomptableFacade extends AbstractFacade<Bordereaucomptable> {

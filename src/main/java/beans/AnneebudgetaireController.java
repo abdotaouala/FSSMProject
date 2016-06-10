@@ -30,6 +30,7 @@ public class AnneebudgetaireController implements Serializable {
     private int selectedItemIndex;
 
     public AnneebudgetaireController() {
+        this.current.setReliquatRap(this.current.getMontantRap());
     }
 
     public Anneebudgetaire getSelected() {

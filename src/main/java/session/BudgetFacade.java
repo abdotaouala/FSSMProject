@@ -7,6 +7,8 @@ package session;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
 import model.Budget;
 
@@ -21,12 +23,13 @@ public class BudgetFacade extends AbstractFacade<Budget> {
     private EntityManager em;
 
     @Override
-    protected EntityManager getEntityManager() {
+    public EntityManager getEntityManager() {
         return em;
     }
 
     public BudgetFacade() {
         super(Budget.class);
     }
+    
     
 }

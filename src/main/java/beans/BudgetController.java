@@ -41,7 +41,7 @@ public class BudgetController implements Serializable {
         return current;
     }
 
-    private BudgetFacade getFacade() {
+    public BudgetFacade getFacade() {
         return ejbFacade;
     }
 
@@ -97,7 +97,6 @@ public class BudgetController implements Serializable {
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
-
     public String update() {
         try {
             getFacade().edit(current);
@@ -131,7 +130,7 @@ public class BudgetController implements Serializable {
         }
     }
 
-    private void performDestroy() {
+    public void performDestroy() {
         try {
             getFacade().remove(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BudgetDeleted"));

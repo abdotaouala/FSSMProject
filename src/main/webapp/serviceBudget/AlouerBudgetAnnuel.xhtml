@@ -19,8 +19,8 @@
                         <td class="olab"><p:outputLabel value="#{bundle.CreateAnneebudgetaireLabel_annee}" for="annee" /></td>
                         <td class="olab">
                             <h:selectOneMenu id="annee" value="#{anneebudgetaireController.selected.annee}" title="#{bundle.CreateAnneebudgetaireTitle_annee}" required="true" requiredMessage="#{bundle.CreateAnneebudgetaireRequiredMessage_annee}"   style="width:155px">
-                                <f:selectItem itemLabel="#{selectAnnee.year}" itemValue="#{selectAnnee.year}" />
-                                <f:selectItems value="#{selectAnnee.years}" var="annees" itemValue = "#{annees}" />
+                                <f:selectItem itemLabel="#{selectAttribute.year}" itemValue="#{selectAttribute.year}" />
+                                <f:selectItems value="#{selectAttribute.years}" var="annees" itemValue = "#{annees}" />
                             </h:selectOneMenu>
                         </td>
                     </tr>
@@ -30,17 +30,11 @@
                         <td><p:inputText id="montantRap" value="#{anneebudgetaireController.selected.montantRap}" title="#{bundle.CreateAnneebudgetaireTitle_montantRap}"/></td>
                     </tr>
                     <tr>
-                        <td class="olab"><h:commandButton id="ajaxcreate"  action="#{anneebudgetaireController.create()}" value="#{bundle.CreateAnneebudgetaireSaveLink}">
-                        <f:actionListener binding="#{ buttonView.buttonAction()}" />
-                        </h:commandButton>
+                        <td class="olab"><h:commandButton id="ajaxcreate"  action="#{anneebudgetaireController.create}" value="Ajouter"/>
                         </td>
-                        <td class="olab"><h:commandButton id="ajaxupdate"  action="#{anneebudgetaireController.update}" value="#{bundle.EditAnneebudgetaireSaveLink}">
-                        <f:actionListener binding="#{ buttonView.buttonAction()}" />
-                        </h:commandButton>
+                        <td class="olab"><h:commandButton id="ajaxupdate"  action="#{anneebudgetaireController.update}" value="Modifier"/>
                         </td>
-                        <td class="olab"><h:commandButton id="ajaxdelete"  action="#{anneebudgetaireController.performDestroy}" value="#{bundle.ListAnneebudgetaireDestroyLink}">
-                        <f:actionListener binding="#{ buttonView.buttonAction()}" />
-                        </h:commandButton>
+                        <td class="olab"><h:commandButton id="ajaxdelete"  action="#{anneebudgetaireController.performDestroy}" value="Supprimer"/>
                         </td>
                     </tr>
                     </table></center>

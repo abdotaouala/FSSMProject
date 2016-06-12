@@ -1,13 +1,54 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <body>
 
         <ui:composition template="./templateServiceBudget.xhtml">
              <ui:define name="content">
-                content
+                    <h:form id="BudgetCompteCreateForm">
+                        <p:growl id="growl" life="2000" />
+                <center><p:fieldset  style="margin-bottom:20px;margin-top: 20px; border:5px solid; width:600px; background-color: #f8f6de; vertical-align: central;">
+                        <center> <b><i><legend> Affectation des budget des comptes</legend></i></b></center>
+                    <center><table class='tab_form' style="width:400px;height:200px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
+                    <tr> 
+                        <td class="olab"><h:outputLabel value="#{bundle.CreateBudgetLabel_budgetAnnuel}" for="budgetAnnuel" /></td>
+                        <td class="olab">
+                            <h:selectOneMenu id="budgetPK_annee" value="#{budgetController.selected.budgetPK.annee}" title="#{bundle.CreateBudgetTitle_budgetPK_annee}" required="true" requiredMessage="#{bundle.CreateBudgetRequiredMessage_budgetPK_annee}"  style="width:155px">
+                                <f:selectItem itemLabel="#{selectAttribute.year}" itemValue="#{selectAttribute.year}" />
+                                <f:selectItems value="#{selectAttribute.budget_annees}" var="annees" itemValue = "#{annees}" />
+                            </h:selectOneMenu>
+                        </td>
+                    </tr>
+                    <br/>
+                    <tr> 
+                        <td class="olab"><h:outputLabel value="#{bundle.CreateBudgetLabel_budgetPK_idCompte}" for="budgetPK_idCompte" /></td>
+                        <td class="olab">
+                            <h:selectOneMenu id="budgetPK_idCompte" value="#{budgetController.selected.budgetPK.idCompte}" title="#{bundle.CreateBudgetTitle_budgetPK_idCompte}" required="true" requiredMessage="#{bundle.CreateBudgetRequiredMessage_budgetPK_idCompte}"  style="width:155px">
+                                <f:selectItems value="#{selectAttribute.budget_idComptes}" var="idCompte" itemValue = "#{idCompte}" />
+                            </h:selectOneMenu>
+                        </td>
+                    </tr>
+                    <br/>
+                    <tr>
+                        <td class="olab"><h:outputLabel value="#{bundle.CreateBudgetLabel_budgetAnnuel}" for="budgetAnnuel" /></td>
+                        <td><p:inputText id="budgetAnnuel" value="#{budgetController.selected.budgetAnnuel}" title="#{bundle.CreateBudgetTitle_budgetAnnuel}"/></td>
+                    </tr>
+                    <tr>
+                        <td class="olab"><h:commandButton id="ajaxcreate"  action="#{budgetController.create}" value="Ajouter"/>
+                        </td>
+                        <td class="olab"><h:commandButton id="ajaxupdate"  action="#{budgetController.update}" value="Modifier"/>
+                        </td>
+                        <td class="olab"><h:commandButton id="ajaxdelete"  action="#{budgetController.performDestroy}" value="Supprimer"/>
+                        </td>
+                    </tr>
+                    </table></center>
+                </p:fieldset></center>
+                    </h:form>
             </ui:define>
 
         </ui:composition>

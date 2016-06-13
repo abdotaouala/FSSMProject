@@ -17,12 +17,18 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 @Named("secteurprincipalController")
 @SessionScoped
 public class SecteurprincipalController implements Serializable {
-
+    @PersistenceContext(unitName = "AppFinanciere")
+    private EntityManager em;
     private Secteurprincipal current;
+    private String newDesignation;
     private DataModel items = null;
     @EJB
     private session.SecteurprincipalFacade ejbFacade;
@@ -81,7 +87,12 @@ public class SecteurprincipalController implements Serializable {
 
     public String create() {
         try {
+            EntityTransaction et=em.getTransaction();
+        if(!et.isActive()){
+		et.begin();
+		}
             getFacade().create(current);
+            et.commit();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("SecteurprincipalCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -99,6 +110,24 @@ public class SecteurprincipalController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("SecteurprincipalUpdated"));
+            return "View";
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            return null;
+        }
+    }
+    public String MyUpdate() {
+        try {
+            EntityTransaction et=em.getTransaction();
+        if(!et.isActive()){
+		et.begin();
+		}
+            Query req=em.createQuery("SELECT s FROM Secteurprincipal s WHERE s.designation =?").setParameter(1,current.getDesignation());
+            this.setCurrent((Secteurprincipal)req.getSingleResult());
+            current.setDesignation(newDesignation);
+            getFacade().edit(current);
+            et.commit();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("SecteurprincipalUpdated"));
             return "View";
         } catch (Exception e) {
@@ -132,6 +161,21 @@ public class SecteurprincipalController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("SecteurprincipalDeleted"));
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+    }
+    public void MyDestroy() {
+        try {
+        Query req=em.createQuery("select o from Secteurprincipal o where o.designation=?").setParameter(1,current.getDesignation());
+        this.setCurrent((Secteurprincipal)req.getSingleResult());
+        EntityTransaction et=em.getTransaction();
+        if(!et.isActive()){
+		et.begin();
+		}
+        getFacade().remove(current);
+        et.commit();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("SecteurprincipalDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -180,6 +224,9 @@ public class SecteurprincipalController implements Serializable {
         return "List";
     }
 
+    public EntityManager getEm() {
+        return em;
+    }
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
@@ -188,8 +235,20 @@ public class SecteurprincipalController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
+    public String getNewDesignation() {
+        return newDesignation;
+    }
+
+    public void setNewDesignation(String newDesignation) {
+        this.newDesignation = newDesignation;
+    }
+
     public Secteurprincipal getSecteurprincipal(java.lang.Integer id) {
         return ejbFacade.find(id);
+    }
+
+    public void setCurrent(Secteurprincipal current) {
+        this.current = current;
     }
 
     @FacesConverter(forClass = Secteurprincipal.class)

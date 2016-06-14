@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./templateServiceBudget.xhtml">
+            <ui:define name="Title_Page">
+                Allocation de Budget Annuel
+            </ui:define>
+            <ui:define name="content">
+                <div class="col-md-12 col-sm-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            Formulaire :
+                        </div>
+                        <div class="panel-body">
+                            <h:form id="SecteurPrincipalCreateForm">
+                            <p:growl id="growl" life="2000" />
+                            <center><table class='tab_form' style="width:400px;height:200px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
+                                    <tr> 
+                                        <td class="olab"><h:outputLabel value="#{bundle.CreateSecteurprincipalLabel_designation}" for="designation" /></td>
+                                        <td class="olab"><h:inputText id="designation" value="#{secteurprincipalController.selected.designation}" title="#{bundle.CreateSecteurprincipalTitle_designation}" required="true" requiredMessage="#{bundle.CreateCompteRequiredMessage_idCompte}"/></td>
+                                    </tr>
+                                    <tr> 
+                                        <td class="olab"><h:outputLabel value="Nouvelle Designation:" for="designation" /></td>
+                                        <td class="olab"><h:inputText id="newdesignation" value="#{secteurprincipalController.newDesignation}" title="#{bundle.CreateSecteurprincipalTitle_designation}" required="false" requiredMessage="#{bundle.CreateCompteRequiredMessage_idCompte}"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="olab"><h:commandButton id="ajaxcreate"  action="#{secteurprincipalController.create}" value="Ajouter"/>
+                                        </td>
+                                        <td class="olab"><h:commandButton id="ajaxupdate"  action="#{secteurprincipalController.MyUpdate}" value="Modifier"/>
+                                        </td>
+                                        <td class="olab"><h:commandButton id="ajaxdelete"  action="#{secteurprincipalController.MyDestroy}" value="Supprimer"/>
+                                        </td>
+                                    </tr>
+                                </table></center>
+                            </h:form>
+                    </div>
+                </div>
+                    </div>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

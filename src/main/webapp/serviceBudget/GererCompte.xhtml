@@ -9,11 +9,18 @@
     <body>
 
         <ui:composition template="./templateServiceBudget.xhtml">
+             <ui:define name="Title_Page">
+              Gestion des Rubriques
+            </ui:define>
              <ui:define name="content">
+                 <div class="col-md-12 col-sm-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                           Formulaire :
+                        </div>
+                        <div class="panel-body">
                     <h:form id="CompteCreateForm">
                         <p:growl id="growl" life="2000" />
-                <center><p:fieldset  style="margin-bottom:20px;margin-top: 20px; border:5px solid; width:600px; background-color: #f8f6de; vertical-align: central;">
-                        <center> <b><i><legend> Gestion des Comptes</legend></i></b></center>
                     <center><table class='tab_form' style="width:400px;height:200px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
                     <tr> 
                     <td class="olab"><h:outputLabel value="#{bundle.CreateCompteLabel_idCompte}" for="idCompte" /></td>
@@ -37,10 +44,11 @@
                         </td>
                     </tr>
                     </table></center>
-                </p:fieldset></center>
                     </h:form>
+             </div>
+                    </div>
+                </div>
             </ui:define>
-
         </ui:composition>
 
     </body>

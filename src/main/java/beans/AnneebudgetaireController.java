@@ -6,31 +6,73 @@ import beans.util.PaginationHelper;
 import session.AnneebudgetaireFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 @Named("anneebudgetaireController")
 @SessionScoped
 public class AnneebudgetaireController implements Serializable {
 
+    @PersistenceContext(unitName = "AppFinanciere")
+    private EntityManager em;
     private Anneebudgetaire current;
-    private DataModel items = null;
+    private List<Anneebudgetaire> items= null;
     @EJB
     private session.AnneebudgetaireFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private boolean disablCreate = false;
+    private boolean disablUpdate = true;
+    private boolean disablDelete = true;
 
     public AnneebudgetaireController() {
         //this.current.setReliquatRap(this.current.getMontantRap());
+        subjectSelectionChanged();
+        getItems();
+    }
+
+    public void subjectSelectionChanged() {
+        if (current instanceof Anneebudgetaire && current != null) {
+            try {
+                Query req = em.createQuery("SELECT o FROM Anneebudgetaire o WHERE o.annee =?").setParameter(1, current.getAnnee());
+                Anneebudgetaire a = (Anneebudgetaire) req.getSingleResult();
+                if (a != null) {
+                    current.setMontantRap(a.getReliquatRap());
+                    current.setMontantRap(a.getMontantRap());
+                    disablCreate = true;
+                    disablUpdate = false;
+                    disablDelete = false;
+                } else {
+                    current.setMontantRap(0);
+                    current.setReliquatRap(0);
+                    disablCreate = false;
+                    disablUpdate = true;
+                    disablDelete = true;
+                }
+            } catch (Exception e) {
+                current.setMontantRap(0);
+                current.setReliquatRap(0);
+                disablCreate = false;
+                disablUpdate = true;
+                disablDelete = true;
+                JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        }
     }
 
     public Anneebudgetaire getSelected() {
@@ -67,13 +109,6 @@ public class AnneebudgetaireController implements Serializable {
         recreateModel();
         return "List";
     }
-
-    public String prepareView() {
-        current = (Anneebudgetaire) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
-    }
-
     public String prepareCreate() {
         current = new Anneebudgetaire();
         selectedItemIndex = -1;
@@ -82,6 +117,7 @@ public class AnneebudgetaireController implements Serializable {
 
     public String create() {
         try {
+            current.setReliquatRap(current.getMontantRap());
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AnneebudgetaireCreated"));
             return prepareCreate();
@@ -90,15 +126,9 @@ public class AnneebudgetaireController implements Serializable {
             return null;
         }
     }
-
-    public String prepareEdit() {
-        current = (Anneebudgetaire) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Edit";
-    }
-
     public String update() {
         try {
+            current.setReliquatRap(current.getMontantRap());
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AnneebudgetaireUpdated"));
             return "View";
@@ -106,15 +136,6 @@ public class AnneebudgetaireController implements Serializable {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
-    }
-
-    public String destroy() {
-        current = (Anneebudgetaire) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDestroy();
-        recreatePagination();
-        recreateModel();
-        return "List";
     }
 
     public String destroyAndView() {
@@ -154,10 +175,17 @@ public class AnneebudgetaireController implements Serializable {
         }
     }
 
-    public DataModel getItems() {
-        if (items == null) {
-            items = getPagination().createPageDataModel();
-        }
+    public List<Anneebudgetaire> getItems() {
+            try {
+                if(items==null){
+                this.items=new ArrayList<Anneebudgetaire>();
+                }
+                Query req = em.createQuery("SELECT o FROM Anneebudgetaire o");
+                List<Anneebudgetaire> l = (List<Anneebudgetaire>) req.getResultList();
+                items=l;
+            } catch (Exception e) {
+              JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
         return items;
     }
 
@@ -187,6 +215,34 @@ public class AnneebudgetaireController implements Serializable {
 
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+    }
+
+    public boolean isDisablCreate() {
+        return disablCreate;
+    }
+
+    public void setDisablCreate(boolean disablCreate) {
+        this.disablCreate = disablCreate;
+    }
+
+    public boolean isDisablUpdate() {
+        return disablUpdate;
+    }
+
+    public void setDisablUpdate(boolean disablUpdate) {
+        this.disablUpdate = disablUpdate;
+    }
+
+    public boolean isDisablDelete() {
+        return disablDelete;
+    }
+
+    public void setCurrent(Anneebudgetaire current) {
+        this.current = current;
+    }
+
+    public void setDisablDelete(boolean disablDelete) {
+        this.disablDelete = disablDelete;
     }
 
     public Anneebudgetaire getAnneebudgetaire(java.lang.Integer id) {

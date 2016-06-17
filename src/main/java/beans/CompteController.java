@@ -6,10 +6,13 @@ import beans.util.PaginationHelper;
 import session.CompteFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -17,21 +20,39 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import model.Anneebudgetaire;
 
 @Named("compteController")
+@ManagedBean
 @SessionScoped
 public class CompteController implements Serializable {
-
+    @PersistenceContext(unitName = "AppFinanciere")
+    private EntityManager em;
     private Compte current;
-    private DataModel items = null;
+    private List<Compte> items = null;
     @EJB
     private session.CompteFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-
     public CompteController() {
+        
     }
-
+    public List<Compte> getItemes() {
+            try {
+                if(items==null){
+                this.items=new ArrayList<Compte>();
+                }
+                Query req = em.createQuery("SELECT o FROM Compte o");
+                List<Compte> l = (List<Compte>) req.getResultList();
+                items=l;
+            } catch (Exception e) {
+              JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        return items;
+    }
     public Compte getSelected() {
         if (current == null) {
             current = new Compte();
@@ -67,18 +88,33 @@ public class CompteController implements Serializable {
         return "List";
     }
 
-    public String prepareView() {
+   /* public String prepareView() {
         current = (Compte) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
-
+*/
     public String prepareCreate() {
         current = new Compte();
         selectedItemIndex = -1;
         return "Create";
     }
-
+    public List<Compte> completeText(String id){
+        try {
+                List<Compte> AllComptes=getItemes();
+               /* if(items==null){
+                this.items=new ArrayList<Compte>();
+                }*/
+                for(Compte c:AllComptes){
+                    if(c.getIdCompte().toString().toLowerCase().startsWith(id)) {
+                       items.add(c);
+                    }
+                }
+            } catch (Exception e) {
+              JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+    return items;
+    }
     public String create() {
         try {
             getFacade().create(current);
@@ -90,12 +126,12 @@ public class CompteController implements Serializable {
         }
     }
 
-    public String prepareEdit() {
+  /*  public String prepareEdit() {
         current = (Compte) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
-
+*/
     public String update() {
         try {
             getFacade().edit(current);
@@ -107,7 +143,7 @@ public class CompteController implements Serializable {
         }
     }
 
-    public String destroy() {
+  /*  public String destroy() {
         current = (Compte) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
@@ -115,7 +151,7 @@ public class CompteController implements Serializable {
         recreateModel();
         return "List";
     }
-
+*/
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -138,6 +174,14 @@ public class CompteController implements Serializable {
         }
     }
 
+    public List<Compte> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Compte> items) {
+        this.items = items;
+    }
+
     private void updateCurrentItem() {
         int count = getFacade().count();
         if (selectedItemIndex >= count) {
@@ -153,15 +197,23 @@ public class CompteController implements Serializable {
         }
     }
 
-    public DataModel getItems() {
+   /* public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
         }
         return items;
     }
-
+*/
     private void recreateModel() {
         items = null;
+    }
+
+    public Compte getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(Compte current) {
+        this.current = current;
     }
 
     private void recreatePagination() {

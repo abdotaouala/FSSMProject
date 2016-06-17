@@ -21,8 +21,11 @@
                                 Formulaire :
                             </div>
                             <div class="panel-body">
-
-                                <p:growl id="growl" life="2000" />
+                                <p:growl id="message" life="2000" />
+                                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" widgetVar="confirmation" closeOnEscape="false" closable="true">
+                                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" onclick="confirmation.hide()" icon="ui-icon-check" />
+                                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" onclick="confirmation.hide()" icon="ui-icon-close" />
+                                                </p:confirmDialog>
                                 <center><table class='tab_form' style="width:600px;height:200px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
                                         <tr> 
                                             <td class="olab"><p:outputLabel value="#{bundle.CreateAnneebudgetaireLabel_annee}" for="annee" /></td>
@@ -45,13 +48,18 @@
                                         </tr>
                                         <tr>
                                             <td class="olab">
-                                                    <h:commandButton id="ajaxcreate"  action="#{anneebudgetaireController.create}" class="btn btn-primary btn-lg" disabled="#{anneebudgetaireController.disablCreate}" value="Ajouter">
-                                                    
-                                                    </h:commandButton>
+                                                <p:commandButton ajax="false" id="ajaxcreate"  actionListener="#{anneebudgetaireController.create}" class="btn btn-primary btn-lg" disabled="#{anneebudgetaireController.disablCreate}" value="Ajouter" update="@form">
+                                                    </p:commandButton>
                                             </td>
-                                            <td class="olab"><h:commandButton id="ajaxupdate"  action="#{anneebudgetaireController.update}" class="btn btn-success btn-lg" disabled="#{anneebudgetaireController.disablDelete}" value="Modifier"/>
+                                            <td class="olab">
+                                                <p:commandButton id="ajaxupdate"  actionListener="#{anneebudgetaireController.update}" class="btn btn-success btn-lg" disabled="#{anneebudgetaireController.disablDelete}" value="Modifier" update="message">
+                                                <p:confirm header="Confirmation de modification" message="voulez-vous vraiment modifier ces informations?" icon="ui-icon-alert" />
+                                                </p:commandButton>
                                             </td>
-                                            <td class="olab"><h:commandButton id="ajaxdelete"  action="#{anneebudgetaireController.performDestroy}" class="btn btn-danger btn-lg" disabled="#{anneebudgetaireController.disablUpdate}" value="Supprimer"/>
+                                            <td class="olab">
+                                                <p:commandButton id="ajaxdelete"  actionListener="#{anneebudgetaireController.performDestroy}" class="btn btn-danger btn-lg" disabled="#{anneebudgetaireController.disablUpdate}" value="Supprimer" update="message">
+                                                <p:confirm header="Confirmation de suppression" message="voulez-vous vraiment supprimer ces informations?" icon="ui-icon-alert" />
+                                                </p:commandButton>
                                             </td>
                                         </tr>
                                     </table></center>

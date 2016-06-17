@@ -41,7 +41,7 @@ public class Compte implements Serializable {
     @Column(name = "intitule")
     private String intitule;
     @Column(name = "rap")
-    private Integer rap;
+    private Double rap;
 
     public Compte() {
     }
@@ -66,11 +66,11 @@ public class Compte implements Serializable {
         this.intitule = intitule;
     }
 
-    public Integer getRap() {
+    public Double getRap() {
         return rap;
     }
 
-    public void setRap(Integer rap) {
+    public void setRap(Double rap) {
         this.rap = rap;
     }
 

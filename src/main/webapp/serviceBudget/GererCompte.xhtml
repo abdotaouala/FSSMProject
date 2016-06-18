@@ -29,15 +29,14 @@
                                         <tr> 
                                             <td class="olab"><p:outputLabel value="#{bundle.CreateCompteLabel_idCompte}" for="autocomplete" /></td>
                                             <td class="olab">
-                                                <p:autoComplete id="autocomplete" value="#{compteController.current}" completeMethod="#{compteController.completeText}" title="#{bundle.CreateCompteTitle_idCompte}" required="true"  
-                                                    converter="compteConverter"  var="compte" itemLabel="#{compteController.selected.idCompte}" itemValue="#{compte.idCompte}" forceSelection="true">
-
+                                                <p:autoComplete dropdown="true" id="autocomplete" value="#{compteController.current.idCompte}" completeMethod="#{compteController.completeText}" title="#{bundle.CreateCompteTitle_idCompte}" required="true"  
+                                                                var="compte" itemLabel="#{compte.idCompte.toString()}" itemValue="#{compte.idCompte.toString()}" >
                                                     <p:column style="width:10%">
                                                         <h:outputText value="#{compte.idCompte}" />
                                                     </p:column>
 
                                                     <p:column>
-                                                        <h:outputText styleClass="ui-theme ui-theme-#{compte.intitule}" /> 
+                                                        <h:outputText value="#{compte.intitule}" /> 
                                                     </p:column>
                                                 </p:autoComplete>
                                             </td>
@@ -53,7 +52,7 @@
                                         </tr>
                                         <tr>
                                             <td class="olab">
-                                                <p:commandButton ajax="false" id="ajaxcreate"  action="#{compteController.create}" value="Ajouter" class="btn btn-primary btn-lg" update="@form">
+                                                <p:commandButton  ajax="false" id="ajaxcreate"  action="#{compteController.create}" value="Ajouter" class="btn btn-primary btn-lg" update="@form">
                                                 </p:commandButton>
                                             </td>
                                             <td class="olab">
@@ -82,22 +81,13 @@
                                                  paginator="true"
                                                  rows="10"
                                                  rowsPerPageTemplate="10,20,30,40,50">
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="#{bundle.ListCompteTitle_idCompte}"/>
-                                            </f:facet>
+                                        <p:column headerText="#{bundle.ListCompteTitle_idCompte}">
                                             <h:outputText value="#{item.idCompte}"/>
                                         </p:column>
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="#{bundle.ListCompteTitle_intitule}"/>
-                                            </f:facet>
+                                        <p:column headerText="#{bundle.ListCompteTitle_intitule}">
                                             <h:outputText value="#{item.intitule}"/>
                                         </p:column>
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="#{bundle.ListCompteTitle_rap}"/>
-                                            </f:facet>
+                                        <p:column headerText="#{bundle.ListCompteTitle_rap}">
                                             <h:outputText value="#{item.rap}"/>
                                         </p:column>
                                     </p:dataTable>

@@ -6,7 +6,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
 
-    <body>
+    <h:body onload="#{anneebudgetaireController.getItemes()}">
 
         <ui:composition template="./templateServiceBudget.xhtml">
 
@@ -77,22 +77,13 @@
                                                  paginator="true"
                                                  rows="10"
                                                  rowsPerPageTemplate="10,20,30,40,50">
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="#{bundle.ListAnneebudgetaireTitle_annee}"/>
-                                            </f:facet>
+                                        <p:column headerText="#{bundle.ListAnneebudgetaireTitle_annee}">
                                             <h:outputText value="#{item.annee}"/>
                                         </p:column>
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="#{bundle.ListAnneebudgetaireTitle_montantRap}"/>
-                                            </f:facet>
+                                        <p:column headerText="#{bundle.ListAnneebudgetaireTitle_montantRap}">
                                             <h:outputText value="#{item.montantRap}"/>
                                         </p:column>
-                                        <p:column>
-                                            <f:facet name="header">
-                                                <h:outputText value="#{bundle.ListAnneebudgetaireTitle_reliquatRap}"/>
-                                            </f:facet>
+                                        <p:column headerText="#{bundle.ListAnneebudgetaireTitle_reliquatRap}">
                                             <h:outputText value="#{item.reliquatRap}"/>
                                         </p:column>
                                     </p:dataTable>
@@ -105,5 +96,5 @@
             </ui:define>
         </ui:composition>
 
-    </body>
+    </h:body>
 </html>

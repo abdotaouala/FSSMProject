@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body onload="#{compteController.getItemes()}">
+       <h:form id="CompteCreateForm">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                Formulaire :
+                            </div>
+                            <div class="panel-body">
+                                <p:growl id="message" life="2000" />
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" widgetVar="confirmation" closeOnEscape="false" closable="true">
+                                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" onclick="confirmation.hide()" icon="ui-icon-check" />
+                                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" onclick="confirmation.hide()" icon="ui-icon-close" />
+                                </p:confirmDialog>
+                                <center><table class='tab_form' style="width:400px;height:200px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
+                                        <tr> 
+                                            <td class="olab"><p:outputLabel value="#{bundle.CreateCompteLabel_idCompte}" for="autocomplete" /></td>
+                                            <td class="olab">
+                                                <p:autoComplete dropdown="true" id="autocomplete" value="#{compteController.current.idCompte}" completeMethod="#{compteController.completeText}" title="#{bundle.CreateCompteTitle_idCompte}" required="true"  
+                                                                var="compte" itemLabel="#{compte.idCompte.toString()}" itemValue="#{compte.idCompte.toString()}" >
+                                                    <p:column style="width:10%">
+                                                        <h:outputText value="#{compte.idCompte}" />
+                                                    </p:column>
+
+                                                    <p:column>
+                                                        <h:outputText value="#{compte.intitule}" /> 
+                                                    </p:column>
+                                                </p:autoComplete>
+                                            </td>
+                                        </tr>
+                                        <br/>
+                                        <tr>
+                                            <td class="olab"><p:outputLabel value="#{bundle.CreateCompteLabel_intitule}" for="intitule" /></td>
+                                            <td class="olab"><p:inputText id="intitule" value="#{compteController.selected.intitule}" title="#{bundle.CreateCompteTitle_intitule}" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="olab"><h:outputLabel value="#{bundle.CreateCompteLabel_rap}" for="rap" /></td>
+                                            <td class="olab"><p:inputText id="rap" value="#{compteController.selected.rap}" title="#{bundle.CreateCompteTitle_rap}" /></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="olab">
+                                                <p:commandButton  ajax="false" id="ajaxcreate"  action="#{compteController.create}" value="Ajouter" class="btn btn-primary btn-lg" update="@form">
+                                                </p:commandButton>
+                                            </td>
+                                            <td class="olab">
+                                                <p:commandButton id="ajaxupdate"  action="#{compteController.update}" value="Modifier" class="btn btn-success btn-lg" update="message">
+                                                    <p:confirm header="Confirmation de modification" message="voulez-vous vraiment modifier ces informations?" icon="ui-icon-alert" />
+                                                </p:commandButton>
+                                            </td>
+                                            <td class="olab">
+                                                <p:commandButton id="ajaxdelete"  action="#{compteController.performDestroy}" value="Supprimer" class="btn btn-danger btn-lg" update="message">
+                                                    <p:confirm header="Confirmation de suppression" message="voulez-vous vraiment supprimer ces informations?" icon="ui-icon-alert" />
+                                                </p:commandButton>
+                                            </td>
+                                        </tr>
+                                    </table></center>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                Liste Des Comptes Budgétaires
+                            </div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <p:dataTable value="#{compteController.items}" var="item" id="list"
+                                                 paginator="true"
+                                                 rows="10"
+                                                 rowsPerPageTemplate="10,20,30,40,50">
+                                        <p:column headerText="#{bundle.ListCompteTitle_idCompte}">
+                                            <h:outputText value="#{item.idCompte}"/>
+                                        </p:column>
+                                        <p:column headerText="#{bundle.ListCompteTitle_intitule}">
+                                            <h:outputText value="#{item.intitule}"/>
+                                        </p:column>
+                                        <p:column headerText="#{bundle.ListCompteTitle_rap}">
+                                            <h:outputText value="#{item.rap}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+    </h:body>
+</html>
+

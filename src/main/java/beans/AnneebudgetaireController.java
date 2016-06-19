@@ -43,9 +43,17 @@ public class AnneebudgetaireController implements Serializable {
     public AnneebudgetaireController() {
         //this.current.setReliquatRap(this.current.getMontantRap());
         subjectSelectionChanged();
-        getItems();
+        items=getItemes();
     }
-
+  public List<Anneebudgetaire> getItemes() {
+            try {
+                Query req = em.createQuery("SELECT o FROM Anneebudgetaire o");
+                items= (List<Anneebudgetaire>) req.getResultList();
+            } catch (Exception e) {
+              JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        return items;
+    }
     public void subjectSelectionChanged() {
         if (current instanceof Anneebudgetaire && current != null) {
             try {
@@ -58,15 +66,15 @@ public class AnneebudgetaireController implements Serializable {
                     disablUpdate = false;
                     disablDelete = false;
                 } else {
-                    current.setMontantRap(0);
-                    current.setReliquatRap(0);
+                    current.setMontantRap(-1);
+                    current.setReliquatRap(-1);
                     disablCreate = false;
                     disablUpdate = true;
                     disablDelete = true;
                 }
             } catch (Exception e) {
-                current.setMontantRap(0);
-                current.setReliquatRap(0);
+                current.setMontantRap(-1);
+                current.setReliquatRap(-1);
                 disablCreate = false;
                 disablUpdate = true;
                 disablDelete = true;
@@ -119,6 +127,7 @@ public class AnneebudgetaireController implements Serializable {
         try {
             current.setReliquatRap(current.getMontantRap());
             getFacade().create(current);
+             items=getItemes();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AnneebudgetaireCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -130,6 +139,7 @@ public class AnneebudgetaireController implements Serializable {
         try {
             current.setReliquatRap(current.getMontantRap());
             getFacade().edit(current);
+             items=getItemes();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AnneebudgetaireUpdated"));
             return "View";
         } catch (Exception e) {
@@ -154,6 +164,7 @@ public class AnneebudgetaireController implements Serializable {
     public void performDestroy() {
         try {
             getFacade().remove(current);
+             items=getItemes();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("AnneebudgetaireDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -174,21 +185,6 @@ public class AnneebudgetaireController implements Serializable {
             current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
     }
-
-    public List<Anneebudgetaire> getItems() {
-            try {
-                if(items==null){
-                this.items=new ArrayList<Anneebudgetaire>();
-                }
-                Query req = em.createQuery("SELECT o FROM Anneebudgetaire o");
-                List<Anneebudgetaire> l = (List<Anneebudgetaire>) req.getResultList();
-                items=l;
-            } catch (Exception e) {
-              JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            }
-        return items;
-    }
-
     private void recreateModel() {
         items = null;
     }
@@ -239,6 +235,18 @@ public class AnneebudgetaireController implements Serializable {
 
     public void setCurrent(Anneebudgetaire current) {
         this.current = current;
+    }
+
+    public Anneebudgetaire getCurrent() {
+        return current;
+    }
+
+    public List<Anneebudgetaire> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Anneebudgetaire> items) {
+        this.items = items;
     }
 
     public void setDisablDelete(boolean disablDelete) {

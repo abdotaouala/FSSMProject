@@ -12,10 +12,12 @@ import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
@@ -33,18 +35,20 @@ public class CompteController implements Serializable {
     private EntityManager em;
     private Compte current;
     private List<Compte> items = null;
+    private boolean disablCreate = false;
+    private boolean disablUpdate = true;
+    private boolean disablDelete = true;
     @EJB
     private session.CompteFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
     public CompteController() {
-        
+        items=getItemes();
+        subjectSelectionChanged();
     }
     public List<Compte> getItemes() {
             try {
-                if(items==null){
                 this.items=new ArrayList<Compte>();
-                }
                 Query req = em.createQuery("SELECT o FROM Compte o");
                 List<Compte> l = (List<Compte>) req.getResultList();
                 items=l;
@@ -52,6 +56,34 @@ public class CompteController implements Serializable {
               JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             }
         return items;
+    }
+    public void subjectSelectionChanged() {
+        if (current instanceof Compte && current != null) {
+            try {
+                Query req = em.createQuery("SELECT o FROM Compte o WHERE o.idCompte =?").setParameter(1, current.getIdCompte());
+                Compte c = (Compte) req.getSingleResult();
+                if (c != null) {
+                    current.setIntitule(c.getIntitule());
+                    current.setRap(c.getRap());
+                    disablCreate = true;
+                    disablUpdate = false;
+                    disablDelete = false;
+                } else {
+                    current.setIntitule("");
+                    current.setRap(-1.0);
+                    disablCreate = false;
+                    disablUpdate = true;
+                    disablDelete = true;
+                }
+            } catch (Exception e) {
+                current.setIntitule("");
+                current.setRap(-1.0);
+                disablCreate = false;
+                disablUpdate = true;
+                disablDelete = true;
+                JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        }
     }
     public Compte getSelected() {
         if (current == null) {
@@ -100,24 +132,23 @@ public class CompteController implements Serializable {
         return "Create";
     }
     public List<Compte> completeText(String id){
+        List<Compte> FiltredComptes=new ArrayList<Compte>();
         try {
                 List<Compte> AllComptes=getItemes();
-               /* if(items==null){
-                this.items=new ArrayList<Compte>();
-                }*/
                 for(Compte c:AllComptes){
-                    if(c.getIdCompte().toString().toLowerCase().startsWith(id)) {
-                       items.add(c);
+                    if(c.getIdCompte().toString().startsWith(id)) {
+                       FiltredComptes.add(c);
                     }
                 }
             } catch (Exception e) {
               JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             }
-    return items;
+    return FiltredComptes;
     }
     public String create() {
         try {
             getFacade().create(current);
+            items=getItemes();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CompteCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -135,6 +166,7 @@ public class CompteController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
+            items=getItemes();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CompteUpdated"));
             return "View";
         } catch (Exception e) {
@@ -168,6 +200,7 @@ public class CompteController implements Serializable {
     public void performDestroy() {
         try {
             getFacade().remove(current);
+            items=getItemes();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CompteDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -244,17 +277,53 @@ public class CompteController implements Serializable {
         return ejbFacade.find(id);
     }
 
-    @FacesConverter(forClass = Compte.class)
+    public boolean isDisablCreate() {
+        return disablCreate;
+    }
+
+    public void setDisablCreate(boolean disablCreate) {
+        this.disablCreate = disablCreate;
+    }
+
+    public boolean isDisablUpdate() {
+        return disablUpdate;
+    }
+
+    public void setDisablUpdate(boolean disablUpdate) {
+        this.disablUpdate = disablUpdate;
+    }
+
+    public boolean isDisablDelete() {
+        return disablDelete;
+    }
+
+    public void setDisablDelete(boolean disablDelete) {
+        this.disablDelete = disablDelete;
+    }
+
+    @FacesConverter(value="compteConverter",forClass = Compte.class)
     public static class CompteControllerConverter implements Converter {
 
-        @Override
+         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
-            }
+            }else{
+                try{
             CompteController controller = (CompteController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "compteController");
-            return controller.getCompte(getKey(value));
+            Object o=controller.getCompte(getKey(value));
+            if(o==null){
+                Compte c=new Compte();
+                c.setIdCompte(Integer.parseInt(value));
+                return c;
+            }else{
+            return o;
+            }
+            } catch(NumberFormatException e) {
+                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion Error", "Not a valid theme."));
+            }
+        }
         }
 
         java.lang.Integer getKey(String value) {
@@ -274,9 +343,9 @@ public class CompteController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Compte) {
+            if (object!=null) {
                 Compte o = (Compte) object;
-                return getStringKey(o.getIdCompte());
+                return String.valueOf(((Compte) object).getIdCompte());
             } else {
                 throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Compte.class.getName());
             }

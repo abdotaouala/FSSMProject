@@ -6,6 +6,7 @@ import beans.util.PaginationHelper;
 import session.BudgetFacade;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -17,19 +18,28 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import model.Anneebudgetaire;
 
 @Named("budgetController")
 @SessionScoped
 public class BudgetController implements Serializable {
-
+    @PersistenceContext(unitName = "AppFinanciere")
+    private EntityManager em;
     private Budget current;
-    private DataModel items = null;
+    private List<Budget>items = null;
     @EJB
     private session.BudgetFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-
+    private boolean disablCreate = false;
+    private boolean disablUpdate = true;
+    private boolean disablDelete = true;
     public BudgetController() {
+        subjectSelectionChanged();
+        items=getItemes();
     }
 
     public Budget getSelected() {
@@ -40,7 +50,43 @@ public class BudgetController implements Serializable {
         }
         return current;
     }
-
+    public List<Budget> getItemes() {
+            try {
+                Query req = em.createQuery("SELECT o FROM Budget o");
+                items= (List<Budget>) req.getResultList();
+            } catch (Exception e) {
+              JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        return items;
+    }
+public void subjectSelectionChanged() {
+        if (current instanceof Budget && current != null) {
+            try {
+                Query req = em.createQuery("SELECT o FROM Budget o WHERE o.budgetPK.annee=? and o.budgetPK.idCompte=?").setParameter(1, current.getBudgetPK().getAnnee()).setParameter(2,current.getBudgetPK().getIdCompte());
+                Budget b = (Budget) req.getSingleResult();
+                if (b != null) {
+                    current.setBudgetAnnuel(b.getBudgetAnnuel());
+                    current.setReliquat(b.getReliquat());
+                    disablCreate = true;
+                    disablUpdate = false;
+                    disablDelete = false;
+                } else {
+                    current.setBudgetAnnuel(-1);
+                    current.setReliquat(-1);
+                    disablCreate = false;
+                    disablUpdate = true;
+                    disablDelete = true;
+                }
+            } catch (Exception e) {
+                current.setBudgetAnnuel(-1);
+                current.setReliquat(-1);
+                disablCreate = false;
+                disablUpdate = true;
+                disablDelete = true;
+                JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        }
+    }
     public BudgetFacade getFacade() {
         return ejbFacade;
     }
@@ -68,12 +114,12 @@ public class BudgetController implements Serializable {
         return "List";
     }
 
-    public String prepareView() {
+   /* public String prepareView() {
         current = (Budget) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
-
+    */
     public String prepareCreate() {
         current = new Budget();
         current.setBudgetPK(new model.BudgetPK());
@@ -83,6 +129,7 @@ public class BudgetController implements Serializable {
 
     public String create() {
         try {
+            current.setReliquat(current.getBudgetAnnuel());
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BudgetCreated"));
             return prepareCreate();
@@ -92,13 +139,14 @@ public class BudgetController implements Serializable {
         }
     }
 
-    public String prepareEdit() {
+   /* public String prepareEdit() {
         current = (Budget) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
-    }
+    }*/
     public String update() {
         try {
+            current.setReliquat(current.getBudgetAnnuel());
             getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BudgetUpdated"));
             return "View";
@@ -108,7 +156,7 @@ public class BudgetController implements Serializable {
         }
     }
 
-    public String destroy() {
+  /*  public String destroy() {
         current = (Budget) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
@@ -116,7 +164,7 @@ public class BudgetController implements Serializable {
         recreateModel();
         return "List";
     }
-
+*/
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -132,6 +180,7 @@ public class BudgetController implements Serializable {
 
     public void performDestroy() {
         try {
+            current.setReliquat(current.getBudgetAnnuel());
             getFacade().remove(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BudgetDeleted"));
         } catch (Exception e) {
@@ -154,12 +203,12 @@ public class BudgetController implements Serializable {
         }
     }
 
-    public DataModel getItems() {
+   /* public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
         }
         return items;
-    }
+    }*/
 
     private void recreateModel() {
         items = null;
@@ -191,6 +240,38 @@ public class BudgetController implements Serializable {
 
     public Budget getBudget(model.BudgetPK id) {
         return ejbFacade.find(id);
+    }
+
+    public Budget getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(Budget current) {
+        this.current = current;
+    }
+
+    public boolean isDisablCreate() {
+        return disablCreate;
+    }
+
+    public void setDisablCreate(boolean disablCreate) {
+        this.disablCreate = disablCreate;
+    }
+
+    public boolean isDisablUpdate() {
+        return disablUpdate;
+    }
+
+    public void setDisablUpdate(boolean disablUpdate) {
+        this.disablUpdate = disablUpdate;
+    }
+
+    public boolean isDisablDelete() {
+        return disablDelete;
+    }
+
+    public void setDisablDelete(boolean disablDelete) {
+        this.disablDelete = disablDelete;
     }
 
     @FacesConverter(forClass = Budget.class)

@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body onload="#{compteController.getItemes()}">
+       <h:form id="BudgetCompteCreateForm">
+                    <div class="col-md-12 col-sm-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                Formulaire :
+                            </div>
+                            <div class="panel-body">
+                                <p:growl id="message" life="2000" />
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" widgetVar="confirmation" closeOnEscape="false" closable="true">
+                                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" onclick="confirmation.hide()" icon="ui-icon-check" />
+                                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" onclick="confirmation.hide()" icon="ui-icon-close" />
+                                </p:confirmDialog>
+                                <center><table class='tab_form' style="width:400px;height:200px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
+                                        <tr> 
+                                            <td class="olab"><h:outputLabel value="#{bundle.CreateBudgetLabel_budgetAnnuel}" for="budgetAnnuel" /></td>
+                                            <td class="olab">
+                                                <h:selectOneMenu id="budgetPK_annee" value="#{budgetController.selected.budgetPK.annee}" title="#{bundle.CreateBudgetTitle_budgetPK_annee}" required="true" requiredMessage="#{bundle.CreateBudgetRequiredMessage_budgetPK_annee}"  style="width:155px">
+                                                    <f:selectItem itemLabel="#{selectAttribute.year}" itemValue="#{selectAttribute.year}" />
+                                                    <f:selectItems value="#{selectAttribute.budget_annees}" var="annees" itemValue = "#{annees}" />
+                                                    <p:ajax event="change" listener="#{budgetController.subjectSelectionChanged()}" update="BudgetCompteCreateForm" process="@form"/>
+                                                </h:selectOneMenu>
+                                            </td>
+                                        </tr>
+                                        <br/>
+                                        <tr> 
+                                            <td class="olab"><h:outputLabel value="#{bundle.CreateBudgetLabel_budgetPK_idCompte}" for="budgetPK_idCompte" /></td>
+                                            <td class="olab">
+                                                <h:selectOneMenu id="budgetPK_idCompte" value="#{budgetController.selected.budgetPK.idCompte}" title="#{bundle.CreateBudgetTitle_budgetPK_idCompte}" required="true" requiredMessage="#{bundle.CreateBudgetRequiredMessage_budgetPK_idCompte}"  style="width:155px">
+                                                    <f:selectItems value="#{selectAttribute.budget_idComptes}" var="idCompte" itemValue = "#{idCompte}" />
+                                                    <p:ajax event="change" listener="#{budgetController.subjectSelectionChanged()}" update="BudgetCompteCreateForm" process="@form"/>
+                                                </h:selectOneMenu>
+                                            </td>
+                                        </tr>
+                                        <br/>
+                                        <tr>
+                                            <td class="olab"><h:outputLabel value="#{bundle.CreateBudgetLabel_budgetAnnuel}" for="budgetAnnuel" /></td>
+                                            <td><p:inputText id="budgetAnnuel" value="#{budgetController.selected.budgetAnnuel}" title="#{bundle.CreateBudgetTitle_budgetAnnuel}"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="olab" ><p:outputLabel value="#{bundle.CreateBudgetLabel_reliquat}"></p:outputLabel></td>
+                                            <td class="olab" ><p:outputLabel value="#{budgetController.selected.reliquat}"></p:outputLabel></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="olab">
+                                                <p:commandButton ajax="false" id="ajaxcreate"  actionListener="#{budgetController.create}" class="btn btn-primary btn-lg" disabled="#{budgetController.disablCreate}" value="Ajouter" update="@form">
+                                                </p:commandButton>
+                                            </td>
+                                            <td class="olab">
+                                                <p:commandButton id="ajaxupdate"  actionListener="#{budgetController.update}" class="btn btn-success btn-lg" disabled="#{budgetController.disablDelete}" value="Modifier" update="message">
+                                                    <p:confirm header="Confirmation de modification" message="voulez-vous vraiment modifier ces informations?" icon="ui-icon-alert" />
+                                                </p:commandButton>
+                                            </td>
+                                            <td class="olab">
+                                                <p:commandButton id="ajaxdelete"  actionListener="#{budgetController.performDestroy}" class="btn btn-danger btn-lg" disabled="#{budgetController.disablUpdate}" value="Supprimer" update="message">
+                                                    <p:confirm header="Confirmation de suppression" message="voulez-vous vraiment supprimer ces informations?" icon="ui-icon-alert" />
+                                                </p:commandButton>
+                                            </td>
+                                        </tr>
+                                    </table></center>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                Liste Des Années Budgétaires
+                            </div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <p:dataTable value="#{budgetController.items}" var="item" id="list"
+                                                 paginator="true"
+                                                 rows="10"
+                                                 rowsPerPageTemplate="10,20,30,40,50">
+                                        <p:column headerText="#{bundle.ListBudgetTitle_budgetPK_idCompte}">
+                                            <h:outputText value="#{item.budgetPK.idCompte}"/>
+                                        </p:column>
+                                        <p:column headerText="#{bundle.ListBudgetTitle_budgetPK_annee}">
+                                            <h:outputText value="#{item.budgetPK.annee}"/>
+                                        </p:column>
+                                        <p:column headerText="#{bundle.ListBudgetTitle_budgetAnnuel}">
+                                            <h:outputText value="#{item.budgetAnnuel}"/>
+                                        </p:column>
+                                        <p:column headerText="#{bundle.ListBudgetTitle_reliquat}">
+                                            <h:outputText value="#{item.reliquat}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+    </h:body>
+</html>

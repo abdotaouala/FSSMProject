@@ -27,7 +27,7 @@
                                 </p:confirmDialog>
                                 <center><table class='tab_form' style="width:400px;height:200px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
                                         <tr> 
-                                            <td class="olab"><h:outputLabel value="#{bundle.CreateBudgetLabel_budgetAnnuel}" for="budgetAnnuel" /></td>
+                                            <td class="olab"><h:outputLabel value="#{bundle.CreateBudgetTitle_budgetPK_annee}" for="budgetAnnuel" /></td>
                                             <td class="olab">
                                                 <h:selectOneMenu id="budgetPK_annee" value="#{budgetController.selected.budgetPK.annee}" title="#{bundle.CreateBudgetTitle_budgetPK_annee}" required="true" requiredMessage="#{bundle.CreateBudgetRequiredMessage_budgetPK_annee}"  style="width:155px">
                                                     <f:selectItem itemLabel="#{selectAttribute.year}" itemValue="#{selectAttribute.year}" />
@@ -38,12 +38,20 @@
                                         </tr>
                                         <br/>
                                         <tr> 
-                                            <td class="olab"><h:outputLabel value="#{bundle.CreateBudgetLabel_budgetPK_idCompte}" for="budgetPK_idCompte" /></td>
+                                            <td class="olab"><p:outputLabel value="#{bundle.CreateCompteLabel_idCompte}" for="autocomplete" /></td>
                                             <td class="olab">
-                                                <h:selectOneMenu id="budgetPK_idCompte" value="#{budgetController.selected.budgetPK.idCompte}" title="#{bundle.CreateBudgetTitle_budgetPK_idCompte}" required="true" requiredMessage="#{bundle.CreateBudgetRequiredMessage_budgetPK_idCompte}"  style="width:155px">
-                                                    <f:selectItems value="#{selectAttribute.budget_idComptes}" var="idCompte" itemValue = "#{idCompte}" />
-                                                    <p:ajax event="change" listener="#{budgetController.subjectSelectionChanged()}" update="BudgetCompteCreateForm" process="@form"/>
-                                                </h:selectOneMenu>
+                                                <p:autoComplete dropdown="true" id="autocomplete" value="#{compteController.current}" completeMethod="#{compteController.completeText}" title="#{bundle.CreateCompteTitle_idCompte}" required="true"  
+                                                converter="compteConverter" var="cmp" itemLabel="#{cmp.idCompte}" itemValue="#{cmp}" >
+                                                    <p:column style="width:10%">
+                                                        <h:outputText value="#{cmp.idCompte}" />
+                                                    </p:column>
+
+                                                    <p:column>
+                                                        <h:outputText value="#{cmp.intitule}" /> 
+                                                    </p:column>
+                                                    <p:ajax event="itemSelect" listener="#{compteController.subjectSelectionChanged()}" update="@form" process="@form" />
+                                                    <p:ajax event="change" listener="#{compteController.subjectSelectionChanged()}" update="@form" process="@form" />
+                                                </p:autoComplete>
                                             </td>
                                         </tr>
                                         <br/>
@@ -61,12 +69,12 @@
                                                 </p:commandButton>
                                             </td>
                                             <td class="olab">
-                                                <p:commandButton id="ajaxupdate"  actionListener="#{budgetController.update}" class="btn btn-success btn-lg" disabled="#{budgetController.disablDelete}" value="Modifier" update="message">
+                                                <p:commandButton id="ajaxupdate"  actionListener="#{budgetController.update}" class="btn btn-success btn-lg" disabled="#{budgetController.disablDelete}" value="Modifier" update="@form">
                                                     <p:confirm header="Confirmation de modification" message="voulez-vous vraiment modifier ces informations?" icon="ui-icon-alert" />
                                                 </p:commandButton>
                                             </td>
                                             <td class="olab">
-                                                <p:commandButton id="ajaxdelete"  actionListener="#{budgetController.performDestroy}" class="btn btn-danger btn-lg" disabled="#{budgetController.disablUpdate}" value="Supprimer" update="message">
+                                                <p:commandButton id="ajaxdelete"  actionListener="#{budgetController.performDestroy}" class="btn btn-danger btn-lg" disabled="#{budgetController.disablUpdate}" value="Supprimer" update="@form">
                                                     <p:confirm header="Confirmation de suppression" message="voulez-vous vraiment supprimer ces informations?" icon="ui-icon-alert" />
                                                 </p:commandButton>
                                             </td>
@@ -82,18 +90,21 @@
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
-                                    <p:dataTable value="#{anneebudgetaireController.items}" var="item" id="list"
+                                    <p:dataTable value="#{budgetController.items}" var="item" id="list"
                                                  paginator="true"
                                                  rows="10"
                                                  rowsPerPageTemplate="10,20,30,40,50">
-                                        <p:column headerText="#{bundle.ListAnneebudgetaireTitle_annee}">
-                                            <h:outputText value="#{item.annee}"/>
+                                        <p:column headerText="#{bundle.ListBudgetTitle_budgetPK_idCompte}">
+                                            <h:outputText value="#{item.budgetPK.idCompte}"/>
                                         </p:column>
-                                        <p:column headerText="#{bundle.ListAnneebudgetaireTitle_montantRap}">
-                                            <h:outputText value="#{item.montantRap}"/>
+                                        <p:column headerText="#{bundle.ListBudgetTitle_budgetPK_annee}">
+                                            <h:outputText value="#{item.budgetPK.annee}"/>
                                         </p:column>
-                                        <p:column headerText="#{bundle.ListAnneebudgetaireTitle_reliquatRap}">
-                                            <h:outputText value="#{item.reliquatRap}"/>
+                                        <p:column headerText="#{bundle.ListBudgetTitle_budgetAnnuel}">
+                                            <h:outputText value="#{item.budgetAnnuel}"/>
+                                        </p:column>
+                                        <p:column headerText="#{bundle.ListBudgetTitle_reliquat}">
+                                            <h:outputText value="#{item.reliquat}"/>
                                         </p:column>
                                     </p:dataTable>
                                 </div>

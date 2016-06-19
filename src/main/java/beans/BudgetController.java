@@ -6,6 +6,7 @@ import beans.util.PaginationHelper;
 import session.BudgetFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -22,6 +23,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import model.Anneebudgetaire;
+import model.Compte;
 
 @Named("budgetController")
 @SessionScoped
@@ -29,6 +31,7 @@ public class BudgetController implements Serializable {
     @PersistenceContext(unitName = "AppFinanciere")
     private EntityManager em;
     private Budget current;
+    private Compte cpt;
     private List<Budget>items = null;
     @EJB
     private session.BudgetFacade ejbFacade;
@@ -62,6 +65,7 @@ public class BudgetController implements Serializable {
 public void subjectSelectionChanged() {
         if (current instanceof Budget && current != null) {
             try {
+                current.getBudgetPK().setIdCompte(cpt.getIdCompte());
                 Query req = em.createQuery("SELECT o FROM Budget o WHERE o.budgetPK.annee=? and o.budgetPK.idCompte=?").setParameter(1, current.getBudgetPK().getAnnee()).setParameter(2,current.getBudgetPK().getIdCompte());
                 Budget b = (Budget) req.getSingleResult();
                 if (b != null) {
@@ -86,6 +90,21 @@ public void subjectSelectionChanged() {
                 JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             }
         }
+    }
+public List<Compte> completeText(String id){
+        List<Compte> FiltredComptes=new ArrayList<Compte>();
+        try {
+                CompteController cc=new CompteController();
+                List<Compte> AllComptes=cc.getItemes();
+                for(Compte c:AllComptes){
+                    if(c.getIdCompte().toString().startsWith(id)) {
+                       FiltredComptes.add(c);
+                    }
+                }
+            } catch (Exception e) {
+              JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+    return FiltredComptes;
     }
     public BudgetFacade getFacade() {
         return ejbFacade;
@@ -131,6 +150,7 @@ public void subjectSelectionChanged() {
         try {
             current.setReliquat(current.getBudgetAnnuel());
             getFacade().create(current);
+            items=getItemes();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BudgetCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -148,6 +168,7 @@ public void subjectSelectionChanged() {
         try {
             current.setReliquat(current.getBudgetAnnuel());
             getFacade().edit(current);
+            items=getItemes();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BudgetUpdated"));
             return "View";
         } catch (Exception e) {
@@ -182,6 +203,7 @@ public void subjectSelectionChanged() {
         try {
             current.setReliquat(current.getBudgetAnnuel());
             getFacade().remove(current);
+            items=getItemes();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BudgetDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -272,6 +294,22 @@ public void subjectSelectionChanged() {
 
     public void setDisablDelete(boolean disablDelete) {
         this.disablDelete = disablDelete;
+    }
+
+    public List<Budget> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Budget> items) {
+        this.items = items;
+    }
+
+    public Compte getCpt() {
+        return cpt;
+    }
+
+    public void setCpt(Compte cpt) {
+        this.cpt = cpt;
     }
 
     @FacesConverter(forClass = Budget.class)

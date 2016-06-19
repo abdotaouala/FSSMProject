@@ -40,8 +40,8 @@
                                         <tr> 
                                             <td class="olab"><p:outputLabel value="#{bundle.CreateCompteLabel_idCompte}" for="autocomplete" /></td>
                                             <td class="olab">
-                                                <p:autoComplete dropdown="true" id="autocomplete" value="#{compteController.current}" completeMethod="#{compteController.completeText}" title="#{bundle.CreateCompteTitle_idCompte}" required="true"  
-                                                converter="compteConverter" var="cmp" itemLabel="#{cmp.idCompte}" itemValue="#{cmp}" >
+                                                <p:autoComplete dropdown="true" id="budgetPK_idCompte" value="#{budgetController.cpt}" completeMethod="#{budgetController.completeText}" title="#{bundle.CreateBudgetTitle_budgetPK_idCompte}" required="true"  
+                                                                converter="cptConverter" var="cmp" itemLabel="#{cmp.idCompte}" itemValue="#{cmp}" >
                                                     <p:column style="width:10%">
                                                         <h:outputText value="#{cmp.idCompte}" />
                                                     </p:column>
@@ -49,8 +49,8 @@
                                                     <p:column>
                                                         <h:outputText value="#{cmp.intitule}" /> 
                                                     </p:column>
-                                                    <p:ajax event="itemSelect" listener="#{compteController.subjectSelectionChanged()}" update="@form" process="@form" />
-                                                    <p:ajax event="change" listener="#{compteController.subjectSelectionChanged()}" update="@form" process="@form" />
+                                                    <p:ajax event="itemSelect" listener="#{budgetController.subjectSelectionChanged()}" update="@form" process="@form" />
+                                                    <p:ajax event="change" listener="#{budgetController.subjectSelectionChanged()}" update="@form" process="@form" />
                                                 </p:autoComplete>
                                             </td>
                                         </tr>

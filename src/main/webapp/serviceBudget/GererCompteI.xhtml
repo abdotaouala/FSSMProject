@@ -24,7 +24,7 @@
                                             <td class="olab"><p:outputLabel value="#{bundle.CreateCompteLabel_idCompte}" for="autocomplete" /></td>
                                             <td class="olab">
                                                 <p:autoComplete dropdown="true" id="autocomplete" value="#{compteController.current}" completeMethod="#{compteController.completeText}" title="#{bundle.CreateCompteTitle_idCompte}" required="true"  
-                                                converter="compteConverter" var="cmp" itemLabel="#{cmp.idCompte}" itemValue="#{cmp}" >
+                                                converter="cptConverter" var="cmp" itemLabel="#{cmp.idCompte}" itemValue="#{cmp}" >
                                                     <p:column style="width:10%">
                                                         <h:outputText value="#{cmp.idCompte}" />
                                                     </p:column>

@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package beans;
 
 import javax.faces.application.FacesMessage;
@@ -12,10 +8,11 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
 import model.Compte;
-@FacesConverter("cptConverterF")
-public class CptConverterF implements Converter {
 
-    @Override
+@FacesConverter(value= "cptConverter")
+    public class CompteControllerConverter implements Converter {
+
+          @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
@@ -51,13 +48,12 @@ public class CptConverterF implements Converter {
 
         @Override
         public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
-            if (object == null) {
-                return null;
-            }else if(object!=null) {
+            if (object != null) {
                 Compte o = (Compte) object;
                 return String.valueOf(((Compte) object).getIdCompte());
-            } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Compte.class.getName());
-            }
+            }else {
+                return null;
         }
-}
+        }
+
+    }

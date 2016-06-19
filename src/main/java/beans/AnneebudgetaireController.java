@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.AjaxBehavior;
 import javax.faces.context.FacesContext;
@@ -26,6 +27,7 @@ import javax.persistence.Query;
 import org.primefaces.event.CloseEvent;
 @Named("anneebudgetaireController")
 @SessionScoped
+@ManagedBean
 public class AnneebudgetaireController implements Serializable {
 
     @PersistenceContext(unitName = "AppFinanciere")
@@ -295,6 +297,30 @@ public class AnneebudgetaireController implements Serializable {
             }
         }
 
+    }
+
+    public EntityManager getEm() {
+        return em;
+    }
+
+    public void setEm(EntityManager em) {
+        this.em = em;
+    }
+
+    public AnneebudgetaireFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(AnneebudgetaireFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    public int getSelectedItemIndex() {
+        return selectedItemIndex;
+    }
+
+    public void setSelectedItemIndex(int selectedItemIndex) {
+        this.selectedItemIndex = selectedItemIndex;
     }
 
 }

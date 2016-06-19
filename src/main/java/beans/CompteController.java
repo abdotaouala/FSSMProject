@@ -301,56 +301,28 @@ public class CompteController implements Serializable {
         this.disablDelete = disablDelete;
     }
 
-    @FacesConverter(value="compteConverter",forClass = Compte.class)
-    public static class CompteControllerConverter implements Converter {
+    public EntityManager getEm() {
+        return em;
+    }
 
-         @Override
-        public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
-            if (value == null || value.length() == 0) {
-                return null;
-            }else{
-                try{
-            CompteController controller = (CompteController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "compteController");
-            Object o=controller.getCompte(getKey(value));
-            if(o==null){
-                Compte c=new Compte();
-                c.setIdCompte(Integer.parseInt(value));
-                return c;
-            }else{
-            return o;
-            }
-            } catch(NumberFormatException e) {
-                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion Error", "Not a valid theme."));
-            }
-        }
-        }
+    public void setEm(EntityManager em) {
+        this.em = em;
+    }
 
-        java.lang.Integer getKey(String value) {
-            java.lang.Integer key;
-            key = Integer.valueOf(value);
-            return key;
-        }
+    public CompteFacade getEjbFacade() {
+        return ejbFacade;
+    }
 
-        String getStringKey(java.lang.Integer value) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(value);
-            return sb.toString();
-        }
+    public void setEjbFacade(CompteFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
 
-        @Override
-        public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
-            if (object == null) {
-                return null;
-            }
-            if (object!=null) {
-                Compte o = (Compte) object;
-                return String.valueOf(((Compte) object).getIdCompte());
-            } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Compte.class.getName());
-            }
-        }
+    public int getSelectedItemIndex() {
+        return selectedItemIndex;
+    }
 
+    public void setSelectedItemIndex(int selectedItemIndex) {
+        this.selectedItemIndex = selectedItemIndex;
     }
 
 }

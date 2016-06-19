@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -22,24 +23,25 @@ import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import model.Anneebudgetaire;
+import model.BudgetPK;
 import model.Compte;
 
 @Named("budgetController")
+@ManagedBean
 @SessionScoped
 public class BudgetController implements Serializable {
     @PersistenceContext(unitName = "AppFinanciere")
     private EntityManager em;
     private Budget current;
-    private Compte cmpt;
+    private Compte cpt;
     private List<Budget>items = null;
+    private boolean disablCreate = false;
+    private boolean disablUpdate = true;
+    private boolean disablDelete = true;
     @EJB
     private session.BudgetFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-    private boolean disablCreate = false;
-    private boolean disablUpdate = true;
-    private boolean disablDelete = true;
     public BudgetController() {
         subjectSelectionChanged();
         items=getItemes();
@@ -54,6 +56,7 @@ public class BudgetController implements Serializable {
         return current;
     }
     public List<Budget> getItemes() {
+        
             try {
                 Query req = em.createQuery("SELECT o FROM Budget o");
                 items= (List<Budget>) req.getResultList();
@@ -65,7 +68,7 @@ public class BudgetController implements Serializable {
 public void subjectSelectionChanged() {
         if (current instanceof Budget && current != null) {
             try {
-                current.getBudgetPK().setIdCompte(cmpt.getIdCompte());
+                current.getBudgetPK().setIdCompte(cpt.getIdCompte());
                 Query req = em.createQuery("SELECT o FROM Budget o WHERE o.budgetPK.annee=? and o.budgetPK.idCompte=?").setParameter(1, current.getBudgetPK().getAnnee()).setParameter(2,current.getBudgetPK().getIdCompte());
                 Budget b = (Budget) req.getSingleResult();
                 if (b != null) {
@@ -92,7 +95,7 @@ public void subjectSelectionChanged() {
         }
     }
 public List<Compte> completeText(String id){
-        List<Compte> FiltredComptes=new ArrayList<Compte>();
+    List<Compte> FiltredComptes=new ArrayList<Compte>();
         try {
                 CompteController cc=new CompteController();
                 List<Compte> AllComptes=cc.getItemes();
@@ -304,16 +307,38 @@ public List<Compte> completeText(String id){
         this.items = items;
     }
 
-    public Compte getCmpt() {
-        return cmpt;
+    public Compte getCpt() {
+        return cpt;
     }
 
-    public void setCmpt(Compte cmpt) {
-        this.cmpt = cmpt;
+    public void setCpt(Compte cpt) {
+        this.cpt = cpt;
     }
 
+ 
     
+    public EntityManager getEm() {
+        return em;
+    }
 
+    public void setEm(EntityManager em) {
+        this.em = em;
+    }
+    public BudgetFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(BudgetFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    public int getSelectedItemIndex() {
+        return selectedItemIndex;
+    }
+
+    public void setSelectedItemIndex(int selectedItemIndex) {
+        this.selectedItemIndex = selectedItemIndex;
+    }
 
     @FacesConverter(forClass = Budget.class)
     public static class BudgetControllerConverter implements Converter {
@@ -361,6 +386,5 @@ public List<Compte> completeText(String id){
             }
         }
 
-    }
-
+}
 }

@@ -35,8 +35,8 @@
                                 <tr> 
                                     <td class="olab"><h:outputLabel value="#{bundle.CreateBudgetLabel_budgetPK_idCompte}" for="budgetPK_idCompte" /></td>
                                     <td class="olab">
-                                        <p:autoComplete dropdown="true" id="budgetPK_idCompte" value="#{budgetController.cmpt}" completeMethod="#{budgetController.completeText}" title="#{bundle.CreateBudgetTitle_budgetPK_idCompte}" required="true"  
-                                         converter="cptConverterF" var="cmp" itemLabel="#{cmp.idCompte}" itemValue="#{cmp}" >
+                                        <p:autoComplete dropdown="true" id="budgetPK_idCompte" value="#{budgetController.cpt}" completeMethod="#{compteController.completeText}" title="#{bundle.CreateBudgetTitle_budgetPK_idCompte}" required="true"  
+                                                        converter="cptConverter" var="cmp" itemLabel="#{cmp.idCompte}" itemValue="#{cmp}" >
                                             <p:column style="width:10%">
                                                 <h:outputText value="#{cmp.idCompte}" />
                                             </p:column>
@@ -44,8 +44,8 @@
                                             <p:column>
                                                 <h:outputText value="#{cmp.intitule}" /> 
                                             </p:column>
-                                            <p:ajax event="itemSelect" listener="#{budgetController.subjectSelectionChanged}" update="@form" process="@form" />
-                                            <p:ajax event="change" listener="#{budgetController.subjectSelectionChanged}" update="@form" process="@form" />
+                                            <p:ajax event="itemSelect" listener="#{budgetController.subjectSelectionChanged()}" update="@form" process="@form" />
+                                            <p:ajax event="change" listener="#{budgetController.subjectSelectionChanged()}" update="@form" process="@form" />
                                         </p:autoComplete>
                                     </td>
                                 </tr>
@@ -79,13 +79,13 @@
                 </div>
             </div>
             <div class="col-md-12 col-sm-12">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        Liste Des Années Budgétaires
-                    </div>
-                    <div class="panel-body">
-                        <div class="table-responsive">
-                            <p:dataTable value="#{budgetController.items}" var="item" id="list"
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                Liste Des Années Budgétaires
+                            </div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <p:dataTable value="#{budgetController.items}" var="item" id="list"
                                          paginator="true"
                                          rows="10"
                                          rowsPerPageTemplate="10,20,30,40,50">
@@ -102,10 +102,10 @@
                                     <h:outputText value="#{item.reliquat}"/>
                                 </p:column>
                             </p:dataTable>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
         </h:form>
     </h:body>
 </html>

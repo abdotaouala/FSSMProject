@@ -31,7 +31,7 @@ public class BudgetController implements Serializable {
     @PersistenceContext(unitName = "AppFinanciere")
     private EntityManager em;
     private Budget current;
-    private Compte cpt;
+    private Compte cmpt;
     private List<Budget>items = null;
     @EJB
     private session.BudgetFacade ejbFacade;
@@ -65,7 +65,7 @@ public class BudgetController implements Serializable {
 public void subjectSelectionChanged() {
         if (current instanceof Budget && current != null) {
             try {
-                current.getBudgetPK().setIdCompte(cpt.getIdCompte());
+                current.getBudgetPK().setIdCompte(cmpt.getIdCompte());
                 Query req = em.createQuery("SELECT o FROM Budget o WHERE o.budgetPK.annee=? and o.budgetPK.idCompte=?").setParameter(1, current.getBudgetPK().getAnnee()).setParameter(2,current.getBudgetPK().getIdCompte());
                 Budget b = (Budget) req.getSingleResult();
                 if (b != null) {
@@ -304,13 +304,16 @@ public List<Compte> completeText(String id){
         this.items = items;
     }
 
-    public Compte getCpt() {
-        return cpt;
+    public Compte getCmpt() {
+        return cmpt;
     }
 
-    public void setCpt(Compte cpt) {
-        this.cpt = cpt;
+    public void setCmpt(Compte cmpt) {
+        this.cmpt = cmpt;
     }
+
+    
+
 
     @FacesConverter(forClass = Budget.class)
     public static class BudgetControllerConverter implements Converter {

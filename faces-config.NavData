@@ -2,15 +2,15 @@
 <Scene Scope="Project" version="2">
     <Scope Scope="Faces Configuration Only"/>
     <Scope Scope="Project">
+        <Node id="resources/tem3Ges/vendors/Flot/examples/series-toggle/index.html" x="400" y="2550" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/bootstrap-daterangepicker/website/index.html" x="400" y="600" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/visualMap-opacity.html" x="400" y="1500" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/Flot/examples/series-toggle/index.html" x="400" y="2550" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/themeRiver.html" x="650" y="900" zoom="true"/>
-        <Node id="operateur/index1.xhtml" x="150" y="2400" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/data/select.html" x="2650" y="300" zoom="true"/>
+        <Node id="operateur/index1.xhtml" x="150" y="2400" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/nav/examples.html" x="3650" y="450" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/echarts/test/dynamicData.html" x="2150" y="1800" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/mix.html" x="1400" y="150" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/echarts/test/dynamicData.html" x="2150" y="1800" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Flot/examples/categories/index.html" x="3400" y="750" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/logScale.html" x="1150" y="2550" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/morris.js/examples/years.html" x="1650" y="1350" zoom="true"/>
@@ -20,33 +20,33 @@
         <Node id="resources/tem3Ges/vendors/google-code-prettify/styles/index.html" x="400" y="1650" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/events/internal.html" x="4900" y="1050" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options-old/dropdown.html" x="900" y="1950" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/nprogress/index.html" x="4400" y="1200" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/pie2.html" x="400" y="1950" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/echarts/test/dataZoom-rainfall.html" x="1650" y="2850" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/nprogress/index.html" x="4400" y="1200" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/chord.html" x="2150" y="2250" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/echarts/test/dataZoom-rainfall.html" x="1650" y="2850" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/dataZoom-scatter-hv-polar.html" x="2900" y="1350" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Chart.js/samples/line-legend.html" x="400" y="2850" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/morris.js/examples/resize.html" x="1150" y="450" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/polarLine.html" x="900" y="2100" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/force.html" x="150" y="450" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/selections.html" x="2150" y="1050" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/echarts/test/ie8.html" x="3150" y="450" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/navigation.html" x="6150" y="150" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/echarts/test/ie8.html" x="3150" y="450" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/selections.html" x="2150" y="1050" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/masterPainterColorChoice.html" x="650" y="2700" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/examples/disabled-results.html" x="1150" y="3000" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Flot/examples/tracking/index.html" x="1650" y="1800" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Flot/examples/zooming/index.html" x="1900" y="2550" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/Chart.js/samples/bar-stacked.html" x="150" y="1800" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/jszip/documentation/examples/download-zip-file.html" x="3400" y="1350" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/Chart.js/samples/bar-stacked.html" x="150" y="1800" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/examples/matcher.html" x="400" y="2700" zoom="true"/>
         <Node id="login.xhtml" x="3900" y="300" zoom="true"/>
-        <Node id="unauthorized.xhtml" x="1900" y="150" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/visualMap-scatter-symbolSize.html" x="1150" y="300" zoom="true"/>
         <Node id="BonCommande.xhtml" x="1900" y="1050" zoom="true"/>
+        <Node id="unauthorized.xhtml" x="1900" y="150" zoom="true"/>
         <Node id="page_404.html" x="2400" y="1950" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/bootstrap-wysiwyg/examples/multiple-editors.html" x="4400" y="1350" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/echarts/test/area2.html" x="5150" y="150" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/jQuery-Smart-Wizard/smartwizard2-validation.htm" x="2900" y="1650" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/echarts/test/area2.html" x="5150" y="150" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/boxplot.html" x="400" y="450" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Flot/examples/axes-time/index.html" x="4150" y="750" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/core/amd-support.html" x="2150" y="1500" zoom="true"/>
@@ -54,16 +54,16 @@
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/selections/placeholder.html" x="4650" y="300" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/tests/unit.html" x="2150" y="1650" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/data/array.html" x="3650" y="750" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/selections/templating.html" x="1400" y="2850" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/morris.js/examples/months-no-smooth.html" x="1650" y="1050" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/selections/templating.html" x="1400" y="2850" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/eve/e.html" x="4150" y="300" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/nav/options-old.html" x="2400" y="2250" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/dataZoomHighPrecision.html" x="3400" y="300" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/visualMap-categories.html" x="150" y="3750" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/morris.js/examples/weeks.html" x="1650" y="150" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/morris.js/spec/viz/test.html" x="150" y="3000" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/morris.js/examples/stacked_bars.html" x="1150" y="1950" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_layouts/home.html" x="1400" y="1350" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/morris.js/examples/stacked_bars.html" x="1150" y="1950" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/heatmap-map.html" x="650" y="2400" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Flot/examples/navigate/index.html" x="2650" y="900" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/community.html" x="4150" y="900" zoom="true"/>
@@ -80,8 +80,8 @@
         <Node id="resources/tem3Ges/vendors/Chart.js/samples/scatter.html" x="150" y="2850" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/dataZoom-dataShadow1.html" x="2150" y="600" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/head.html" x="2650" y="150" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/Chart.js/samples/pie.html" x="1650" y="900" zoom="true"/>
         <Node id="footer.xhtml" x="650" y="3450" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/Chart.js/samples/pie.html" x="1650" y="900" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Flot/examples/symbols/index.html" x="1900" y="450" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/examples/themes-templating-responsive-design.html" x="400" y="3300" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Chart.js/samples/polar-area.html" x="1900" y="750" zoom="true"/>
@@ -98,15 +98,15 @@
         <Node id="resources/tem3Ges/vendors/echarts/test/worldPopulationBubble.html" x="150" y="1950" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/treemap-disk.html" x="4900" y="150" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Chart.js/samples/line-stacked-area.html" x="3900" y="600" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/jQuery-Smart-Wizard/smartwizard2-vertical.htm" x="2150" y="900" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/examples.html" x="2900" y="750" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/jQuery-Smart-Wizard/smartwizard2-vertical.htm" x="2150" y="900" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/media-pie.html" x="2150" y="2100" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/morris.js/examples/decimal-custom-hover.html" x="3650" y="900" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/select2/docs/_includes/examples/hide-search.html" x="1400" y="2400" zoom="true"/>
         <Node id="headerIndex.xhtml" x="1400" y="2550" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/select2/docs/_includes/examples/hide-search.html" x="1400" y="2400" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/scatter.html" x="900" y="2550" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/morris.js/examples/area.html" x="2650" y="450" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/compatibility/text-input.html" x="1150" y="2250" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/morris.js/examples/area.html" x="2650" y="450" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/dataZoom-scatter-toolbox.html" x="900" y="450" zoom="true"/>
         <Node id="operateur/header.xhtml" x="3400" y="150" zoom="true"/>
         <Node id="operateur/deplacement/deplacementInterne/ajouter.xhtml" x="400" y="2250" zoom="true"/>
@@ -139,9 +139,9 @@
         <Node id="resources/tem3Ges/vendors/echarts/test/bar.html" x="4400" y="150" zoom="true"/>
         <Node id="operateur/vacation/index.xhtml" x="2900" y="2100" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Chart.js/samples/timeScale/line-time-scale.html" x="3400" y="1650" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/morris.js/examples/non-continuous.html" x="150" y="2100" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/morris.js/examples/dst.html" x="6400" y="150" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/timeScale.html" x="650" y="2250" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/morris.js/examples/non-continuous.html" x="150" y="2100" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/dropdown/selections.html" x="1900" y="2400" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/events.html" x="150" y="1200" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/force2.html" x="650" y="1800" zoom="true"/>
@@ -151,28 +151,28 @@
         <Node id="operateur/deplacement/kilometrique/modifier.xhtml" x="5150" y="300" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/morris.js/examples/updating.html" x="2400" y="750" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/morris.js/examples/quarters.html" x="3150" y="900" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/echarts/test/connect.html" x="4150" y="1050" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Chart.js/samples/bar-horizontal.html" x="5650" y="300" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/echarts/test/connect.html" x="4150" y="1050" zoom="true"/>
         <Node id="operateur/deplacement/deplacementEranger.xhtml" x="1150" y="1650" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/ut.html" x="2400" y="150" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/bootstrap-wysiwyg/examples/clear-formatting.html" x="4650" y="750" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Chart.js/samples/pie-customTooltips.html" x="900" y="1800" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Chart.js/samples/line-x-axis-filter.html" x="900" y="300" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/echarts/test/bar2.html" x="4900" y="600" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/axis.html" x="3150" y="1950" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/echarts/test/bar2.html" x="4900" y="600" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/morris.js/examples/timestamps.html" x="2650" y="1650" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/echarts/test/treemap-simple.html" x="2400" y="2100" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/notice-previous.html" x="150" y="2550" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/echarts/test/treemap-simple.html" x="2400" y="2100" zoom="true"/>
         <Node id="operateur/deplacement/deplacementExterne/ajouter.xhtml" x="1150" y="2100" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/selections/clearing-selections.html" x="3650" y="600" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/devbridge-autocomplete/index.htm" x="2900" y="450" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/options-old.html" x="2900" y="150" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/devbridge-autocomplete/index.htm" x="2900" y="450" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/selections/clearing-selections.html" x="3650" y="600" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Chart.js/samples/bar.html" x="5900" y="150" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/morris.js/examples/donut-colors.html" x="650" y="1500" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/jQuery-Smart-Wizard/more_examples/smartwizard2-ajax.htm" x="3150" y="600" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/morris.js/examples/goals.html" x="400" y="3000" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/select2/tests/integration.html" x="650" y="450" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/morris.js/examples/bar-colors.html" x="1900" y="1800" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/select2/tests/integration.html" x="650" y="450" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/jszip/index.html" x="1150" y="1050" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/effectScatter.html" x="4400" y="750" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/bootstrap-daterangepicker/demo.html" x="4400" y="1050" zoom="true"/>
@@ -180,17 +180,17 @@
         <Node id="contact.xhtml" x="3650" y="1200" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/examples/tags.html" x="2400" y="1350" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/dropdown/placement.html" x="650" y="2100" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/bootstrap-wysiwyg/examples/html-editor.html" x="3650" y="1050" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/index.html" x="1650" y="2250" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/bootstrap-wysiwyg/examples/html-editor.html" x="3650" y="1050" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/core/data-attributes.html" x="400" y="3150" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/morris.js/examples/non-date.html" x="1150" y="2850" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/jquery-knob/index.html" x="2400" y="1200" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Chart.js/samples/AnimationCallbacks/progress-bar.html" x="1650" y="450" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/core.html" x="1150" y="900" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/jquery-knob/index.html" x="2400" y="1200" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Chart.js/samples/data_label_combo-bar-line.html" x="5150" y="600" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/core.html" x="1150" y="900" zoom="true"/>
         <Node id="header.xhtml" x="3150" y="1650" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/echarts/test/line.html" x="1650" y="1200" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/sankey.html" x="1900" y="1500" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/echarts/test/line.html" x="1650" y="1200" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/compatibility/matcher.html" x="4400" y="600" zoom="true"/>
         <Node id="index.xhtml" x="1150" y="1800" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/google-code-prettify/styles/demo.html" x="4900" y="450" zoom="true"/>
@@ -200,22 +200,22 @@
         <Node id="resources/tem3Ges/vendors/morris.js/examples/events.html" x="5150" y="750" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/symbol.html" x="1400" y="450" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/dataView.html" x="2400" y="2400" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/echarts/test/gauge.html" x="2150" y="750" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options-old/adapters.html" x="1650" y="1650" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/echarts/test/gauge.html" x="2150" y="750" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/morris.js/spec/specs.html" x="900" y="3300" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Flot/examples/stacking/index.html" x="2400" y="1050" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Chart.js/samples/line-logarithmic.html" x="2900" y="1500" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/diff.html" x="2900" y="600" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options-old/core-options.html" x="1150" y="2700" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/echarts/test/geoScatter.html" x="650" y="1950" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Chart.js/samples/different-point-sizes.html" x="3900" y="1200" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Chart.js/samples/bar-multi-axis.html" x="4400" y="450" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/echarts/test/geoScatter.html" x="650" y="1950" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Flot/examples/selection/index.html" x="3650" y="1650" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/morris.js/examples/no-grid.html" x="5400" y="750" zoom="true"/>
         <Node id="admin/newTemplateClient.xhtml" x="3150" y="150" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/bmap.html" x="1900" y="600" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options-old/setting-default-options.html" x="2150" y="1350" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/visualMap-scatter-continuous.html" x="900" y="900" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options-old/setting-default-options.html" x="2150" y="1350" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/axes.html" x="5650" y="450" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Flot/examples/realtime/index.html" x="4150" y="1350" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Flot/examples/percentiles/index.html" x="2650" y="1950" zoom="true"/>
@@ -229,16 +229,16 @@
         <Node id="operateur/deplacement/deplacementInterne/afficher.xhtml" x="5400" y="600" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/bootstrap-wysiwyg/examples/basic.html" x="1150" y="1350" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/punchCard.html" x="2650" y="2250" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/jQuery-Smart-Wizard/smartwizard2-ajax.htm" x="1650" y="750" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/data/ajax.html" x="4650" y="1050" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/echarts/test/dataZoom-axes.html" x="1150" y="600" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/jQuery-Smart-Wizard/smartwizard2-ajax.htm" x="1650" y="750" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/dataZoom-dataShadow.html" x="150" y="600" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/echarts/test/polarScatter.html" x="1900" y="2250" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/echarts/test/dataZoom-axes.html" x="1150" y="600" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/compatibility/initial-selection.html" x="400" y="3450" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/echarts/test/polarScatter.html" x="1900" y="2250" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/compatibility/introduction.html" x="1650" y="2400" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/jQuery-Smart-Wizard/smartwizard2-multiple.htm" x="5400" y="300" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/not-written.html" x="3900" y="900" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/morris.js/examples/_template.html" x="2150" y="1950" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/not-written.html" x="3900" y="900" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/markLine.html" x="1650" y="600" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/data.html" x="1900" y="1950" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/autosize/example/index.html" x="2650" y="1800" zoom="true"/>
@@ -266,13 +266,13 @@
         <Node id="resources/tem3Ges/vendors/echarts/test/color-mix-aqi.html" x="1650" y="2700" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/mobileBench.html" x="2150" y="300" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Chart.js/samples/timeScale/combo-time-scale.html" x="2400" y="600" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/jQuery-Smart-Wizard/index.htm" x="1400" y="2700" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/heatmap.html" x="5400" y="150" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/jQuery-Smart-Wizard/index.htm" x="1400" y="2700" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Flot/examples/visitors/index.html" x="900" y="2850" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/bernii/gauge.js/index.html" x="3400" y="1500" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/select2/docs/_includes/examples/data.html" x="900" y="1200" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Chart.js/samples/radar-skip-points.html" x="1150" y="3150" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Flot/examples/series-pie/index.html" x="5650" y="600" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/select2/docs/_includes/examples/data.html" x="900" y="1200" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/nav/options.html" x="400" y="1800" zoom="true"/>
         <Node id="Budget.xhtml" x="900" y="1500" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/bootstrap-wysiwyg/examples/events.html" x="4650" y="150" zoom="true"/>
@@ -281,54 +281,54 @@
         <Node id="resources/tem3Ges/vendors/echarts/test/media-dataZoom.html" x="1900" y="2700" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/ga.html" x="650" y="1050" zoom="true"/>
         <Node id="operateur/deplacement/deplacementInterne/modifier.xhtml" x="2900" y="1200" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/select2/docs/_includes/examples/tokenizer.html" x="1150" y="750" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/pie.html" x="150" y="2700" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/select2/docs/_includes/examples/tokenizer.html" x="1150" y="750" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/announcements-4.0.html" x="4150" y="1200" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/timeline-finance.html" x="4150" y="450" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Chart.js/samples/line.html" x="400" y="3600" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/morris.js/examples/bar.html" x="1150" y="1500" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Chart.js/samples/tooltip-hooks.html" x="4650" y="600" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/morris.js/examples/bar.html" x="1150" y="1500" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/connect2.html" x="2650" y="1350" zoom="true"/>
         <Node id="operateur/deplacement/kilometrique/ajouter.xhtml" x="150" y="3600" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/echarts/test/parallel-aqi.html" x="1650" y="1500" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/starrr/index.html" x="2400" y="1800" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/echarts/test/parallel-aqi.html" x="1650" y="1500" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/morris.js/examples/donut.html" x="5150" y="450" zoom="true"/>
         <Node id="operateur/deplacement/deplacementExterne/modifier.xhtml" x="2900" y="1950" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Chart.js/samples/line-skip-points.html" x="1400" y="1050" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Flot/examples/basic-usage/index.html" x="2400" y="1500" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/Chart.js/samples/combo-bar-line.html" x="1150" y="2400" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/markPoint.html" x="150" y="1650" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/Chart.js/samples/combo-bar-line.html" x="1150" y="2400" zoom="true"/>
         <Node id="page_500.html" x="1900" y="1650" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/Flot/examples/threshold/index.html" x="3400" y="1200" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/dataZoom-axis-type.html" x="2150" y="1200" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/Flot/examples/threshold/index.html" x="3400" y="1200" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/dropdown/tagging.html" x="900" y="600" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/options.html" x="900" y="1350" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/google-code-prettify/README-zh-Hans.html" x="3400" y="900" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/bootstrap-wysiwyg/examples/formatblock-example.html" x="2650" y="750" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options-old/events.html" x="4150" y="150" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/bootstrap-wysiwyg/examples/formatblock-example.html" x="2650" y="750" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/selections/multiple.html" x="2400" y="450" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/Chart.js/samples/scatter-logX.html" x="150" y="2250" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/social-buttons.html" x="2650" y="1050" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/Chart.js/samples/scatter-logX.html" x="150" y="2250" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Flot/examples/basic-options/index.html" x="650" y="750" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Flot/examples/series-types/index.html" x="2650" y="600" zoom="true"/>
         <Node id="operateur/index.xhtml" x="4900" y="750" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/examples/disabled-mode.html" x="1650" y="300" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/Chart.js/samples/bubble.html" x="3400" y="1050" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/dataZoom-dynamic.html" x="650" y="300" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/Chart.js/samples/line-multi-axis.html" x="400" y="1350" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/Chart.js/samples/bubble.html" x="3400" y="1050" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/pieDynamic.html" x="3150" y="1350" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/Chart.js/samples/line-multi-axis.html" x="400" y="1350" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/theme.html" x="1400" y="300" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/morris.js/examples/diagonal-xlabels.html" x="1400" y="600" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/transitionize/examples/example.html" x="2650" y="1500" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/select2/docs/_includes/examples/placeholders.html" x="2900" y="1800" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/Flot/examples/image/index.html" x="2900" y="1050" zoom="true"/>
         <Node id="operateur/deplacement/deplacementExterne/afficher.xhtml" x="3900" y="450" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/google-code-prettify/README.html" x="1150" y="150" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/Flot/examples/axes-interacting/index.html" x="650" y="2850" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/dataZoom-dataShadow0.html" x="1400" y="1950" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/Flot/examples/axes-interacting/index.html" x="650" y="2850" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/google-code-prettify/README.html" x="1150" y="150" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/bootstrap-wysiwyg/examples/simple-toolbar.html" x="4650" y="1200" zoom="true"/>
-        <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/dropdown.html" x="1400" y="1650" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/largeLine.html" x="650" y="150" zoom="true"/>
+        <Node id="resources/tem3Ges/vendors/select2/docs/_includes/options/dropdown.html" x="1400" y="1650" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/area.html" x="1650" y="2100" zoom="true"/>
         <Node id="operateur/deplacement/DeplacementInterne.xhtml" x="650" y="1200" zoom="true"/>
         <Node id="resources/tem3Ges/vendors/echarts/test/boxplot-multi.html" x="3650" y="300" zoom="true"/>

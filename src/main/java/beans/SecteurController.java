@@ -6,10 +6,13 @@ import beans.util.PaginationHelper;
 import session.SecteurFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -17,19 +20,129 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import model.Secteurprincipal;
 
 @Named("secteurController")
 @SessionScoped
+@ManagedBean
 public class SecteurController implements Serializable {
 
+    @PersistenceContext(unitName = "AppFinanciere")
+    private EntityManager em;
     private Secteur current;
-    private DataModel items = null;
+    private List<Secteur> items = null;
+    private String newDesignation;
     @EJB
     private session.SecteurFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private String secteurP;
+    private boolean disablCreate = false;
+    private boolean disablUpdate = true;
+    private boolean disablDelete = true;
 
     public SecteurController() {
+        items=getItemes();
+    }
+
+    public void subjectSelectionChanged() {
+        if (current instanceof Secteur && current != null) {
+            try {
+                Query req = em.createQuery("SELECT o FROM Secteur o WHERE o.intituleSecteur = ? and o.idSecteurP in(select sp.idSecteurP from Secteurprincipal sp where sp.designation= ?)").setParameter(1, current.getIntituleSecteur()).setParameter(2,this.secteurP);
+                Secteur c = (Secteur) req.getSingleResult();
+                if (c != null) {
+                    disablCreate = true;
+                    disablUpdate = false;
+                    disablDelete = false;
+                } else {
+                    disablCreate = false;
+                    disablUpdate = true;
+                    disablDelete = true;
+                }
+            } catch (Exception e) {
+                disablCreate = false;
+                disablUpdate = true;
+                disablDelete = true;
+                JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        }
+    }
+
+    public List<Secteur> getItemes() {
+        try {
+            this.items = new ArrayList<Secteur>();
+            Query req = em.createQuery("SELECT o FROM Secteur o");
+            List<Secteur> l = (List<Secteur>) req.getResultList();
+            items = l;
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+        return items;
+    }
+
+    public List<String> completeText(String id){
+        List<String> FiltredS=new ArrayList<String>();
+        try {
+                List<Secteur> AllS=getItemes();
+                for(Secteur c:AllS){
+                    if(c.getIntituleSecteur().startsWith(id)) {
+                       FiltredS.add(c.getIntituleSecteur());
+                    }
+                }
+            } catch (Exception e) {
+              JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        return FiltredS;
+    }
+
+    public String getNewDesignation() {
+        return newDesignation;
+    }
+
+    public void setNewDesignation(String newDesignation) {
+        this.newDesignation = newDesignation;
+    }
+
+    public EntityManager getEm() {
+        return em;
+    }
+
+    public void setEm(EntityManager em) {
+        this.em = em;
+    }
+
+    public List<Secteur> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Secteur> items) {
+        this.items = items;
+    }
+    public boolean isDisablCreate() {
+        return disablCreate;
+    }
+
+    public void setDisablCreate(boolean disablCreate) {
+        this.disablCreate = disablCreate;
+    }
+
+    public boolean isDisablUpdate() {
+        return disablUpdate;
+    }
+
+    public void setDisablUpdate(boolean disablUpdate) {
+        this.disablUpdate = disablUpdate;
+    }
+
+    public boolean isDisablDelete() {
+        return disablDelete;
+    }
+
+    public void setDisablDelete(boolean disablDelete) {
+        this.disablDelete = disablDelete;
     }
 
     public Secteur getSelected() {
@@ -38,6 +151,34 @@ public class SecteurController implements Serializable {
             selectedItemIndex = -1;
         }
         return current;
+    }
+
+    public void setCurrent(Secteur current) {
+        this.current = current;
+    }
+
+    public SecteurFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(SecteurFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    public int getSelectedItemIndex() {
+        return selectedItemIndex;
+    }
+
+    public void setSelectedItemIndex(int selectedItemIndex) {
+        this.selectedItemIndex = selectedItemIndex;
+    }
+
+    public String getSecteurP() {
+        return secteurP;
+    }
+
+    public void setSecteurP(String secteurP) {
+        this.secteurP = secteurP;
     }
 
     private SecteurFacade getFacade() {
@@ -67,21 +208,34 @@ public class SecteurController implements Serializable {
         return "List";
     }
 
-    public String prepareView() {
+   /* public String prepareView() {
         current = (Secteur) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
-    }
+    }*/
 
     public String prepareCreate() {
         current = new Secteur();
         selectedItemIndex = -1;
         return "Create";
     }
+    public int getIDSP(){
+        try {
+    Query req = em.createQuery("select sp.idSecteurP from Secteurprincipal sp where sp.designation= ?").setParameter(1,this.secteurP);
+           int idSP = (Integer) req.getSingleResult();
+           current.setIdSecteur(idSP);
+           return idSP;
+           } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            return 0;
+        }
+    }
 
     public String create() {
         try {
-            getFacade().create(current);
+            current.setIdSecteurP(getIDSP());
+            getFacade().edit(current);
+            items=getItemes();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("SecteurCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -90,15 +244,19 @@ public class SecteurController implements Serializable {
         }
     }
 
-    public String prepareEdit() {
+   /* public String prepareEdit() {
         current = (Secteur) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
-    }
+    }*/
 
     public String update() {
         try {
+            Query req = em.createQuery("SELECT o FROM Secteur o WHERE o.intituleSecteur = ? and o.idSecteurP in(select sp.idSecteurP from Secteurprincipal sp where sp.designation= ?)").setParameter(1, current.getIntituleSecteur()).setParameter(2,this.secteurP);
+            this.setCurrent((Secteur) req.getSingleResult());
+            current.setIntituleSecteur(newDesignation);
             getFacade().edit(current);
+            items=getItemes();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("SecteurUpdated"));
             return "View";
         } catch (Exception e) {
@@ -107,14 +265,14 @@ public class SecteurController implements Serializable {
         }
     }
 
-    public String destroy() {
+   /* public String destroy() {
         current = (Secteur) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
         recreateModel();
         return "List";
-    }
+    }*/
 
     public String destroyAndView() {
         performDestroy();
@@ -129,9 +287,12 @@ public class SecteurController implements Serializable {
         }
     }
 
-    private void performDestroy() {
+    public void performDestroy() {
         try {
+            Query req = em.createQuery("SELECT o FROM Secteur o WHERE o.intituleSecteur = ? and o.idSecteurP in(select sp.idSecteurP from Secteurprincipal sp where sp.designation= ?)").setParameter(1, current.getIntituleSecteur()).setParameter(2,this.secteurP);
+            this.setCurrent((Secteur) req.getSingleResult());
             getFacade().remove(current);
+            items=getItemes();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("SecteurDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -153,12 +314,12 @@ public class SecteurController implements Serializable {
         }
     }
 
-    public DataModel getItems() {
+    /*public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
         }
         return items;
-    }
+    }*/
 
     private void recreateModel() {
         items = null;

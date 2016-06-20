@@ -6,44 +6,81 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
 
-    <body>
+    <h:body onload="#{secteurprincipalController.getItemes()}">
 
         <ui:composition template="./templateServiceBudget.xhtml">
             <ui:define name="Title_Page">
-                Allocation de Budget Annuel
+                Gestion Des Secteurs principals
             </ui:define>
             <ui:define name="content">
-                <div class="col-md-12 col-sm-12">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            Formulaire :
+                <h:form id="SecteurPrincipalCreateForm">
+                    <p:growl id="message" life="2000" />
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" widgetVar="confirmation" closeOnEscape="false" closable="true">
+                                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" onclick="confirmation.hide()" icon="ui-icon-check" />
+                                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" onclick="confirmation.hide()" icon="ui-icon-close" />
+                                </p:confirmDialog>
+                    <div class="col-md-12 col-sm-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                Formulaire :
+                            </div>
+                            <div class="panel-body">
+                                <center><table class='tab_form' style="width:400px;height:200px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
+                                        <tr> 
+                                            <td class="olab"><h:outputLabel value="#{bundle.CreateSecteurprincipalLabel_designation}" for="designation" /></td>
+                                            <td class="olab">
+                                                <p:autoComplete dropdown="true" id="designation" value="#{secteurprincipalController.selected.designation}" completeMethod="#{secteurprincipalController.completeText}" title="#{bundle.CreateSecteurprincipalTitle_designation}" required="true" requiredMessage="#{bundle.CreateCompteRequiredMessage_idCompte}" >
+                                                    <p:ajax event="itemSelect" listener="#{secteurprincipalController.subjectSelectionChanged()}" update="@form" process="@form" />
+                                                    <p:ajax event="change" listener="#{secteurprincipalController.subjectSelectionChanged()}" update="@form" process="@form" />
+                                                </p:autoComplete>
+                                            </td>
+                                        </tr>
+                                        <tr> 
+                                            <td class="olab"><h:outputLabel value="Nouvelle Designation:" for="designation" /></td>
+                                           
+                                            <td class="olab"><h:inputText id="newdesignation" value="#{secteurprincipalController.newDesignation}" title="#{bundle.CreateSecteurprincipalTitle_designation}" required="false" requiredMessage="#{bundle.CreateCompteRequiredMessage_idCompte}"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="olab">
+                                                <p:commandButton  ajax="false" id="ajaxcreate"  action="#{secteurprincipalController.create}" value="Ajouter" disabled="#{secteurprincipalController.disablCreate}" class="btn btn-primary btn-lg" update="@form">
+                                                </p:commandButton>
+                                            </td>
+                                            <td class="olab">
+                                                <p:commandButton id="ajaxupdate"  action="#{secteurprincipalController.update}" value="Modifier" disabled="#{secteurprincipalController.disablUpdate}" class="btn btn-success btn-lg" update="@form">
+                                                    <p:confirm header="Confirmation de modification" message="voulez-vous vraiment modifier ces informations?" icon="ui-icon-alert" />
+                                                </p:commandButton>
+                                            </td>
+                                            <td class="olab">
+                                                <p:commandButton id="ajaxdelete"  action="#{secteurprincipalController.performDestroy}" value="Supprimer" disabled="#{secteurprincipalController.disablDelete}" class="btn btn-danger btn-lg" update="@form">
+                                                    <p:confirm header="Confirmation de suppression" message="voulez-vous vraiment supprimer ces informations?" icon="ui-icon-alert" />
+                                                </p:commandButton>
+                                            </td>
+                                        </tr>
+                                    </table></center>
+                            </div>
                         </div>
-                        <div class="panel-body">
-                            <h:form id="SecteurPrincipalCreateForm">
-                            <p:growl id="growl" life="2000" />
-                            <center><table class='tab_form' style="width:400px;height:200px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
-                                    <tr> 
-                                        <td class="olab"><h:outputLabel value="#{bundle.CreateSecteurprincipalLabel_designation}" for="designation" /></td>
-                                        <td class="olab"><h:inputText id="designation" value="#{secteurprincipalController.selected.designation}" title="#{bundle.CreateSecteurprincipalTitle_designation}" required="true" requiredMessage="#{bundle.CreateCompteRequiredMessage_idCompte}"/></td>
-                                    </tr>
-                                    <tr> 
-                                        <td class="olab"><h:outputLabel value="Nouvelle Designation:" for="designation" /></td>
-                                        <td class="olab"><h:inputText id="newdesignation" value="#{secteurprincipalController.newDesignation}" title="#{bundle.CreateSecteurprincipalTitle_designation}" required="false" requiredMessage="#{bundle.CreateCompteRequiredMessage_idCompte}"/></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="olab"><h:commandButton id="ajaxcreate"  action="#{secteurprincipalController.create}" value="Ajouter"/>
-                                        </td>
-                                        <td class="olab"><h:commandButton id="ajaxupdate"  action="#{secteurprincipalController.MyUpdate}" value="Modifier"/>
-                                        </td>
-                                        <td class="olab"><h:commandButton id="ajaxdelete"  action="#{secteurprincipalController.MyDestroy}" value="Supprimer"/>
-                                        </td>
-                                    </tr>
-                                </table></center>
-                            </h:form>
                     </div>
-                </div>
+                    <div class="col-md-12 col-sm-12">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                Liste Des Secteurs Principals
+                            </div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <p:dataTable value="#{secteurprincipalController.items}" var="item" style="border:solid 1px">
+                                        <p:column headerText="#{bundle.ListSecteurprincipalTitle_idSecteurP}rincipal">
+                                            <h:outputText value="#{item.idSecteurP}"/>
+                                        </p:column>
+                                        <p:column headerText="#{bundle.ListSecteurprincipalTitle_designation}">
+                                            <h:outputText value="#{item.designation}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </h:form>
             </ui:define>
         </ui:composition>
-    </body>
+    </h:body>
 </html>

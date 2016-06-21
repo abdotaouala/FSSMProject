@@ -14,8 +14,8 @@
         <h:outputStylesheet name="temp2Simp/css/font-awesome.css"  />
         <!-- CUSTOM STYLE  -->
         <h:outputStylesheet name="temp2Simp/css/style.css"  />
-        
-        
+
+
         <title>
             <ui:insert name="title">FSSM Finance</ui:insert>
         </title>
@@ -26,11 +26,21 @@
         <ui:insert name="header">
             <ui:include src="headerUnite.xhtml" />
         </ui:insert>
+        <div class="content-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="page-head-line">
+                            <ui:insert name="Title_Page">
+                            </ui:insert>
+                        </h4>
 
-        <ui:insert name="content">
-            Content
-        </ui:insert>
-
+                    </div>
+                </div>
+                <ui:insert name="content">
+                    Content
+                </ui:insert>
+            </div></div>
         <ui:insert name="footer">
             <ui:include src="footerUnite.xhtml" />
         </ui:insert>
@@ -40,5 +50,5 @@
 
     <h:outputScript name="js/jquery-2.2.3.min.js" />
     <h:outputScript name="js/bootstrap.min.js" />
-    
+
 </html>

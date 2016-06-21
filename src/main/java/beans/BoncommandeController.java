@@ -6,6 +6,8 @@ import beans.util.PaginationHelper;
 import session.BoncommandeFacade;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -17,21 +19,67 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.transaction.UserTransaction;
+import model.Compte;
+import model.Dotationsecteur;
+import model.Users;
+import org.example.shiro.bean.security.ShiroLoginBean;
 
 @Named("boncommandeController")
 @SessionScoped
 public class BoncommandeController implements Serializable {
-
+@PersistenceContext(unitName = "AppFinanciere")
+    private EntityManager em;
+    private boolean disablCreate = false;
+    private boolean disablUpdate = true;
+    private boolean disablDelete = true;
+    private String secteurP;
+    private String secteur;
+    private Compte cpt;
+    
+    @Inject
+    UserTransaction ut;
+    @EJB
     private Boncommande current;
-    private DataModel items = null;
+    private List<Boncommande> items = null;
     @EJB
     private session.BoncommandeFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
     public BoncommandeController() {
+        
     }
-
+    public Users getUser(){
+    ShiroLoginBean slb = (ShiroLoginBean)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("shiroLoginBean");
+       Users user=null;
+        try {
+            Query req = em.createQuery("SELECT o FROM Users o where o.login=? and o.password=?").setParameter(1,slb.getUsername()).setParameter(2,slb.getPassword());
+            user = (Users) req.getResultList();
+            if(user!=null){
+                this.current.setIdUser(user.getIdUser());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+        return user; 
+    }
+public List<Boncommande> getItemes() {
+        Users user=getUser();
+        try {
+            Query req = em.createQuery("SELECT o FROM Boncommande o where o.idUser=?").setParameter(1, user.getIdUser());
+            items = (List<Boncommande>) req.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+        return items;
+    }
     public Boncommande getSelected() {
         if (current == null) {
             current = new Boncommande();
@@ -67,11 +115,11 @@ public class BoncommandeController implements Serializable {
         return "List";
     }
 
-    public String prepareView() {
+    /*public String prepareView() {
         current = (Boncommande) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
-    }
+    }*/
 
     public String prepareCreate() {
         current = new Boncommande();
@@ -90,11 +138,11 @@ public class BoncommandeController implements Serializable {
         }
     }
 
-    public String prepareEdit() {
+   /* public String prepareEdit() {
         current = (Boncommande) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
-    }
+    }*/
 
     public String update() {
         try {
@@ -107,14 +155,14 @@ public class BoncommandeController implements Serializable {
         }
     }
 
-    public String destroy() {
+   /* public String destroy() {
         current = (Boncommande) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
         recreateModel();
         return "List";
-    }
+    }*/
 
     public String destroyAndView() {
         performDestroy();
@@ -153,12 +201,103 @@ public class BoncommandeController implements Serializable {
         }
     }
 
-    public DataModel getItems() {
+    public List<Boncommande> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Boncommande> items) {
+        this.items = items;
+    }
+
+    public void setCurrent(Boncommande current) {
+        this.current = current;
+    }
+
+    public EntityManager getEm() {
+        return em;
+    }
+
+    public void setEm(EntityManager em) {
+        this.em = em;
+    }
+
+    public boolean isDisablCreate() {
+        return disablCreate;
+    }
+
+    public void setDisablCreate(boolean disablCreate) {
+        this.disablCreate = disablCreate;
+    }
+
+    public boolean isDisablUpdate() {
+        return disablUpdate;
+    }
+
+    public void setDisablUpdate(boolean disablUpdate) {
+        this.disablUpdate = disablUpdate;
+    }
+
+    public boolean isDisablDelete() {
+        return disablDelete;
+    }
+
+    public void setDisablDelete(boolean disablDelete) {
+        this.disablDelete = disablDelete;
+    }
+
+    public String getSecteurP() {
+        return secteurP;
+    }
+
+    public void setSecteurP(String secteurP) {
+        this.secteurP = secteurP;
+    }
+
+    public String getSecteur() {
+        return secteur;
+    }
+
+    public void setSecteur(String secteur) {
+        this.secteur = secteur;
+    }
+
+    public Compte getCpt() {
+        return cpt;
+    }
+
+    public void setCpt(Compte cpt) {
+        this.cpt = cpt;
+    }
+    public UserTransaction getUt() {
+        return ut;
+    }
+
+    public void setUt(UserTransaction ut) {
+        this.ut = ut;
+    }
+
+    public BoncommandeFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(BoncommandeFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    public int getSelectedItemIndex() {
+        return selectedItemIndex;
+    }
+
+    public void setSelectedItemIndex(int selectedItemIndex) {
+        this.selectedItemIndex = selectedItemIndex;
+    }
+
+    /*public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
         }
         return items;
-    }
+    }*/
 
     private void recreateModel() {
         items = null;

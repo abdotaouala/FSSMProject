@@ -68,15 +68,15 @@ public class AnneebudgetaireController implements Serializable {
                     disablUpdate = false;
                     disablDelete = false;
                 } else {
-                    current.setMontantRap(-1);
-                    current.setReliquatRap(-1);
+                    current.setMontantRap(-1.0);
+                    current.setReliquatRap(-1.0);
                     disablCreate = false;
                     disablUpdate = true;
                     disablDelete = true;
                 }
             } catch (Exception e) {
-                current.setMontantRap(-1);
-                current.setReliquatRap(-1);
+                current.setMontantRap(-1.0);
+                current.setReliquatRap(-1.0);
                 disablCreate = false;
                 disablUpdate = true;
                 disablDelete = true;

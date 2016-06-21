@@ -33,9 +33,9 @@ public class Budget implements Serializable {
     @EmbeddedId
     protected BudgetPK budgetPK;
     @Column(name = "budgetAnnuel")
-    private Integer budgetAnnuel;
+    private Double budgetAnnuel;
     @Column(name = "reliquat")
-    private Integer reliquat;
+    private Double reliquat;
 
     public Budget() {
     }
@@ -56,19 +56,19 @@ public class Budget implements Serializable {
         this.budgetPK = budgetPK;
     }
 
-    public Integer getBudgetAnnuel() {
+    public Double getBudgetAnnuel() {
         return budgetAnnuel;
     }
 
-    public void setBudgetAnnuel(Integer budgetAnnuel) {
+    public void setBudgetAnnuel(Double budgetAnnuel) {
         this.budgetAnnuel = budgetAnnuel;
     }
 
-    public Integer getReliquat() {
+    public Double getReliquat() {
         return reliquat;
     }
 
-    public void setReliquat(Integer reliquat) {
+    public void setReliquat(Double reliquat) {
         this.reliquat = reliquat;
     }
 

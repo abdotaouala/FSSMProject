@@ -52,7 +52,7 @@ public class Lignecommande implements Serializable {
     @Column(name = "quantite")
     private Integer quantite;
     @Column(name = "pu")
-    private Integer pu;
+    private Double pu;
     @Column(name = "montant")
     private Integer montant;
 
@@ -101,11 +101,11 @@ public class Lignecommande implements Serializable {
         this.quantite = quantite;
     }
 
-    public Integer getPu() {
+    public Double getPu() {
         return pu;
     }
 
-    public void setPu(Integer pu) {
+    public void setPu(Double pu) {
         this.pu = pu;
     }
 

@@ -37,9 +37,9 @@ public class Anneebudgetaire implements Serializable {
     @Column(name = "annee")
     private Integer annee;
     @Column(name = "montantRap")
-    private Integer montantRap;
+    private Double montantRap;
     @Column(name = "reliquatRap")
-    private Integer reliquatRap;
+    private Double reliquatRap;
 
     public Anneebudgetaire() {
     }
@@ -56,19 +56,19 @@ public class Anneebudgetaire implements Serializable {
         this.annee = annee;
     }
 
-    public Integer getMontantRap() {
+    public Double getMontantRap() {
         return montantRap;
     }
 
-    public void setMontantRap(Integer montantRap) {
+    public void setMontantRap(Double montantRap) {
         this.montantRap = montantRap;
     }
 
-    public Integer getReliquatRap() {
+    public Double getReliquatRap() {
         return reliquatRap;
     }
 
-    public void setReliquatRap(Integer reliquatRap) {
+    public void setReliquatRap(Double reliquatRap) {
         this.reliquatRap = reliquatRap;
     }
 

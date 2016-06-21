@@ -49,9 +49,9 @@ public class Dotationsecteur implements Serializable {
     @Column(name = "idDotation")
     private Integer idDotation;
     @Column(name = "montantInitial")
-    private Integer montantInitial;
+    private Double montantInitial;
     @Column(name = "reliquat")
-    private Integer reliquat;
+    private Double reliquat;
 
     public Dotationsecteur() {
     }
@@ -90,21 +90,23 @@ public class Dotationsecteur implements Serializable {
         this.idDotation = idDotation;
     }
 
-    public Integer getMontantInitial() {
+    public Double getMontantInitial() {
         return montantInitial;
     }
 
-    public void setMontantInitial(Integer montantInitial) {
+    public void setMontantInitial(Double montantInitial) {
         this.montantInitial = montantInitial;
     }
 
-    public Integer getReliquat() {
+    public Double getReliquat() {
         return reliquat;
     }
 
-    public void setReliquat(Integer reliquat) {
+    public void setReliquat(Double reliquat) {
         this.reliquat = reliquat;
     }
+
+  
 
     @Override
     public int hashCode() {

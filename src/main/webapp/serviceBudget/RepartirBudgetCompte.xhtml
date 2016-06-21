@@ -25,7 +25,7 @@
                                     <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" onclick="confirmation.hide()" icon="ui-icon-check" />
                                     <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" onclick="confirmation.hide()" icon="ui-icon-close" />
                                 </p:confirmDialog>
-                                <center><table class='tab_form' style="width:400px;height:200px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
+                                <center><table class='tab_form' style="width:500px;height:300px; margin-top:-100px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
                                         <tr> 
                                             <td class="olab"><h:outputLabel value="#{bundle.CreateBudgetTitle_budgetPK_annee}" for="budgetAnnuel" /></td>
                                             <td class="olab">
@@ -35,6 +35,10 @@
                                                     <p:ajax event="change" listener="#{budgetController.subjectSelectionChanged()}" update="BudgetCompteCreateForm" process="@form"/>
                                                 </h:selectOneMenu>
                                             </td>
+                                        </tr><br/>
+                                        <tr>
+                                            <td class="olab" ><p:outputLabel value="Reliquat Annuel de cette Année:"></p:outputLabel></td>
+                                            <td class="olab" ><p:outputLabel value="#{budgetController.reliquatAnnee}"></p:outputLabel></td>
                                         </tr>
                                         <br/>
                                         <tr> 
@@ -54,7 +58,7 @@
                                                 </p:autoComplete>
                                             </td>
                                         </tr>
-                                        <br/>
+                                        <br/><br/>
                                         <tr>
                                             <td class="olab"><h:outputLabel value="#{bundle.CreateBudgetLabel_budgetAnnuel}" for="budgetAnnuel" /></td>
                                             <td><p:inputText id="budgetAnnuel" value="#{budgetController.selected.budgetAnnuel}" title="#{bundle.CreateBudgetTitle_budgetAnnuel}"/></td>

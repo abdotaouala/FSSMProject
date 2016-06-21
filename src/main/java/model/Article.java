@@ -42,7 +42,7 @@ public class Article implements Serializable {
     @Column(name = "description")
     private String description;
     @Column(name = "pu")
-    private Integer pu;
+    private Double pu;
 
     public Article() {
     }
@@ -67,11 +67,11 @@ public class Article implements Serializable {
         this.description = description;
     }
 
-    public Integer getPu() {
+    public Double getPu() {
         return pu;
     }
 
-    public void setPu(Integer pu) {
+    public void setPu(Double pu) {
         this.pu = pu;
     }
 

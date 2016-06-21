@@ -73,7 +73,7 @@ public class Boncommande implements Serializable {
     @Column(name = "etat")
     private String etat;
     @Column(name = "montant")
-    private Integer montant;
+    private Double montant;
     @Size(max = 254)
     @Column(name = "type")
     private String type;
@@ -156,13 +156,15 @@ public class Boncommande implements Serializable {
         this.etat = etat;
     }
 
-    public Integer getMontant() {
+    public Double getMontant() {
         return montant;
     }
 
-    public void setMontant(Integer montant) {
+    public void setMontant(Double montant) {
         this.montant = montant;
     }
+
+ 
 
     public String getType() {
         return type;

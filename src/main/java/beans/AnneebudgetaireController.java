@@ -62,7 +62,7 @@ public class AnneebudgetaireController implements Serializable {
                 Query req = em.createQuery("SELECT o FROM Anneebudgetaire o WHERE o.annee =?").setParameter(1, current.getAnnee());
                 Anneebudgetaire a = (Anneebudgetaire) req.getSingleResult();
                 if (a != null) {
-                    current.setMontantRap(a.getReliquatRap());
+                    current.setReliquatRap(a.getReliquatRap());
                     current.setMontantRap(a.getMontantRap());
                     disablCreate = true;
                     disablUpdate = false;

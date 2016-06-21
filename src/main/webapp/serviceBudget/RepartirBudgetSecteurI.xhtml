@@ -6,8 +6,8 @@
     <h:head>
         <title>Facelet Title</title>
     </h:head>
-    <h:body onload="#{dotationsecteurController.getItemes()}">
-         <h:form id="SecteurPrincipalCreateForm">
+    <h:body onload="#{dotationsecteurController.itemes}">
+          <h:form id="SecteurPrincipalCreateForm">
                     <p:growl id="message" life="2000" />
                     <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" widgetVar="confirmation" closeOnEscape="false" closable="true">
                         <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" onclick="confirmation.hide()" icon="ui-icon-check" />
@@ -19,7 +19,7 @@
                                 Formulaire :
                             </div>
                             <div class="panel-body">
-                                <center><table class='tab_form' style="width:450px;height:300px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
+                                <center><table class='tab_form' style="width:450px;height:400px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
                                         <tr> 
                                             <td class="olab"><h:outputLabel value="SecteurPrincipal:" for="designation" /></td>
                                             <td class="olab">
@@ -94,7 +94,7 @@
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
-                                    <p:dataTable value="#{dotationsecteurController.items}" style="border:solid 1px">
+                                    <p:dataTable value="#{dotationsecteurController.items}" var="item" style="border:solid 1px">
                                         <p:column headerText="#{bundle.ListDotationsecteurTitle_idCompte}">
                                             <h:outputText value="#{item.idCompte}"/>
                                         </p:column>

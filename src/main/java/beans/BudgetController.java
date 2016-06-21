@@ -257,7 +257,7 @@ public class BudgetController implements Serializable {
         try {
             ut.begin();
             em.joinTransaction();
-            Query req2 = em.createQuery("update Anneebudgetaire o set reliquatRap = reliquatRap- :reliquat where o.annee=:annee").setParameter("reliquat", current.getBudgetAnnuel()).setParameter("annee", current.getBudgetPK().getAnnee());
+            Query req2 = em.createQuery("update Anneebudgetaire o set reliquatRap = reliquatRap+ :reliquat where o.annee=:annee").setParameter("reliquat", current.getBudgetAnnuel()).setParameter("annee", current.getBudgetPK().getAnnee());
                 int updateCount = req2.executeUpdate();
                 ut.commit();
                 if(updateCount>0){

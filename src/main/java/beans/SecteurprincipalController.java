@@ -21,10 +21,8 @@ import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import model.Compte;
 
 @Named("secteurprincipalController")
 @SessionScoped
@@ -189,18 +187,18 @@ public class SecteurprincipalController implements Serializable {
             return "List";
         }
     }
-public List<String> completeText(String id){
-        List<String> FiltredSP=new ArrayList<String>();
+    public List<String> completeText(String id) {
+        List<String> FiltredSP = new ArrayList<String>();
         try {
-                List<Secteurprincipal> AllSP=getItemes();
-                for(Secteurprincipal c:AllSP){
-                    if(c.getDesignation().startsWith(id)) {
-                       FiltredSP.add(c.getDesignation());
-                    }
+            List<Secteurprincipal> AllSP = getItemes();
+            for (Secteurprincipal c : AllSP) {
+                if (c.getDesignation().startsWith(id)) {
+                    FiltredSP.add(c.getDesignation());
                 }
-            } catch (Exception e) {
-              JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             }
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
         return FiltredSP;
     }
     public void performDestroy() {

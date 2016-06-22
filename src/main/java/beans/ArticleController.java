@@ -6,10 +6,13 @@ import beans.util.PaginationHelper;
 import session.ArticleFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -17,19 +20,89 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import model.Secteurprincipal;
 
 @Named("articleController")
 @SessionScoped
+@ManagedBean
 public class ArticleController implements Serializable {
 
+    @PersistenceContext(unitName = "AppFinanciere")
+    private EntityManager em;
+    private String newDescription;
+    private boolean disablCreate = false;
+    private boolean disablUpdate = true;
+    private boolean disablDelete = true;
     private Article current;
-    private DataModel items = null;
+    private List<Article> items = null;
     @EJB
     private session.ArticleFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
     public ArticleController() {
+        getItemes();
+    }
+
+    public List<Article> getItemes() {
+        try {
+            this.items = new ArrayList<Article>();
+            Query req = em.createQuery("SELECT o FROM Article o");
+            List<Article> l = (List<Article>) req.getResultList();
+            items = l;
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+        return items;
+    }
+
+    public void subjectSelectionChanged() {
+        if (current instanceof Article && current != null) {
+            try {
+                Query req = em.createQuery("SELECT o FROM Article o WHERE o.description =?").setParameter(1, current.getDescription());
+                Article c = (Article) req.getSingleResult();
+                if (c != null && c instanceof Article) {
+                    current.setDescription(c.getDescription());
+                    current.setIdArticle(c.getIdArticle());
+                    disablCreate = true;
+                    disablUpdate = false;
+                    disablDelete = false;
+                } else {
+                    current.setIdArticle(null);
+                    //current.setDesignation("");
+                    // current.setIdSecteurP(0);
+                    disablCreate = false;
+                    disablUpdate = true;
+                    disablDelete = true;
+                }
+            } catch (Exception e) {
+                //current.setDesignation("");
+                //current.setIdSecteurP(0);
+                current.setIdArticle(null);
+                disablCreate = false;
+                disablUpdate = true;
+                disablDelete = true;
+                JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        }
+    }
+
+    public List<String> completeText(String id) {
+        List<String> FiltredSP = new ArrayList<String>();
+        try {
+            List<Article> AllSP = getItemes();
+            for (Article c : AllSP) {
+                if (c.getDescription().startsWith(id)) {
+                    FiltredSP.add(c.getDescription());
+                }
+            }
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+        return FiltredSP;
     }
 
     public Article getSelected() {
@@ -67,12 +140,11 @@ public class ArticleController implements Serializable {
         return "List";
     }
 
-    public String prepareView() {
+    /*public String prepareView() {
         current = (Article) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
-    }
-
+    }*/
     public String prepareCreate() {
         current = new Article();
         selectedItemIndex = -1;
@@ -81,7 +153,8 @@ public class ArticleController implements Serializable {
 
     public String create() {
         try {
-            getFacade().create(current);
+            getFacade().edit(current);
+            this.items = getItemes();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArticleCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -90,15 +163,18 @@ public class ArticleController implements Serializable {
         }
     }
 
-    public String prepareEdit() {
+    /*public String prepareEdit() {
         current = (Article) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
-    }
-
+    }*/
     public String update() {
         try {
+            Query req = em.createQuery("SELECT a FROM Article a WHERE a.description =?").setParameter(1, current.getDescription());
+            this.setCurrent((Article) req.getSingleResult());
+            current.setDescription(newDescription);
             getFacade().edit(current);
+            this.items = getItemes();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArticleUpdated"));
             return "View";
         } catch (Exception e) {
@@ -107,15 +183,14 @@ public class ArticleController implements Serializable {
         }
     }
 
-    public String destroy() {
+    /*public String destroy() {
         current = (Article) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
         recreateModel();
         return "List";
-    }
-
+    }*/
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -129,9 +204,12 @@ public class ArticleController implements Serializable {
         }
     }
 
-    private void performDestroy() {
+    public void performDestroy() {
         try {
+            Query req = em.createQuery("SELECT a FROM Article a WHERE a.description =?").setParameter(1, current.getDescription());
+            this.setCurrent((Article) req.getSingleResult());
             getFacade().remove(current);
+            this.items = getItemes();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArticleDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -153,13 +231,12 @@ public class ArticleController implements Serializable {
         }
     }
 
-    public DataModel getItems() {
+    /* public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
         }
         return items;
-    }
-
+    }*/
     private void recreateModel() {
         items = null;
     }
@@ -190,6 +267,78 @@ public class ArticleController implements Serializable {
 
     public Article getArticle(java.lang.Integer id) {
         return ejbFacade.find(id);
+    }
+
+    public EntityManager getEm() {
+        return em;
+    }
+
+    public void setEm(EntityManager em) {
+        this.em = em;
+    }
+
+    public String getNewDescription() {
+        return newDescription;
+    }
+
+    public void setNewDescription(String newDescription) {
+        this.newDescription = newDescription;
+    }
+
+    public boolean isDisablCreate() {
+        return disablCreate;
+    }
+
+    public void setDisablCreate(boolean disablCreate) {
+        this.disablCreate = disablCreate;
+    }
+
+    public boolean isDisablUpdate() {
+        return disablUpdate;
+    }
+
+    public void setDisablUpdate(boolean disablUpdate) {
+        this.disablUpdate = disablUpdate;
+    }
+
+    public boolean isDisablDelete() {
+        return disablDelete;
+    }
+
+    public void setDisablDelete(boolean disablDelete) {
+        this.disablDelete = disablDelete;
+    }
+
+    public Article getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(Article current) {
+        this.current = current;
+    }
+
+    public List<Article> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Article> items) {
+        this.items = items;
+    }
+
+    public ArticleFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(ArticleFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    public int getSelectedItemIndex() {
+        return selectedItemIndex;
+    }
+
+    public void setSelectedItemIndex(int selectedItemIndex) {
+        this.selectedItemIndex = selectedItemIndex;
     }
 
     @FacesConverter(forClass = Article.class)

@@ -70,9 +70,10 @@
                                         <tr>
                                             <td class="olab" ><p:outputLabel value="#{bundle.CreateBoncommandeLabel_type}" for="type" /></td>
                                             <td class="olab" >
-                                                <h:selectOneMenu id="annee" value="#{boncommandeController.selected.type}"  title="#{bundle.CreateBoncommandeTitle_type}" required="true"  style="width:155px" >
+                                                <h:selectOneMenu id="type" value="#{boncommandeController.selected.type}"  title="#{bundle.CreateBoncommandeTitle_type}" required="true"  style="width:155px" >
                                                     <f:selectItem itemLabel="Bon de Commande" itemValue="BC" />
                                                     <f:selectItem itemLabel="Lettre de Commande" itemValue="LC" />
+                                                    <p:ajax event="change" listener="#{boncommandeController.subjectSelectionChanged()}" update="@form" process="@form"/>
                                                 </h:selectOneMenu>
                                             </td>
                                         </tr>

@@ -12,6 +12,8 @@ import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -26,13 +28,16 @@ import javax.persistence.Query;
 import javax.transaction.UserTransaction;
 import model.Compte;
 import model.Dotationsecteur;
+import model.Secteur;
 import model.Users;
 import org.example.shiro.bean.security.ShiroLoginBean;
 
 @Named("boncommandeController")
 @SessionScoped
+@ManagedBean
 public class BoncommandeController implements Serializable {
-@PersistenceContext(unitName = "AppFinanciere")
+
+    @PersistenceContext(unitName = "AppFinanciere")
     private EntityManager em;
     private boolean disablCreate = false;
     private boolean disablUpdate = true;
@@ -40,10 +45,9 @@ public class BoncommandeController implements Serializable {
     private String secteurP;
     private String secteur;
     private Compte cpt;
-    
+    private Dotationsecteur ds;
     @Inject
     UserTransaction ut;
-    @EJB
     private Boncommande current;
     private List<Boncommande> items = null;
     @EJB
@@ -54,23 +58,77 @@ public class BoncommandeController implements Serializable {
     public BoncommandeController() {
         
     }
-    public Users getUser(){
-    ShiroLoginBean slb = (ShiroLoginBean)FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("shiroLoginBean");
-       Users user=null;
+
+    public void subjectSelectionChanged() {
+        this.current.setDateCommande(new Date());
+        Secteur sect = getSect();
+        if (current instanceof Boncommande && current != null) {
+            try {
+                Query req = em.createQuery("SELECT o FROM Dotationsecteur o WHERE o.idSecteur=? and o.idCompte =?").setParameter(1, sect.getIdSecteur()).setParameter(2, cpt.getIdCompte());
+                this.ds = (Dotationsecteur) req.getSingleResult();
+                if (ds != null) {
+                    current.setIdDotation(ds.getIdDotation());
+                    Query req2 = em.createQuery("SELECT o FROM Boncommande o WHERE o.idBC =?").setParameter(1, current.getIdBC());
+                    Boncommande bc = (Boncommande) req2.getSingleResult();
+                    if (bc != null) {
+                        current.setIdBC(bc.getIdBC());
+                        current.setDateCommande(bc.getDateCommande());
+                        disablCreate = true;
+                        disablUpdate = false;
+                        disablDelete = false;
+                    } else {
+                        disablCreate = false;
+                        disablUpdate = true;
+                        disablDelete = true;
+                    }
+                } else {
+                    disablCreate = true;
+                    disablUpdate = true;
+                    disablDelete = true;
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreure! secteur innexistant dans ce secteur principal","erreue"));
+                }
+            } catch (Exception e) {
+                disablCreate = true;
+                disablUpdate = true;
+                disablDelete = true;
+                e.printStackTrace();
+                JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        }
+    }
+
+    public Secteur getSect() {
+        Query query = em.createQuery("SELECT o FROM Secteur o WHERE o.intituleSecteur= ? and o.idSecteurP in (select sp.idSecteurP from Secteurprincipal sp where sp.designation=?)").setParameter(1, this.secteur).setParameter(2, this.secteurP);
+        Secteur s = (Secteur) query.getSingleResult();
+        return s;
+    }
+
+    public Users getUser() {
+        ShiroLoginBean slb = (ShiroLoginBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("shiroLoginBean");
+        Users user = null;
         try {
-            Query req = em.createQuery("SELECT o FROM Users o where o.login=? and o.password=?").setParameter(1,slb.getUsername()).setParameter(2,slb.getPassword());
+            Query req = em.createQuery("SELECT o FROM Users o where o.login=? and o.password=?").setParameter(1, slb.getUsername()).setParameter(2, slb.getPassword());
             user = (Users) req.getResultList();
-            if(user!=null){
+            if (user != null) {
                 this.current.setIdUser(user.getIdUser());
             }
         } catch (Exception e) {
             e.printStackTrace();
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
-        return user; 
+        return user;
     }
-public List<Boncommande> getItemes() {
-        Users user=getUser();
+
+    public Dotationsecteur getDs() {
+        return ds;
+    }
+
+    public void setDs(Dotationsecteur ds) {
+        this.ds = ds;
+    }
+
+    public List<Boncommande> getItemes() {
+        Users user = getUser();
         try {
             Query req = em.createQuery("SELECT o FROM Boncommande o where o.idUser=?").setParameter(1, user.getIdUser());
             items = (List<Boncommande>) req.getResultList();
@@ -80,6 +138,7 @@ public List<Boncommande> getItemes() {
         }
         return items;
     }
+
     public Boncommande getSelected() {
         if (current == null) {
             current = new Boncommande();
@@ -120,7 +179,6 @@ public List<Boncommande> getItemes() {
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }*/
-
     public String prepareCreate() {
         current = new Boncommande();
         selectedItemIndex = -1;
@@ -129,7 +187,9 @@ public List<Boncommande> getItemes() {
 
     public String create() {
         try {
-            getFacade().create(current);
+            this.current.setEtat("enCours");
+            this.current.setDateCommande(new Date());
+            getFacade().edit(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BoncommandeCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -138,12 +198,11 @@ public List<Boncommande> getItemes() {
         }
     }
 
-   /* public String prepareEdit() {
+    /* public String prepareEdit() {
         current = (Boncommande) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }*/
-
     public String update() {
         try {
             getFacade().edit(current);
@@ -155,7 +214,7 @@ public List<Boncommande> getItemes() {
         }
     }
 
-   /* public String destroy() {
+    /* public String destroy() {
         current = (Boncommande) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
@@ -163,7 +222,6 @@ public List<Boncommande> getItemes() {
         recreateModel();
         return "List";
     }*/
-
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -268,6 +326,7 @@ public List<Boncommande> getItemes() {
     public void setCpt(Compte cpt) {
         this.cpt = cpt;
     }
+
     public UserTransaction getUt() {
         return ut;
     }
@@ -298,7 +357,6 @@ public List<Boncommande> getItemes() {
         }
         return items;
     }*/
-
     private void recreateModel() {
         items = null;
     }

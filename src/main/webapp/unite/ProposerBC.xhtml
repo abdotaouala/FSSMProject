@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <h:body>
+    <h:body onload="#{boncommandeController.itemes}">
 
         <ui:composition template="./templateUnite.xhtml">
             <ui:define name="Title_Page">
@@ -29,7 +29,7 @@
                                         <tr> 
                                             <td class="olab"><h:outputLabel value="SecteurPrincipal:" for="designation" /></td>
                                             <td class="olab">
-                                                <p:autoComplete dropdown="true" id="designation" value="#{boncommandeController.secteurP}" completeMethod="#{secteurprincipalController.completeText}" title="#{bundle.CreateSecteurprincipalTitle_designation}" forceSelection="true">
+                                                <p:autoComplete dropdown="true" id="designation" value="#{boncommandeController.secteurP}" completeMethod="#{secteurprincipalController.completeText}" title="#{bundle.CreateSecteurprincipalTitle_designation}" forceSelection="true" required="true">
                                                     <p:ajax event="itemSelect" listener="#{boncommandeController.subjectSelectionChanged()}" update="@form" process="@form" />
                                                     <p:ajax event="change" listener="#{boncommandeController.subjectSelectionChanged()}" update="@form" process="@form" />
                                                 </p:autoComplete>
@@ -64,7 +64,9 @@
                                         <tr>
                                             <td class="olab" ><p:outputLabel value="#{bundle.CreateBoncommandeLabel_idBC}" for="idBC" /></td>
                                             <td class="olab" >
-                                                <h:inputText id="idBC" value="#{boncommandeController.selected.idBC}" title="#{bundle.CreateBoncommandeTitle_idBC}" required="true" requiredMessage="#{bundle.CreateBoncommandeRequiredMessage_idBC}"/>
+                                                <p:inputText id="idBC" value="#{boncommandeController.selected.idBC}" title="#{bundle.CreateBoncommandeTitle_idBC}" required="true" requiredMessage="#{bundle.CreateBoncommandeRequiredMessage_idBC}">
+                                                <p:ajax event="change" listener="#{boncommandeController.subjectSelectionChanged()}" update="@form" process="@form" />
+                                                </p:inputText>
                                             </td>
                                         </tr>
                                         <tr>
@@ -105,9 +107,6 @@
                             <div class="panel-body">
                                 <div class="table-responsive">
                                     <p:dataTable value="#{boncommandeController.items}" var="item" style="border:solid 1px">
-                                        <p:column headerText="#{bundle.ListDotationsecteurTitle_idCompte}">
-                                            <h:outputText value="#{item.idCompte}"/>
-                                        </p:column>
                                         <p:column headerText="#{bundle.ListBoncommandeTitle_idBC}">
                                             <h:outputText value="#{item.idBC}"/>
                                         </p:column>

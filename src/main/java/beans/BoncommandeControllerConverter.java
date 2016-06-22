@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package beans;
 
 import javax.faces.application.FacesMessage;
@@ -6,29 +11,30 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.FacesConverter;
-import model.Compte;
+import model.Boncommande;
 
-@FacesConverter(value = "cptConverter")
-public class CompteControllerConverter implements Converter {
+@FacesConverter(value = "bcConverter")
+public class BoncommandeControllerConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
+
         if (value == null || value.length() == 0) {
             return null;
         } else {
             try {
-                CompteController controller = (CompteController) facesContext.getApplication().getELResolver().
-                        getValue(facesContext.getELContext(), null, "compteController");
-                Object o = controller.getCompte(getKey(value));
+                BoncommandeController controller = (BoncommandeController) facesContext.getApplication().getELResolver().
+                        getValue(facesContext.getELContext(), null, "boncommandeController");
+                Object o = controller.getBoncommande(getKey(value));
                 if (o == null) {
-                    Compte c = new Compte();
-                    c.setIdCompte(Integer.parseInt(value));
-                    return c;
+                    Boncommande bc = new Boncommande();
+                    bc.setIdBC(Integer.parseInt(value));
+                    return bc;
                 } else {
                     return o;
                 }
             } catch (NumberFormatException e) {
-                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion Error", "Not a valid theme."));
+                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion Error", "Not a valid Bon Commande."));
             }
         }
     }
@@ -48,8 +54,8 @@ public class CompteControllerConverter implements Converter {
     @Override
     public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
         if (object != null) {
-            Compte o = (Compte) object;
-            return String.valueOf(((Compte) object).getIdCompte());
+            Boncommande o = (Boncommande) object;
+            return String.valueOf(((Boncommande) object).getIdBC());
         } else {
             return null;
         }

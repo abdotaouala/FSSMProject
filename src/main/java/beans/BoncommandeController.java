@@ -47,9 +47,9 @@ public class BoncommandeController implements Serializable {
     private String secteur;
     private Compte cpt;
     private Dotationsecteur ds;
+    private Boncommande current;
     @Inject
     UserTransaction ut;
-    private Boncommande current;
     private List<Boncommande> items = null;
     @EJB
     private session.BoncommandeFacade ejbFacade;
@@ -59,16 +59,12 @@ public class BoncommandeController implements Serializable {
     public BoncommandeController() {
 
     }
-
-    public void subjectSelectionChanged() {
-        this.current.setDateCommande(new Date());
-        Boncommande bc = null;
-        Secteur sect = getSect();
-        Users user = getUser();
-        if (current instanceof Boncommande && current != null) {
-            try {
+public Dotationsecteur getDS(){
+    Dotationsecteur d=null;
+         try {
+             Secteur sect = getSect();
                 Query req = em.createQuery("SELECT o FROM Dotationsecteur o WHERE o.idSecteur=? and o.idCompte =?").setParameter(1, sect.getIdSecteur()).setParameter(2, cpt.getIdCompte());
-                this.ds = (Dotationsecteur) req.getSingleResult();
+                d = (Dotationsecteur) req.getSingleResult();
             } catch (Exception e) {
                 disablCreate = true;
                 disablUpdate = true;
@@ -76,6 +72,14 @@ public class BoncommandeController implements Serializable {
                 e.printStackTrace();
                 JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             }
+         return d;
+}
+    public void subjectSelectionChanged() {
+        current.setDateCommande(new Date());
+        Boncommande bc = null;
+        ds=null;
+        ds=getDS();
+        if (current instanceof Boncommande && current != null) {    
             try {
                 Query req2 = em.createQuery("SELECT o FROM Boncommande o WHERE o.idBC =?").setParameter(1, current.getIdBC());
                 bc = (Boncommande) req2.getSingleResult();
@@ -89,6 +93,7 @@ public class BoncommandeController implements Serializable {
             if (ds != null) {
                 current.setIdDotation(ds.getIdDotation());
                 if (bc != null) {
+                    Users user = getUser();
                     if (user.getIdUser() == bc.getIdUser()) {
                         current.setIdBC(bc.getIdBC());
                         current.setDateCommande(bc.getDateCommande());
@@ -108,7 +113,7 @@ public class BoncommandeController implements Serializable {
                     disablDelete = true;
                 }
             } else {
-                disablCreate = false;
+                disablCreate = true;
                 disablUpdate = true;
                 disablDelete = true;
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreure! secteur innexistant dans ce secteur principal", "erreue"));
@@ -146,29 +151,20 @@ public class BoncommandeController implements Serializable {
     public Users getUser() {
         ShiroLoginBean slb = (ShiroLoginBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("shiroLoginBean");
         Users user = null;
-        try {
+        /*try {
             Query req = em.createQuery("SELECT o FROM Users o where o.login=? and o.password=?").setParameter(1, slb.getUsername()).setParameter(2, slb.getPassword());
             user = (Users) req.getResultList();
-            if (user != null) {
-                this.current.setIdUser(user.getIdUser());
-                return user;
-            }else{
-            user = new Users();
-            user.setIdUser(2);
-            this.current.setIdUser(2);
             return user;
-            }
         } catch (Exception e) {
-            if(current==null){
-            current=new Boncommande();
-            }
             user = new Users();
             user.setIdUser(2);
-            this.current.setIdUser(user.getIdUser());
             return user;
             //  e.printStackTrace();
             // JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-        }
+        }*/
+        user = new Users();
+        user.setIdUser(2);
+        return user;
     }
 
     public Dotationsecteur getDs() {
@@ -191,7 +187,7 @@ public class BoncommandeController implements Serializable {
         return items;
     }
 
-    public Boncommande getSelected() {
+   public Boncommande getSelected() {
         if (current == null) {
             current = new Boncommande();
             selectedItemIndex = -1;
@@ -239,8 +235,9 @@ public class BoncommandeController implements Serializable {
 
     public String create() {
         try {
-            getUser();
+            current.setIdDotation(getDS().getIdDotation());
             this.current.setEtat("enCours");
+            current.setIdUser(getUser().getIdUser());
             this.current.setDateCommande(new Date());
             getFacade().edit(current);
             getItemes();
@@ -321,10 +318,6 @@ public class BoncommandeController implements Serializable {
 
     public void setItems(List<Boncommande> items) {
         this.items = items;
-    }
-
-    public Boncommande getCurrent() {
-        return current;
     }
 
     public void setCurrent(Boncommande current) {

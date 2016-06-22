@@ -45,9 +45,9 @@
                                             </td>
                                         </tr>
                                         <tr> 
-                                            <td class="olab"><h:outputLabel value="#{bundle.CreateBudgetLabel_budgetPK_idCompte}" for="budgetPK_idCompte" /></td>
+                                            <td class="olab"><h:outputLabel value="#{bundle.CreateBudgetLabel_budgetPK_idCompte}" for="idCompte" /></td>
                                             <td class="olab">
-                                                <p:autoComplete dropdown="true" id="budgetPK_idCompte" value="#{boncommandeController.cpt}" completeMethod="#{compteController.completeText}" title="#{bundle.CreateBudgetTitle_budgetPK_idCompte}" required="true"  
+                                                <p:autoComplete dropdown="true" id="idCompte" value="#{boncommandeController.cpt}" completeMethod="#{compteController.completeText}" title="#{bundle.CreateBudgetTitle_budgetPK_idCompte}" required="true"  
                                                                 converter="cptConverter" var="cmp" itemLabel="#{cmp.idCompte}" itemValue="#{cmp}" forceSelection="true">
                                                     <p:column style="width:10%">
                                                         <h:outputText value="#{cmp.idCompte}" />
@@ -63,10 +63,19 @@
                                         </tr>
                                         <tr>
                                             <td class="olab" ><p:outputLabel value="#{bundle.CreateBoncommandeLabel_idBC}" for="idBC" /></td>
-                                            <td class="olab" >
-                                                <p:inputText id="idBC" value="#{boncommandeController.selected.idBC}" title="#{bundle.CreateBoncommandeTitle_idBC}" required="true" requiredMessage="#{bundle.CreateBoncommandeRequiredMessage_idBC}">
-                                                <p:ajax event="change" listener="#{boncommandeController.subjectSelectionChanged()}" update="@form" process="@form" />
-                                                </p:inputText>
+                                            <td class="olab">
+                                                <p:autoComplete dropdown="true" id="idBC" value="#{boncommandeController.current}" completeMethod="#{boncommandeController.completeText}" title="#{bundle.CreateBoncommandeTitle_idBC}" required="true" requiredMessage="#{bundle.CreateBoncommandeRequiredMessage_idBC}" 
+                                                                converter="bcConverter" var="bc" itemLabel="#{bc.idBC}" itemValue="#{bc}" >
+                                                    <p:column style="width:10%">
+                                                        <h:outputText value="#{bc.idBC}" />
+                                                    </p:column>
+
+                                                    <p:column>
+                                                        <h:outputText value="#{bc.dateCommande}" /> 
+                                                    </p:column>
+                                                    <p:ajax event="itemSelect" listener="#{boncommandeController.subjectSelectionChanged()}" update="@form" process="@form" />
+                                                    <p:ajax event="change" listener="#{boncommandeController.subjectSelectionChanged()}" update="@form" process="@form" />
+                                                </p:autoComplete>
                                             </td>
                                         </tr>
                                         <tr>

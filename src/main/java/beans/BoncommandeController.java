@@ -312,6 +312,10 @@ public Dotationsecteur getDS(){
         }
     }
 
+    public Boncommande getCurrent() {
+        return current;
+    }
+
     public List<Boncommande> getItems() {
         return items;
     }

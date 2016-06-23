@@ -30,6 +30,7 @@ import javax.transaction.UserTransaction;
 import model.Compte;
 import model.Dotationsecteur;
 import model.Secteur;
+import model.Secteurprincipal;
 import model.Users;
 import org.example.shiro.bean.security.ShiroLoginBean;
 
@@ -59,27 +60,50 @@ public class BoncommandeController implements Serializable {
     public BoncommandeController() {
 
     }
-public Dotationsecteur getDS(){
-    Dotationsecteur d=null;
-         try {
-             Secteur sect = getSect();
-                Query req = em.createQuery("SELECT o FROM Dotationsecteur o WHERE o.idSecteur=? and o.idCompte =?").setParameter(1, sect.getIdSecteur()).setParameter(2, cpt.getIdCompte());
-                d = (Dotationsecteur) req.getSingleResult();
-            } catch (Exception e) {
-                disablCreate = true;
-                disablUpdate = true;
-                disablDelete = true;
-                e.printStackTrace();
-                JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            }
-         return d;
-}
+
+    public Dotationsecteur getDS() {
+        Dotationsecteur d = null;
+        try {
+            Secteur sect = getSect();
+            Query req = em.createQuery("SELECT o FROM Dotationsecteur o WHERE o.idSecteur=? and o.idCompte =?").setParameter(1, sect.getIdSecteur()).setParameter(2, cpt.getIdCompte());
+            d = (Dotationsecteur) req.getSingleResult();
+        } catch (Exception e) {
+            disablCreate = true;
+            disablUpdate = true;
+            disablDelete = true;
+            e.printStackTrace();
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+        return d;
+    }
+
+    public void remplireFormulaire() {
+        Dotationsecteur ds = null;
+        Secteur s=null;
+        Secteurprincipal sp=null;
+        try {
+            if(cpt==null){cpt=new Compte();}
+            Query req = em.createQuery("SELECT o FROM Dotationsecteur o WHERE o.idDotation=?").setParameter(1, current.getIdDotation());
+            ds = (Dotationsecteur) req.getSingleResult();
+            cpt.setIdCompte(ds.getIdCompte());
+            Query req2 = em.createQuery("SELECT o FROM Secteur o WHERE o.idSecteur= ?").setParameter(1,ds.getIdSecteur());
+            s = (Secteur) req2.getSingleResult();
+            this.secteur=s.getIntituleSecteur();
+            Query req3 = em.createQuery("SELECT o FROM Secteurprincipal o WHERE o.idSecteurP= ?").setParameter(1,s.getIdSecteurP());
+            sp = (Secteurprincipal) req3.getSingleResult();
+            this.secteurP=sp.getDesignation();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+    }
+
     public void subjectSelectionChanged() {
         current.setDateCommande(new Date());
         Boncommande bc = null;
-        ds=null;
-        ds=getDS();
-        if (current instanceof Boncommande && current != null) {    
+        ds = null;
+        ds = getDS();
+        if (current instanceof Boncommande && current != null) {
             try {
                 Query req2 = em.createQuery("SELECT o FROM Boncommande o WHERE o.idBC =?").setParameter(1, current.getIdBC());
                 bc = (Boncommande) req2.getSingleResult();
@@ -187,12 +211,16 @@ public Dotationsecteur getDS(){
         return items;
     }
 
-   public Boncommande getSelected() {
+    public Boncommande getSelected() {
         if (current == null) {
             current = new Boncommande();
             selectedItemIndex = -1;
         }
         return current;
+    }
+
+    public void setSelected(Boncommande selected) {
+        current = selected;
     }
 
     private BoncommandeFacade getFacade() {
@@ -312,20 +340,12 @@ public Dotationsecteur getDS(){
         }
     }
 
-    public Boncommande getCurrent() {
-        return current;
-    }
-
     public List<Boncommande> getItems() {
         return items;
     }
 
     public void setItems(List<Boncommande> items) {
         this.items = items;
-    }
-
-    public void setCurrent(Boncommande current) {
-        this.current = current;
     }
 
     public EntityManager getEm() {

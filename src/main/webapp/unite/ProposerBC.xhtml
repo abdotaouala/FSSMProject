@@ -64,7 +64,7 @@
                                         <tr>
                                             <td class="olab" ><p:outputLabel value="#{bundle.CreateBoncommandeLabel_idBC}" for="idBC" /></td>
                                             <td class="olab">
-                                                <p:autoComplete dropdown="true" id="idBC" value="#{boncommandeController.current}" completeMethod="#{boncommandeController.completeText}" title="#{bundle.CreateBoncommandeTitle_idBC}" required="true" requiredMessage="#{bundle.CreateBoncommandeRequiredMessage_idBC}" 
+                                                <p:autoComplete dropdown="true" id="idBC" value="#{boncommandeController.selected}" completeMethod="#{boncommandeController.completeText}" title="#{bundle.CreateBoncommandeTitle_idBC}" required="true" requiredMessage="#{bundle.CreateBoncommandeRequiredMessage_idBC}" 
                                                                 converter="bcConverter" var="bc" itemLabel="#{bc.idBC}" itemValue="#{bc}" >
                                                     <p:column style="width:10%">
                                                         <h:outputText value="#{bc.idBC}" />
@@ -115,7 +115,12 @@
                             </div>
                             <div class="panel-body">
                                 <div class="table-responsive">
-                                    <p:dataTable value="#{boncommandeController.items}" var="item" style="border:solid 1px">
+                                    <p:dataTable id="datalist" value="#{boncommandeController.items}" var="item" style="border:solid 1px"
+                                                 selectionMode="single" selection="#{boncommandeController.selected}"
+                                                 paginator="true"
+                                                 rowKey="#{item.idBC}"
+                                                 >
+                                        <p:ajax event="rowSelect" listener="#{boncommandeController.remplireFormulaire()}"  update="@form" process="@this"/>
                                         <p:column headerText="#{bundle.ListBoncommandeTitle_idBC}">
                                             <h:outputText value="#{item.idBC}"/>
                                         </p:column>

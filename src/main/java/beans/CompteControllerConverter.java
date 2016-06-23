@@ -44,15 +44,14 @@ public class CompteControllerConverter implements Converter {
         sb.append(value);
         return sb.toString();
     }
-
     @Override
-    public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
-        if (object != null) {
-            Compte o = (Compte) object;
-            return String.valueOf(((Compte) object).getIdCompte());
-        } else {
-            return null;
+        public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
+             if (object instanceof Compte && object!=null) {
+                Compte o = (Compte) object;
+                return getStringKey(o.getIdCompte());
+            }else{
+                return null;
+            }
         }
-    }
 
 }

@@ -52,13 +52,13 @@ public class BoncommandeControllerConverter implements Converter {
     }
 
     @Override
-    public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
-        if (object != null) {
-            Boncommande o = (Boncommande) object;
-            return String.valueOf(((Boncommande) object).getIdBC());
-        } else {
-            return null;
+        public String getAsString(FacesContext facesContext, UIComponent component, Object object) {
+             if (object instanceof Boncommande && object!=null) {
+                Boncommande o = (Boncommande) object;
+                return getStringKey(o.getIdBC());
+            }else{
+                return null;
+            }
         }
-    }
 
 }

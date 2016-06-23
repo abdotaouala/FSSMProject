@@ -86,6 +86,31 @@ public class LignecommandeController implements Serializable {
         user.setIdUser(2);
         return user;
     }
+public void remplireFormulaire(){
+    bc.setIdBC(current.getIdBC());
+    try {
+            Query req = em.createQuery("SELECT o.description FROM Article o where o.idArticle= ? ").setParameter(1,current.getIdArticle());
+            this.description= (String) req.getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+    current.setMontant(current.getQuantite()*current.getPu());
+
+}
+    public List<Lignecommande> getAllItemes() {
+        try {
+            Users user = getUser();
+            this.items = new ArrayList<Lignecommande>();
+            Query req = em.createQuery("SELECT o FROM Lignecommande o where o.idBC=? ").setParameter(1, bc.getIdBC());
+            List<Lignecommande> l = (List<Lignecommande>) req.getResultList();
+            items = l;
+        } catch (Exception e) {
+            e.printStackTrace();
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+        return items;
+    }
 
     public Boncommande getBC() {
         try {
@@ -102,6 +127,23 @@ public class LignecommandeController implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreure! Engagement innexistant ou vous n'etes pas le proprietaire de cet Engagement !", "erreue"));
         }
         return null;
+    }
+
+    public List<Lignecommande> changeBC() {
+        try {
+            if(current==null){current=new Lignecommande();}
+            current.setIdBC(bc.getIdBC());
+            Users user = getUser();
+            this.items = new ArrayList<Lignecommande>();
+            Query req = em.createQuery("SELECT o FROM Lignecommande o where o.idBC=? ").setParameter(1, bc.getIdBC());
+            List<Lignecommande> l = (List<Lignecommande>) req.getResultList();
+            items = l;
+        } catch (Exception e) {
+            e.printStackTrace();
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+        return items;
+
     }
 
     public void subjectSelectionChanged() {
@@ -152,10 +194,11 @@ public class LignecommandeController implements Serializable {
         try {
             Users user = getUser();
             this.items = new ArrayList<Lignecommande>();
-            Query req = em.createQuery("SELECT o FROM Lignecommande o where o.idBC=? and o.idBC in(select bc.idBC from Boncommande bc where bc.idUser=?)").setParameter(1, current.getIdBC()).setParameter(2, user.getIdUser());
+            Query req = em.createQuery("SELECT o FROM Lignecommande o where o.idBC=? and o.idBC in(select bc.idBC from Boncommande bc where bc.idUser=?)").setParameter(1, bc.getIdBC()).setParameter(2, user.getIdUser());
             List<Lignecommande> l = (List<Lignecommande>) req.getResultList();
             items = l;
         } catch (Exception e) {
+            e.printStackTrace();
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
         return items;
@@ -393,8 +436,8 @@ public class LignecommandeController implements Serializable {
         this.disablDelete = disablDelete;
     }
 
-    public Lignecommande getCurrent() {
-        return current;
+    public void setSelected(Lignecommande selected) {
+        this.current = selected;
     }
 
     public void setCurrent(Lignecommande current) {

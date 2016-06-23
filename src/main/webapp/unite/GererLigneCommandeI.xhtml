@@ -13,7 +13,7 @@
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" onclick="confirmation.hide()" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" onclick="confirmation.hide()" icon="ui-icon-close" />
             </p:confirmDialog>
-            <p:dialog header="Effects" widgetVar="formUpdate" showEffect="explode" hideEffect="bounce" height="400" modal="true">
+            <p:dialog id="dialogue" header="Effects" widgetVar="formUpdate" showEffect="explode" hideEffect="bounce" height="400" modal="true">
                 <div class="panel-body">
                     <center><table class='tab_form' style="width:500px;height:250px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
                             <tr> 
@@ -24,11 +24,19 @@
                             </tr>
                             <tr> 
                                 <td class="olab"><p:outputLabel value="#{bundle.CreateLignecommandeLabel_quantite}" for="quantite" /></td>
-                                <td class="olab"><p:inputText id="quantite" value="#{lignecommandeController.selected.quantite}" title="#{bundle.CreateLignecommandeTitle_quantite}" required="false"/></td>
+                                <td class="olab">
+                                    <p:inputText id="quantite" value="#{lignecommandeController.selected.quantite}" title="#{bundle.CreateLignecommandeTitle_quantite}" required="false">
+                                    <p:ajax event="change" listener="#{lignecommandeController.remplireFormulaire()}" update="montant" process="@this"/>
+                                    </p:inputText>
+                                </td>
                             </tr>
                             <tr> 
                                 <td class="olab"><p:outputLabel value="#{bundle.CreateLignecommandeLabel_pu}" for="pu" /></td>
-                                <td class="olab"><p:inputText id="pu" value="#{lignecommandeController.selected.pu}" title="#{bundle.CreateLignecommandeTitle_pu}" /></td>
+                                <td class="olab">
+                                    <p:inputText id="pu" value="#{lignecommandeController.selected.pu}" title="#{bundle.CreateLignecommandeTitle_pu}" >
+                                    <p:ajax event="change" listener="#{lignecommandeController.remplireFormulaire()}" update="montant" process="@this"/>
+                                    </p:inputText>
+                                </td>
                             </tr>
                             <tr> 
                                 <td class="olab"><p:outputLabel value="#{bundle.CreateLignecommandeLabel_montant}" for="montant" /></td>
@@ -38,11 +46,6 @@
                                 <td class="olab">
                                     <p:commandButton id="ajaxupdate"  icon="ui-icon-pencil" action="#{lignecommandeController.update}" value="Modifier"  class="btn btn-success btn-lg" update="@form">
                                         <p:confirm header="Confirmation de modification" message="voulez-vous vraiment modifier ces informations?" icon="ui-icon-alert" />
-                                    </p:commandButton>
-                                </td>
-                                <td class="olab">
-                                    <p:commandButton id="ajaxdelete"  action="#{lignecommandeController.performDestroy}" value="Supprimer"  class="btn btn-danger btn-lg" update="@form">
-                                        <p:confirm header="Confirmation de suppression" message="voulez-vous vraiment supprimer ces informations?" icon="ui-icon-alert" />
                                     </p:commandButton>
                                 </td>
                             </tr>
@@ -109,6 +112,9 @@
                                 <p:ajax event="rowSelect" listener="#{lignecommandeController.remplireFormulaire()}" update="@form" process="@this"/>
                                 <p:column headerText="Action">
                                     <p:commandButton icon="ui-icon-pencil" action="#{lignecommandeController.remplireFormulaire()}" type="button" onclick="PF('formUpdate').show();"  class="btn btn-success btn-lg" >
+                                    </p:commandButton>
+                                    <p:commandButton id="ajaxdelete"  action="#{lignecommandeController.performDestroy}" icon="ui-icon-trash" class="btn btn-danger btn-lg" update="@form">
+                                        <p:confirm header="Confirmation de suppression" message="voulez-vous vraiment supprimer ces informations?" icon="ui-icon-alert" />
                                     </p:commandButton>
                                 </p:column>
                             </p:dataTable>

@@ -87,6 +87,9 @@ public class LignecommandeController implements Serializable {
         return user;
     }
 public void remplireFormulaire(){
+    /*if(current!=null){
+    current=new Lignecommande();
+    }*/
     bc.setIdBC(current.getIdBC());
     try {
             Query req = em.createQuery("SELECT o.description FROM Article o where o.idArticle= ? ").setParameter(1,current.getIdArticle());
@@ -308,6 +311,37 @@ public void remplireFormulaire(){
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }*/
+    
+            public String updateGLC() {
+        try {
+            ut.begin();
+            em.joinTransaction();
+            Article a = getArticle();
+            if (a == null) {
+                a = new Article();
+                a.setDescription(description);
+                em.persist(a);
+                current.setIdArticle(MaxArticle());
+            } else {
+                current.setIdArticle(a.getIdArticle());
+            }
+            String et="enTraitement";
+            Query req2 = em.createQuery("update Boncommande o set o.etat= :et where o.idBC= :idbc");
+            req2.setParameter("et",et);
+            req2.setParameter("idbc", current.getIdBC());
+            int updateCount = req2.executeUpdate();
+            ut.commit();
+            if(updateCount>0){
+            getFacade().edit(current);
+            getItemes();
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("LignecommandeUpdated"));
+            }
+            return "View";
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            return null;
+        }
+    }
     public String update() {
         try {
             Article a = getArticle();

@@ -27,9 +27,9 @@
                             <div class="panel-body">
                                 <center><table class='tab_form' style="width:450px;height:400px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
                                         <tr> 
-                                            <td class="olab"><h:outputLabel value="SecteurPrincipal:" for="designation" /></td>
+                                            <td class="olab"><h:outputLabel value="SecteurPrincipal:" for="idSP" /></td>
                                             <td class="olab">
-                                                <p:autoComplete dropdown="true" id="designation" value="#{boncommandeController.secteurP}" completeMethod="#{secteurprincipalController.completeText}" title="#{bundle.CreateSecteurprincipalTitle_designation}" forceSelection="true" required="true">
+                                                <p:autoComplete dropdown="true" id="idSP" value="#{boncommandeController.secteurP}" completeMethod="#{secteurprincipalController.completeText}" title="#{bundle.CreateSecteurprincipalTitle_designation}" forceSelection="true" required="true">
                                                     <p:ajax event="itemSelect" listener="#{boncommandeController.subjectSelectionChanged()}" update="@form" process="@form" />
                                                     <p:ajax event="change" listener="#{boncommandeController.subjectSelectionChanged()}" update="@form" process="@form" />
                                                 </p:autoComplete>

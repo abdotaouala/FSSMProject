@@ -26,6 +26,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 import javax.transaction.UserTransaction;
 import model.Compte;
 import model.Dotationsecteur;
@@ -49,6 +50,7 @@ public class BoncommandeController implements Serializable {
     private Compte cpt;
     private Dotationsecteur ds;
     private Boncommande current;
+    private String type;
     @Inject
     UserTransaction ut;
     private List<Boncommande> items = null;
@@ -79,19 +81,21 @@ public class BoncommandeController implements Serializable {
 
     public void remplireFormulaire() {
         Dotationsecteur ds = null;
-        Secteur s=null;
-        Secteurprincipal sp=null;
+        Secteur s = null;
+        Secteurprincipal sp = null;
         try {
-            if(cpt==null){cpt=new Compte();}
+            if (cpt == null) {
+                cpt = new Compte();
+            }
             Query req = em.createQuery("SELECT o FROM Dotationsecteur o WHERE o.idDotation=?").setParameter(1, current.getIdDotation());
             ds = (Dotationsecteur) req.getSingleResult();
             cpt.setIdCompte(ds.getIdCompte());
-            Query req2 = em.createQuery("SELECT o FROM Secteur o WHERE o.idSecteur= ?").setParameter(1,ds.getIdSecteur());
+            Query req2 = em.createQuery("SELECT o FROM Secteur o WHERE o.idSecteur= ?").setParameter(1, ds.getIdSecteur());
             s = (Secteur) req2.getSingleResult();
-            this.secteur=s.getIntituleSecteur();
-            Query req3 = em.createQuery("SELECT o FROM Secteurprincipal o WHERE o.idSecteurP= ?").setParameter(1,s.getIdSecteurP());
+            this.secteur = s.getIntituleSecteur();
+            Query req3 = em.createQuery("SELECT o FROM Secteurprincipal o WHERE o.idSecteurP= ?").setParameter(1, s.getIdSecteurP());
             sp = (Secteurprincipal) req3.getSingleResult();
-            this.secteurP=sp.getDesignation();
+            this.secteurP = sp.getDesignation();
         } catch (Exception e) {
             e.printStackTrace();
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -203,6 +207,28 @@ public class BoncommandeController implements Serializable {
         Users user = getUser();
         try {
             Query req = em.createQuery("SELECT o FROM Boncommande o where o.idUser=?").setParameter(1, user.getIdUser());
+            items = (List<Boncommande>) req.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+        return items;
+    }
+
+    public List<Boncommande> getAllItemesBCG() {
+        try {
+            Query req = em.createQuery("SELECT o FROM Boncommande o where o.etat='enTraitement'");
+            items = (List<Boncommande>) req.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+        return items;
+    }
+
+    public List<Boncommande> getAllItemesRech() {
+        try {
+            Query req = em.createQuery("SELECT o FROM Boncommande o where o.etat='enTraitement' and o.type=?").setParameter(1, this.type);
             items = (List<Boncommande>) req.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
@@ -338,6 +364,14 @@ public class BoncommandeController implements Serializable {
         if (selectedItemIndex >= 0) {
             current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public List<Boncommande> getItems() {

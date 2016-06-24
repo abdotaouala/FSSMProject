@@ -6,7 +6,7 @@
     <h:head>
         <title>Facelet Title</title>
     </h:head>
-    <h:body >
+    <h:body onload="#{lignecommandeController.allItemesBC}" >
         <h:form id="LigneCommandeCreateForm">
             <p:growl id="message" life="2000" />
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" widgetVar="confirmation" closeOnEscape="false" closable="true">
@@ -26,7 +26,7 @@
                                 <td class="olab"><p:outputLabel value="#{bundle.CreateLignecommandeLabel_quantite}" for="quantite" /></td>
                                 <td class="olab">
                                     <p:inputText id="quantite" value="#{lignecommandeController.selected.quantite}" title="#{bundle.CreateLignecommandeTitle_quantite}" required="false">
-                                    <p:ajax event="change" listener="#{lignecommandeController.remplireFormulaire()}" update="montant" process="@this"/>
+                                        <p:ajax event="change" listener="#{lignecommandeController.remplireFormulaire()}" update="montant" process="@this"/>
                                     </p:inputText>
                                 </td>
                             </tr>
@@ -34,7 +34,7 @@
                                 <td class="olab"><p:outputLabel value="#{bundle.CreateLignecommandeLabel_pu}" for="pu" /></td>
                                 <td class="olab">
                                     <p:inputText id="pu" value="#{lignecommandeController.selected.pu}" title="#{bundle.CreateLignecommandeTitle_pu}" >
-                                    <p:ajax event="change" listener="#{lignecommandeController.remplireFormulaire()}" update="montant" process="@this"/>
+                                        <p:ajax event="change" listener="#{lignecommandeController.remplireFormulaire()}" update="montant" process="@this"/>
                                     </p:inputText>
                                 </td>
                             </tr>
@@ -53,12 +53,12 @@
                 </div>
             </p:dialog>
             <div class="col-md-12 col-sm-12">
-                <div class="panel panel-primary">
+                <div class="panel panel-info">
                     <div class="panel-heading">
-                        Formulaire :
+                        Liste Des Lignes De Commande
                     </div>
                     <div class="panel-body">
-                        <center><table class='tab_form' style="width:500px;height:250px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
+                        <center><table class='tab_form' style="width:500px;height:100px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
                                 <tr>
                                     <td class="olab" ><p:outputLabel value="#{bundle.CreateBoncommandeLabel_idBC}" for="id" /></td>
                                     <td class="olab">
@@ -77,15 +77,6 @@
                                     </td>
                                 </tr>
                             </table></center>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12 col-sm-12">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        Liste Des Lignes De Commande
-                    </div>
-                    <div class="panel-body">
                         <div class="table-responsive">
                             <p:dataTable value="#{lignecommandeController.items}" var="item" style="border:solid 1px" selectionMode="single" 
                                          selection="#{lignecommandeController.selected}"

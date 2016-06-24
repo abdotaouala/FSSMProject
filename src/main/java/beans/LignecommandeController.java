@@ -95,7 +95,9 @@ public void remplireFormulaire(){
             e.printStackTrace();
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
+    if(current.getPu()==null){current.setPu(0.0);}
     current.setMontant(current.getQuantite()*current.getPu());
+    bc.setIdBC(current.getIdBC());
 
 }
     public List<Lignecommande> getAllItemes() {
@@ -103,6 +105,20 @@ public void remplireFormulaire(){
             Users user = getUser();
             this.items = new ArrayList<Lignecommande>();
             Query req = em.createQuery("SELECT o FROM Lignecommande o where o.idBC=? ").setParameter(1, bc.getIdBC());
+            List<Lignecommande> l = (List<Lignecommande>) req.getResultList();
+            items = l;
+        } catch (Exception e) {
+            e.printStackTrace();
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+        return items;
+    }
+    public List<Lignecommande> getAllItemesBC() {
+        try {
+            remplireFormulaire();
+            Users user = getUser();
+            this.items = new ArrayList<Lignecommande>();
+            Query req = em.createQuery("SELECT o FROM Lignecommande o");
             List<Lignecommande> l = (List<Lignecommande>) req.getResultList();
             items = l;
         } catch (Exception e) {

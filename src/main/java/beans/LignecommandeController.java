@@ -9,11 +9,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -25,6 +25,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 import javax.transaction.UserTransaction;
 import model.Article;
 import model.Boncommande;
@@ -33,7 +34,6 @@ import org.example.shiro.bean.security.ShiroLoginBean;
 
 @Named("lignecommandeController")
 @SessionScoped
-@ManagedBean
 public class LignecommandeController implements Serializable {
 
     @PersistenceContext(unitName = "AppFinanciere")
@@ -43,7 +43,7 @@ public class LignecommandeController implements Serializable {
     private boolean disablCreate = false;
     private boolean disablUpdate = true;
     private boolean disablDelete = true;
-    private Lignecommande current;
+    private Lignecommande current = new Lignecommande();
     private List<Lignecommande> items = null;
     @Inject
     UserTransaction ut;
@@ -51,7 +51,7 @@ public class LignecommandeController implements Serializable {
     private session.LignecommandeFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
-
+    private int qte;
     public LignecommandeController() {
     }
 
@@ -86,23 +86,32 @@ public class LignecommandeController implements Serializable {
         user.setIdUser(2);
         return user;
     }
-public void remplireFormulaire(){
-    /*if(current!=null){
+
+    public void remplireFormulaire() {
+        /*if(current!=null){
     current=new Lignecommande();
     }*/
-    bc.setIdBC(current.getIdBC());
-    try {
-            Query req = em.createQuery("SELECT o.description FROM Article o where o.idArticle= ? ").setParameter(1,current.getIdArticle());
-            this.description= (String) req.getSingleResult();
+        bc.setIdBC(current.getIdBC());
+        try {
+            Query req = em.createQuery("SELECT o FROM Article o where o.idArticle= ? ").setParameter(1, current.getIdArticle());
+            Article a = (Article) req.getSingleResult();
+            this.description=a.getDescription();
+            Query req2 = em.createQuery("SELECT o FROM Boncommande o where o.idBC = ? ").setParameter(1,current.getIdBC());
+            this.bc= (Boncommande) req.getSingleResult();
+            Query req3=em.createQuery("select o from Lignecommande o where o.idBC=? and o.idArticle=?").setParameter(1,bc.getIdBC()).setParameter(2,a.getIdArticle());
+            current=(Lignecommande)req3.getSingleResult();
+            if(current.getQuantite()==null){current.setQuantite(0);}
+            qte=current.getQuantite();
         } catch (Exception e) {
-            e.printStackTrace();
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
-    if(current.getPu()==null){current.setPu(0.0);}
-    current.setMontant(current.getQuantite()*current.getPu());
-    bc.setIdBC(current.getIdBC());
+        if (current.getPu() == null) {
+            current.setPu(0.0);
+        }
+        current.setMontant(current.getQuantite() * current.getPu());
+        subjectSelectionChanged();
 
-}
+    }
+
     public List<Lignecommande> getAllItemes() {
         try {
             Users user = getUser();
@@ -112,10 +121,42 @@ public void remplireFormulaire(){
             items = l;
         } catch (Exception e) {
             e.printStackTrace();
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Veillez choisir un numero de commande !", "Information"));
         }
         return items;
     }
+
+    public List<Lignecommande> getAllItemesCours() {
+        try {
+            Users user = getUser();
+            this.items = new ArrayList<Lignecommande>();
+            Query req = em.createQuery("SELECT o FROM Lignecommande o where o.idBC in ( select c.idBC from Boncommande c where  c.etat='enCours' and c.idUser=?)").setParameter(2, user.getIdUser());
+            List<Lignecommande> l = (List<Lignecommande>) req.getResultList();
+            for (Lignecommande li : l) {
+                if (li.getIdBC() == bc.getIdBC()) {
+                    items.add(li);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Veillez choisir un numero de commande !", "Information BC en cours"));
+        }
+        return items;
+    }
+
+    public List<Lignecommande> getAllItemesTrait() {
+        try {
+            Users user = getUser();
+            this.items = new ArrayList<Lignecommande>();
+            Query req = em.createQuery("SELECT o FROM Lignecommande o where o.idBC=? and o.idBC in(select c.idBC from Boncommande c where c.etat='enTraitement')").setParameter(1, bc.getIdBC());
+            List<Lignecommande> l = (List<Lignecommande>) req.getResultList();
+            items = l;
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Veillez choisir un numero de commande !", "Information BC en cours de traitement"));
+        }
+        return items;
+    }
+
     public List<Lignecommande> getAllItemesBC() {
         try {
             remplireFormulaire();
@@ -125,8 +166,7 @@ public void remplireFormulaire(){
             List<Lignecommande> l = (List<Lignecommande>) req.getResultList();
             items = l;
         } catch (Exception e) {
-            e.printStackTrace();
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "aucune commande n'est trouvée !", "Information"));
         }
         return items;
     }
@@ -150,7 +190,9 @@ public void remplireFormulaire(){
 
     public List<Lignecommande> changeBC() {
         try {
-            if(current==null){current=new Lignecommande();}
+            if (current == null) {
+                current = new Lignecommande();
+            }
             current.setIdBC(bc.getIdBC());
             Users user = getUser();
             this.items = new ArrayList<Lignecommande>();
@@ -166,18 +208,27 @@ public void remplireFormulaire(){
     }
 
     public void subjectSelectionChanged() {
-        items = getItemes();
         if (current instanceof Lignecommande && current != null) {
+            current.setQuantite(qte);
             current.setIdBC(bc.getIdBC());
             Boncommande bc = getBC();
             Article a = getArticle();
+             Lignecommande lc=null;
             try {
+                Query req = em.createQuery("SELECT o FROM Lignecommande o WHERE o.idBC =? and o.idArticle in (select a.idArticle from Article a where a.description=?)").setParameter(1, bc.getIdBC()).setParameter(2, this.description);
+                         lc = (Lignecommande) req.getSingleResult();
+                        } catch (Exception e) {
+                current.setIdLigne(null);
+                e.printStackTrace();
+                disablCreate = false;
+                disablUpdate = true;
+                disablDelete = true;
+            }
                 if (bc instanceof Boncommande && bc != null) {
                     if (a instanceof Article && a != null) {
                         current.setPu(a.getPu());
                         current.setIdArticle(a.getIdArticle());
-                        Query req = em.createQuery("SELECT o FROM Lignecommande o WHERE o.idBC =? and o.idArticle in (select a.idArticle from Article a where a.description=?)").setParameter(1, bc.getIdBC()).setParameter(2, this.description);
-                        Lignecommande lc = (Lignecommande) req.getSingleResult();
+                        
                         if (lc != null && lc instanceof Lignecommande) {
                             current.setIdBC(lc.getIdBC());
                             current.setIdLigne(lc.getIdLigne());
@@ -198,39 +249,32 @@ public void remplireFormulaire(){
                         disablDelete = true;
                     }
                 }
-            } catch (Exception e) {
-                current.setIdLigne(null);
-                e.printStackTrace();
-                disablCreate = false;
-                disablUpdate = true;
-                disablDelete = true;
-                JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            }
+        } else {
+            current = new Lignecommande();
+            current.setIdBC(bc.getIdBC());
+            current.setQuantite(qte);
         }
+        items=getAllItemes();
     }
 
     public List<Lignecommande> getItemes() {
         try {
+            Query req2 = em.createQuery("SELECT o FROM Boncommande o where o.idBC=?").setParameter(1, bc.getIdBC());
+            Boncommande ligne = (Boncommande) req2.getSingleResult();
+            if(ligne.getEtat().equals("enCours")){
             Users user = getUser();
             this.items = new ArrayList<Lignecommande>();
             Query req = em.createQuery("SELECT o FROM Lignecommande o where o.idBC=? and o.idBC in(select bc.idBC from Boncommande bc where bc.idUser=?)").setParameter(1, bc.getIdBC()).setParameter(2, user.getIdUser());
             List<Lignecommande> l = (List<Lignecommande>) req.getResultList();
-            items = l;
+            items=l;
+            }
+            return items;
         } catch (Exception e) {
             e.printStackTrace();
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Veillez choisir un numero de commande !", "Information"));
         }
         return items;
     }
-
-    public Lignecommande getSelected() {
-        if (current == null) {
-            current = new Lignecommande();
-            selectedItemIndex = -1;
-        }
-        return current;
-    }
-
     private LignecommandeFacade getFacade() {
         return ejbFacade;
     }
@@ -284,8 +328,15 @@ public void remplireFormulaire(){
 
     public String create() {
         try {
+            if (current == null ) {
+                current = new Lignecommande();
+            }
+            current.setQuantite(qte);
+            current.setIdBC(bc.getIdBC());
             Article a = getArticle();
-            if (a == null) {
+            if (a != null && a instanceof Article) {
+                current.setIdArticle(a.getIdArticle());
+            } else {
                 ut.begin();
                 em.joinTransaction();
                 a = new Article();
@@ -293,15 +344,16 @@ public void remplireFormulaire(){
                 em.persist(a);
                 ut.commit();
                 current.setIdArticle(MaxArticle());
-            } else {
-                current.setIdArticle(a.getIdArticle());
             }
+            current.setPu(0.0);
+            current.setMontant(0.0);
             getFacade().edit(current);
             getItemes();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("LignecommandeCreated"));
             return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Echec de creation de la ligne !", "Erreure"));
             return null;
         }
     }
@@ -311,8 +363,7 @@ public void remplireFormulaire(){
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }*/
-    
-            public String updateGLC() {
+    public String updateGLC() {
         try {
             ut.begin();
             em.joinTransaction();
@@ -325,23 +376,25 @@ public void remplireFormulaire(){
             } else {
                 current.setIdArticle(a.getIdArticle());
             }
-            String et="enTraitement";
+            current.setQuantite(qte);
+            String et = "enTraitement";
             Query req2 = em.createQuery("update Boncommande o set o.etat= :et where o.idBC= :idbc");
-            req2.setParameter("et",et);
+            req2.setParameter("et", et);
             req2.setParameter("idbc", current.getIdBC());
             int updateCount = req2.executeUpdate();
             ut.commit();
-            if(updateCount>0){
-            getFacade().edit(current);
-            getItemes();
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("LignecommandeUpdated"));
+            if (updateCount > 0) {
+                getFacade().edit(current);
+                getAllItemes();
+                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("LignecommandeUpdated"));
             }
             return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Echec de Modification de la ligne !", "Erreure"));
             return null;
         }
     }
+
     public String update() {
         try {
             Article a = getArticle();
@@ -356,12 +409,13 @@ public void remplireFormulaire(){
             } else {
                 current.setIdArticle(a.getIdArticle());
             }
+            current.setQuantite(qte);
             getFacade().edit(current);
             getItemes();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("LignecommandeUpdated"));
             return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Echec de Modification de la ligne !", "Erreure"));
             return null;
         }
     }
@@ -393,7 +447,17 @@ public void remplireFormulaire(){
             getItemes();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("LignecommandeDeleted"));
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Echec de suppression de la ligne !", "Erreure"));
+        }
+    }
+
+    public void performDestroyGBC() {
+        try {
+            getFacade().remove(current);
+            getAllItemes();
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("LignecommandeDeleted"));
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Echec de suppression de la ligne !", "Erreure"));
         }
     }
 
@@ -485,14 +549,12 @@ public void remplireFormulaire(){
     public void setDisablDelete(boolean disablDelete) {
         this.disablDelete = disablDelete;
     }
+    private static final Logger LOG = Logger.getLogger(LignecommandeController.class.getName());
 
-    public void setSelected(Lignecommande selected) {
-        this.current = selected;
+    public void setPagination(PaginationHelper pagination) {
+        this.pagination = pagination;
     }
 
-    public void setCurrent(Lignecommande current) {
-        this.current = current;
-    }
 
     public List<Lignecommande> getItems() {
         return items;
@@ -538,6 +600,19 @@ public void remplireFormulaire(){
         return ejbFacade.find(id);
     }
 
+    public Lignecommande getSelected() {
+        return current;
+    }
+    public Lignecommande getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(Lignecommande current) {
+        this.current = current;
+    }
+
+    
+
     @FacesConverter(forClass = Lignecommande.class)
     public static class LignecommandeControllerConverter implements Converter {
 
@@ -576,6 +651,14 @@ public void remplireFormulaire(){
             }
         }
 
+    }
+
+    public int getQte() {
+        return qte;
+    }
+
+    public void setQte(int qte) {
+        this.qte = qte;
     }
 
 }

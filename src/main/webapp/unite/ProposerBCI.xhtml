@@ -90,16 +90,16 @@
                                         </tr>
                                         <tr>
                                             <td class="olab">
-                                                <p:commandButton  ajax="false" id="ajaxcreate"  action="#{boncommandeController.create}" value="Ajouter" disabled="#{boncommandeController.disablCreate}" class="btn btn-primary btn-lg" update="@form">
+                                                <p:commandButton  ajax="false" id="ajaxcreate"  action="#{boncommandeController.create}" value="Ajouter" icon="ui-icon-plus" disabled="#{boncommandeController.disablCreate}" class="btn btn-primary btn-lg" update="@form">
                                                 </p:commandButton>
                                             </td>
                                             <td class="olab">
-                                                <p:commandButton id="ajaxupdate"  action="#{boncommandeController.update}" value="Modifier" disabled="#{boncommandeController.disablUpdate}" class="btn btn-success btn-lg" update="@form">
+                                                <p:commandButton id="ajaxupdate"  action="#{boncommandeController.update}" value="Modifier" icon="ui-icon-pencil" disabled="#{boncommandeController.disablUpdate}" class="btn btn-success btn-lg" update="@form">
                                                     <p:confirm header="Confirmation de modification" message="voulez-vous vraiment modifier ces informations?" icon="ui-icon-alert" />
                                                 </p:commandButton>
                                             </td>
                                             <td class="olab">
-                                                <p:commandButton id="ajaxdelete"  action="#{boncommandeController.performDestroy}" value="Supprimer" disabled="#{boncommandeController.disablDelete}" class="btn btn-danger btn-lg" update="@form">
+                                                <p:commandButton id="ajaxdelete"  action="#{boncommandeController.performDestroy}" value="Supprimer" icon="ui-icon-trash" disabled="#{boncommandeController.disablDelete}" class="btn btn-danger btn-lg" update="@form">
                                                     <p:confirm header="Confirmation de suppression" message="voulez-vous vraiment supprimer ces informations?" icon="ui-icon-alert" />
                                                 </p:commandButton>
                                             </td>

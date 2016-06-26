@@ -93,6 +93,7 @@ public class LignecommandeController implements Serializable {
     }*/
         bc.setIdBC(current.getIdBC());
         try {
+            qte=current.getQuantite();
             Query req = em.createQuery("SELECT o FROM Article o where o.idArticle= ? ").setParameter(1, current.getIdArticle());
             Article a = (Article) req.getSingleResult();
             this.description=a.getDescription();
@@ -101,7 +102,6 @@ public class LignecommandeController implements Serializable {
             Query req3=em.createQuery("select o from Lignecommande o where o.idBC=? and o.idArticle=?").setParameter(1,bc.getIdBC()).setParameter(2,a.getIdArticle());
             current=(Lignecommande)req3.getSingleResult();
             if(current.getQuantite()==null){current.setQuantite(0);}
-            qte=current.getQuantite();
         } catch (Exception e) {
         }
         if (current.getPu() == null) {
@@ -109,6 +109,80 @@ public class LignecommandeController implements Serializable {
         }
         current.setMontant(current.getQuantite() * current.getPu());
         subjectSelectionChanged();
+
+    }
+    
+     public void subjectSelectionChangedUnite() {
+        if (current instanceof Lignecommande && current != null) {
+            current.setQuantite(qte);
+            current.setIdBC(bc.getIdBC());
+            Boncommande bc = getBC();
+            Article a = getArticle();
+             Lignecommande lc=null;
+            try {
+                Query req = em.createQuery("SELECT o FROM Lignecommande o WHERE o.idBC =? and o.idArticle in (select a.idArticle from Article a where a.description=?)").setParameter(1, bc.getIdBC()).setParameter(2, this.description);
+                         lc = (Lignecommande) req.getSingleResult();
+                        } catch (Exception e) {
+                current.setIdLigne(null);
+                e.printStackTrace();
+                disablCreate = false;
+                disablUpdate = true;
+                disablDelete = true;
+            }
+                if (bc instanceof Boncommande && bc != null) {
+                    if (a instanceof Article && a != null) {
+                        current.setPu(a.getPu());
+                        current.setIdArticle(a.getIdArticle());
+                        
+                        if (lc != null && lc instanceof Lignecommande) {
+                            current.setIdBC(lc.getIdBC());
+                            current.setIdLigne(lc.getIdLigne());
+                            disablCreate = true;
+                            disablUpdate = false;
+                            disablDelete = false;
+                        } else {
+                            current.setIdLigne(null);
+                            disablCreate = false;
+                            disablUpdate = true;
+                            disablDelete = true;
+                        }
+                    } else {
+                        current.setPu(0.0);
+                        current.setIdLigne(null);
+                        disablCreate = false;
+                        disablUpdate = true;
+                        disablDelete = true;
+                    }
+                }
+        } else {
+            current = new Lignecommande();
+            current.setIdBC(bc.getIdBC());
+            current.setQuantite(qte);
+        }
+        items=getItemes();
+    }
+    public void remplireFormulaireUnite() {
+        /*if(current!=null){
+    current=new Lignecommande();
+    }*/
+        bc.setIdBC(current.getIdBC());
+        try {
+            qte=current.getQuantite();
+            Query req = em.createQuery("SELECT o FROM Article o where o.idArticle= ? ").setParameter(1, current.getIdArticle());
+            Article a = (Article) req.getSingleResult();
+            this.description=a.getDescription();
+            Query req2 = em.createQuery("SELECT o FROM Boncommande o where o.idBC = ? ").setParameter(1,current.getIdBC());
+            this.bc= (Boncommande) req.getSingleResult();
+            Query req3=em.createQuery("select o from Lignecommande o where o.idBC=? and o.idArticle=?").setParameter(1,bc.getIdBC()).setParameter(2,a.getIdArticle());
+            current=(Lignecommande)req3.getSingleResult();
+            if(current.getQuantite()==null){current.setQuantite(0);}
+        } catch (Exception e) {
+        }
+        if (current.getPu() == null) {
+            current.setPu(0.0);
+        }
+        current.setMontant(current.getQuantite() * current.getPu());
+        subjectSelectionChangedUnite();
 
     }
 
@@ -261,14 +335,15 @@ public class LignecommandeController implements Serializable {
         try {
             Query req2 = em.createQuery("SELECT o FROM Boncommande o where o.idBC=?").setParameter(1, bc.getIdBC());
             Boncommande ligne = (Boncommande) req2.getSingleResult();
-            if(ligne.getEtat().equals("enCours")){
-            Users user = getUser();
             this.items = new ArrayList<Lignecommande>();
+            if(ligne.getEtat().equals("enCours") || ligne.getEtat().equals("invalide")){
+            Users user = getUser();
             Query req = em.createQuery("SELECT o FROM Lignecommande o where o.idBC=? and o.idBC in(select bc.idBC from Boncommande bc where bc.idUser=?)").setParameter(1, bc.getIdBC()).setParameter(2, user.getIdUser());
             List<Lignecommande> l = (List<Lignecommande>) req.getResultList();
             items=l;
-            }
-            return items;
+            }else{
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "cette commande est en cours de Traitement ! !", "Information"));
+            }return items;
         } catch (Exception e) {
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Veillez choisir un numero de commande !", "Information"));

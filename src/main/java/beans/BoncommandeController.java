@@ -460,6 +460,8 @@ public void subjectSelectionChangedPBC() {
                 if (n > 0) {
                     getFacade().edit(current);
                 }
+            }else{
+            getFacade().edit(current);
             }
             getAllItemesBCG();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BoncommandeUpdated"));

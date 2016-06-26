@@ -25,7 +25,7 @@
                             <tr> 
                                 <td class="olab"><p:outputLabel value="#{bundle.CreateLignecommandeLabel_quantite}" for="quantite" /></td>
                                 <td class="olab">
-                                    <p:inputText id="quantite" value="#{lignecommandeController.selected.quantite}" title="#{bundle.CreateLignecommandeTitle_quantite}" required="false">
+                                    <p:inputText id="quantite" value="#{lignecommandeController.current.quantite}" title="#{bundle.CreateLignecommandeTitle_quantite}" required="false">
                                         <p:ajax event="change" listener="#{lignecommandeController.remplireFormulaire()}" update="montant" process="@this"/>
                                     </p:inputText>
                                 </td>
@@ -40,11 +40,11 @@
                             </tr>
                             <tr> 
                                 <td class="olab"><p:outputLabel value="#{bundle.CreateLignecommandeLabel_montant}" for="montant" /></td>
-                                <td class="olab"><p:outputLabel id="montant" value="#{lignecommandeController.selected.montant}" title="#{bundle.CreateLignecommandeTitle_montant}" /></td>
+                                <td class="olab"><p:outputLabel id="montant" value="#{lignecommandeController.current.montant}" title="#{bundle.CreateLignecommandeTitle_montant}" /></td>
                             </tr>
                             <tr>
                                 <td class="olab">
-                                    <p:commandButton id="ajaxupdate"  icon="ui-icon-pencil" action="#{lignecommandeController.updateGLC}" value="Modifier"  class="btn btn-success btn-lg" update="@form">
+                                    <p:commandButton id="ajaxupdate"  icon="ui-icon-pencil" action="#{lignecommandeController.updateGLC}" value="Modifier"  class="btn btn-success btn-lg" update="@form" process="@this">
                                         <p:confirm header="Confirmation de modification" message="voulez-vous vraiment modifier ces informations?" icon="ui-icon-alert" />
                                     </p:commandButton>
                                 </td>
@@ -71,15 +71,15 @@
                                             <p:column>
                                                 <h:outputText value="#{bc.dateCommande}" /> 
                                             </p:column>
-                                            <p:ajax event="itemSelect" listener="#{lignecommandeController.changeBC()}" update="@form" process="@form" />
-                                            <p:ajax event="change" listener="#{lignecommandeController.changeBC()}" update="@form" process="@form" />
+                                            <p:ajax event="itemSelect" listener="#{lignecommandeController.changeBC()}" update="@form" process="@this" />
+                                            <p:ajax event="change" listener="#{lignecommandeController.changeBC()}" update="@form" process="@this" />
                                         </p:autoComplete>
                                     </td>
                                 </tr>
                             </table></center>
                         <div class="table-responsive">
                             <p:dataTable value="#{lignecommandeController.items}" var="item" style="border:solid 1px" selectionMode="single" 
-                                         selection="#{lignecommandeController.selected}"
+                                         selection="#{lignecommandeController.current}"
                                          paginator="true"
                                          rowKey="#{item.idLigne}">
                                 <p:column headerText="#{bundle.ListLignecommandeTitle_idBC}">
@@ -104,7 +104,7 @@
                                 <p:column headerText="Action">
                                     <p:commandButton icon="ui-icon-pencil" action="#{lignecommandeController.remplireFormulaire()}" type="button" onclick="PF('formUpdate').show();"  class="btn btn-success btn-lg" >
                                     </p:commandButton>
-                                    <p:commandButton id="ajaxdelete"  action="#{lignecommandeController.performDestroy}" icon="ui-icon-trash" class="btn btn-danger btn-lg" update="@form">
+                                    <p:commandButton id="ajaxdelete"  action="#{lignecommandeController.performDestroyGBC}" icon="ui-icon-trash" class="btn btn-danger btn-lg" update="@form">
                                         <p:confirm header="Confirmation de suppression" message="voulez-vous vraiment supprimer ces informations?" icon="ui-icon-alert" />
                                     </p:commandButton>
                                 </p:column>

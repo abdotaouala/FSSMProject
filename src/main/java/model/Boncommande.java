@@ -44,7 +44,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Boncommande implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    //@NotNull
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idBC")
     private Integer idBC;

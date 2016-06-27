@@ -6,7 +6,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <h:body onload="#{boncommandeController.itemes}">
+    <h:body onload="#{boncommandeController.itemesCours}">
 
         <ui:composition template="./templateUnite.xhtml">
             <ui:define name="Title_Page">
@@ -25,9 +25,9 @@
                                 Formulaire :
                             </div>
                             <div class="panel-body">
-                                <center><table class='tab_form' style="width:450px;height:400px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
+                                <center><table class='tab_form' style="width:450px;height:350px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
                                         <tr> 
-                                            <td class="olab"><h:outputLabel value="SecteurPrincipal:" for="idSP" /></td>
+                                            <td class="olab"><p:outputLabel value="SecteurPrincipal:" for="idSP" /></td>
                                             <td class="olab">
                                                 <p:autoComplete dropdown="true" id="idSP" value="#{boncommandeController.secteurP}" completeMethod="#{secteurprincipalController.completeText}" title="#{bundle.CreateSecteurprincipalTitle_designation}" forceSelection="true" required="true">
                                                     <p:ajax event="itemSelect" listener="#{boncommandeController.subjectSelectionChangedPBC()}" update="@form" process="@form" />
@@ -36,7 +36,7 @@
                                             </td>
                                         </tr>
                                         <tr> 
-                                            <td class="olab"><h:outputLabel value="#{bundle.CreateSecteurLabel_intituleSecteur}" for="intituleSecteur" /></td>
+                                            <td class="olab"><p:outputLabel value="#{bundle.CreateSecteurLabel_intituleSecteur}" for="intituleSecteur" /></td>
                                             <td class="olab">
                                                 <p:autoComplete dropdown="true" id="intituleSecteur" value="#{boncommandeController.secteur}" completeMethod="#{secteurController.completeText}" title="#{bundle.CreateSecteurprincipalTitle_designation}" required="true" forceSelection="true">
                                                     <p:ajax event="itemSelect" listener="#{boncommandeController.subjectSelectionChangedPBC()}" update="@form" process="@form" />
@@ -45,7 +45,7 @@
                                             </td>
                                         </tr>
                                         <tr> 
-                                            <td class="olab"><h:outputLabel value="#{bundle.CreateBudgetLabel_budgetPK_idCompte}" for="idCompte" /></td>
+                                            <td class="olab"><p:outputLabel value="#{bundle.CreateBudgetLabel_budgetPK_idCompte}" for="idCompte" /></td>
                                             <td class="olab">
                                                 <p:autoComplete dropdown="true" id="idCompte" value="#{boncommandeController.cpt}" completeMethod="#{compteController.completeText}" title="#{bundle.CreateBudgetTitle_budgetPK_idCompte}" required="true"  
                                                                 converter="cptConverter" var="cmp" itemLabel="#{cmp.idCompte}" itemValue="#{cmp}" forceSelection="true">
@@ -64,16 +64,22 @@
                                         <tr>
                                             <td class="olab" ><p:outputLabel value="#{bundle.CreateBoncommandeLabel_idBC}" for="idBC" /></td>
                                             <td class="olab">
-                                                <p:inputText value="#{boncommandeController.current.idBC}" id="idBC">
-                                                    <p:ajax event="change" listener="#{boncommandeController.subjectSelectionChangedPBC()}" update="@form" process="@this" />
-                                                </p:inputText>
+                                                <p:outputLabel value="#{boncommandeController.current.idBC}" id="idBC">
+                                                </p:outputLabel>
                                             </td>
                                         </tr>
-                                        
+                                        <tr>
+                                            <td class="olab" ><p:outputLabel value="#{bundle.CreateBoncommandeLabel_dateCommande}" for="dateCommande" /></td>
+                                            <td class="olab">
+                                                <p:outputLabel id="dateCommande" value="#{boncommandeController.selected.dateCommande}" title="#{bundle.CreateBoncommandeTitle_dateCommande}" >
+                                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                                </p:outputLabel>
+                                            </td>
+                                        </tr>
                                         <tr>
                                             <td class="olab" ><p:outputLabel value="#{bundle.CreateBoncommandeLabel_dateReception}" for="dateReception" /></td>
                                             <td class="olab">
-                                                <p:inputText id="dateReception" value="#{boncommandeController.current.dateReception}" title="#{bundle.CreateBoncommandeTitle_dateReception}" >
+                                                <p:inputText id="dateReception" value="#{boncommandeController.dateRecep}" title="#{bundle.CreateBoncommandeTitle_dateReception}" >
                                                     <f:convertDateTime pattern="MM/dd/yyyy" />
                                                 </p:inputText>
                                             </td>
@@ -81,25 +87,24 @@
                                         <tr>
                                             <td class="olab" ><p:outputLabel value="#{bundle.CreateBoncommandeLabel_type}" for="type" /></td>
                                             <td class="olab" >
-                                                <h:selectOneMenu id="type" value="#{boncommandeController.selected.type}"  title="#{bundle.CreateBoncommandeTitle_type}" required="true"  style="width:155px" >
+                                                <h:selectOneMenu id="type" value="#{boncommandeController.type}"  title="#{bundle.CreateBoncommandeTitle_type}"  style="width:155px" >
                                                     <f:selectItem itemLabel="Bon de Commande" itemValue="BC" />
                                                     <f:selectItem itemLabel="Lettre de Commande" itemValue="LC" />
-                                                    <p:ajax event="change" listener="#{boncommandeController.subjectSelectionChangedPBC()}" update="@form" process="@form"/>
                                                 </h:selectOneMenu>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="olab">
-                                                <p:commandButton  ajax="false" id="ajaxcreate"  action="#{boncommandeController.create}" value="Ajouter" disabled="#{boncommandeController.disablCreate}" class="btn btn-primary btn-lg" update="@form">
+                                                <p:commandButton  ajax="false" id="ajaxcreate"  action="#{boncommandeController.create}" value="Ajouter" icon="ui-icon-plus" disabled="#{boncommandeController.disablCreate}" class="btn btn-primary btn-lg" update="@form">
                                                 </p:commandButton>
                                             </td>
                                             <td class="olab">
-                                                <p:commandButton id="ajaxupdate"  action="#{boncommandeController.update}" value="Modifier" disabled="#{boncommandeController.disablUpdate}" class="btn btn-success btn-lg" update="@form">
+                                                <p:commandButton id="ajaxupdate"  action="#{boncommandeController.update}" value="Modifier" icon="ui-icon-pencil" disabled="#{boncommandeController.disablUpdate}" class="btn btn-success btn-lg" update="@form">
                                                     <p:confirm header="Confirmation de modification" message="voulez-vous vraiment modifier ces informations?" icon="ui-icon-alert" />
                                                 </p:commandButton>
                                             </td>
                                             <td class="olab">
-                                                <p:commandButton id="ajaxdelete"  action="#{boncommandeController.performDestroy}" value="Supprimer" disabled="#{boncommandeController.disablDelete}" class="btn btn-danger btn-lg" update="@form">
+                                                <p:commandButton id="ajaxdelete"  action="#{boncommandeController.performDestroy}" value="Supprimer" icon="ui-icon-trash" disabled="#{boncommandeController.disablDelete}" class="btn btn-danger btn-lg" update="@form">
                                                     <p:confirm header="Confirmation de suppression" message="voulez-vous vraiment supprimer ces informations?" icon="ui-icon-alert" />
                                                 </p:commandButton>
                                             </td>
@@ -135,7 +140,7 @@
                                         </p:column>
                                         <p:column headerText="#{bundle.ListBoncommandeTitle_dateCommande}">
                                             <h:outputText value="#{item.dateCommande}">
-                                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                                <f:convertDateTime pattern="MM/dd/yyyy" />
                                             </h:outputText>
                                         </p:column>
                                         <p:column headerText="#{bundle.ListBoncommandeTitle_tva}">

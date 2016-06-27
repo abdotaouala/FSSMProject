@@ -132,7 +132,7 @@ public class BoncommandeController implements Serializable {
             for (Lignecommande lc : list) {
                 HT = HT + lc.getMontant();
             }
-            Double TTC = HT + HT * current.getTva()/100;
+            Double TTC = HT + HT * current.getTva() / 100;
             current.setMontant(TTC);
             subjectSelectionChangedPBC();
         } catch (Exception e) {
@@ -194,7 +194,7 @@ public class BoncommandeController implements Serializable {
             dateRecep = current.getDateReception();
             Query req = em.createQuery("SELECT o FROM Dotationsecteur o WHERE o.idDotation=?").setParameter(1, current.getIdDotation());
             ds = (Dotationsecteur) req.getSingleResult();
-            reliquatDS=ds.getReliquat();
+            reliquatDS = ds.getReliquat();
             cpt.setIdCompte(ds.getIdCompte());
             Query req2 = em.createQuery("SELECT o FROM Secteur o WHERE o.idSecteur= ?").setParameter(1, ds.getIdSecteur());
             s = (Secteur) req2.getSingleResult();
@@ -210,13 +210,13 @@ public class BoncommandeController implements Serializable {
             Double HT = 0.0;
             for (Lignecommande lc : list) {
                 //HT = HT + lc.getMontant();
-                HT = HT + lc.getPu()*lc.getQuantite();
+                HT = HT + lc.getPu() * lc.getQuantite();
             }
-            Double TTC = HT + HT * current.getTva()/100;
+            Double TTC = HT + HT * current.getTva() / 100;
             current.setMontant(TTC);
             subjectSelectionChanged();
         } catch (Exception e) {
-             e.printStackTrace();
+            e.printStackTrace();
             // JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
     }
@@ -345,6 +345,17 @@ public class BoncommandeController implements Serializable {
         }
         return items;
     }
+    public List<Boncommande> getItemesEtatBC() {
+        Users user = getUser();
+        try {
+            Query req = em.createQuery("SELECT o FROM Boncommande o where o.idUser=? and (o.etat='enTraitement' or o.etat='valide' or o.etat='invalide')").setParameter(1, user.getIdUser());
+            items = (List<Boncommande>) req.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreure! Aucune commande n'est enregistrer pour l'utilisateur courant!", "aucun iteme"));
+        }
+        return items;
+    }
 
     public List<Boncommande> getAllItemes() {
         Users user = getUser();
@@ -354,6 +365,17 @@ public class BoncommandeController implements Serializable {
         } catch (Exception e) {
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreure! Aucune commande n'est enregistrer pour l'utilisateur courant!", "aucun iteme"));
+        }
+        return items;
+    }
+
+    public List<Boncommande> getAllItemesValides() {
+        try {
+            Query req = em.createQuery("SELECT o FROM Boncommande o where o.etat='valide' or o.etat='invalide' ");
+            items = (List<Boncommande>) req.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Erreure!Aucune Commande n'est validés !", "Secteur Innexistant"));
         }
         return items;
     }
@@ -368,7 +390,26 @@ public class BoncommandeController implements Serializable {
         }
         return items;
     }
-
+public List<Boncommande> getAllItemesRechValides() {
+        try {
+            Query req = em.createQuery("SELECT o FROM Boncommande o where (o.etat='valide' or o.etat='invalide') and o.type=?").setParameter(1, this.type);
+            items = (List<Boncommande>) req.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Erreure! Aucune Commande de ce type n'est en cours de traitement !", "Secteur Innexistant"));
+        }
+        return items;
+    }
+public List<Boncommande> getAllItemesRechValidesTraite() {
+        try {
+            Query req = em.createQuery("SELECT o FROM Boncommande o where (o.etat='valide' or o.etat='invalide' or o.etat='enTraitement') and o.type=?").setParameter(1, this.type);
+            items = (List<Boncommande>) req.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Erreure! Aucune Commande de ce type n'est en cours de traitement !", "Secteur Innexistant"));
+        }
+        return items;
+    }
     public List<Boncommande> getAllItemesRech() {
         try {
             Query req = em.createQuery("SELECT o FROM Boncommande o where o.etat='enTraitement' and o.type=?").setParameter(1, this.type);
@@ -453,6 +494,7 @@ public class BoncommandeController implements Serializable {
             if (current == null) {
                 current = new Boncommande();
             }
+            current.setIdBC(null);
             this.current.setEtat("enCours");
             this.current.setDateCommande(new Date());
             current.setMontant(0.0);
@@ -576,6 +618,47 @@ public class BoncommandeController implements Serializable {
         }
     }
 
+    public String updateBCValide() {
+        try {
+            Fournisseur a = getFournisseur();
+            if (a == null) {
+                ut.begin();
+                em.joinTransaction();
+                a = new Fournisseur();
+                a.setNom(nomFournisseur);
+                em.persist(a);
+                ut.commit();
+                current.setIdFournisseur(MaxFournisseur());
+            } else {
+                current.setIdFournisseur(a.getIdFournisseur());
+            }
+            if (current.getEtat().equals("valide")) {
+                Query req = em.createQuery("select o.reliquat from Dotationsecteur o where o.idDotation=?").setParameter(1, current.getIdDotation());
+                Double d = (Double) req.getSingleResult();
+                if (d >= current.getMontant()) {
+                    ut.begin();
+                    em.joinTransaction();
+                    Query req2 = em.createQuery("update Dotationsecteur o set o.reliquat = o.reliquat - :Reliquat where o.idDotation = :ds").setParameter("Reliquat", current.getMontant()).setParameter("ds", current.getIdDotation());
+                    int n = req2.executeUpdate();
+                    ut.commit();
+                    if (n > 0) {
+                        getFacade().edit(current);
+                    }
+                } else {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Vous avez dépassé le Reliquat de ce compte !", "Erreur"));
+                }
+            } else {
+                getFacade().edit(current);
+            }
+            getAllItemesValides();
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BoncommandeUpdated"));
+            return "View";
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Erreure! Modification non effectué !", "Erreur"));
+            return null;
+        }
+    }
+
     public void performDestroyBCG() {
         try {
             Query req = em.createQuery("DELETE from Lignecommande where o.idBC=?").setParameter(1, current.getIdBC());
@@ -588,15 +671,31 @@ public class BoncommandeController implements Serializable {
         }
     }
 
+    public void performDestroyBCGValide() {
+        try {
+            Query req = em.createQuery("DELETE from Lignecommande where o.idBC=?").setParameter(1, current.getIdBC());
+            req.executeUpdate();
+            getFacade().remove(current);
+            getAllItemesValides();
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BoncommandeDeleted"));
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreure! Suppression non effectué !", "Erreur"));
+        }
+    }
+
     public void performDestroy() {
         try {
-            // Query req = em.createQuery("DELETE from Lignecommande where o.idBC=?").setParameter(1, current.getIdBC());
-            //  req.executeUpdate();
+            ut.begin();
+            em.joinTransaction();
+            Query req = em.createQuery("DELETE from Lignecommande o where o.idBC=?").setParameter(1, current.getIdBC());
+            req.executeUpdate();
+            ut.commit();
             getFacade().remove(current);
             getItemesCours();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BoncommandeDeleted"));
         } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreure! Suppression non effectué !", "Erreur"));
+            e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreure! Suppression non effectué !", "Erreure"));
         }
     }
 

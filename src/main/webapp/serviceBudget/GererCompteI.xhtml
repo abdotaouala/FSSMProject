@@ -24,7 +24,7 @@
                                             <td class="olab"><p:outputLabel value="#{bundle.CreateCompteLabel_idCompte}" for="autocomplete" /></td>
                                             <td class="olab">
                                                 <p:autoComplete dropdown="true" id="autocomplete" value="#{compteController.current}" completeMethod="#{compteController.completeText}" title="#{bundle.CreateCompteTitle_idCompte}" required="true"  
-                                                converter="cptConverter" var="cmp" itemLabel="#{cmp.idCompte}" itemValue="#{cmp}" >
+                                                                converter="cptConverter" var="cmp" itemLabel="#{cmp.idCompte}" itemValue="#{cmp}" >
                                                     <p:column style="width:10%">
                                                         <h:outputText value="#{cmp.idCompte}" />
                                                     </p:column>
@@ -48,16 +48,16 @@
                                         </tr>
                                         <tr>
                                             <td class="olab">
-                                                <p:commandButton  ajax="false" id="ajaxcreate"  action="#{compteController.create}" value="Ajouter" disabled="#{compteController.disablCreate}"  class="btn btn-primary btn-lg" update="@form">
+                                                <p:commandButton  ajax="false" id="ajaxcreate"  action="#{compteController.create}" value="Ajouter" icon="ui-icon-plus" disabled="#{compteController.disablCreate}"  class="btn btn-primary btn-lg" update="@form">
                                                 </p:commandButton>
                                             </td>
                                             <td class="olab">
-                                                <p:commandButton id="ajaxupdate"  action="#{compteController.update}" value="Modifier" disabled="#{compteController.disablUpdate}" class="btn btn-success btn-lg" update="@form">
+                                                <p:commandButton id="ajaxupdate"  action="#{compteController.update}" value="Modifier" icon="ui-icon-pencil" disabled="#{compteController.disablUpdate}" class="btn btn-success btn-lg" update="@form">
                                                     <p:confirm header="Confirmation de modification" message="voulez-vous vraiment modifier ces informations?" icon="ui-icon-alert" />
                                                 </p:commandButton>
                                             </td>
                                             <td class="olab">
-                                                <p:commandButton id="ajaxdelete"  action="#{compteController.performDestroy}" value="Supprimer" disabled="#{compteController.disablDelete}" class="btn btn-danger btn-lg" update="@form">
+                                                <p:commandButton id="ajaxdelete"  action="#{compteController.performDestroy}" value="Supprimer" icon="ui-icon-trash" disabled="#{compteController.disablDelete}" class="btn btn-danger btn-lg" update="@form">
                                                     <p:confirm header="Confirmation de suppression" message="voulez-vous vraiment supprimer ces informations?" icon="ui-icon-alert" />
                                                 </p:commandButton>
                                             </td>

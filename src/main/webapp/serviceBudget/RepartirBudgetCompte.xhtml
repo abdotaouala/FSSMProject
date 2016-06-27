@@ -69,16 +69,16 @@
                                         </tr>
                                         <tr>
                                             <td class="olab">
-                                                <p:commandButton ajax="false" id="ajaxcreate"  actionListener="#{budgetController.create}" class="btn btn-primary btn-lg" disabled="#{budgetController.disablCreate}" value="Ajouter" update="@form">
+                                                <p:commandButton ajax="false" id="ajaxcreate"  actionListener="#{budgetController.create}" class="btn btn-primary btn-lg" icon="ui-icon-plus" disabled="#{budgetController.disablCreate}" value="Ajouter" update="@form">
                                                 </p:commandButton>
                                             </td>
                                             <td class="olab">
-                                                <p:commandButton id="ajaxupdate"  actionListener="#{budgetController.update}" class="btn btn-success btn-lg" disabled="#{budgetController.disablDelete}" value="Modifier" update="@form">
+                                                <p:commandButton id="ajaxupdate"  actionListener="#{budgetController.update}" class="btn btn-success btn-lg" icon="ui-icon-pencil" disabled="#{budgetController.disablDelete}" value="Modifier" update="@form">
                                                     <p:confirm header="Confirmation de modification" message="voulez-vous vraiment modifier ces informations?" icon="ui-icon-alert" />
                                                 </p:commandButton>
                                             </td>
                                             <td class="olab">
-                                                <p:commandButton id="ajaxdelete"  actionListener="#{budgetController.performDestroy}" class="btn btn-danger btn-lg" disabled="#{budgetController.disablUpdate}" value="Supprimer" update="@form">
+                                                <p:commandButton id="ajaxdelete"  actionListener="#{budgetController.performDestroy}" class="btn btn-danger btn-lg" icon="ui-icon-trash" disabled="#{budgetController.disablUpdate}" value="Supprimer" update="@form">
                                                     <p:confirm header="Confirmation de suppression" message="voulez-vous vraiment supprimer ces informations?" icon="ui-icon-alert" />
                                                 </p:commandButton>
                                             </td>

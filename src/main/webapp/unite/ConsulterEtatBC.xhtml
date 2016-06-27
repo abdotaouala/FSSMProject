@@ -1,17 +1,88 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <body>
+    <h:body onload="#{boncommandeController.itemesEtatBC}">
 
         <ui:composition template="./templateUnite.xhtml">
-
-            <ui:define name="content">
-                content
+            <ui:define name="Title_Page">
+                Consultation des Bons de commande
             </ui:define>
-
+            <ui:define name="content">
+                <h:form id="LigneCommandeCreateForm">
+            <p:growl id="message" life="2000" />
+            <div class="col-md-12 col-sm-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        Liste Des Bon De Commande valide/enTraitement/invalide
+                    </div>
+                    <div class="panel-body">
+                        <center><table class='tab_form' style="width:500px;height:100px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
+                                <tr>
+                                    <td class="olab" ><p:outputLabel value="#{bundle.CreateBoncommandeLabel_type}" for="typeRecherche" /></td>
+                                    <td class="olab" >
+                                        <h:selectOneMenu id="typeRecherche" value="#{boncommandeController.type}"  title="#{bundle.CreateBoncommandeTitle_type}" style="width:155px" >
+                                            <f:selectItem itemLabel="Bon de Commande" itemValue="BC" />
+                                            <f:selectItem itemLabel="Lettre de Commande" itemValue="LC" />
+                                            <p:ajax event="change" listener="#{boncommandeController.getAllItemesRechValidesTraite()}" update="@form" process="@form"/>
+                                        </h:selectOneMenu>
+                                    </td>
+                                </tr>
+                            </table></center>
+                        <div class="table-responsive">
+                            <div class="table-responsive">
+                                <p:dataTable id="datalist" value="#{boncommandeController.items}" var="item" style="border:solid 1px"
+                                             selectionMode="single" selection="#{boncommandeController.current}"
+                                             paginator="true"
+                                             rowKey="#{item.idBC}"
+                                             >
+                                    <p:column headerText="#{bundle.ListBoncommandeTitle_idBC}">
+                                        <h:outputText value="#{item.idBC}"/>
+                                    </p:column>
+                                    <p:column headerText="#{bundle.ListBoncommandeTitle_idFournisseur}">
+                                        <h:outputText value="#{item.idFournisseur}"/>
+                                    </p:column>
+                                    <p:column headerText="#{bundle.ListBoncommandeTitle_idUser}">
+                                        <h:outputText value="#{item.idUser}"/>
+                                    </p:column>
+                                    <p:column headerText="#{bundle.ListBoncommandeTitle_idDotation}">
+                                        <h:outputText value="#{item.idDotation}"/>
+                                    </p:column>
+                                    <p:column headerText="#{bundle.ListBoncommandeTitle_dateCommande}">
+                                        <h:outputText value="#{item.dateCommande}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column headerText="#{bundle.ListBoncommandeTitle_tva}">
+                                        <h:outputText value="#{item.tva}"/>
+                                    </p:column>
+                                    <p:column headerText="#{bundle.ListBoncommandeTitle_dateReception}">
+                                        <h:outputText value="#{item.dateReception}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column headerText="#{bundle.ListBoncommandeTitle_etat}">
+                                        <h:outputText value="#{item.etat}"/>
+                                    </p:column>
+                                    <p:column headerText="#{bundle.ListBoncommandeTitle_montant}">
+                                        <h:outputText value="#{item.montant}"/>
+                                    </p:column>
+                                    <p:column headerText="#{bundle.ListBoncommandeTitle_type}">
+                                        <h:outputText value="#{item.type}"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+        </h:form> 
+            </ui:define>
         </ui:composition>
 
-    </body>
+    </h:body>
 </html>

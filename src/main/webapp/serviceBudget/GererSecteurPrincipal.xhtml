@@ -15,10 +15,10 @@
             <ui:define name="content">
                 <h:form id="SecteurPrincipalCreateForm">
                     <p:growl id="message" life="2000" />
-                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" widgetVar="confirmation" closeOnEscape="false" closable="true">
-                                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" onclick="confirmation.hide()" icon="ui-icon-check" />
-                                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" onclick="confirmation.hide()" icon="ui-icon-close" />
-                                </p:confirmDialog>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" widgetVar="confirmation" closeOnEscape="false" closable="true">
+                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" onclick="confirmation.hide()" icon="ui-icon-check" />
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" onclick="confirmation.hide()" icon="ui-icon-close" />
+                    </p:confirmDialog>
                     <div class="col-md-12 col-sm-12">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
@@ -36,22 +36,22 @@
                                             </td>
                                         </tr>
                                         <tr> 
-                                            <td class="olab"><h:outputLabel value="Nouvelle Designation:" for="designation" /></td>
-                                           
-                                            <td class="olab"><h:inputText id="newdesignation" value="#{secteurprincipalController.newDesignation}" title="#{bundle.CreateSecteurprincipalTitle_designation}" required="false" requiredMessage="#{bundle.CreateCompteRequiredMessage_idCompte}"/></td>
+                                            <td class="olab"><p:outputLabel value="Nouvelle Designation:" for="designation" /></td>
+
+                                            <td class="olab"><p:inputText id="newdesignation" value="#{secteurprincipalController.newDesignation}" title="#{bundle.CreateSecteurprincipalTitle_designation}" required="false" requiredMessage="#{bundle.CreateCompteRequiredMessage_idCompte}"/></td>
                                         </tr>
                                         <tr>
                                             <td class="olab">
-                                                <p:commandButton  ajax="false" id="ajaxcreate"  action="#{secteurprincipalController.create}" value="Ajouter" disabled="#{secteurprincipalController.disablCreate}" class="btn btn-primary btn-lg" update="@form">
+                                                <p:commandButton  ajax="false" id="ajaxcreate"  action="#{secteurprincipalController.create}" value="Ajouter" icon="ui-icon-plus" disabled="#{secteurprincipalController.disablCreate}" class="btn btn-primary btn-lg" update="@form">
                                                 </p:commandButton>
                                             </td>
                                             <td class="olab">
-                                                <p:commandButton id="ajaxupdate"  action="#{secteurprincipalController.update}" value="Modifier" disabled="#{secteurprincipalController.disablUpdate}" class="btn btn-success btn-lg" update="@form">
+                                                <p:commandButton id="ajaxupdate"  action="#{secteurprincipalController.update}" value="Modifier" icon="ui-icon-pencil" disabled="#{secteurprincipalController.disablUpdate}" class="btn btn-success btn-lg" update="@form">
                                                     <p:confirm header="Confirmation de modification" message="voulez-vous vraiment modifier ces informations?" icon="ui-icon-alert" />
                                                 </p:commandButton>
                                             </td>
                                             <td class="olab">
-                                                <p:commandButton id="ajaxdelete"  action="#{secteurprincipalController.performDestroy}" value="Supprimer" disabled="#{secteurprincipalController.disablDelete}" class="btn btn-danger btn-lg" update="@form">
+                                                <p:commandButton id="ajaxdelete"  action="#{secteurprincipalController.performDestroy}" value="Supprimer" icon="ui-icon-trash" disabled="#{secteurprincipalController.disablDelete}" class="btn btn-danger btn-lg" update="@form">
                                                     <p:confirm header="Confirmation de suppression" message="voulez-vous vraiment supprimer ces informations?" icon="ui-icon-alert" />
                                                 </p:commandButton>
                                             </td>

@@ -13,7 +13,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <title>Gestion Des Bons De Commande</title>
+        <title>Gestion Des Bons De Commande Validés</title>
 
         <!-- Bootstrap -->
         <link href="../../resources/tem3Ges/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -29,7 +29,7 @@
         <!-- Custom Theme Style -->
         <link href="../../resources/tem3Ges/css/custom.css" rel="stylesheet" />
     </h:head>
-    <h:body class="nav-md" onload="#{boncommandeController.allItemesBCG}">
+    <h:body class="nav-md" onload="#{boncommandeController.allItemesValides}" >
         <div class="container body">
             <div class="main_container">
 
@@ -42,7 +42,7 @@
                     <div class="">
                         <div class="page-title">
                             <div class="title_left">
-                                <h3>Gestion des Bons de commandes</h3>
+                                <h3>Gestion des Bons de commandes Validés</h3>
                             </div>
 
                             <div class="title_right">
@@ -197,7 +197,7 @@
                                                             </tr>
                                                             <tr>
                                                                 <td class="olab">
-                                                                    <p:commandButton id="ajaxupdate" icon="ui-icon-pencil" action="#{boncommandeController.updateBC}" value="Modifier" class="btn btn-success btn-lg" update="@form">
+                                                                    <p:commandButton id="ajaxupdate" icon="ui-icon-pencil" action="#{boncommandeController.updateBCValide}" value="Modifier" class="btn btn-success btn-lg" update="@form">
                                                                         <p:confirm header="Confirmation de modification" message="voulez-vous vraiment modifier ces informations?" icon="ui-icon-alert" />
                                                                     </p:commandButton>
                                                                 </td>
@@ -218,7 +218,7 @@
                                                                         <h:selectOneMenu id="typeRecherche" value="#{boncommandeController.type}"  title="#{bundle.CreateBoncommandeTitle_type}" style="width:155px" >
                                                                             <f:selectItem itemLabel="Bon de Commande" itemValue="BC" />
                                                                             <f:selectItem itemLabel="Lettre de Commande" itemValue="LC" />
-                                                                            <p:ajax event="change" listener="#{boncommandeController.getAllItemesRech()}" update="@form" process="@form"/>
+                                                                            <p:ajax event="change" listener="#{boncommandeController.getAllItemesRechValides()}" update="@form" process="@form"/>
                                                                         </h:selectOneMenu>
                                                                     </td>
                                                                 </tr>
@@ -245,7 +245,7 @@
                                                                     </p:column>
                                                                     <p:column headerText="#{bundle.ListBoncommandeTitle_dateCommande}">
                                                                         <h:outputText value="#{item.dateCommande}">
-                                                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                                                                         </h:outputText>
                                                                     </p:column>
                                                                     <p:column headerText="#{bundle.ListBoncommandeTitle_tva}">
@@ -268,7 +268,7 @@
                                                                     <p:column headerText="Action">
                                                                         <p:commandButton icon="ui-icon-pencil" action="#{boncommandeController.remplireFormulaireGBC()}" type="button" onclick="PF('formUpdate').show();"  class="btn btn-success btn-lg" >
                                                                         </p:commandButton>
-                                                                        <p:commandButton id="ajaxdelete"  action="#{boncommandeController.performDestroyBCG()}" icon="ui-icon-trash" class="btn btn-danger btn-lg" update="@form">
+                                                                        <p:commandButton id="ajaxdelete"  action="#{boncommandeController.performDestroyBCGValide()}" icon="ui-icon-trash" class="btn btn-danger btn-lg" update="@form">
                                                                             <p:confirm header="Confirmation de suppression" message="voulez-vous vraiment supprimer ces informations?" icon="ui-icon-alert" />
                                                                         </p:commandButton>
                                                                     </p:column>

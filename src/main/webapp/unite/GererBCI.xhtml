@@ -65,7 +65,7 @@
                                 <td class="olab" ><p:outputLabel value="#{bundle.CreateBoncommandeLabel_dateCommande}" for="dateCommande" /></td>
                                 <td class="olab">
                                     <h:outputLabel id="dateCommande" value="#{boncommandeController.selected.dateCommande}" title="#{bundle.CreateBoncommandeTitle_dateCommande}" >
-                                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        <f:convertDateTime pattern="MM/dd/yyyy" />
                                     </h:outputLabel>
                                 </td>
                             </tr>
@@ -171,7 +171,7 @@
                                     </p:column>
                                     <p:column headerText="#{bundle.ListBoncommandeTitle_dateCommande}">
                                         <h:outputText value="#{item.dateCommande}">
-                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
                                         </h:outputText>
                                     </p:column>
                                     <p:column headerText="#{bundle.ListBoncommandeTitle_tva}">

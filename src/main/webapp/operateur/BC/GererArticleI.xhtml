@@ -7,79 +7,79 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body onload="#{articleController.getItemes()}">
-       <h:form id="SecteurPrincipalCreateForm">
-                                            <p:growl id="message" life="2000" />
-                                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" widgetVar="confirmation" closeOnEscape="false" closable="true">
-                                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" onclick="confirmation.hide()" icon="ui-icon-check" />
-                                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" onclick="confirmation.hide()" icon="ui-icon-close" />
-                                            </p:confirmDialog>
-                                            <div class="col-md-12 col-sm-12">
-                                                <div class="panel panel-primary">
-                                                    <div class="panel-heading">
-                                                        Formulaire :
-                                                    </div>
-                                                    <div class="panel-body">
-                                                        <center><table class='tab_form' style="width:500px;height:250px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
-                                                                <tr> 
-                                                                    <td class="olab"><h:outputLabel value="#{bundle.CreateArticleLabel_description}" for="description" /></td>
-                                                                    <td class="olab">
-                                                                        <p:autoComplete dropdown="true" id="description" value="#{articleController.selected.description}" completeMethod="#{articleController.completeText}" title="#{bundle.CreateArticleTitle_description}" required="true" >
-                                                                            <p:ajax event="itemSelect" listener="#{articleController.subjectSelectionChanged()}" update="@form" process="@form" />
-                                                                            <p:ajax event="change" listener="#{articleController.subjectSelectionChanged()}" update="@form" process="@form" />
-                                                                        </p:autoComplete>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr> 
-                                                                    <td class="olab"><h:outputLabel value="#{bundle.CreateArticleLabel_pu}" for="pu" /></td>
-                                                                    <td class="olab"><p:inputText id="pu" value="#{articleController.selected.pu}" title="#{bundle.CreateArticleTitle_pu}"  required="false"/></td>
-                                                                </tr>
-                                                                <tr> 
-                                                                    <td class="olab"><h:outputLabel value="Nouvelle Description:" for="newdescription" /></td>
-                                                                    <td class="olab"><p:inputText id="newdescription" value="#{articleController.newDescription}" title="#{bundle.CreateSecteurTitle_intituleSecteur}" required="false"/></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td class="olab">
-                                                                        <p:commandButton  ajax="false" id="ajaxcreate"  action="#{articleController.create}" value="Ajouter" disabled="#{articleController.disablCreate}" class="btn btn-primary btn-lg" update="@form">
-                                                                        </p:commandButton>
-                                                                    </td>
-                                                                    <td class="olab">
-                                                                        <p:commandButton id="ajaxupdate"  action="#{articleController.update}" value="Modifier" disabled="#{articleController.disablUpdate}" class="btn btn-success btn-lg" update="@form">
-                                                                            <p:confirm header="Confirmation de modification" message="voulez-vous vraiment modifier ces informations?" icon="ui-icon-alert" />
-                                                                        </p:commandButton>
-                                                                    </td>
-                                                                    <td class="olab">
-                                                                        <p:commandButton id="ajaxdelete"  action="#{articleController.performDestroy}" value="Supprimer" disabled="#{articleController.disablDelete}" class="btn btn-danger btn-lg" update="@form">
-                                                                            <p:confirm header="Confirmation de suppression" message="voulez-vous vraiment supprimer ces informations?" icon="ui-icon-alert" />
-                                                                        </p:commandButton>
-                                                                    </td>
-                                                                </tr>
-                                                            </table></center>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12 col-sm-12">
-                                                <div class="panel panel-info">
-                                                    <div class="panel-heading">
-                                                        Liste Des Secteurs
-                                                    </div>
-                                                    <div class="panel-body">
-                                                        <div class="table-responsive">
-                                                            <p:dataTable value="#{articleController.items}" var="item" style="border:solid 1px">
-                                                                <p:column headerText="#{bundle.ListArticleTitle_idArticle}">
-                                                                    <h:outputText value="#{item.idArticle}"/>
-                                                                </p:column>
-                                                                <p:column headerText="#{bundle.ListArticleTitle_description}">
-                                                                    <h:outputText value="#{item.description}"/>
-                                                                </p:column>
-                                                                <p:column headerText="#{bundle.ListArticleTitle_pu}">
-                                                                    <h:outputText value="#{item.pu}"/>
-                                                                </p:column>
-                                                            </p:dataTable>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </h:form> 
+        <h:form id="SecteurPrincipalCreateForm">
+            <p:growl id="message" life="2000" />
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" widgetVar="confirmation" closeOnEscape="false" closable="true">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" onclick="confirmation.hide()" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" onclick="confirmation.hide()" icon="ui-icon-close" />
+            </p:confirmDialog>
+            <div class="col-md-12 col-sm-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        Formulaire :
+                    </div>
+                    <div class="panel-body">
+                        <center><table class='tab_form' style="width:500px;height:250px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
+                                <tr> 
+                                    <td class="olab"><h:outputLabel value="#{bundle.CreateArticleLabel_description}" for="description" /></td>
+                                    <td class="olab">
+                                        <p:autoComplete dropdown="true" id="description" value="#{articleController.selected.description}" completeMethod="#{articleController.completeText}" title="#{bundle.CreateArticleTitle_description}" required="true" >
+                                            <p:ajax event="itemSelect" listener="#{articleController.subjectSelectionChanged()}" update="@form" process="@form" />
+                                            <p:ajax event="change" listener="#{articleController.subjectSelectionChanged()}" update="@form" process="@form" />
+                                        </p:autoComplete>
+                                    </td>
+                                </tr>
+                                <tr> 
+                                    <td class="olab"><h:outputLabel value="#{bundle.CreateArticleLabel_pu}" for="pu" /></td>
+                                    <td class="olab"><p:inputText id="pu" value="#{articleController.selected.pu}" title="#{bundle.CreateArticleTitle_pu}"  required="false"/></td>
+                                </tr>
+                                <tr> 
+                                    <td class="olab"><h:outputLabel value="Nouvelle Description:" for="newdescription" /></td>
+                                    <td class="olab"><p:inputText id="newdescription" value="#{articleController.newDescription}" title="#{bundle.CreateSecteurTitle_intituleSecteur}" required="false"/></td>
+                                </tr>
+                                <tr>
+                                    <td class="olab">
+                                        <p:commandButton  ajax="false" id="ajaxcreate"  action="#{articleController.create}" value="Ajouter" disabled="#{articleController.disablCreate}" class="btn btn-primary btn-lg" update="@form">
+                                        </p:commandButton>
+                                    </td>
+                                    <td class="olab">
+                                        <p:commandButton id="ajaxupdate"  action="#{articleController.update}" value="Modifier" disabled="#{articleController.disablUpdate}" class="btn btn-success btn-lg" update="@form">
+                                            <p:confirm header="Confirmation de modification" message="voulez-vous vraiment modifier ces informations?" icon="ui-icon-alert" />
+                                        </p:commandButton>
+                                    </td>
+                                    <td class="olab">
+                                        <p:commandButton id="ajaxdelete"  action="#{articleController.performDestroy}" value="Supprimer" disabled="#{articleController.disablDelete}" class="btn btn-danger btn-lg" update="@form">
+                                            <p:confirm header="Confirmation de suppression" message="voulez-vous vraiment supprimer ces informations?" icon="ui-icon-alert" />
+                                        </p:commandButton>
+                                    </td>
+                                </tr>
+                            </table></center>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        Liste Des Secteurs
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <p:dataTable value="#{articleController.items}" var="item" style="border:solid 1px">
+                                <p:column headerText="#{bundle.ListArticleTitle_idArticle}">
+                                    <h:outputText value="#{item.idArticle}"/>
+                                </p:column>
+                                <p:column headerText="#{bundle.ListArticleTitle_description}">
+                                    <h:outputText value="#{item.description}"/>
+                                </p:column>
+                                <p:column headerText="#{bundle.ListArticleTitle_pu}">
+                                    <h:outputText value="#{item.pu}"/>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form> 
     </h:body>
 </html>
 

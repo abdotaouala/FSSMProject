@@ -29,7 +29,7 @@
                                         <tr> 
                                             <td class="olab"><h:outputLabel value="#{bundle.CreateLignecommandeLabel_idLigne}" for="idL" /></td>
                                             <td class="olab"><p:inputText id="idL" value="#{lignecommandeController.current.idLigne}" title="#{bundle.CreateLignecommandeTitle_idLigne}">
-                                                    <p:ajax event="change" listener="#{lignecommandeController.subjectSelectionChanged()}" update="@form" process="@this" />
+                                                    <p:ajax event="change" listener="#{lignecommandeController.subjectSelectionChangedUnite()}" update="@form" process="@this" />
                                                 </p:inputText>
                                             </td>
                                         </tr>
@@ -45,8 +45,8 @@
                                                     <p:column>
                                                         <h:outputText value="#{bc.dateCommande}" /> 
                                                     </p:column>
-                                                    <p:ajax event="itemSelect" listener="#{lignecommandeController.subjectSelectionChanged()}" update="@form" process="@this" />
-                                                    <p:ajax event="change" listener="#{lignecommandeController.subjectSelectionChanged()}" update="@form" process="@this" />
+                                                    <p:ajax event="itemSelect" listener="#{lignecommandeController.subjectSelectionChangedUnite()}" update="@form" process="@this" />
+                                                    <p:ajax event="change" listener="#{lignecommandeController.subjectSelectionChangedUnite()}" update="@form" process="@this" />
                                                 </p:autoComplete>
                                             </td>
                                         </tr>
@@ -54,15 +54,15 @@
                                             <td class="olab"><h:outputLabel value="Description de l'Article:" for="description" /></td>
                                             <td class="olab">
                                                 <p:autoComplete dropdown="true" id="description" value="#{lignecommandeController.description}" completeMethod="#{articleController.completeText}" title="#{bundle.CreateArticleTitle_description}" >
-                                                    <p:ajax event="itemSelect" listener="#{lignecommandeController.subjectSelectionChanged()}" update="@form" process="@this" />
-                                                    <p:ajax event="change" listener="#{lignecommandeController.subjectSelectionChanged()}" update="@form" process="@this" />
+                                                    <p:ajax event="itemSelect" listener="#{lignecommandeController.subjectSelectionChangedUnite()}" update="@form" process="@this" />
+                                                    <p:ajax event="change" listener="#{lignecommandeController.subjectSelectionChangedUnite()}" update="@form" process="@this" />
                                                 </p:autoComplete>
                                             </td>
                                         </tr>
                                         <tr> 
                                             <td class="olab"><h:outputLabel value="#{bundle.CreateLignecommandeLabel_quantite}" for="quantite" /></td>
                                             <td class="olab"><p:inputText id="quantite" value="#{lignecommandeController.qte}" title="#{bundle.CreateLignecommandeTitle_quantite}" >
-                                                    <p:ajax event="change" listener="#{lignecommandeController.subjectSelectionChanged()}" update="@form" process="@this" />
+                                                    <p:ajax event="change" listener="#{lignecommandeController.subjectSelectionChangedUnite()}" update="@form" process="@this" />
                                                 </p:inputText></td>
                                         </tr>
                                         <tr>
@@ -114,7 +114,7 @@
                                         <p:column headerText="#{bundle.ListLignecommandeTitle_montant}">
                                             <h:outputText value="#{item.montant}"/>
                                         </p:column>
-                                        <p:ajax event="rowSelect" listener="#{lignecommandeController.remplireFormulaire()}" update="@form" process="@this"/>
+                                        <p:ajax event="rowSelect" listener="#{lignecommandeController.remplireFormulaireUnite()}" update="@form" process="@this"/>
                                         <p:column headerText="Action">
                                             <p:commandButton id="ajaxdelete"  action="#{lignecommandeController.performDestroy}" icon="ui-icon-trash" class="btn btn-danger btn-lg" update="@form">
                                                 <p:confirm header="Confirmation de suppression" message="voulez-vous vraiment supprimer ces informations?" icon="ui-icon-alert" />
@@ -125,7 +125,7 @@
                             </div>
                         </div>
                     </div>
-                </h:form>  
+                </h:form> 
             </ui:define>
         </ui:composition>
 

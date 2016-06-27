@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -54,7 +55,7 @@ public class ArticleController implements Serializable {
             List<Article> l = (List<Article>) req.getResultList();
             items = l;
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aucun Article n'est trouvé !", "Information"));
         }
         return items;
     }
@@ -85,7 +86,7 @@ public class ArticleController implements Serializable {
                 disablCreate = false;
                 disablUpdate = true;
                 disablDelete = true;
-                JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aucun Article n'est trouvé !", "Information"));
             }
         }
     }
@@ -100,7 +101,7 @@ public class ArticleController implements Serializable {
                 }
             }
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Echec de convertion !", "Erreure"));
         }
         return FiltredSP;
     }
@@ -158,7 +159,7 @@ public class ArticleController implements Serializable {
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArticleCreated"));
             return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Echec d'insertion !", "Erreure"));
             return null;
         }
     }
@@ -178,7 +179,7 @@ public class ArticleController implements Serializable {
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArticleUpdated"));
             return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Echec de modification !", "Erreure"));
             return null;
         }
     }
@@ -212,7 +213,7 @@ public class ArticleController implements Serializable {
             this.items = getItemes();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ArticleDeleted"));
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Echec de suppression !", "Erreure"));
         }
     }
 

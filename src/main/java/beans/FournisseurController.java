@@ -6,10 +6,14 @@ import beans.util.PaginationHelper;
 import session.FournisseurFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -17,13 +21,24 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import model.Article;
 
 @Named("fournisseurController")
 @SessionScoped
+@ManagedBean
 public class FournisseurController implements Serializable {
 
+    @PersistenceContext(unitName = "AppFinanciere")
+    private EntityManager em;
     private Fournisseur current;
-    private DataModel items = null;
+    private List<Fournisseur> items = null;
+    private boolean disablCreate = false;
+    private boolean disablUpdate = true;
+    private boolean disablDelete = true;
+    private String newName;
     @EJB
     private session.FournisseurFacade ejbFacade;
     private PaginationHelper pagination;
@@ -32,6 +47,61 @@ public class FournisseurController implements Serializable {
     public FournisseurController() {
     }
 
+    public List<Fournisseur> getItemes() {
+        try {
+            this.items = new ArrayList<Fournisseur>();
+            Query req = em.createQuery("SELECT o FROM Fournisseur o");
+            List<Fournisseur> l = (List<Fournisseur>) req.getResultList();
+            items = l;
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aucun fournisseur n'est trouvé !", "Information"));
+        }
+        return items;
+    }
+
+    public void subjectSelectionChanged() {
+        if (current instanceof Fournisseur && current != null) {
+            try {
+                Query req = em.createQuery("SELECT o FROM Fournisseur o WHERE o.nom =?").setParameter(1, current.getNom());
+                Fournisseur c = (Fournisseur) req.getSingleResult();
+                if (c != null && c instanceof Fournisseur) {
+                    current.setNom(c.getNom());
+                    current.setAdresse(c.getAdresse());
+                    current.setEmail(c.getEmail());
+                    current.setTel(c.getTel());
+                    current.setIdFournisseur(c.getIdFournisseur());
+                    disablCreate = true;
+                    disablUpdate = false;
+                    disablDelete = false;
+                } else {
+                    current.setIdFournisseur(null);
+                    disablCreate = false;
+                    disablUpdate = true;
+                    disablDelete = true;
+                }
+            } catch (Exception e) {
+                current.setIdFournisseur(null);
+                disablCreate = false;
+                disablUpdate = true;
+                disablDelete = true;
+                JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            }
+        }
+    }
+    public List<String> completeText(String id) {
+        List<String> FiltredF = new ArrayList<String>();
+        try {
+            List<Fournisseur> AllF = getItemes();
+            for (Fournisseur c : AllF) {
+                if (c.getNom().startsWith(id)) {
+                    FiltredF.add(c.getNom());
+                }
+            }
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreure de Convertion !", "Erreure"));
+        }
+        return FiltredF;
+    }
     public Fournisseur getSelected() {
         if (current == null) {
             current = new Fournisseur();
@@ -67,12 +137,11 @@ public class FournisseurController implements Serializable {
         return "List";
     }
 
-    public String prepareView() {
+    /* public String prepareView() {
         current = (Fournisseur) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
-    }
-
+    }*/
     public String prepareCreate() {
         current = new Fournisseur();
         selectedItemIndex = -1;
@@ -81,41 +150,47 @@ public class FournisseurController implements Serializable {
 
     public String create() {
         try {
-            getFacade().create(current);
+            newName=current.getNom();
+            getFacade().edit(current);
+            this.items = getItemes();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("FournisseurCreated"));
             return prepareCreate();
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Echec d'insertion !", "Erreure"));
             return null;
         }
     }
 
-    public String prepareEdit() {
+    /*  public String prepareEdit() {
         current = (Fournisseur) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
-    }
-
+    }*/
     public String update() {
         try {
+            Query req = em.createQuery("SELECT a FROM Fournisseur a WHERE a.nom =?").setParameter(1, current.getNom());
+            Fournisseur f=(Fournisseur) req.getSingleResult();
+            current.setIdFournisseur(f.getIdFournisseur());
+            current.setNom(newName);
             getFacade().edit(current);
+            this.items = getItemes();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("FournisseurUpdated"));
             return "View";
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Echec de modification !", "Erreure"));
             return null;
         }
     }
 
-    public String destroy() {
+    /* public String destroy() {
         current = (Fournisseur) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
         recreateModel();
         return "List";
-    }
-
+    }*/
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -129,12 +204,16 @@ public class FournisseurController implements Serializable {
         }
     }
 
-    private void performDestroy() {
+    public void performDestroy() {
         try {
+            Query req = em.createQuery("SELECT a FROM Fournisseur a WHERE a.nom =?").setParameter(1, current.getNom());
+            Fournisseur f=(Fournisseur) req.getSingleResult();
+            current.setIdFournisseur(f.getIdFournisseur());
             getFacade().remove(current);
+            this.items = getItemes();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("FournisseurDeleted"));
         } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Echec de suppression !", "Erreure"));
         }
     }
 
@@ -153,13 +232,12 @@ public class FournisseurController implements Serializable {
         }
     }
 
-    public DataModel getItems() {
+    /* public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
         }
         return items;
-    }
-
+    }*/
     private void recreateModel() {
         items = null;
     }
@@ -190,6 +268,78 @@ public class FournisseurController implements Serializable {
 
     public Fournisseur getFournisseur(java.lang.Integer id) {
         return ejbFacade.find(id);
+    }
+
+    public EntityManager getEm() {
+        return em;
+    }
+
+    public void setEm(EntityManager em) {
+        this.em = em;
+    }
+
+    public Fournisseur getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(Fournisseur current) {
+        this.current = current;
+    }
+
+    public List<Fournisseur> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Fournisseur> items) {
+        this.items = items;
+    }
+
+    public boolean isDisablCreate() {
+        return disablCreate;
+    }
+
+    public void setDisablCreate(boolean disablCreate) {
+        this.disablCreate = disablCreate;
+    }
+
+    public boolean isDisablUpdate() {
+        return disablUpdate;
+    }
+
+    public void setDisablUpdate(boolean disablUpdate) {
+        this.disablUpdate = disablUpdate;
+    }
+
+    public String getNewName() {
+        return newName;
+    }
+
+    public void setNewName(String newName) {
+        this.newName = newName;
+    }
+
+    public boolean isDisablDelete() {
+        return disablDelete;
+    }
+
+    public void setDisablDelete(boolean disablDelete) {
+        this.disablDelete = disablDelete;
+    }
+
+    public FournisseurFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(FournisseurFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    public int getSelectedItemIndex() {
+        return selectedItemIndex;
+    }
+
+    public void setSelectedItemIndex(int selectedItemIndex) {
+        this.selectedItemIndex = selectedItemIndex;
     }
 
     @FacesConverter(forClass = Fournisseur.class)

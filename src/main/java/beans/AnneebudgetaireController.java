@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.component.behavior.AjaxBehavior;
@@ -52,7 +53,7 @@ public class AnneebudgetaireController implements Serializable {
                 Query req = em.createQuery("SELECT o FROM Anneebudgetaire o");
                 items= (List<Anneebudgetaire>) req.getResultList();
             } catch (Exception e) {
-              JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+              FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aucune année n'est detectée !", "Information"));
             }
         return items;
     }

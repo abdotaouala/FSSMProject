@@ -103,6 +103,7 @@ public class LignecommandeController implements Serializable {
             }
             Query req2 = em.createQuery("SELECT o FROM Boncommande o where o.idBC = ? ").setParameter(1, current.getIdBC());
             this.bc = (Boncommande) req.getSingleResult();
+            
             Query req3 = em.createQuery("select o from Lignecommande o where o.idBC=? and o.idArticle=?").setParameter(1, bc.getIdBC()).setParameter(2, a.getIdArticle());
             current = (Lignecommande) req3.getSingleResult();
             if (current.getQuantite() == null) {

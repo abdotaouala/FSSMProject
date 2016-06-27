@@ -51,6 +51,7 @@ public class BoncommandeController implements Serializable {
     private String type;
     private String nomFournisseur;
     private Date dateRecep;
+    private Double reliquatDS;
     @Inject
     UserTransaction ut;
     private List<Boncommande> items = null;
@@ -102,6 +103,7 @@ public class BoncommandeController implements Serializable {
         }
         return 0;
     }
+
     public void remplireFormulaire() {
         Dotationsecteur ds = null;
         Secteur s = null;
@@ -110,8 +112,8 @@ public class BoncommandeController implements Serializable {
             if (cpt == null) {
                 cpt = new Compte();
             }
-            type=current.getType();
-            dateRecep=current.getDateReception();
+            type = current.getType();
+            dateRecep = current.getDateReception();
             Query req = em.createQuery("SELECT o FROM Dotationsecteur o WHERE o.idDotation=?").setParameter(1, current.getIdDotation());
             ds = (Dotationsecteur) req.getSingleResult();
             cpt.setIdCompte(ds.getIdCompte());
@@ -130,15 +132,16 @@ public class BoncommandeController implements Serializable {
             for (Lignecommande lc : list) {
                 HT = HT + lc.getMontant();
             }
-            Double TTC = HT + HT * current.getTva();
+            Double TTC = HT + HT * current.getTva()/100;
             current.setMontant(TTC);
             subjectSelectionChangedPBC();
         } catch (Exception e) {
-           // e.printStackTrace();
-           // JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            // e.printStackTrace();
+            // JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }
     }
-public void subjectSelectionChangedPBC() {
+
+    public void subjectSelectionChangedPBC() {
         //Boolean b = current instanceof Boncommande;
         if (current == null) {
             current = new Boncommande();
@@ -146,7 +149,7 @@ public void subjectSelectionChangedPBC() {
         ds = null;
         ds = getDS();
         if (current instanceof Boncommande && current != null) {
-            type=current.getType();
+            type = current.getType();
             if (ds != null) {
                 Boncommande bc = getbon();
                 current.setIdDotation(ds.getIdDotation());
@@ -157,7 +160,7 @@ public void subjectSelectionChangedPBC() {
                         current.setDateCommande(bc.getDateCommande());
                         current.setIdUser(user.getIdUser());
                         current.setDateReception(bc.getDateReception());
-                        type=bc.getType();
+                        type = bc.getType();
                         disablCreate = true;
                         disablUpdate = false;
                         disablDelete = false;
@@ -178,11 +181,82 @@ public void subjectSelectionChangedPBC() {
             current.setDateCommande(new Date());
         }
     }
+
+    public void remplireFormulaireGBC() {
+        Dotationsecteur ds = null;
+        Secteur s = null;
+        Secteurprincipal sp = null;
+        try {
+            if (cpt == null) {
+                cpt = new Compte();
+            }
+            type = current.getType();
+            dateRecep = current.getDateReception();
+            Query req = em.createQuery("SELECT o FROM Dotationsecteur o WHERE o.idDotation=?").setParameter(1, current.getIdDotation());
+            ds = (Dotationsecteur) req.getSingleResult();
+            reliquatDS=ds.getReliquat();
+            cpt.setIdCompte(ds.getIdCompte());
+            Query req2 = em.createQuery("SELECT o FROM Secteur o WHERE o.idSecteur= ?").setParameter(1, ds.getIdSecteur());
+            s = (Secteur) req2.getSingleResult();
+            this.secteur = s.getIntituleSecteur();
+            Query req3 = em.createQuery("SELECT o FROM Secteurprincipal o WHERE o.idSecteurP= ?").setParameter(1, s.getIdSecteurP());
+            sp = (Secteurprincipal) req3.getSingleResult();
+            this.secteurP = sp.getDesignation();
+            Query req4 = em.createQuery("select o from Lignecommande o where o.idBC = ?").setParameter(1, current.getIdBC());
+            List<Lignecommande> list = req4.getResultList();
+            Query req5 = em.createQuery("SELECT o FROM Fournisseur o WHERE o.idFournisseur= ?").setParameter(1, current.getIdFournisseur());
+            Fournisseur f = (Fournisseur) req5.getSingleResult();
+            this.nomFournisseur = f.getNom();
+            Double HT = 0.0;
+            for (Lignecommande lc : list) {
+                //HT = HT + lc.getMontant();
+                HT = HT + lc.getPu()*lc.getQuantite();
+            }
+            Double TTC = HT + HT * current.getTva()/100;
+            current.setMontant(TTC);
+            subjectSelectionChanged();
+        } catch (Exception e) {
+             e.printStackTrace();
+            // JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+    }
+
+    public void subjectSelectionChanged() {
+        //Boolean b = current instanceof Boncommande;
+        if (current == null) {
+            current = new Boncommande();
+        }
+        ds = null;
+        ds = getDS();
+        if (current instanceof Boncommande && current != null) {
+            type = current.getType();
+            if (ds != null) {
+                Boncommande bc = getbon();
+                current.setIdDotation(ds.getIdDotation());
+                if (bc instanceof Boncommande && bc != null) {
+                    Users user = getUser();
+                    if (user.getIdUser() == bc.getIdUser()) {
+                        current.setIdBC(bc.getIdBC());
+                        current.setDateCommande(bc.getDateCommande());
+                        current.setIdUser(user.getIdUser());
+                        current.setDateReception(bc.getDateReception());
+                        type = bc.getType();
+                        //current.setMontant(current.getMontant()+current.getMontant()*current.getTva()/100);
+                    } else {
+                        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreure! vous n'etes pas le proprietaire de cet Engagement !", "erreue"));
+                    }
+                }
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreure! secteur innexistant dans ce secteur principal", "erreue"));
+            }
+        }
+    }
+
     public Boncommande getbon() {
         ds = getDS();
         Boncommande bc = null;
         try {
-            Query req2 = em.createQuery("SELECT o FROM Boncommande o WHERE o.idBC =? and o.idDotation=?").setParameter(1,current.getIdBC()).setParameter(2, ds.getIdDotation());
+            Query req2 = em.createQuery("SELECT o FROM Boncommande o WHERE o.idBC =? and o.idDotation=?").setParameter(1, current.getIdBC()).setParameter(2, ds.getIdDotation());
             bc = (Boncommande) req2.getSingleResult();
         } catch (Exception e) {
             disablCreate = false;
@@ -315,7 +389,7 @@ public void subjectSelectionChangedPBC() {
     }
 
     public Boncommande getCurrent() {
-       /* if (current == null) {
+        /* if (current == null) {
             current = new Boncommande();
             selectedItemIndex = -1;
         }*/
@@ -333,7 +407,6 @@ public void subjectSelectionChangedPBC() {
     public void setNomFournisseur(String nomFournisseur) {
         this.nomFournisseur = nomFournisseur;
     }
-
 
     private BoncommandeFacade getFacade() {
         return ejbFacade;
@@ -375,10 +448,10 @@ public void subjectSelectionChangedPBC() {
 
     public String create() {
         try {
-            
+
             //boolean b=current instanceof Boncommande;
-            if(current==null ){
-            current=new Boncommande();
+            if (current == null) {
+                current = new Boncommande();
             }
             this.current.setEtat("enCours");
             this.current.setDateCommande(new Date());
@@ -386,31 +459,35 @@ public void subjectSelectionChangedPBC() {
             current.setTva(0);
             current.setDateReception(dateRecep);
             current.setType(type);
-        ds = null;
-        ds = getDS();
-        Users user = getUser();
-        current.setIdUser(user.getIdUser());
-        if (current instanceof Boncommande && current != null) {
-            if (ds != null) {
-                Boncommande bc = getbon();
-                current.setIdDotation(ds.getIdDotation());
-                if (bc instanceof Boncommande && bc != null) {
-                    if (user.getIdUser() == bc.getIdUser()) {
-                        current.setIdBC(bc.getIdBC());
-                        current.setDateCommande(bc.getDateCommande());
-                        current.setIdUser(user.getIdUser());
-                        current.setDateReception(bc.getDateReception());}}}}
+            ds = null;
+            ds = getDS();
+            Users user = getUser();
+            current.setIdUser(user.getIdUser());
+            if (current instanceof Boncommande && current != null) {
+                if (ds != null) {
+                    Boncommande bc = getbon();
+                    current.setIdDotation(ds.getIdDotation());
+                    if (bc instanceof Boncommande && bc != null) {
+                        if (user.getIdUser() == bc.getIdUser()) {
+                            current.setIdBC(bc.getIdBC());
+                            current.setDateCommande(bc.getDateCommande());
+                            current.setIdUser(user.getIdUser());
+                            current.setDateReception(bc.getDateReception());
+                        }
+                    }
+                }
+            }
             getFacade().edit(current);
             Query req = em.createQuery("select max(a.idBC) from Boncommande a");
             int max = (Integer) req.getSingleResult();
             current.setIdBC(max);
             getItemesCours();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Boncommande Number:+'"+max+"' Created !", "Succes"));       
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Boncommande Number:+'" + max + "' Created !", "Succes"));
             return prepareCreate();
         } catch (Exception e) {
             e.printStackTrace();
             //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreure! '" + current.getIdBC() + "'", "Erreur"));
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreure! Ajout non effectué !"+e.getMessage(), "Erreur"));       
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreure! Ajout non effectué !" + e.getMessage(), "Erreur"));
             return null;
         }
     }
@@ -452,16 +529,22 @@ public void subjectSelectionChangedPBC() {
                 current.setIdFournisseur(a.getIdFournisseur());
             }
             if (current.getEtat().equals("valide")) {
-                ut.begin();
-                em.joinTransaction();
-                Query req2 = em.createQuery("update Dotationsecteur o set o.reliquat = o.reliquat - :Reliquat where o.idDotation = :ds").setParameter("Reliquat", current.getMontant()).setParameter("ds", current.getIdDotation());
-                int n = req2.executeUpdate();
-                ut.commit();
-                if (n > 0) {
-                    getFacade().edit(current);
+                Query req = em.createQuery("select o.reliquat from Dotationsecteur o where o.idDotation=?").setParameter(1, current.getIdDotation());
+                Double d = (Double) req.getSingleResult();
+                if (d >= current.getMontant()) {
+                    ut.begin();
+                    em.joinTransaction();
+                    Query req2 = em.createQuery("update Dotationsecteur o set o.reliquat = o.reliquat - :Reliquat where o.idDotation = :ds").setParameter("Reliquat", current.getMontant()).setParameter("ds", current.getIdDotation());
+                    int n = req2.executeUpdate();
+                    ut.commit();
+                    if (n > 0) {
+                        getFacade().edit(current);
+                    }
+                } else {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Vous avez dépassé le Reliquat de ce compte !", "Erreur"));
                 }
-            }else{
-            getFacade().edit(current);
+            } else {
+                getFacade().edit(current);
             }
             getAllItemesBCG();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BoncommandeUpdated"));
@@ -507,8 +590,8 @@ public void subjectSelectionChangedPBC() {
 
     public void performDestroy() {
         try {
-           // Query req = em.createQuery("DELETE from Lignecommande where o.idBC=?").setParameter(1, current.getIdBC());
-          //  req.executeUpdate();
+            // Query req = em.createQuery("DELETE from Lignecommande where o.idBC=?").setParameter(1, current.getIdBC());
+            //  req.executeUpdate();
             getFacade().remove(current);
             getItemesCours();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BoncommandeDeleted"));
@@ -531,7 +614,7 @@ public void subjectSelectionChangedPBC() {
             current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
         }
     }
-    
+
     public String getType() {
         return type;
     }
@@ -602,6 +685,14 @@ public void subjectSelectionChangedPBC() {
 
     public void setCpt(Compte cpt) {
         this.cpt = cpt;
+    }
+
+    public Double getReliquatDS() {
+        return reliquatDS;
+    }
+
+    public void setReliquatDS(Double reliquatDS) {
+        this.reliquatDS = reliquatDS;
     }
 
     public UserTransaction getUt() {

@@ -168,11 +168,12 @@
                                                                 <td class="olab"><p:outputLabel id="montantR" value="#{boncommandeController.reliquatDS}" title="#{bundle.CreateBoncommandeTitle_montant}" /></td>
                                                             </tr>
                                                             <tr>
-                                                                <td class="olab" ><p:outputLabel value="Fournisseur:" for="fournisseur" /></td>
+                                                                <td class="olab"><p:outputLabel value="#{bundle.CreateFournisseurLabel_idFournisseur}" for="Nom" /></td>
                                                                 <td class="olab">
-                                                                    <p:inputText id="fournisseur" value="#{boncommandeController.nomFournisseur}" >
+                                                                    <p:autoComplete dropdown="true" id="Nom" value="#{boncommandeController.nomFournisseur}" completeMethod="#{fournisseurController.completeText}" title="#{bundle.CreateFournisseurTitle_idFournisseur}" >
+                                                                        <p:ajax event="itemSelect" listener="#{boncommandeController.remplireFormulaireGBC()}" process="@this" />
                                                                         <p:ajax event="change" listener="#{boncommandeController.remplireFormulaireGBC()}" process="@this"/>
-                                                                    </p:inputText>
+                                                                    </p:autoComplete>
                                                                 </td>
                                                             </tr>
                                                             <tr>

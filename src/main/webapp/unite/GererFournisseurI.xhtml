@@ -1,13 +1,21 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version='1.0' encoding='UTF-8' ?> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <!-- Meta, title, CSS, favicons, etc. -->
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
         <title>Gestion Des Fournisseurs</title>
     </h:head>
-    <h:body onload="#{articleController.getItemes()}">
+    <h:body class="nav-md" onload="#{fournisseurController.getItemes()}">
         <h:form id="FournisseurCreateForm">
             <p:growl id="message" life="2000" />
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" widgetVar="confirmation" closeOnEscape="false" closable="true">
@@ -83,27 +91,28 @@
                     <div class="panel-body">
                         <div class="table-responsive">
                             <p:dataTable value="#{fournisseurController.items}" var="item" style="border:solid 1px">
-                               <p:column headerText="#{bundle.ListFournisseurTitle_idFournisseur}">
-                            <h:outputText value="#{item.idFournisseur}"/>
-                        </p:column>
-                        <p:column headerText="#{bundle.ListFournisseurTitle_nom}">
-                            <h:outputText value="#{item.nom}"/>
-                        </p:column>
-                        <p:column headerText="#{bundle.ListFournisseurTitle_adresse}">
-                            <h:outputText value="#{item.adresse}"/>
-                        </p:column>
-                        <p:column headerText="#{bundle.ListFournisseurTitle_tel}">
-                            <h:outputText value="#{item.tel}"/>
-                        </p:column>
-                        <p:column headerText="#{bundle.ListFournisseurTitle_email}">
-                            <h:outputText value="#{item.email}"/>
-                        </p:column>
+                                <p:column headerText="#{bundle.ListFournisseurTitle_idFournisseur}">
+                                    <h:outputText value="#{item.idFournisseur}"/>
+                                </p:column>
+                                <p:column headerText="#{bundle.ListFournisseurTitle_nom}">
+                                    <h:outputText value="#{item.nom}"/>
+                                </p:column>
+                                <p:column headerText="#{bundle.ListFournisseurTitle_adresse}">
+                                    <h:outputText value="#{item.adresse}"/>
+                                </p:column>
+                                <p:column headerText="#{bundle.ListFournisseurTitle_tel}">
+                                    <h:outputText value="#{item.tel}"/>
+                                </p:column>
+                                <p:column headerText="#{bundle.ListFournisseurTitle_email}">
+                                    <h:outputText value="#{item.email}"/>
+                                </p:column>
                             </p:dataTable>
                         </div>
                     </div>
                 </div>
             </div>
-        </h:form> 
+        </h:form>  
     </h:body>
 </html>
+
 

@@ -310,16 +310,16 @@ public class FournisseurController implements Serializable {
         this.disablUpdate = disablUpdate;
     }
 
+    public boolean isDisablDelete() {
+        return disablDelete;
+    }
+
     public String getNewName() {
         return newName;
     }
 
     public void setNewName(String newName) {
         this.newName = newName;
-    }
-
-    public boolean isDisablDelete() {
-        return disablDelete;
     }
 
     public void setDisablDelete(boolean disablDelete) {

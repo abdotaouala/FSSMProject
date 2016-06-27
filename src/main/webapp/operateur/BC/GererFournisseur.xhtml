@@ -13,7 +13,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <title>Gestion Des Articles</title>
+        <title>Gestion Des Fournisseurs</title>
 
         <!-- Bootstrap -->
         <link href="../../resources/tem3Ges/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -29,7 +29,7 @@
         <!-- Custom Theme Style -->
         <link href="../../resources/tem3Ges/css/custom.css" rel="stylesheet" />
     </h:head>
-    <h:body class="nav-md" onload="#{articleController.getItemes()}">
+    <h:body class="nav-md" onload="#{fournisseurController.getItemes()}">
         <div class="container body">
             <div class="main_container">
 
@@ -42,7 +42,7 @@
                     <div class="">
                         <div class="page-title">
                             <div class="title_left">
-                                <h3>Gestion des Articles</h3>
+                                <h3>Gestion des Fournisseurs</h3>
                             </div>
 
                             <div class="title_right">
@@ -63,7 +63,7 @@
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="x_panel" style="height:600px;">
                                     <div class="x_title">
-                                        <h2>Gestion des Articles</h2>
+                                        <h2>Gestion des Fournisseurs</h2>
                                         <ul class="nav navbar-right panel_toolbox">
                                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                             </li>
@@ -82,7 +82,7 @@
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="x_content">
-                                        <h:form id="SecteurPrincipalCreateForm">
+                                        <h:form id="FournisseurCreateForm">
                                             <p:growl id="message" life="2000" />
                                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" widgetVar="confirmation" closeOnEscape="false" closable="true">
                                                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" onclick="confirmation.hide()" icon="ui-icon-check" />
@@ -96,34 +96,51 @@
                                                     <div class="panel-body">
                                                         <center><table class='tab_form' style="width:500px;height:250px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
                                                                 <tr> 
-                                                                    <td class="olab"><h:outputLabel value="#{bundle.CreateArticleLabel_description}" for="description" /></td>
+                                                                    <td class="olab"><p:outputLabel value="#{bundle.CreateFournisseurLabel_idFournisseur}" for="Nom" /></td>
                                                                     <td class="olab">
-                                                                        <p:autoComplete dropdown="true" id="description" value="#{articleController.selected.description}" completeMethod="#{articleController.completeText}" title="#{bundle.CreateArticleTitle_description}" required="true" >
-                                                                            <p:ajax event="itemSelect" listener="#{articleController.subjectSelectionChanged()}" update="@form" process="@form" />
-                                                                            <p:ajax event="change" listener="#{articleController.subjectSelectionChanged()}" update="@form" process="@form" />
+                                                                        <p:autoComplete dropdown="true" id="Nom" value="#{fournisseurController.selected.nom}" completeMethod="#{fournisseurController.completeText}" title="#{bundle.CreateFournisseurTitle_idFournisseur}" required="true" requiredMessage="#{bundle.CreateFournisseurRequiredMessage_idFournisseur}" >
+                                                                            <p:ajax event="itemSelect" listener="#{fournisseurController.subjectSelectionChanged()}" update="@form" process="@this" />
+                                                                            <p:ajax event="change" listener="#{fournisseurController.subjectSelectionChanged()}" update="@form" process="@this" />
                                                                         </p:autoComplete>
                                                                     </td>
                                                                 </tr>
                                                                 <tr> 
-                                                                    <td class="olab"><h:outputLabel value="#{bundle.CreateArticleLabel_pu}" for="pu" /></td>
-                                                                    <td class="olab"><p:inputText id="pu" value="#{articleController.selected.pu}" title="#{bundle.CreateArticleTitle_pu}"  required="false"/></td>
+                                                                    <td class="olab"><p:outputLabel value="Nouveau Nom:" for="nom" /></td>
+                                                                    <td class="olab"><p:inputText id="nom" value="#{fournisseurController.newName}" title="#{bundle.CreateFournisseurTitle_nom}"  required="true"/></td>
                                                                 </tr>
                                                                 <tr> 
-                                                                    <td class="olab"><h:outputLabel value="Nouvelle Description:" for="newdescription" /></td>
-                                                                    <td class="olab"><p:inputText id="newdescription" value="#{articleController.newDescription}" title="#{bundle.CreateSecteurTitle_intituleSecteur}" required="false"/></td>
+                                                                    <td class="olab"><p:outputLabel value="#{bundle.CreateFournisseurLabel_adresse}" for="adresse" /></td>
+                                                                    <td class="olab"><p:inputText id="adresse" value="#{fournisseurController.selected.adresse}" title="#{bundle.CreateFournisseurTitle_adresse}"/></td>
+                                                                </tr>
+                                                                <tr> 
+                                                                    <td class="olab"><p:outputLabel value="#{bundle.CreateFournisseurLabel_email}" for="email" /></td>
+                                                                    <td class="olab">
+                                                                        <p:inputText id="email" required="true" label="email" size="40"
+                                                                                     requiredMessage="Saisissez votre e-mail S'il vous plait !"
+                                                                                     validatorMessage="Invalid email format"
+                                                                                     value="#{fournisseurController.selected.email}" title="#{bundle.CreateFournisseurTitle_email}">
+                                                                            <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                                                        </p:inputText>
+                                                                        <p:watermark for="email" value="Email  *" />
+                                                                        <p:message for="email" />
+                                                                    </td>
+                                                                </tr>
+                                                                <tr> 
+                                                                    <td class="olab"><p:outputLabel value="#{bundle.CreateFournisseurLabel_tel}" for="tel" /></td>
+                                                                    <td class="olab"><p:inputText id="tel" value="#{fournisseurController.selected.tel}" title="#{bundle.CreateFournisseurTitle_tel}"/></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="olab">
-                                                                        <p:commandButton  ajax="false" id="ajaxcreate"  action="#{articleController.create}" value="Ajouter" icon="ui-icon-plus" disabled="#{articleController.disablCreate}" class="btn btn-primary btn-lg" update="@form">
+                                                                        <p:commandButton  ajax="false" id="ajaxcreate"  action="#{fournisseurController.create}" value="Ajouter" icon="ui-icon-plus" disabled="#{fournisseurController.disablCreate}" class="btn btn-primary btn-lg" update="@form">
                                                                         </p:commandButton>
                                                                     </td>
                                                                     <td class="olab">
-                                                                        <p:commandButton id="ajaxupdate"  action="#{articleController.update}" value="Modifier" icon="ui-icon-pencil" disabled="#{articleController.disablUpdate}" class="btn btn-success btn-lg" update="@form">
+                                                                        <p:commandButton id="ajaxupdate"  action="#{fournisseurController.update}" value="Modifier" icon="ui-icon-pencil" disabled="#{fournisseurController.disablUpdate}" class="btn btn-success btn-lg" update="@form">
                                                                             <p:confirm header="Confirmation de modification" message="voulez-vous vraiment modifier ces informations?" icon="ui-icon-alert" />
                                                                         </p:commandButton>
                                                                     </td>
                                                                     <td class="olab">
-                                                                        <p:commandButton id="ajaxdelete"  action="#{articleController.performDestroy}" value="Supprimer" icon="ui-icon-trash" disabled="#{articleController.disablDelete}" class="btn btn-danger btn-lg" update="@form">
+                                                                        <p:commandButton id="ajaxdelete"  action="#{fournisseurController.performDestroy}" value="Supprimer" icon="ui-icon-trash" disabled="#{fournisseurController.disablDelete}" class="btn btn-danger btn-lg" update="@form">
                                                                             <p:confirm header="Confirmation de suppression" message="voulez-vous vraiment supprimer ces informations?" icon="ui-icon-alert" />
                                                                         </p:commandButton>
                                                                     </td>
@@ -135,26 +152,32 @@
                                             <div class="col-md-12 col-sm-12">
                                                 <div class="panel panel-info">
                                                     <div class="panel-heading">
-                                                        Liste Des Articles
+                                                        Liste Des Fournisseurs
                                                     </div>
                                                     <div class="panel-body">
                                                         <div class="table-responsive">
-                                                            <p:dataTable value="#{articleController.items}" var="item" style="border:solid 1px">
-                                                                <p:column headerText="#{bundle.ListArticleTitle_idArticle}">
-                                                                    <h:outputText value="#{item.idArticle}"/>
+                                                            <p:dataTable value="#{fournisseurController.items}" var="item" style="border:solid 1px">
+                                                                <p:column headerText="#{bundle.ListFournisseurTitle_idFournisseur}">
+                                                                    <h:outputText value="#{item.idFournisseur}"/>
                                                                 </p:column>
-                                                                <p:column headerText="#{bundle.ListArticleTitle_description}">
-                                                                    <h:outputText value="#{item.description}"/>
+                                                                <p:column headerText="#{bundle.ListFournisseurTitle_nom}">
+                                                                    <h:outputText value="#{item.nom}"/>
                                                                 </p:column>
-                                                                <p:column headerText="#{bundle.ListArticleTitle_pu}">
-                                                                    <h:outputText value="#{item.pu}"/>
+                                                                <p:column headerText="#{bundle.ListFournisseurTitle_adresse}">
+                                                                    <h:outputText value="#{item.adresse}"/>
+                                                                </p:column>
+                                                                <p:column headerText="#{bundle.ListFournisseurTitle_tel}">
+                                                                    <h:outputText value="#{item.tel}"/>
+                                                                </p:column>
+                                                                <p:column headerText="#{bundle.ListFournisseurTitle_email}">
+                                                                    <h:outputText value="#{item.email}"/>
                                                                 </p:column>
                                                             </p:dataTable>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </h:form> 
+                                        </h:form>  
                                     </div>
                                 </div>
                             </div>

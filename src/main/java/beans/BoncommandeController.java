@@ -29,6 +29,7 @@ import javax.persistence.Query;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
+import model.Article;
 import model.Compte;
 import model.Dotationsecteur;
 import model.Fournisseur;
@@ -934,6 +935,17 @@ public class BoncommandeController implements Serializable {
     public void setPagination(PaginationHelper pagination) {
         this.pagination = pagination;
     }
+    public Article getArticle(int i){
+        Article a=null;
+     try {
+            Query req = em.createQuery("SELECT o FROM Article o where o.idArticle=?").setParameter(1,i);
+            a = (Article) req.getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Erreure!Aucune Commande n'est en cours de traitement !", "Secteur Innexistant"));
+        }
+    return a;
+    }
     /////////////////////////////////////////////////////////////////////////////////////////////////
     //////******************************************************///////*************
     /*
@@ -946,48 +958,112 @@ public class BoncommandeController implements Serializable {
     JasperPrint jasperPrint;
 
     public void initBon() throws JRException {
-
-        listOfUsers.add(current);
+        subjectSelectionChanged();
+        Dotationsecteur ds = null;
+        Secteur s = null;
+        Secteurprincipal sp = null;
+        try {
+            if (cpt == null) {
+                cpt = new Compte();
+            }
+            type = current.getType();
+            dateRecep = current.getDateReception();
+            Query req = em.createQuery("SELECT o FROM Dotationsecteur o WHERE o.idDotation=?").setParameter(1, current.getIdDotation());
+            ds = (Dotationsecteur) req.getSingleResult();
+            reliquatDS = ds.getReliquat();
+            cpt.setIdCompte(ds.getIdCompte());
+            Query req2 = em.createQuery("SELECT o FROM Secteur o WHERE o.idSecteur= ?").setParameter(1, ds.getIdSecteur());
+            s = (Secteur) req2.getSingleResult();
+            this.secteur = s.getIntituleSecteur();
+            Query req3 = em.createQuery("SELECT o FROM Secteurprincipal o WHERE o.idSecteurP= ?").setParameter(1, s.getIdSecteurP());
+            sp = (Secteurprincipal) req3.getSingleResult();
+            this.secteurP = sp.getDesignation();
+            Query req4 = em.createQuery("select o from Lignecommande o where o.idBC = ?").setParameter(1, current.getIdBC());
+            List<Lignecommande> list = req4.getResultList();
+            Query req5 = em.createQuery("SELECT o FROM Fournisseur o WHERE o.idFournisseur= ?").setParameter(1, current.getIdFournisseur());
+            Fournisseur f = (Fournisseur) req5.getSingleResult();
+            this.nomFournisseur = f.getNom();
+            listOfUsers.add(current);
+            Lignecommande l1=new Lignecommande();
+        Lignecommande l2=new Lignecommande();
+        Lignecommande l3=new Lignecommande();
+            if(list.size()==1){
+         l1=list.get(1);
+        }else if(list.size()==2){
+        l1=list.get(1);
+        l2=list.get(2);
+        }else if(list.size()==3){
+        l1=list.get(1);
+        l2=list.get(2);
+        l3=list.get(3);
+        }else{
+        l1=new Lignecommande();
+         l2=new Lignecommande();
+        l3=new Lignecommande();
+        }
         HashMap map = new HashMap();
-        map.put("nom", "");
-        map.put("grp", "1");
-        map.put("cmp", "1256944526,Barid Bank");
+        map.put("nom", current.getType());
+        map.put("grp", current.getIdBC());
+        map.put("cmp", cpt.getIdCompte()+","+cpt.getIntitule());
 
-        map.put("nbrjr", "");
-
+        map.put("nbrjr", new Date());
+        
         map.put("prix", 100 + " DH");
         map.put("prix1", " DH");
         map.put("ttl", " DH");
-        map.put("NomFourniseur", " DH");
-        map.put("qulite", " DH");
-        map.put("cmpt", " DH");
-        map.put("intitule", " DH");
-
-        map.put("art1", " DH");
-        map.put("art2", " DH");
-        map.put("art3", " DH");
+        map.put("NomFourniseur", f.getNom());
+        map.put("qulite", f.getAdresse());
+        map.put("cmpt", cpt.getIdCompte());
+        map.put("intitule",cpt.getIntitule());
+        Article a1=new Article();
+        Article a2=new Article();
+        Article a3=new Article();
+        if(list.size()==1){
+         a1=getArticle(list.get(1).getIdArticle());
+        }else if(list.size()==2){
+        a1=getArticle(list.get(1).getIdArticle());
+        a2=getArticle(list.get(2).getIdArticle());
+        }else if(list.size()==3){
+        a1=getArticle(list.get(1).getIdArticle());
+        a2=getArticle(list.get(2).getIdArticle());
+        a3=getArticle(list.get(3).getIdArticle());
+        }else{
+        a1=new Article();
+         a2=new Article();
+        a3=new Article();
+        }
+        map.put("art1", a1.getDescription());
+        map.put("art2", a2.getDescription());
+        map.put("art3", a3.getDescription());
         map.put("totale", " DH");
         map.put("totaltva", " DH");
         map.put("totalettc", " DH");
-        map.put("qte1", " DH");
-        map.put("qte2", " DH");
-        map.put("qte3", " DH");
-        map.put("pu1", " DH");
-        map.put("pu2", " DH");
-        map.put("pu3", " DH");
-        map.put("mnt1", " DH");
-        map.put("mnt2", " DH");
-        map.put("mnt3", " DH");
-        map.put("depatement", " DH");
-        map.put("totalht", " DH");
-        map.put("ttc", " DH");
-        map.put("totalttc", " DH");
-        map.put("titre", "");
+        
+        map.put("qte1", l1.getQuantite());
+        map.put("qte2",l2.getQuantite());
+        map.put("qte3", l3.getQuantite());
+        map.put("pu1", l1.getPu()+" DH");
+        map.put("pu2",l2.getPu()+" DH");
+        map.put("pu3",l3.getPu()+" DH");
+        map.put("mnt1", list.get(1).getMontant()+" DH");
+        map.put("mnt2", list.get(2).getMontant()+" DH");
+        map.put("mnt3", list.get(3).getMontant()+" DH");
+        map.put("depatement", s.getIntituleSecteur());
+        Double ht=l1.getMontant()+l2.getMontant()+l3.getMontant();
+        map.put("totalht",ht+" DH");
+        map.put("ttc",ht+ht*current.getTva()+" DH");
+        map.put("totalttc", current.getMontant());
+        map.put("titre", "BC");
         JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(listOfUsers, false);
         listOfUsers = new ArrayList<Boncommande>();
         String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("report/report3.jasper");
         jasperPrint = JasperFillManager.fillReport(reportPath, map, beanCollectionDataSource);
         httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        } catch (Exception e) {
+            e.printStackTrace();
+            // JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+        }
+        
     }
 
     public void PDBon(ActionEvent actionEvent) throws JRException, IOException {

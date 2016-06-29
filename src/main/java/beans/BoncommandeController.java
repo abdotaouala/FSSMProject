@@ -364,7 +364,7 @@ public class BoncommandeController implements Serializable {
     public List<Boncommande> getItemesEtatBC() {
         Users user = getUser();
         try {
-            Query req = em.createQuery("SELECT o FROM Boncommande o where o.idUser=? and (o.etat='enTraitement' or o.etat='valide' or o.etat='invalide')").setParameter(1, user.getIdUser());
+            Query req = em.createQuery("SELECT o FROM Boncommande o where o.idUser=? and (o.etat='enTraitement' or o.etat='valide' or o.etat='invalide' or o.etat='paye')").setParameter(1, user.getIdUser());
             items = (List<Boncommande>) req.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
@@ -420,7 +420,7 @@ public class BoncommandeController implements Serializable {
 
     public List<Boncommande> getAllItemesRechValidesTraite() {
         try {
-            Query req = em.createQuery("SELECT o FROM Boncommande o where (o.etat='valide' or o.etat='invalide' or o.etat='enTraitement') and o.type=?").setParameter(1, this.type);
+            Query req = em.createQuery("SELECT o FROM Boncommande o where (o.etat='valide' or o.etat='invalide' or o.etat='enTraitement' or o.etat='paye') and o.type=?").setParameter(1, this.type);
             items = (List<Boncommande>) req.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
@@ -560,7 +560,13 @@ public class BoncommandeController implements Serializable {
     }*/
     public String update() {
         try {
-            this.current.setEtat("enCours");
+            if (current.getEtat().equals("valide")) {
+                if (current.getDateReception() != null) {
+                    this.current.setEtat("paye");
+                }
+            } else {
+                current.setEtat("enCours");
+            }
             current.setMontant(0.0);
             current.setTva(0);
             current.setDateReception(dateRecep);
@@ -590,6 +596,9 @@ public class BoncommandeController implements Serializable {
                 current.setIdFournisseur(a.getIdFournisseur());
             }
             if (current.getEtat().equals("valide")) {
+                if (current.getDateReception() != null) {
+                    this.current.setEtat("paye");
+                }
                 Query req = em.createQuery("select o from Dotationsecteur o where o.idDotation=?").setParameter(1, current.getIdDotation());
                 Dotationsecteur ds = (Dotationsecteur) req.getSingleResult();
                 Double d = ds.getReliquat();
@@ -655,7 +664,10 @@ public class BoncommandeController implements Serializable {
             } else {
                 current.setIdFournisseur(a.getIdFournisseur());
             }
-            if (current.getEtat().equals("valide")) {
+            if (current.getEtat().equals("valide") || current.getEtat().equals("paye")) {
+                if (current.getDateReception() != null) {
+                    this.current.setEtat("paye");
+                }
                 Query req = em.createQuery("select o from Dotationsecteur o where o.idDotation=?").setParameter(1, current.getIdDotation());
                 Dotationsecteur ds = (Dotationsecteur) req.getSingleResult();
                 Double d = ds.getReliquat();
@@ -701,7 +713,7 @@ public class BoncommandeController implements Serializable {
             int updateCount = req2.executeUpdate();
             ut.commit();
             if (updateCount > 0) {
-                 ut.begin();
+                ut.begin();
                 em.joinTransaction();
                 Query req = em.createQuery("DELETE from Lignecommande o where o.idBC=?").setParameter(1, current.getIdBC());
                 req.executeUpdate();

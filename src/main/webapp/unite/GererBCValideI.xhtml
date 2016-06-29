@@ -5,7 +5,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Gestion BC Validée</title>
+        <title>Gestion des Engagements Validés</title>
     </h:head>
     <h:body onload="#{boncommandeController.allItemesValides}" >
         <h:form id="LigneCommandeCreateForm">
@@ -14,7 +14,7 @@
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" onclick="confirmation.hide()" icon="ui-icon-check" />
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" onclick="confirmation.hide()" icon="ui-icon-close" />
             </p:confirmDialog>
-            <p:dialog id="dialogue" header="Effects" widgetVar="formUpdate" showEffect="explode" hideEffect="bounce" height="400" modal="true">
+            <p:dialog id="dialogue" header="Gestion Des Engagements validés" widgetVar="formUpdate" showEffect="explode" hideEffect="bounce" height="400" modal="true">
                 <div class="panel-body">
                     <center><table class='tab_form' style="width:450px;height:400px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
                             <tr> 
@@ -119,6 +119,7 @@
                                         <f:selectItem itemLabel="enTraitement" itemValue="enTraitement" />
                                         <f:selectItem itemLabel="valide" itemValue="valide" />
                                         <f:selectItem itemLabel="invalide" itemValue="invalide" />
+                                        <f:selectItem itemLabel="paye" itemValue="paye" />
                                     </h:selectOneMenu>
                                 </td>
                             </tr>

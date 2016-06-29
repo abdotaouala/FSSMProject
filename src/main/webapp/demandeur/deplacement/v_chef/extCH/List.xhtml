@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./../../newTemplate.xhtml">
+
+            <ui:define name="title">
+                Gestion Deplacement
+            </ui:define>
+
+            <ui:define name="titlepanelRight">
+                Deplacement
+            </ui:define>
+
+            <ui:define name="titlepanel">
+                Liste deplacement
+            </ui:define>
+
+            <ui:define name="content">
+            <h:form id="DeplacementListForm">
+                <p:panel header="#{bundle.ListDeplacementTitle}">
+                    <p:dataTable id="datalist" value="#{externe.items}" var="item"
+                                 selectionMode="single" selection="#{externe.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idDeplacement}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 widgetVar="carsTable"
+                                 emptyMessage="No cars found with given criteria"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton validateButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton validateButton"/>
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Search all fields:" />
+                                <p:inputText id="globalFilter" onkeyup="PF('carsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                            </p:outputPanel>
+                        </f:facet>
+                        
+                        <p:column filterBy="#{item.cinPpr.nomComplet}" sortBy="#{item.cinPpr.nomComplet}"  filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Intervenant"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cinPpr.nomComplet}"/>
+                        </p:column>
+                        
+                        <p:column filterBy="#{item.etat}"  headerText="Status"  filterMatchMode="equals">
+                             <f:facet name="filter">
+                                <p:selectOneButton onchange="PF('carsTable').filter()">
+                                    <f:converter converterId="javax.faces.Integer" />
+                                    <f:selectItem itemLabel="En cour" itemValue="0" />
+                                    <f:selectItem itemLabel="Valide" itemValue="1" />
+                                    <f:selectItem itemLabel="Rejeter" itemValue="2" />
+                                </p:selectOneButton>
+                            </f:facet>
+                            <f:facet name="header">
+                                <h:outputText value="Status"/>
+                            </f:facet>
+                            <h:outputText value="#{item.etat ==0 ?  'en Cour' : '' } #{item.etat ==1 ?  'Valide' : '' } #{item.etat ==2 ?  'Rjeter' : '' }" />
+                        </p:column>
+                        
+                        <p:column filterBy="#{item.motif}" sortBy="#{item.motif}"  filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Motif"/>
+                            </f:facet>
+                            <h:outputText value="#{item.motif}"/>
+                        </p:column>
+                        
+                        
+                        
+                        <p:column filterBy="#{item.dateEtat}" sortBy="#{item.dateEtat}"  filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Date validation"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateEtat}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        
+                        <p:column filterBy="#{item.nomPays}" sortBy="#{item.nomPays}"  filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Pays"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nomPays}"/>
+                        </p:column>
+                        <p:column filterBy="#{item.ville}" sortBy="#{item.ville}"  filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Ville"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ville}"/>
+                        </p:column>
+                      
+                       
+                        <p:column filterBy="#{item.mntKm}" sortBy="#{item.mntKm}"  filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Montan totale"/>
+                            </f:facet>
+                            <h:outputText value="#{item.mntKm}"/>
+                        </p:column>
+                       
+                        <p:column filterBy="#{item.dateDepart}" sortBy="#{item.dateDepart}"  filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Date depart"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateDepart}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        
+                        <p:column filterBy="#{item.dateArrive}" sortBy="#{item.dateArrive}"  filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Date d'arrive"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateArrive}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        
+                       
+                        
+                        <p:column filterBy="#{item.dateCreation}" sortBy="#{item.dateCreation}"  filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Date de creation"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateCreation}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        
+                        
+                        
+                        <p:column filterBy="#{item.idUser.nom} #{item.idUser.prenom}" sortBy="#{item.idUser.nom} #{item.idUser.prenom}"  filterMatchMode="contains">
+                            <f:facet name="header">
+                                <h:outputText value="Creer par"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idUser.nom} #{item.idUser.prenom}"/>
+                        </p:column>
+                        
+                        <p:column filterBy="#{item.idDotationSect.idSecteur.intituleSecteur}" sortBy="#{iitem.idDotationSect.idSecteur.intituleSecteur}"  filterMatchMode="contains"> 
+                            <f:facet name="header">
+                                <h:outputText value="Secteur deplacement"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idDotationSect.idSecteur.intituleSecteur}"/>
+                        </p:column>
+                        
+                        
+                        <f:facet name="footer">
+                         <p:commandButton id="validateButton"   icon="ui-icon-pencil" value="Validate" update=":DeplacementValidateForm" oncomplete="PF('DeplacementValidateDialog').show()" disabled="#{empty deplacementController.selected}"/>
+
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{externe.prepareCreate}" update=":DeplacementCreateForm" oncomplete="PF('DeplacementCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DeplacementViewForm" oncomplete="PF('DeplacementViewDialog').show()" disabled="#{empty externe.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":DeplacementEditForm" oncomplete="PF('DeplacementEditDialog').show()" disabled="#{empty externe.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{externe.destroy}" update=":growl,datalist" disabled="#{empty externe.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

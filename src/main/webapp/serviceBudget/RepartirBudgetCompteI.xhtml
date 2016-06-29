@@ -6,13 +6,12 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Répartition Budget Compte</title>
     </h:head>
-    <h:body onload="#{budgetController.getItemes()}">
         <h:body onload="#{dotationsecteurController.itemes}">
             <ui:composition template="./templateServiceBudget.xhtml">
                 <ui:define name="Title_Page">
-                    Répartition des budgets des Secteurs
+                    Répartition des budgets des Comptes
                 </ui:define>
                 <ui:define name="content">
                     <h:form id="BudgetCompteCreateForm">
@@ -92,7 +91,7 @@
                         <div class="col-md-12 col-sm-12">
                             <div class="panel panel-info">
                                 <div class="panel-heading">
-                                    Liste Des Années Budgétaires
+                                    Liste Des Budgets des Comptes
                                 </div>
                                 <div class="panel-body">
                                     <div class="table-responsive">

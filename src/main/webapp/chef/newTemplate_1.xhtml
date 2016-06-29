@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+ 
+      <title>  <ui:insert name="title">
+            Projet Finance FSSM
+        </ui:insert></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <h:outputStylesheet name="tem3Ges/vendors/bootstrap/dist/css/bootstrap.min.css"  />
+        <h:outputStylesheet library="tem3Ges" name="vendors/font-awesome/css/font-awesome.min.css"  />    
+        <h:outputStylesheet name="tem3Ges/vendors/iCheck/skins/flat/green.css"  />   
+        <h:outputStylesheet name="tem3Ges/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css"  />   
+        <h:outputStylesheet name="tem3Ges/css/maps/jquery-jvectormap-2.0.3.css"  /> 
+        <h:outputStylesheet name="tem3Ges/css/custom.css"  />
+
+      
+                 <!-- Datatables -->
+                 <h:outputScript name="tem3Ges/js/datatableAdd.js"/>
+                          <!-- Datatables -->
+    <h:outputScript name="tem3Ges/vendors/datatables.net/js/jquery.dataTables.min.js"/>
+    <h:outputScript name="tem3Ges/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"/>
+    <h:outputScript name="tem3Ges/vendors/datatables.net-buttons/js/dataTables.buttons.min.js"/>
+    <h:outputScript name="tem3Ges/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"/>
+    <h:outputScript name="tem3Ges/vendors/datatables.net-buttons/js/buttons.flash.min.js"/>
+    <h:outputScript name="tem3Ges/vendors/datatables.net-buttons/js/buttons.html5.min.js"/>
+    <h:outputScript name="tem3Ges/vendors/datatables.net-buttons/js/buttons.print.min.js"/>
+    <h:outputScript name="tem3Ges/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"/>
+    <h:outputScript name="tem3Ges/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"/>
+    <h:outputScript name="tem3Ges/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"/>
+    <h:outputScript name="tem3Ges/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"/>
+    <h:outputScript name="tem3Ges/vendors/datatables.net-scroller/js/datatables.scroller.min.js"/>
+    <h:outputScript name="tem3Ges/vendors/jszip/dist/jszip.min.js"/>
+    <h:outputScript name="tem3Ges/vendors/pdfmake/build/pdfmake.min.js"/>
+    <h:outputScript name="tem3Ges/vendors/pdfmake/build/vfs_fonts.js"/>
+    <!-- Datatables -->
+        <h:outputStylesheet library="tem3Ges" name="vendors/datatables.net-bs/css/dataTables.bootstrap.min.css"/>
+        <h:outputStylesheet library="tem3Ges" name="vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css"/>
+        <h:outputStylesheet library="tem3Ges" name="vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css"/>
+        <h:outputStylesheet library="tem3Ges" name="vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css"/>
+        <h:outputStylesheet library="tem3Ges" name="vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css"/> 
+    
+     
+        
+    </h:head>
+
+    <h:body styleClass="nav-md">
+        <div class="container body">
+      <div class="main_container">
+          <p:growl id="growl" life="3000" />
+        <ui:insert name="top">
+            <ui:include src = "header.xhtml " />
+        </ui:insert>
+
+     
+            
+          
+          <!-- page content -->
+                    <div class="right_col" role="main">
+                      <div class="">
+                        <div class="page-title">
+                          <div class="title_left">
+                           <h3> <ui:insert name="titlepanelLeft">
+                                    <!-- Content -->
+                                    Plain Page
+                                </ui:insert></h3>
+                          </div>
+
+                          <div class="title_right">
+                            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                              <ui:insert name="titlepanelRight">
+                                    <!-- Content -->
+                                    
+                                </ui:insert>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="row">
+
+                          <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel" >
+                              <div class="x_title">
+                                <h2>  <ui:insert name="titlepanel">
+                                    <!-- Content -->
+                                    Plain Page
+                                </ui:insert></h2>
+                                
+                                <ul class="nav navbar-right panel_toolbox">
+                                  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                  </li>
+                                  <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                      <li><a href="#">Settings 1</a>
+                                      </li>
+                                      <li><a href="#">Settings 2</a>
+                                      </li>
+                                    </ul>
+                                  </li>
+                                  <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                  </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                              </div>
+                                <ui:insert name="content">
+                                    <!-- Content -->
+                                </ui:insert>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /page content -->
+
+        
+            <ui:insert name="bottom">
+                <!-- Footer -->
+                <ui:include src="footer.xhtml" />
+            </ui:insert>
+      </div>
+        </div>
+
+        
+    </h:body>
+
+<!--        <h:outputScript name="tem3Ges/vendors/jquery/dist/jquery.min.js"/>-->
+    
+        <h:outputScript name="tem3Ges/vendors/bootstrap/dist/js/bootstrap.min.js"/>
+
+        <h:outputScript name="tem3Ges/vendors/fastclick/lib/fastclick.js"/> 
+        <h:outputScript name="tem3Ges/vendors/nprogress/nprogress.js"/>
+        <h:outputScript name="tem3Ges/js/custom.js"/>
+        
+ 
+    
+    
+
+    
+</html>

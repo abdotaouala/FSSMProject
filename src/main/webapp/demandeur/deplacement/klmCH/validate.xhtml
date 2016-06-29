@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:t="http://java.sun.com/jsf/passthrough">
+
+    <ui:composition>
+
+        <p:dialog id="DeplacementValidateDlg" widgetVar="DeplacementValidateDialog" showEffect="explode" hideEffect="explode" modal="true" resizable="false" appendTo="@(body)" header="Deplacement kilometrique"  width="40%" >
+            <h:form id="DeplacementValidateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="1" rendered="#{kilometrique.selected != null}" style="width:100%">
+
+
+                        <p:panelGrid columns="2" style="width: 100%">
+                            Compte
+                            <p:outputLabel id="cpt1" value="#{kilometrique.compte.intitule}" title="Secteur principal" />
+                            Secteur principal
+                            <h:outputText id="sectp" value="#{kilometrique.selected.idDotationSect.idSecteur.idSecteurP.designation}" title="Secteur Principal"/>
+                        </p:panelGrid> 
+                        <p:selectOneMenu id="sect" value="#{kilometrique.secteur}" style="width: 100% "> 
+
+                            <f:selectItems value="#{kilometrique.selected.idDotationSect.idSecteur.idSecteurP.secteurList}" var="item2" itemValue="#{item2}" itemLabel="#{item2.intituleSecteur}" />
+                            <p:ajax  update="infos " />
+                        </p:selectOneMenu>
+                        <p:tooltip showEffect="clip" hideEffect="explode" id="toolTipFade" for="sect" value="Selection un secteur parmit les secteurs de deplacement" />
+
+                        <p:panel id="infos" style="width:100%">
+                            <h3>
+                                <h:outputText value="Mantant Initiale"/>
+
+                                <center>
+                                    <h2>
+                                        <h:outputText value="#{kilometrique.secteur.dotationsecteurList.get(0).montantInitial}DH"/>
+                                    </h2>
+                                </center>
+
+                                <h:outputText value="Reliquat : "/>
+                                <center>
+                                    <h2>
+                                        <h:outputText value="#{kilometrique.secteur.dotationsecteurList.get(0).reliquat} DH"/>
+                                    </h2>
+                                </center>
+
+                                <h:outputText value="Totale Deplacement :"/>
+                                <center>
+                                    <h2 style='color: royalblue'>
+                                        <h:outputText value="#{kilometrique.selected.mntkm eq null ? 0 : kilometrique.selected.mntkm } DH"/>
+
+                                    </h2>
+                                </center>
+                                <hr />
+                                <h:outputText id="infos2" value="Reliquat aprés calcule :"/>
+                                <center >
+
+                                    <h:outputText value="#{kilometrique.secteur.dotationsecteurList.get(0).reliquat-kilometrique.selected.mntkm} DH" style="color: #{kilometrique.selected.idDotationSect.reliquat-kilometrique.selected.mntkm > 0 ?'green':'red'}"/>                                  
+                                    <div id="div" class="alert #{kilometrique.secteur.dotationsecteurList.get(0).reliquat-kilometrique.selected.mntkm > 0 ?'alert-success':'alert-danger'}" role="alert" >
+                                        <span class="glyphicon #{kilometrique.secteur.dotationsecteurList.get(0).reliquat-kilometrique.selected.mntkm > 0 ?'glyphicon glyphicon-ok':'glyphicon-exclamation-sign'}" aria-hidden="true"></span>
+                                        <span class="sr-only">#{kilometrique.secteur.dotationsecteurList.get(0).reliquat-kilometrique.selected.mntkm > 0 ?'OK !':'Error:'}</span>
+
+                                        #{kilometrique.secteur.dotationsecteurList.get(0).reliquat-kilometrique.selected.mntkm > 0 ?'Secteur avec budget':'Attention ! secteur avec budget faible !.'}
+                                    </div>
+                                </center>
+                            </h3>
+
+
+                        </p:panel>
+
+
+                        <p:selectOneMenu style="width:100%" t:data-toggle="tooltip" t:data-placement="bottom" t:title="Choisir status finale" id="status" value="#{kilometrique.selected.etat}" required="true" requiredMessage="#{bundle.EditDeplacementRequiredMessage_dotationsecteur}">
+                            <f:selectItem itemValue="1" itemLabel="Valide" />
+                            <f:selectItem itemValue="2" itemLabel="Rejete" />
+                            <f:selectItem itemValue="0" itemLabel="En cour" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Observation" for="observation" />
+                        <p:inputTextarea style="width:100%" id="observation" value="#{kilometrique.selected.observation}" title="#{bundle.CreateDeplacementTitle_piece}" />
+
+                    </p:panelGrid>
+                     <p:commandButton actionListener="#{kilometrique.update}" onclick="DeplacementValidateDialog.hide()" value="#{bundle.Save}" update="display,:DeplacementListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DeplacementValidateDialog');"/>
+                    
+              
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

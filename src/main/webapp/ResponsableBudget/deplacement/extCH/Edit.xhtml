@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DeplacementEditDlg" widgetVar="DeplacementEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDeplacementTitle}" width="70%" height="100%" showEffect="explode" hideEffect="explode">
+            <h:form id="DeplacementEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{externe.selected != null}" style="width: 100%" columnClasses="ui-grid-col-2,ui-grid-col-10" styleClass="ui-panelgrid-blank">
+
+
+                        <p:growl id="growl" sticky="true" showDetail="true"/>
+
+                        <p:wizard>
+                            <p:tab id="personal" title="Bénéficiaire">
+                                <p:panel header="Information Bénéficiaire">
+                                    <p:messages />
+                                    <h:panelGrid columns="2" >
+                                        <p:outputLabel value="Intervenant" for="cinPpr" />
+                                        <p:selectOneMenu id="cinPpr" value="#{externe.selected.cinPpr}" required="true" requiredMessage="#{bundle.EditDeplacementRequiredMessage_cinPpr}">
+                                            <f:selectItems value="#{intervenantController.itemsAvailableSelectOne}"
+                                                           var="cinPprItem"
+                                                           itemValue="#{cinPprItem}" itemLabel ="#{cinPprItem.nomComplet}"/>
+                                        </p:selectOneMenu>
+
+                                        <p:outputLabel  value="Indice" for="indice" />
+                                        <p:inputText required="true" requiredMessage="Entrer Indice !" id="indice" type="number" value="#{externe.selected.indice}" title="#{bundle.CreateDeplacementTitle_indice}" />
+
+                                        <p:outputLabel value="Echelle" for="echelle" />
+                                        <p:inputText required="true" requiredMessage="Entrer echelle !" id="echelle" type="number" value="#{externe.selected.echelle}" title="#{bundle.CreateDeplacementTitle_echelle}" />
+
+                                        <p:outputLabel value="Grade" for="grade" />
+                                        <p:inputText required="true" requiredMessage="Entrer grade !" id="grade" value="#{externe.selected.grade}" title="#{bundle.CreateDeplacementTitle_grade}" />
+
+                                    </h:panelGrid>
+                                </p:panel>
+                            </p:tab>
+
+                            <p:tab id="address" title="Deplacement">
+                                <p:panel header="Information deplacement">
+                                    <p:messages />
+                                    <h:panelGrid columns="4" >
+
+
+
+
+                                        <p:outputLabel value="pays" for="pays" />
+                                        <p:selectOneMenu id="pays" value="#{externe.selected.nomPays}" effect="fold" editable="false" style="width:160px" filter="true" filterMatchMode="startsWith">
+                                            <f:selectItem itemValue="France" itemLabel="France"/>
+                                            <f:selectItem itemValue="Afghanistan" itemLabel="Afghanistan"/>
+                                            <f:selectItem itemValue="Afrique_Centrale" itemLabel="Afrique_Centrale"/>
+                                            <f:selectItem itemValue="Afrique_du_sud" itemLabel="Afrique_du_sud"/>
+                                            <f:selectItem itemValue="Albanie" itemLabel="Albanie"/>
+                                            <f:selectItem itemValue="Algerie" itemLabel="Algerie"/>
+                                            <f:selectItem itemValue="Allemagne" itemLabel="Allemagne"/>
+                                            <f:selectItem itemValue="Andorre" itemLabel="Andorre"/>
+                                            <f:selectItem itemValue="Angola" itemLabel="Angola"/>
+                                            <f:selectItem itemValue="Anguilla" itemLabel="Anguilla"/>
+                                            <f:selectItem itemValue="Arabie_Saoudite" itemLabel="Arabie_Saoudite"/>
+                                            <f:selectItem itemValue="Argentine" itemLabel="Argentine"/>
+                                            <f:selectItem itemValue="Armenie" itemLabel="Armenie"/>
+                                            <f:selectItem itemValue="Australie" itemLabel="Australie"/>
+                                            <f:selectItem itemValue="Autriche" itemLabel="Autriche"/>
+                                            <f:selectItem itemValue="Azerbaidjan" itemLabel="Azerbaidjan"/>
+                                            <f:selectItem itemValue="Bahamas" itemLabel="Bahamas"/>
+                                            <f:selectItem itemValue="Bangladesh" itemLabel="Bangladesh"/>
+                                            <f:selectItem itemValue="Barbade" itemLabel="Barbade"/>
+                                            <f:selectItem itemValue="Bahrein" itemLabel="Bahrein"/>
+                                            <f:selectItem itemValue="Belgique" itemLabel="Belgique"/>
+                                            <f:selectItem itemValue="Belize" itemLabel="Belize"/>
+                                            <f:selectItem itemValue="Benin" itemLabel="Benin"/>
+                                            <f:selectItem itemValue="Bermudes" itemLabel="Bermudes"/>
+                                            <f:selectItem itemValue="Bielorussie" itemLabel="Bielorussie"/>
+                                            <f:selectItem itemValue="Bolivie" itemLabel="Bolivie"/>
+                                            <f:selectItem itemValue="Botswana" itemLabel="Botswana"/>
+                                            <f:selectItem itemValue="Bhoutan" itemLabel="Bhoutan"/>
+                                            <f:selectItem itemValue="Boznie_Herzegovine" itemLabel="Boznie_Herzegovine"/>
+                                            <f:selectItem itemValue="Bresil" itemLabel="Bresil"/>
+                                            <f:selectItem itemValue="Brunei" itemLabel="Brunei"/>
+                                            <f:selectItem itemValue="Bulgarie" itemLabel="Bulgarie"/>
+                                            <f:selectItem itemValue="Burkina_Faso" itemLabel="Burkina_Faso"/>
+                                            <f:selectItem itemValue="Burundi" itemLabel="Burundi"/>
+                                            <f:selectItem itemValue="Caiman" itemLabel="Caiman"/>
+                                            <f:selectItem itemValue="Cambodge" itemLabel="Cambodge"/>
+                                            <f:selectItem itemValue="Cameroun" itemLabel="Cameroun"/>
+                                            <f:selectItem itemValue="Canada" itemLabel="Canada"/>
+                                            <f:selectItem itemValue="Canaries" itemLabel="Canaries"/>
+                                            <f:selectItem itemValue="Cap_vert" itemLabel="Cap_vert"/>
+                                            <f:selectItem itemValue="Chili" itemLabel="Chili"/>
+                                            <f:selectItem itemValue="Chine" itemLabel="Chine"/>
+                                            <f:selectItem itemValue="Chypre" itemLabel="Chypre"/>
+                                            <f:selectItem itemValue="Colombie" itemLabel="Colombie"/>
+                                            <f:selectItem itemValue="Comores" itemLabel="Comores"/>
+                                            <f:selectItem itemValue="Congo" itemLabel="Congo"/>
+                                            <f:selectItem itemValue="Congo_democratique" itemLabel="Congo_democratique"/>
+                                            <f:selectItem itemValue="Cook" itemLabel="Cook"/>
+                                            <f:selectItem itemValue="Coree_du_Nord" itemLabel="Coree_du_Nord"/>
+                                            <f:selectItem itemValue="Coree_du_Sud" itemLabel="Coree_du_Sud"/>
+                                            <f:selectItem itemValue="Costa_Rica" itemLabel="Costa_Rica"/>
+                                            <f:selectItem itemValue="Cote_d_Ivoire" itemLabel="Cote_d_Ivoire"/>
+                                            <f:selectItem itemValue="Croatie" itemLabel="Croatie"/>
+                                            <f:selectItem itemValue="Cuba" itemLabel="Cuba"/>
+                                            <f:selectItem itemValue="Danemark" itemLabel="Danemark"/>
+                                            <f:selectItem itemValue="Djibouti" itemLabel="Djibouti"/>
+                                            <f:selectItem itemValue="Dominique" itemLabel="Dominique"/>
+                                            <f:selectItem itemValue="Egypte" itemLabel="Egypte"/> 
+                                            <f:selectItem itemValue="Emirats_Arabes_Unis" itemLabel="Emirats_Arabes_Unis"/>
+                                            <f:selectItem itemValue="Equateur" itemLabel="Equateur"/>
+                                            <f:selectItem itemValue="Erythree" itemLabel="Erythree"/>
+                                            <f:selectItem itemValue="Espagne" itemLabel="Espagne"/>
+                                            <f:selectItem itemValue="Estonie" itemLabel="Estonie"/>
+                                            <f:selectItem itemValue="Etats_Unis" itemLabel="Etats_Unis"/>
+                                            <f:selectItem itemValue="Ethiopie" itemLabel="Ethiopie"/>
+                                            <f:selectItem itemValue="Falkland" itemLabel="Falkland"/>
+                                            <f:selectItem itemValue="Feroe" itemLabel="Feroe"/>
+                                            <f:selectItem itemValue="Fidji" itemLabel="Fidji"/>
+                                            <f:selectItem itemValue="Finlande" itemLabel="Finlande"/>
+                                            <f:selectItem itemValue="France" itemLabel="France"/>
+                                            <f:selectItem itemValue="Gabon" itemLabel="Gabon"/>
+                                            <f:selectItem itemValue="Gambie" itemLabel="Gambie"/>
+                                            <f:selectItem itemValue="Georgie" itemLabel="Georgie"/>
+                                            <f:selectItem itemValue="Ghana" itemLabel="Ghana"/>
+                                            <f:selectItem itemValue="Gibraltar" itemLabel="Gibraltar"/>
+                                            <f:selectItem itemValue="Grece" itemLabel="Grece"/>
+                                            <f:selectItem itemValue="Grenade" itemLabel="Grenade"/>
+                                            <f:selectItem itemValue="Groenland" itemLabel="Groenland"/>
+                                            <f:selectItem itemValue="Guadeloupe" itemLabel="Guadeloupe"/>
+                                            <f:selectItem itemValue="Guam" itemLabel="Guam"/>
+                                            <f:selectItem itemValue="Guatemala" itemLabel="Guatemala"/>
+                                            <f:selectItem itemValue="Guernesey" itemLabel="Guernesey"/>
+                                            <f:selectItem itemValue="Guinee" itemLabel="Guinee"/>
+                                            <f:selectItem itemValue="Guinee_Bissau" itemLabel="Guinee_Bissau"/>
+                                            <f:selectItem itemValue="Guinee equatoriale" itemLabel="Guinee equatoriale"/>
+                                            <f:selectItem itemValue="Guyana" itemLabel="Guyana"/>
+                                            <f:selectItem itemValue="Guyane_Francaise" itemLabel="Guyane_Francaise "/>
+                                            <f:selectItem itemValue="Haiti" itemLabel="Haiti"/>
+                                            <f:selectItem itemValue="Hawaii" itemLabel="Hawaii"/>
+                                            <f:selectItem itemValue="Honduras" itemLabel="Honduras"/>
+                                            <f:selectItem itemValue="Hong_Kong" itemLabel="Hong_Kong"/>
+                                            <f:selectItem itemValue="Hongrie" itemLabel="Hongrie"/>
+                                            <f:selectItem itemValue="Inde" itemLabel="Inde"/>
+                                            <f:selectItem itemValue="Indonesie" itemLabel="Indonesie"/>
+                                            <f:selectItem itemValue="Iran" itemLabel="Iran"/>
+                                            <f:selectItem itemValue="Iraq" itemLabel="Iraq"/>
+                                            <f:selectItem itemValue="Irlande" itemLabel="Irlande"/>
+                                            <f:selectItem itemValue="Islande" itemLabel="Islande"/>
+                                            <f:selectItem itemValue="Israel" itemLabel="Israel"/>
+                                            <f:selectItem itemValue="Italie" itemLabel="Italie"/>
+                                            <f:selectItem itemValue="Jamaique" itemLabel="Jamaique"/>
+                                            <f:selectItem itemValue="Jan Mayen" itemLabel="Jan Mayen"/>
+                                            <f:selectItem itemValue="Japon" itemLabel="Japon"/>
+                                            <f:selectItem itemValue="Jersey" itemLabel="Jersey"/>
+                                            <f:selectItem itemValue="Jordanie" itemLabel="Jordanie"/>
+                                            <f:selectItem itemValue="Kazakhstan" itemLabel="Kazakhstan"/>
+                                            <f:selectItem itemValue="Kenya" itemLabel="Kenya"/>
+                                            <f:selectItem itemValue="Kirghizstan" itemLabel="Kirghizstan"/>
+                                            <f:selectItem itemValue="Kiribati" itemLabel="Kiribati"/>
+                                            <f:selectItem itemValue="Koweit" itemLabel="Koweit"/>
+                                            <f:selectItem itemValue="Laos" itemLabel="Laos"/>
+                                            <f:selectItem itemValue="Lesotho" itemLabel="Lesotho"/>
+                                            <f:selectItem itemValue="Lettonie" itemLabel="Lettonie"/>
+                                            <f:selectItem itemValue="Liban" itemLabel="Liban"/>
+                                            <f:selectItem itemValue="Liberia" itemLabel="Liberia"/>
+                                            <f:selectItem itemValue="Liechtenstein" itemLabel="Liechtenstein"/>
+                                            <f:selectItem itemValue="Lituanie" itemLabel="Lituanie"/>
+                                            <f:selectItem itemValue="Luxembourg" itemLabel="Luxembourg"/>
+                                            <f:selectItem itemValue="Lybie" itemLabel="Lybie"/>
+                                            <f:selectItem itemValue="Macao" itemLabel="Macao"/>
+                                            <f:selectItem itemValue="Macedoine" itemLabel="Macedoine"/>
+                                            <f:selectItem itemValue="Madagascar" itemLabel="Madagascar"/>
+                                            <f:selectItem itemValue="Madère" itemLabel="Madère"/>
+                                            <f:selectItem itemValue="Malaisie" itemLabel="Malaisie"/>
+                                            <f:selectItem itemValue="Malawi" itemLabel="Malawi"/>
+                                            <f:selectItem itemValue="Maldives" itemLabel="Maldives"/>
+                                            <f:selectItem itemValue="Mali" itemLabel="Mali"/>
+                                            <f:selectItem itemValue="Malte" itemLabel="Malte"/>
+                                            <f:selectItem itemValue="Man" itemLabel="Man"/>
+                                            <f:selectItem itemValue="Mariannes du Nord" itemLabel="Mariannes du Nord"/>
+
+                                            <f:selectItem itemValue="Marshall" itemLabel="Marshall"/>
+                                            <f:selectItem itemValue="Martinique" itemLabel="Martinique"/>
+                                            <f:selectItem itemValue="Maurice" itemLabel="Maurice"/>
+                                            <f:selectItem itemValue="Mauritanie" itemLabel="Mauritanie"/>
+                                            <f:selectItem itemValue="Mayotte" itemLabel="Mayotte"/>
+                                            <f:selectItem itemValue="Mexique" itemLabel="Mexique"/>
+                                            <f:selectItem itemValue="Micronesie" itemLabel="Micronesie"/>
+                                            <f:selectItem itemValue="Midway" itemLabel="Midway"/>
+                                            <f:selectItem itemValue="Moldavie" itemLabel="Moldavie"/>
+                                            <f:selectItem itemValue="Monaco" itemLabel="Monaco"/>
+                                            <f:selectItem itemValue="Mongolie" itemLabel="Mongolie"/>
+                                            <f:selectItem itemValue="Montserrat" itemLabel="Montserrat"/>
+                                            <f:selectItem itemValue="Mozambique" itemLabel="Mozambique"/>
+                                            <f:selectItem itemValue="Namibie" itemLabel="Namibie"/>
+                                            <f:selectItem itemValue="Nauru" itemLabel="Nauru"/>
+                                            <f:selectItem itemValue="Nepal" itemLabel="Nepal"/>
+                                            <f:selectItem itemValue="Nicaragua" itemLabel="Nicaragua"/>
+                                            <f:selectItem itemValue="Niger" itemLabel="Niger"/>
+                                            <f:selectItem itemValue="Nigeria" itemLabel="Nigeria"/>
+                                            <f:selectItem itemValue="Niue" itemLabel="Niue"/>
+                                            <f:selectItem itemValue="Norfolk" itemLabel="Norfolk"/>
+                                            <f:selectItem itemValue="Norvege" itemLabel="Norvege"/>
+                                            <f:selectItem itemValue="Nouvelle_Caledonie" itemLabel="Nouvelle_Caledonie"/>
+                                            <f:selectItem itemValue="Nouvelle_Zelande" itemLabel="Nouvelle_Zelande"/>
+                                            <f:selectItem itemValue="Oman" itemLabel="Oman"/>
+                                            <f:selectItem itemValue="Ouganda" itemLabel="Ouganda"/>
+                                            <f:selectItem itemValue="Ouzbekistan" itemLabel="Ouzbekistan"/>
+                                            <f:selectItem itemValue="Pakistan" itemLabel="Pakistan"/>
+                                            <f:selectItem itemValue="Palau" itemLabel="Palau"/>
+                                            <f:selectItem itemValue="Palestine" itemLabel="Palestine"/>
+                                            <f:selectItem itemValue="Panama" itemLabel="Panama"/>
+                                            <f:selectItem itemValue="Papouasie_Nouvelle_Guinee" itemLabel="Papouasie_Nouvelle_Guinee"/>
+                                            <f:selectItem itemValue="Paraguay" itemLabel="Paraguay"/>
+                                            <f:selectItem itemValue="Pays_Bas" itemLabel="Pays_Bas"/>
+                                            <f:selectItem itemValue="Perou" itemLabel="Perou"/>
+                                            <f:selectItem itemValue="Philippines" itemLabel="Philippines"/> 
+                                            <f:selectItem itemValue="Pologne" itemLabel="Pologne"/>
+                                            <f:selectItem itemValue="Polynesie" itemLabel="Polynesie"/>
+                                            <f:selectItem itemValue="" itemLabel="Porto_Rico"/>
+                                            <f:selectItem itemValue="Porto_Rico" itemLabel="Portugal"/>
+                                            <f:selectItem itemValue="Qatar" itemLabel="Qatar"/>Qatar
+                                            <f:selectItem itemValue="Republique_Dominicaine" itemLabel="Republique_Dominicaine"/>
+                                            <f:selectItem itemValue="Republique_Tcheque" itemLabel="Republique_Tcheque"/>
+                                            <f:selectItem itemValue="Reunion" itemLabel="Reunion"/>
+                                            <f:selectItem itemValue="Roumanie" itemLabel="Roumanie"/>
+                                            <f:selectItem itemValue="Royaume_Uni" itemLabel="Royaume_Uni"/>
+                                            <f:selectItem itemValue="Russie" itemLabel="Russie"/>
+                                            <f:selectItem itemValue="Rwanda" itemLabel="Rwanda"/>
+                                            <f:selectItem itemValue="Sahara Occidental" itemLabel="Sahara Occidental"/>
+                                            <f:selectItem itemValue="Sainte_Lucie" itemLabel="Sainte_Lucie"/>
+                                            <f:selectItem itemValue="Saint_Marin" itemLabel="Saint_Marin"/>
+                                            <f:selectItem itemValue="Salomon" itemLabel="Salomon"/>
+                                            <f:selectItem itemValue="Salvador" itemLabel="Salvador"/>
+                                            <f:selectItem itemValue="Samoa_Occidentales" itemLabel="Samoa_Occidentales"/>
+                                            <f:selectItem itemValue="Samoa_Americaine" itemLabel="Samoa_Americaine"/>
+                                            <f:selectItem itemValue="Sao_Tome_et_Principe" itemLabel="Sao_Tome_et_Principe"/>
+                                            <f:selectItem itemValue="Senegal" itemLabel="Senegal"/>
+                                            <f:selectItem itemValue="Seychelles" itemLabel="Seychelles"/>
+                                            <f:selectItem itemValue="Sierra Leone" itemLabel="Sierra Leone"/>
+                                            <f:selectItem itemValue="Singapour" itemLabel="Singapour"/>
+                                            <f:selectItem itemValue="Slovaquie" itemLabel="Slovaquie"/>
+                                            <f:selectItem itemValue="Slovenie" itemLabel="Slovenie"/>
+                                            <f:selectItem itemValue="Somalie" itemLabel="Somalie"/>
+                                            <f:selectItem itemValue="Soudan" itemLabel="Soudan"/>
+                                            <f:selectItem itemValue="Sri_Lanka" itemLabel="Sri_Lanka"/>
+                                            <f:selectItem itemValue="Suede" itemLabel="Suede"/>
+                                            <f:selectItem itemValue="Suisse" itemLabel="Suisse"/>
+                                            <f:selectItem itemValue="Surinam" itemLabel="Surinam"/>
+                                            <f:selectItem itemValue="Swaziland" itemLabel="Swaziland"/>
+                                            <f:selectItem itemValue="Syrie" itemLabel="Syrie"/>
+                                            <f:selectItem itemValue="Tadjikistan" itemLabel="Tadjikistan"/>
+                                            <f:selectItem itemValue="Taiwan" itemLabel="Taiwan"/>
+                                            <f:selectItem itemValue="Tonga" itemLabel="Tonga"/>
+                                            <f:selectItem itemValue="Tanzanie" itemLabel="Tanzanie"/>
+                                            <f:selectItem itemValue="Tchad" itemLabel="Tchad"/>
+                                            <f:selectItem itemValue="Thailande" itemLabel="Thailande"/>
+                                            <f:selectItem itemValue="Tibet" itemLabel="Tibet"/>
+                                            <f:selectItem itemValue="Timor_Oriental" itemLabel="Timor_Oriental"/>
+                                            <f:selectItem itemValue="Togo" itemLabel="Togo"/>
+                                            <f:selectItem itemValue="Trinite_et_Tobago" itemLabel="Trinite_et_Tobago"/>
+                                            <f:selectItem itemValue="Tristan da cunha" itemLabel="Tristan da cunha"/>
+                                            <f:selectItem itemValue="Tunisie" itemLabel="Tunisie"/>
+                                            <f:selectItem itemValue="Turkmenistan" itemLabel="Turkmenistan"/>
+                                            <f:selectItem itemValue="Turquie" itemLabel="Turquie"/>
+                                            <f:selectItem itemValue="Ukraine" itemLabel="Ukraine"/>
+                                            <f:selectItem itemValue="Uruguay" itemLabel="Uruguay"/>
+                                            <f:selectItem itemValue="Vanuatu" itemLabel="Vanuatu"/>
+                                            <f:selectItem itemValue="Vatican" itemLabel="Vatican"/>
+                                            <f:selectItem itemValue="Venezuela" itemLabel="Venezuela"/>
+                                            <f:selectItem itemValue="Vierges_Americaines" itemLabel="Vierges_Americaines"/>
+                                            <f:selectItem itemValue="Vierges_Britanniques" itemLabel="Vierges_Britanniques"/>
+                                            <f:selectItem itemValue="Vietnam" itemLabel="Vietnam"/>
+                                            <f:selectItem itemValue="Wake" itemLabel="Wake"/>
+                                            <f:selectItem itemValue="Wallis et Futuma" itemLabel="Wallis et Futuma"/>
+                                            <f:selectItem itemValue="Yemen" itemLabel="Yemen"/>
+                                            <f:selectItem itemValue="Yougoslavie" itemLabel="Yougoslavie"/>
+                                            <f:selectItem itemValue="Zambie" itemLabel="Zambie"/>
+                                            <f:selectItem itemValue="Zimbabwe" itemLabel="Zimbabwe"/>
+
+                                        </p:selectOneMenu>
+                                        <p:outputLabel for="advanced" value="Ville :"  />
+                                        <p:selectOneMenu editable="true" id="advanced" value="#{externe.selected.ville}" required="true" panelStyle="width:180px"
+                                                         effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
+
+                                            <f:selectItem itemValue="bourg" itemLabel="Bour-en-Bresse "/>
+                                            <f:selectItem itemValue="laon" itemLabel="Laon "/>
+                                            <f:selectItem itemValue="moulins" itemLabel="Moulins "/>
+                                            <f:selectItem itemValue="digne" itemLabel="Digne "/>
+                                            <f:selectItem itemValue="gap" itemLabel="Gap "/>
+                                            <f:selectItem itemValue="nice" itemLabel="Nice "/>
+                                            <f:selectItem itemValue="privas" itemLabel="Privas "/>
+                                            <f:selectItem itemValue="charleville" itemLabel="Charleville-Mézières "/>
+                                            <f:selectItem itemValue="foix" itemLabel="Foix "/>
+                                            <f:selectItem itemValue="troyes" itemLabel="Troyes"/>
+                                            <f:selectItem itemValue="carcassonne" itemLabel="Carcassonne "/>
+                                            <f:selectItem itemValue="rodez" itemLabel="Rodez "/>
+                                            <f:selectItem itemValue="marseille" itemLabel="Marseille "/>
+                                            <f:selectItem itemValue="caen" itemLabel="Caen "/>
+                                            <f:selectItem itemValue="aurillac" itemLabel="Aurilac "/>
+                                            <f:selectItem itemValue="angouleme" itemLabel="Angoulême "/>
+                                            <f:selectItem itemValue="larochelle" itemLabel="La Rochelle"/>
+                                            <f:selectItem itemValue="bourges" itemLabel="Bourges "/>
+                                            <f:selectItem itemValue="tulle" itemLabel="Tulle "/>
+                                            <f:selectItem itemValue="ajaccio" itemLabel="Ajaccio "/>
+                                            <f:selectItem itemValue="bastia" itemLabel="Bastia"/>
+                                            <f:selectItem itemValue="dijon" itemLabel="Dijon "/>
+                                            <f:selectItem itemValue="saintbrieuc" itemLabel="Saint-Brieuc "/>
+                                            <f:selectItem itemValue="gueret" itemLabel="Guéret (23)"/>
+                                            <f:selectItem itemValue="perigueux" itemLabel="Périgueux "/>
+                                            <f:selectItem itemValue="besancon" itemLabel="Besançon"/>
+                                            <f:selectItem itemValue="lille" itemLabel="Valence "/>
+                                            <f:selectItem itemValue="evreux" itemLabel="Evreux "/>
+                                            <f:selectItem itemValue="chartres" itemLabel="Chartres "/>
+                                            <f:selectItem itemValue="quimper" itemLabel="Quimper "/>
+                                            <f:selectItem itemValue="nimes" itemLabel="Nîmes "/>
+                                            <f:selectItem itemValue="toulouse" itemLabel="Toulouse "/>
+                                            <f:selectItem itemValue="auch" itemLabel="Auch "/>
+                                            <f:selectItem itemValue="bordeaux" itemLabel="Bordeaux "/>
+                                            <f:selectItem itemValue="montpellier" itemLabel="Montpellier "/>
+                                            <f:selectItem itemValue="rennes" itemLabel="Rennes (35)"/>
+                                            <f:selectItem itemValue="chateauroux" itemLabel="chateauroux "/>
+                                            <f:selectItem itemValue="tours" itemLabel="Tours "/>
+                                            <f:selectItem itemValue="grenoble" itemLabel="Grenoble"/>
+                                            <f:selectItem itemValue="lons" itemLabel="Lons-le-Saunier "/>
+                                            <f:selectItem itemValue="montdemarsan" itemLabel="Mont-de-Marsan "/>
+                                            <f:selectItem itemValue="blois" itemLabel="Blois (41)"/>
+                                            <f:selectItem itemValue="saintetienne" itemLabel="Saint-Etienne "/>
+                                            <f:selectItem itemValue="lepuyenvelay" itemLabel="Le Puy-en-Velay "/>
+                                            <f:selectItem itemValue="nantes" itemLabel="Nantes"/>
+                                            <f:selectItem itemValue="orleans" itemLabel="Orléans "/>
+                                            <f:selectItem itemValue="cahors" itemLabel="Cahors"/>
+                                            <f:selectItem itemValue="agen" itemLabel="Agen "/>
+                                            <f:selectItem itemValue="mende" itemLabel="Mende"/>
+                                            <f:selectItem itemValue="angers" itemLabel="Angers "/>
+                                            <f:selectItem itemValue="saintlo" itemLabel="Saint-Lô "/>
+                                            <f:selectItem itemValue="chalons" itemLabel="Châlons-en-Champagne "/>
+                                            <f:selectItem itemValue="chaumont" itemLabel="Chaumont "/>
+                                            <f:selectItem itemValue="laval" itemLabel="Laval "/>
+                                            <f:selectItem itemValue="nancy" itemLabel="Nancy "/>
+                                            <f:selectItem itemValue="barleduc" itemLabel="Bar-le-Duc "/>
+                                            <f:selectItem itemValue="vannes" itemLabel="Vannes "/>
+                                            <f:selectItem itemValue="metz" itemLabel="Metz"/>
+                                            <f:selectItem itemValue="nevers" itemLabel="Nevers "/>
+                                            <f:selectItem itemValue="lille" itemLabel="Lille "/>
+                                            <f:selectItem itemValue="beauvais" itemLabel="Beauvais "/>
+                                            <f:selectItem itemValue="alencon" itemLabel="Alençon "/>
+                                            <f:selectItem itemValue="arras" itemLabel="Arras "/>
+                                            <f:selectItem itemValue="clermont" itemLabel="Clermont-Ferrand "/>
+                                            <f:selectItem itemValue="pau" itemLabel="Pau (64)"/>
+                                            <f:selectItem itemValue="tarbes" itemLabel="Tarbes "/>
+                                            <f:selectItem itemValue="perpignan" itemLabel="Perpignan "/>
+                                            <f:selectItem itemValue="strasbourg" itemLabel="Strasbourg "/>
+                                            <f:selectItem itemValue="colmar" itemLabel="Colmar "/>
+                                            <f:selectItem itemValue="lyon" itemLabel="Lyon "/>
+                                            <f:selectItem itemValue="vesoul" itemLabel="Vesoul"/>
+                                            <f:selectItem itemValue="macon" itemLabel="Mâcon "/>
+                                            <f:selectItem itemValue="lemans" itemLabel="Le Mans "/>
+                                            <f:selectItem itemValue="chambery" itemLabel="Chambéry "/>
+                                            <f:selectItem itemValue="annecy" itemLabel="Annecy"/>
+                                            <f:selectItem itemValue="paris" itemLabel="Paris "/>
+                                            <f:selectItem itemValue="rouen" itemLabel="Rouen"/>
+                                            <f:selectItem itemValue="melun" itemLabel="Melun "/>
+                                            <f:selectItem itemValue="versailles" itemLabel="Versailles "/>
+                                            <f:selectItem itemValue="niort" itemLabel="Niort "/>
+                                            <f:selectItem itemValue="amiens" itemLabel="Amiens "/>
+                                            <f:selectItem itemValue="albi" itemLabel="Albi "/>
+                                            <f:selectItem itemValue="montauban" itemLabel="Montauban "/>
+                                            <f:selectItem itemValue="toulon" itemLabel="Toulon "/>
+                                            <f:selectItem itemValue="avignon" itemLabel="Avignon "/>
+                                            <f:selectItem itemValue="larochesuryon" itemLabel="La-Roche-sur-Yon "/>
+                                            <f:selectItem itemValue="poitiers" itemLabel="Poitiers "/>
+                                            <f:selectItem itemValue="limoges" itemLabel="Limoges "/>
+                                            <f:selectItem itemValue="epinal" itemLabel="Epinal "/>
+                                            <f:selectItem itemValue="auxerre" itemLabel="Auxerre "/>
+                                            <f:selectItem itemValue="belfort" itemLabel="Belfort"/>
+                                            <f:selectItem itemValue="evry" itemLabel="Evry (91)"/>
+                                            <f:selectItem itemValue="nanterre" itemLabel="Nanterre "/>
+                                            <f:selectItem itemValue="bobigny" itemLabel="Bobigny "/>
+                                            <f:selectItem itemValue="creteil" itemLabel="Créteil "/>
+                                            <f:selectItem itemValue="pontoise" itemLabel="Pontoise "/>
+
+
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="Date depart" for="dateDepart" />
+                                        <p:calendar id="dateDepart" pattern="MM/dd/yyyy HH:mm:ss" value="#{externe.selected.dateDepart}" title="#{bundle.EditDeplacementTitle_dateDepart}"  />
+
+                                        <p:outputLabel value="Date d'arrive" for="dateArrive" />
+                                        <p:calendar id="dateArrive" pattern="MM/dd/yyyy HH:mm:ss" value="#{externe.selected.dateArrive}" title="#{bundle.EditDeplacementTitle_dateArrive}"  />
+
+
+
+                                        <p:outputLabel value="User" for="idUser" />
+                                        <p:selectOneMenu id="idUser" value="#{externe.selected.idUser}" required="true" requiredMessage="#{bundle.EditDeplacementRequiredMessage_idUser}">
+                                            <f:selectItems value="#{usersController.itemsAvailableSelectOne}"
+                                                           var="idUserItem"
+                                                           itemValue="#{idUserItem}" itemLabel="#{idUserItem.nom} #{idUserItem.prenom}"/>
+                                        </p:selectOneMenu>
+
+                                        
+
+                                        <p:outputLabel  value="Motif" for="motif" />
+                                        <p:inputTextarea required="true" requiredMessage="Entrer motif" id="motif" value="#{externe.selected.motif}" title="#{bundle.CreateDeplacementTitle_motif}" />
+
+                                    </h:panelGrid>
+                                </p:panel>
+                            </p:tab>
+
+                            <p:tab id="secteur" title="Secteur">
+                                <p:panel header="Contact Information">
+                                    <p:messages />
+                                    <p:panelGrid columns="1" >
+
+                                        <p:outputLabel value="Intitule Compte Deplacement Interne : " />
+                                        <p:outputLabel value="#{externe.compte.intitule}"  />
+
+                                        <p:outputLabel value="Secteur de deplacement Principal"  />
+                                        <p:selectOneMenu value="#{externe.secteurprincipal}">
+                                            <f:selectItem  itemLabel="Select One" />
+                                            <f:selectItems value="#{externe.listSp}" var="item1" itemValue="#{item1}" itemLabel="#{item1.designation}" />
+                                            <p:ajax update="sect" />
+                                        </p:selectOneMenu>
+
+                                        <p:outputLabel value="Secteur de deplacement"  />
+                                        <p:selectOneMenu id="sect" value="#{externe.secteur}"  > 
+                                            <f:selectItem  itemLabel="Select One"/>
+                                            <f:selectItems value="#{externe.secteurprincipal.secteurList}" var="item2" itemValue="#{item2}" itemLabel="#{item2.intituleSecteur}" />
+                                           
+                                        </p:selectOneMenu>
+
+                                    </p:panelGrid>
+                                </p:panel>
+                            </p:tab>
+                            
+                            <p:tab id="contact" title="Justification">
+                                <p:panel header="Contact Information">
+                                    <p:messages />
+                                    <p:panelGrid columns="2" >
+
+                                        <p:outputLabel value="Justification :" for="justifi" />
+                                        <p:inputTextarea id="justifi" value="#{externe.selected.justification}"/>
+
+
+
+
+
+                                    </p:panelGrid>
+                                </p:panel>
+                            </p:tab>
+
+                            <p:tab id="confirm" title="Confirmation">
+
+                                <p:panel header="Confirmation">
+
+                                    <p:panelGrid columns="6" >
+
+                                        <h:outputText value="Bénéficiaire"/>
+                                        <h:outputText value="#{externe.selected.cinPpr.nomComplet}" title="#{bundle.ViewDeplacementTitle_cinPpr}"/>
+
+                                        <h:outputText value="Indice"/>
+                                        <h:outputText value="#{externe.selected.indice}" title="#{bundle.ViewDeplacementTitle_indice}"/>
+
+                                        <h:outputText value="Echelle"/>
+                                        <h:outputText value="#{externe.selected.echelle}" title="#{bundle.ViewDeplacementTitle_echelle}"/>
+
+                                        <h:outputText value="Grade"/>
+                                        <h:outputText value="#{externe.selected.grade}" title="#{bundle.ViewDeplacementTitle_grade}"/>
+
+
+                                        <h:outputText value="Date depart"/>
+                                        <h:outputText value="#{externe.selected.dateDepart}" title="#{bundle.ViewDeplacementTitle_dateDepart}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+
+                                        <h:outputText value="Date d'arrive"/>
+                                        <h:outputText value="#{externe.selected.dateArrive}" title="#{bundle.ViewDeplacementTitle_dateArrive}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+
+                                        <h:outputText value="Date de creation"/>
+                                        <h:outputText value="#{externe.selected.dateCreation}" title="#{bundle.ViewDeplacementTitle_dateCreation}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+
+                                        <h:outputText value="Motif"/>
+                                        <h:outputText value="#{externe.selected.motif}" />
+
+
+                                        
+                                        <h:outputText value="Pays"/>
+                                        <h:outputText value="#{externe.selected.nomPays}" title="#{bundle.ViewDeplacementTitle_ville}"/>
+
+                                        <h:outputText value="Ville de destination"/>
+                                        <h:outputText value="#{externe.selected.ville}" title="#{bundle.ViewDeplacementTitle_ville}"/>
+
+                                        <h:outputText value="Justification"/>
+                                        <h:outputText value="#{externe.selected.justification}" title="Justification"/>
+                                    </p:panelGrid>
+<!--                                    <p:commandButton actionListener="#{externe.create}" value="#{bundle.Save}" update="display2,:DeplacementListForm:datalist,:growl" oncomplete="handleSubmit(args,'DeplacementCreateDialog');"/>
+                                <f:ajax execute="@all" render="@form"/>-->
+                                    <!--</p:commandButton>-->
+                                    <p:commandButton actionListener="#{externe.update}" value="#{bundle.Save}" update="display,:DeplacementListForm:datalist,:growl" onclick="DeplacementEditDialog.hide()" oncomplete="handleSubmit(args, 'DeplacementEditDialog');"/>
+                                    
+
+                                </p:panel>
+                            </p:tab>
+                        </p:wizard>
+
+
+                    </p:panelGrid>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

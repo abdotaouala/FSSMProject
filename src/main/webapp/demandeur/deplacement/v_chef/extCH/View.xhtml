@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DeplacementViewDlg" widgetVar="DeplacementViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDeplacementTitle}">
+            <h:form id="DeplacementViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{externe.selected != null}">
+                        
+                       
+                         <h:outputText value="Intervenant"/>
+                         <h:outputText value="#{externe.selected.cinPpr.nomComplet}" title="#{bundle.ViewDeplacementTitle_cinPpr}"/>
+                    
+                      
+                        <h:outputText value="Motif : "/>
+                        <h:outputText value="#{externe.selected.motif}" title="#{bundle.ViewDeplacementTitle_motif}"/>
+                        
+                        <h:outputText value="Date de validation"/>
+                        <h:outputText value="#{externe.selected.dateEtat}" title="#{bundle.ViewDeplacementTitle_dateEtat}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        
+                        
+                       
+                        <h:outputText value="Nombre des jours"/>
+                        <h:outputText value="#{externe.selected.dateArrive-externe.selected.dateDepart}" title="#{bundle.ViewDeplacementTitle_nbrJours}"/>
+                       
+                        <h:outputText value="Date depart"/>
+                        <h:outputText value="#{externe.selected.dateDepart}" title="#{bundle.ViewDeplacementTitle_dateDepart}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        
+                        <h:outputText value="Date d'arrive"/>
+                        <h:outputText value="#{externe.selected.dateArrive}" title="#{bundle.ViewDeplacementTitle_dateArrive}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        
+                        <h:outputText value="Date de creation"/>
+                        <h:outputText value="#{externe.selected.dateCreation}" title="#{bundle.ViewDeplacementTitle_dateCreation}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        
+                        <h:outputText value="Motif"/>
+                        <h:outputText value="#{externe.selected.motifDeplacement}" title="#{bundle.ViewDeplacementTitle_motifDeplacement}"/>
+                       
+                        <h:outputText value="Status"/>
+                        <h:outputText value="#{externe.selected.etat ==0 ? 'En cour' : ''} #{externe.selected.etat ==1 ? 'Valide' : ''} #{externe.selected.etat ==2 ? 'Rejete' : ''}" title="#{bundle.ViewDeplacementTitle_motifDeplacement}"/>
+                       
+                        <h:outputText value="Creer par "/>
+                        <h:outputText value="#{externe.selected.idUser.nom} #{externe.selected.idUser.prenom}" title="#{bundle.ViewDeplacementTitle_idUser}"/>
+                        
+                        <h:outputText value="Secteur de deplacement"/>
+                        <h:outputText value="#{externe.selected.idDotationSect.idSecteur.intituleSecteur}" title="Dotation secteur"/>
+                       
+                         <h:outputText value="Piece"/>
+                        <h:outputText value="#{externe.selected.intutilePiece}" title="#{bundle.ViewDeplacementTitle_intutilePiece}"/>
+                        
+                        <h:outputText value="Piece Justificatif"/>
+                        <h:outputText value="#{externe.selected.piece}" title="#{bundle.ViewDeplacementTitle_piece}"/>
+                        
+                        <h:outputText value="Etat de externe"/>
+                        <h:outputText value="#{externe.selected.etat ==0 ?  'en Cour' : '' } #{externe.selected.etat ==1 ?  'Valide' : '' } #{externe.selected.etat ==2 ?  'Rjeter a cause de #{externe.selected.observation}' : '' }" title="#{bundle.ViewDeplacementTitle_etat}"/>
+                        
+                       
+                        <h:outputText value="Pays"/>
+                        <h:outputText value="#{externe.selected.nomPays}" title="#{bundle.ViewDeplacementTitle_nomPays}"/>
+                        <h:outputText value="Ville de destination"/>
+                        <h:outputText value="#{externe.selected.ville}" title="#{bundle.ViewDeplacementTitle_ville}"/>
+                        
+                     
+                        <h:outputText value="Indice"/>
+                        <h:outputText value="#{externe.selected.indice}" title="#{bundle.ViewDeplacementTitle_indice}"/>
+                        
+                        <h:outputText value="Echelle"/>
+                        <h:outputText value="#{externe.selected.echelle}" title="#{bundle.ViewDeplacementTitle_echelle}"/>
+                       
+                        <h:outputText value="Grade"/>
+                        <h:outputText value="#{externe.selected.grade}" title="#{bundle.ViewDeplacementTitle_grade}"/>
+                       
+                          <h:outputText value="Montant totale"/>
+                        <h:outputText value="#{externe.selected.mntKm}" title="#{bundle.ViewDeplacementTitle_mntKm}"/>
+                        
+                       
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="DeplacementViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

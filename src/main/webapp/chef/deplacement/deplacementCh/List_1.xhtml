@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./../../newTemplate.xhtml">
+
+        <ui:define name="title">
+            Gestion Deplacement
+        </ui:define>
+
+
+        <ui:define name="titlepanel">
+            Liste deplacement
+        </ui:define>
+
+        <ui:define name="content">
+            <div class="ui-fluid">
+                <p:panel  styleClass="ui-grid-col-2,ui-grid-col-10 ui-panelgrid-blank">
+                    <h:form id="DeplacementListForm" >
+                        <h:commandLink>
+                            <p:graphicImage name="/tem3Ges/images/exel.png" width="24"/>
+                            <p:dataExporter type="xls" target="datalist" fileName="availableCars" />
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage name="/tem3Ges/images/pdf.png" width="24"/>
+                            <p:dataExporter type="pdf" target="datalist" fileName="cars"/>
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage name="/tem3Ges/images/csv.png" width="24"/>
+                            <p:dataExporter type="csv" target="datalist" fileName="cars" />
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage name="/tem3Ges/images/xml.png" width="24"/>
+                            <p:dataExporter type="xml" target="datalist" fileName="cars" />
+                        </h:commandLink>
+                        <p:dataTable id="datalist" value="#{deplacementController.items}" var="item"
+                                     selectionMode="single" selection="#{deplacementController.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.idDeplacement}"
+                                     rows="8"
+                                     rowsPerPageTemplate="5,8,10,20,30,40,50"
+                                     widgetVar="carsTable"
+                                     emptyMessage="No cars found with given criteria"
+                                     rowStyleClass="#{item.etat ==2 ? 'red' : ''}#{item.etat ==1 ? 'green' : ''}"
+                                     paginatorPosition="bottom"
+                                     >
+
+                            <p:ajax event="rowSelect"   update=" viewButton  deleteButton validateButton"/>
+                            <p:ajax event="rowUnselect" update=" viewButton  deleteButton validateButton"/>
+
+                            <f:facet name="header">
+                                <p:outputPanel style="float:right;margin-top: 10px">  
+                                    <h:outputText value="Search all fields:" />
+                                    <p:inputText id="globalFilter" onkeyup="PF('carsTable').filter()" style="width:100%" placeholder="Enter keyword"/>
+                                </p:outputPanel>
+                            </f:facet>
+
+                            <p:column style="font-size: 140%" filterBy="#{item.cinPpr.nomComplet}" sortBy="#{item.cinPpr.nomComplet}"  filterMatchMode="contains" width="10%" >
+                                <f:facet name="header">
+                                    <h:outputText value="Bénéficiaire"/>
+                                </f:facet>
+                                <h:outputText value="#{item.cinPpr.nomComplet}" />
+
+                            </p:column>
+
+                            <p:column  filterBy="#{item.etat}"  headerText="Status" style="width: 20%;font-size: 100%" filterMatchMode="equals">
+                                <f:facet name="filter">
+                                    <p:selectOneButton onchange="PF('carsTable').filter()">
+                                        <f:converter converterId="javax.faces.Integer" />
+                                        <f:selectItem itemLabel="Encours" itemValue="0" />
+                                        <f:selectItem itemLabel="Valide" itemValue="1" />
+                                        <f:selectItem itemLabel="Rejeter" itemValue="2" />
+                                    </p:selectOneButton>
+                                </f:facet>
+                                <f:facet name="header">
+                                    <h:outputText value="Status"/>
+                                </f:facet>
+                                <h:outputText value="#{item.etat ==0 ?  'EnCours' : '' } #{item.etat ==1 ?  'Valide' : '' } #{item.etat ==2 ?  'Rjeter' : '' }" />
+                            </p:column>
+
+                            <p:column style="font-size: 140%"  width="10%" filterBy="#{item.motif}" sortBy="#{item.motif}"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Motif"/>
+                                </f:facet>
+
+                                <h:outputText value="#{item.motif}" />
+                            </p:column>
+
+
+
+                            <p:column style="font-size: 140%" width="10%" filterBy="#{item.ville}" sortBy="#{item.ville}"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Ville"/>
+                                </f:facet>
+                                <h:outputText value="#{item.ville}"/>
+                            </p:column>
+
+
+                            <p:column style="font-size: 140%" width="10%" filterBy="#{item.montantDepInt}" sortBy="#{item.montantDepInt}"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Montant totale"/>
+                                </f:facet>
+                                <h:outputText value="#{item.montantDepInt}"/>
+                            </p:column>
+
+
+
+                            <p:column style="font-size: 140%" width="10%" filterBy="#{item.dateDepart}" sortBy="#{item.dateDepart}"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Date depart"/>
+                                </f:facet>
+                                <h:outputText value="#{item.dateDepart}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column style="font-size: 140%" width="10%" filterBy="#{item.dateArrive}" sortBy="#{item.dateArrive}"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Date d'arrive"/>
+                                </f:facet>
+                                <h:outputText value="#{item.dateArrive}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column style="font-size: 140%" width="10%" filterBy="#{item.dateCreation}" sortBy="#{item.dateCreation}"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Date de creation"/>
+                                </f:facet>
+                                <h:outputText value="#{item.dateCreation}">
+                                    <f:convertDateTime pattern="yyyy  (dd/MM)" />
+                                </h:outputText>
+                            </p:column>
+
+
+
+
+                            <p:column style="font-size: 140%" width="10%" filterBy="#{item.idUser.nom} #{item.idUser.prenom}" sortBy="#{item.idUser.nom} #{item.idUser.prenom}"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="User"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idUser.nom} #{item.idUser.prenom}" />
+                            </p:column>
+                            <p:column style="font-size: 140%" width="10%" filterBy="#{item.idDotationSect.idCompte.intitule}" sortBy="#{item.idDotationSect.idCompte.intitule}"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Secteur"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idDotationSect.idSecteur.intituleSecteur}"/>
+                            </p:column>
+
+                            <f:facet name="footer">
+
+                                <p:commandButton id="validateButton" styleClass="btn btn-success btn-xs"  icon="ui-icon-pencil" value="Validate" update=":DeplacementValidateForm" oncomplete="PF('DeplacementValidateDialog').show()" disabled="#{empty deplacementController.selected}"/>
+                                <p:commandButton id="viewButton" styleClass="btn btn-primary btn-xs"   icon="ui-icon-search"  value="#{bundle.View}" update=":DeplacementViewForm" oncomplete="PF('DeplacementViewDialog').show()" disabled="#{empty deplacementController.selected}"/>
+                                
+                                <p:commandButton id="deleteButton" styleClass="btn btn-danger btn-xs" icon="ui-icon-trash"  value="Delete" actionListener="#{deplacementController.destroy()}" update=":growl,datalist" disabled="#{empty deplacementController.selected}">
+                                    <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                            </f:facet>
+                        </p:dataTable>
+
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+                    </h:form>
+
+                    <ui:include src="validate.xhtml"/>
+                    
+                    <ui:include src="View.xhtml"/>
+                </p:panel>
+            </div>
+        </ui:define>
+    </ui:composition>
+
+</html>

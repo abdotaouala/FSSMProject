@@ -15,23 +15,20 @@
             <ui:define name="content">
                 <h:form id="LigneCommandeCreateForm">
             <p:growl id="message" life="2000" />
-                <ui:composition>
-
-        <p:dialog id="BoncommandeViewDlg" widgetVar="BoncommandeViewDialog" modal="true" resizable="false" appendTo="@(body)" showEffect="explode" hideEffect="bounce" header="#{bundle.ViewBoncommandeTitle}">
-            <h:form id="BoncommandeViewForm">
+            <p:dialog id="BoncommandeViewDlg"  widgetVar="BoncommandeViewDialog" modal="true" resizable="false" appendTo="@(body)" showEffect="explode" hideEffect="bounce" header="#{bundle.ViewBoncommandeTitle}">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{boncommandeController.selected != null}">
                         <h:outputText value="#{bundle.ViewBoncommandeLabel_idBC}"/>
                         <h:outputText value="#{boncommandeController.selected.idBC}" title="#{bundle.ViewBoncommandeTitle_idBC}"/>
                         <h:outputText value="#{bundle.ViewBoncommandeLabel_dateCommande}"/>
                         <h:outputText value="#{boncommandeController.selected.dateCommande}" title="#{bundle.ViewBoncommandeTitle_dateCommande}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewBoncommandeLabel_tva}"/>
                         <h:outputText value="#{boncommandeController.selected.tva}" title="#{bundle.ViewBoncommandeTitle_tva}"/>
                         <h:outputText value="#{bundle.ViewBoncommandeLabel_dateReception}"/>
                         <h:outputText value="#{boncommandeController.selected.dateReception}" title="#{bundle.ViewBoncommandeTitle_dateReception}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewBoncommandeLabel_etat}"/>
                         <h:outputText value="#{boncommandeController.selected.etat}" title="#{bundle.ViewBoncommandeTitle_etat}"/>
@@ -47,14 +44,10 @@
                         <h:outputText value="#{boncommandeController.selected.idFournisseur}" title="#{bundle.ViewBoncommandeTitle_idFournisseur}"/>
                     </p:panelGrid>
                     <p:panelGrid columns="2" rendered="#{boncommandeController.selected.etat == 2 || boncommandeController.selected.etat == 0 ? false:true}" >
-                         <p:panel><h:commandButton actionListener="#{boncommandeController.PDBon}" value="PDF" styleClass="btn btn-success" /><h:commandButton actionListener="#{boncommandeController.XLSXBon}" styleClass="btn btn-success" value="Excel" /><h:commandButton styleClass="btn btn-success" actionListener="#{boncommandeController.DOCXBon}" value="Word" /></p:panel>
-                        </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="BoncommandeViewDialog.hide()"/>
+                        <p:panel><h:commandButton action="#{boncommandeController.PDBon}" value="PDF" styleClass="btn btn-success" type="submit" /><h:commandButton action="#{boncommandeController.XLSXBon}" styleClass="btn btn-success" value="Excel" /><h:commandButton styleClass="btn btn-success" action="#{boncommandeController.DOCXBon}" value="Word" /></p:panel>
+                    </p:panelGrid>
                 </h:panelGroup>
-            </h:form>
-        </p:dialog>
-
-    </ui:composition>
+            </p:dialog>
             <div class="col-md-12 col-sm-12">
                 <div class="panel panel-info">
                     <div class="panel-heading">
@@ -94,7 +87,7 @@
                                     </p:column>
                                     <p:column headerText="#{bundle.ListBoncommandeTitle_dateCommande}">
                                         <h:outputText value="#{item.dateCommande}">
-                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
                                         </h:outputText>
                                     </p:column>
                                     <p:column headerText="#{bundle.ListBoncommandeTitle_tva}">
@@ -114,7 +107,7 @@
                                     <p:column headerText="#{bundle.ListBoncommandeTitle_type}">
                                         <h:outputText value="#{item.type}"/>
                                     </p:column>
-                                     <p:ajax event="rowSelect" listener="#{boncommandeController.remplireFormulaire()}"  update="@form" process="@this"/>
+                                    <p:ajax event="rowSelect" listener="#{boncommandeController.remplireFormulaire()}"  update="@form" process="@this"/>
                                     <p:column headerText="Action">
                                         <p:commandButton icon="ui-icon-search"  action="#{boncommandeController.remplireFormulaireGBC()}" type="button" onclick="PF('BoncommandeViewDialog').show();"  class="btn btn-success btn-lg" >
                                         </p:commandButton>
@@ -124,7 +117,7 @@
                         </div>
                     </div>
                 </div>
-                </div>
+            </div>
         </h:form> 
             </ui:define>
         </ui:composition>

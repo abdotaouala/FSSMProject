@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DeplacementCreateDlg" widgetVar="DeplacementCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDeplacementTitle}">
+            <h:form id="DeplacementCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{kilometrique.selected != null}">
+
+
+                        <p:outputLabel value="Intervenant" for="cinPpr" />
+                        <p:selectOneMenu id="cinPpr" value="#{kilometrique.selected.cinPpr}" required="true" requiredMessage="#{bundle.EditDeplacementRequiredMessage_cinPpr}">
+                            <f:selectItems value="#{intervenantController.itemsAvailableSelectOne}"
+                                           var="cinPprItem"
+                                           itemValue="#{cinPprItem}" itemLabel="#{cinPprItem.nomComplet}"/>
+                        </p:selectOneMenu>
+
+
+                        <p:outputLabel value="Motif" for="motif" />
+                        <p:inputText id="motif" value="#{kilometrique.selected.motif}" title="#{bundle.CreateDeplacementTitle_motif}" />
+
+                        <p:outputLabel for="advanced" value="Ville :"  />
+                        <p:selectOneMenu editable="true" id="advanced" value="#{kilometrique.selected.ville}"  panelStyle="width:180px"
+                                         effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
+                            <f:selectItems value="#{selectOneMenuView.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme.displayName}" />
+
+                            
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Marque de voiture" for="marque" />
+                        <p:inputText id="marque" value="#{kilometrique.selected.marque}" title="#{bundle.CreateDeplacementTitle_marque}" />
+
+                        <p:outputLabel value="Puissance de voiture" for="puissance" />
+                        <p:inputText id="puissance" type="number" value="#{kilometrique.selected.puissance}" title="#{bundle.CreateDeplacementTitle_puissance}" />
+
+                        <p:outputLabel value="Nombre des kilometres sur la route" for="kmRoute" />
+                        <p:inputText id="kmRoute" value="#{kilometrique.selected.kmRoute}" title="#{bundle.CreateDeplacementTitle_kmRoute}" />
+
+                        <p:outputLabel value="Nombre des kilometres sur la route}" for="kmPiste" />
+                        <p:inputText id="kmPiste" value="#{kilometrique.selected.kmPiste}" title="#{bundle.CreateDeplacementTitle_kmPiste}" />
+
+                        <p:outputLabel value="Date depart" for="dateDepart" />
+                        <p:calendar id="dateDepart" pattern="MM/dd/yyyy HH:mm:ss" value="#{kilometrique.selected.dateDepart}" title="#{bundle.EditDeplacementTitle_dateDepart}"  />
+
+                        <p:outputLabel value="Date d'arrive" for="dateArrive" />
+                        <p:calendar id="dateArrive" pattern="MM/dd/yyyy HH:mm:ss" value="#{kilometrique.selected.dateArrive}" title="#{bundle.EditDeplacementTitle_dateArrive}"  />
+
+                        <p:outputLabel value="#{bundle.CreateDeplacementLabel_motifDeplacement}" for="motifDeplacement" />
+                        <p:inputTextarea id="motifDeplacement" value="#{kilometrique.selected.motifDeplacement}" title="#{bundle.CreateDeplacementTitle_motifDeplacement}" />
+
+                        <p:outputLabel value="User" for="idUser" />
+                        <p:selectOneMenu id="idUser" value="#{kilometrique.selected.idUser}" required="true" requiredMessage="#{bundle.EditDeplacementRequiredMessage_idUser}">
+                            <f:selectItems value="#{usersController.itemsAvailableSelectOne}"
+                                           var="idUserItem"
+                                           itemValue="#{idUserItem}" itemLabel="#{idUserItem.nom} #{idUserItem.prenom}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Secteur kilometrique " for="dotationsecteur" />
+                        <p:selectOneMenu id="dotationsecteur" value="#{kilometrique.selected.idDotationSect}" required="true" requiredMessage="#{bundle.EditDeplacementRequiredMessage_dotationsecteur}">
+                            <f:selectItems value="#{dotationsecteurController.itemsAvailableSelectOne}"
+                                           var="dotationsecteurItem"
+                                           itemValue="#{dotationsecteurItem}" itemLabel="#{dotationsecteurItem.idSecteur.intituleSecteur}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="intitule des piece justicatif" for="intutilePiece" />
+                        <p:inputText id="intutilePiece" value="#{kilometrique.selected.intutilePiece}" title="#{bundle.CreateDeplacementTitle_intutilePiece}" />
+
+                        <p:outputLabel value="#{bundle.CreateDeplacementLabel_piece}" for="piece" />
+                        <p:inputText id="piece" value="#{kilometrique.selected.piece}" title="#{bundle.CreateDeplacementTitle_piece}" />
+
+
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{kilometrique.create}" value="#{bundle.Save}" update="display,:DeplacementListForm:datalist,:growl" oncomplete="handleSubmit(args,'DeplacementCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DeplacementCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+</html>

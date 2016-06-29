@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:t="http://java.sun.com/jsf/passthrough">
+
+    <ui:composition>
+
+        <p:dialog id="DeplacementValidateDlg" widgetVar="DeplacementValidateDialog" modal="true" resizable="false" appendTo="@(body)" header="Validation deplacement ">
+            <h:form id="DeplacementValidateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="1" rendered="#{externe.selected != null}" style="width:100%">
+
+                        <p:selectOneMenu style="width:100%" t:data-toggle="tooltip" t:data-placement="top" t:title="Choisir Secteur" id="dotationsecteur" value="#{externe.selected.idDotationSect}" required="true" requiredMessage="#{bundle.EditDeplacementRequiredMessage_dotationsecteur}">
+                            <f:selectItems value="#{dotationsecteurController.itemsAvailableSelectOne}"
+                                           var="dotationsecteurItem"
+                                           itemValue="#{dotationsecteurItem}" itemLabel="#{dotationsecteurItem.idCompte.intitule}"/>
+                            <p:ajax  update="infos" />
+                        </p:selectOneMenu>
+
+                        <p:panel id="infos" style="width:100%">
+                            <h3>
+                                <h:outputText value="Mantant Initiale"/>
+
+                                <center>
+                                    <h2>
+                                        <h:outputText value="#{externe.selected.idDotationSect.montantInitial}DH"/>
+                                    </h2>
+                                </center>
+
+                                <h:outputText value="Reliquat : "/>
+                                <center>
+                                    <h2>
+                                        <h:outputText value="#{externe.selected.idDotationSect.reliquat} DH"/>
+                                    </h2>
+                                </center>
+                                
+                                <h:outputText value="Totale Deplacement :"/>
+                                <center>
+                                    <h2 style='color: royalblue'>
+                                        <h:outputText value="#{externe.selected.montantDepInt eq null ? 0 :externe.selected.montantDepInt } DH"/>
+                                    </h2>
+                                </center>
+                                <hr />
+                                <h:outputText value="Reliquat aprés calcule :"/>
+                                <center >
+                                    <h2 style="color: #{externe.selected.idDotationSect.reliquat-externe.selected.montantDepInt le 0 ? 'red':'#007069'}">
+                                        <h:outputText value="#{externe.selected.idDotationSect.reliquat-externe.selected.montantDepInt}DH"/>
+                                    </h2>
+                                </center>
+                            </h3>
+                        </p:panel>
+
+
+                        <p:selectOneMenu style="width:100%" t:data-toggle="tooltip" t:data-placement="bottom" t:title="Choisir status finale" id="status" value="#{externe.selected.etat}" required="true" requiredMessage="#{bundle.EditDeplacementRequiredMessage_dotationsecteur}">
+                            <f:selectItem itemValue="1" itemLabel="Valide" />
+                            <f:selectItem itemValue="2" itemLabel="Rejete" />
+                            <f:selectItem itemValue="0" itemLabel="En cour" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Observation" for="observation" />
+                        <p:inputTextarea style="width:100%" id="observation" value="#{externe.selected.observation}" title="#{bundle.CreateDeplacementTitle_piece}" />
+
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{externe.update}" value="#{bundle.Save}" update="display,:DeplacementListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DeplacementValidateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DeplacementValidateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

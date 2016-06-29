@@ -1,0 +1,381 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../newTemplate.xhtml">
+
+            <ui:define name="titlepanelLeft">
+                Statistiques
+            </ui:define>
+
+
+
+            <ui:define name="titlepanel">
+                Statistiques deplacement
+            </ui:define>
+
+            <ui:define name="content">
+                <h3>
+                    <h:form>
+                        <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
+                            <f:facet name="default">
+                                <h:outputText value="Selection Bénéficiaire" />
+                            </f:facet>
+
+                            <f:facet name="start">
+                                <img src="http://chimplyimage.appspot.com/images/samples/classic-spinner/indicator.gif" />
+                            </f:facet>
+
+                            <f:facet name="complete">
+                                <h:outputText value="Selection Bénéficiaire " />
+                            </f:facet>
+                        </p:ajaxStatus>
+                        <p:selectOneMenu  style="width:100%" value="#{intervenantController.selected}" filter="true" filterMatchMode="startsWith">
+                            <f:selectItem itemLabel="Select One" />
+                            <f:selectItems  value="#{intervenantController.itemsAvailableSelectOne}" var="inter" itemLabel="#{inter.nomComplet}" itemValue="#{inter}" />
+                            <p:ajax update=":form" />
+                        </p:selectOneMenu>
+                    </h:form>
+                </h3>
+                <h3>
+                    <h:form id="form">
+                        <div class="row tile_count">
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <span class="count_top"><i class="fa fa-user"></i>Deplacement interne</span>
+                                <div class="count">#{intervenantController.internes.size() }</div>
+                                <span class="count_bottom"><i class="green">4% </i> From last Week</span>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <span class="count_top"><i class="fa fa-clock-o"></i> Kilometrique</span>
+                                <div class="count">#{intervenantController.klms.size()}</div>
+                                <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <span class="count_top"><i class="fa fa-user"></i> Deplacement externe</span>
+                                <div class="count green">#{intervenantController.externes.size()}</div>
+                                <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <span class="count_top"><i class="fa fa-user"></i> Deplacement encours</span>
+                                <div class="count">#{intervenantController.externes.size()}</div>
+                                <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <span class="count_top"><i class="fa fa-user"></i> Deplacement valide</span>
+                                <div class="count">#{intervenantController.externes.size()}</div>
+                                <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <span class="count_top"><i class="fa fa-user"></i> Deplacement rejete</span>
+                                <div class="count">#{intervenantController.externes.size()}</div>
+                                <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+                            </div>
+                        </div>
+                        <div class="bs-example" data-example-id="simple-jumbotron">
+                            <div class="jumbotron">
+
+
+                                <h1>Bénéficiaire</h1>
+                                <table >
+                                    <tr>
+                                        <td>
+                                            <p:outputLabel value="Nom Complet :" />
+                                        </td>
+                                        <td>
+                                            <p:outputLabel value="#{intervenantController.selected.nomComplet}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p:outputLabel value="CIN         :" />
+                                        </td>
+                                        <td>
+                                            <p:outputLabel value="#{intervenantController.selected.cinPpr}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p:outputLabel value="Mail         : " />
+                                        </td>
+                                        <td>
+                                            <p:outputLabel value="#{intervenantController.selected.mail}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p:outputLabel value="Telephone         : " />
+                                        </td>
+                                        <td>
+                                            <p:outputLabel value="#{intervenantController.selected.telephone}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p:outputLabel value="Compte bancaire : " />
+                                        </td>
+                                        <td>
+                                            <p:outputLabel value="#{intervenantController.selected.comptebcList.get(0).intitule}" />
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p:outputLabel value="RIP : " />
+                                        </td>
+                                        <td>
+                                            <p:outputLabel value="#{intervenantController.selected.comptebcList.get(0).rib}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p:outputLabel value="Banque : " />
+                                        </td>
+                                        <td>
+                                            <p:outputLabel value="#{intervenantController.selected.comptebcList.get(0).bc}" />
+                                        </td>
+                                    </tr>
+
+                                </table>
+
+                            </div>
+                        </div>
+
+
+
+                        <h3 style="margin-top:0"></h3>
+
+                        <p:accordionPanel id="panelList">
+                            <p:tab title="Deplacement Interne">
+
+
+                                <p:commandButton styleClass="btn btn-success btn-lg" icon="ui-icon-print" value="" style="display:block;margin-bottom: 20px;left: 95%">
+                                    <p:printer target="tab1" />
+                                </p:commandButton>
+                                <h:panelGrid rendered="#{intervenantController.internes.size() != 0}" id="tab1" columns="1" cellpadding="10" style="width:100%">
+
+                                    <p:dataGrid var="car" value="#{intervenantController.internes}" columns="3"  style="width:100%"
+                                                rows="6" paginator="true" id="cars"
+                                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                rowsPerPageTemplate="6,12,16" >
+
+                                        <f:facet name="header">
+                                            Deplacements
+                                        </f:facet>
+
+                                        <p:panel header="#{car.ville}" style=" text-align:center" >
+                                            <h:panelGrid columns="1" style="width:100%">
+                                                <center>
+                                                    <table>
+                                                        <tr>
+                                                            <td>
+
+                                                            </td>
+                                                            <td>
+                                                                <h:outputText value="#{car.dateCreation}" >
+                                                                    <h1>  <f:convertDateTime pattern="dd/MM/yyyy" /></h1>
+                                                                </h:outputText>
+                                                            </td>
+
+                                                        </tr>
+
+
+                                                        <tr>
+                                                            <td>
+                                                                Montant
+                                                            </td>
+                                                            <td>
+                                                                <h1>
+                                                                    <h:outputText value="#{car.montantDepInt} DH" />
+
+                                                                </h1>
+                                                            </td>
+
+                                                        </tr>
+
+                                                    </table>
+                                                </center>
+
+
+
+
+                                                <p:commandLink  oncomplete="PF('carDialog').show()" title="View Detail">
+                                                    <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
+                                                    <f:setPropertyActionListener value="#{car}" target="#{intervenantController.deplacement}" />
+                                                </p:commandLink>
+                                            </h:panelGrid>
+                                        </p:panel>
+
+                                    </p:dataGrid>
+                                    <p:chart  type="bar" model="#{intervenantController.barModel}" style="height:100%"  />
+
+                                    <p:chart type="pie" model="#{intervenantController.pieModel1}" style="height:100%" />
+
+
+                                </h:panelGrid>
+
+
+                            </p:tab>
+
+                            <p:tab title="Deplacement Externe">
+                                <p:commandButton styleClass="btn btn-success btn-lg" icon="ui-icon-print" value="" style="display:block;margin-bottom: 20px;left: 95%">
+                                    <p:printer target="cars2" />
+                                </p:commandButton>
+                                <h:panelGrid rendered="#{intervenantController.externes.size() != 0}" columns="1" cellpadding="10" style="width:100%">
+                                    <p:dataGrid var="car" value="#{intervenantController.externes}" columns="3"  style="width:100%"
+                                                rows="6" paginator="true" id="cars2"
+                                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                rowsPerPageTemplate="6,12,16" >
+
+                                        <f:facet name="header">
+                                            Deplacements
+                                        </f:facet>
+
+                                        <p:panel header="#{car.ville}" style=" text-align:center" >
+                                            <h:panelGrid columns="1" style="width:100%">
+                                                <center>
+                                                    <table>
+                                                        <tr>
+                                                            <td>
+
+                                                            </td>
+                                                            <td>
+                                                                <h:outputText value="#{car.dateCreation}" >
+                                                                    <h1>  <f:convertDateTime pattern="dd/MM/yyyy" /></h1>
+                                                                </h:outputText>
+                                                            </td>
+
+                                                        </tr>
+
+
+                                                        <tr>
+                                                            <td>
+                                                                Montant
+                                                            </td>
+                                                            <td>
+                                                                <h1>
+                                                                    <h:outputText value="#{car.montantDepInt} DH" />
+
+                                                                </h1>
+                                                            </td>
+
+                                                        </tr>
+
+                                                    </table>
+                                                </center>
+                                                <p:commandLink  oncomplete="PF('carDialog').show()" title="View Detail">
+                                                    <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
+                                                    <f:setPropertyActionListener value="#{car}" target="#{intervenantController.deplacement}" />
+                                                </p:commandLink>
+                                            </h:panelGrid>
+                                        </p:panel>
+
+
+                                    </p:dataGrid>
+                                  <p:chart type="pie" model="#{intervenantController.pieModelE}" style="height:100%" />
+
+
+                                </h:panelGrid>
+
+                            </p:tab>
+
+                            <p:tab title="Indemnte kilometrique">
+                                <h:panelGrid rendered="#{intervenantController.klms.size() != 0}" columns="1" cellpadding="10" width="100%" >
+                                    <p:dataGrid var="car" value="#{intervenantController.klms}" columns="3"  style="width:100%"
+                                                rows="6" paginator="true" id="cars3"
+                                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                rowsPerPageTemplate="6,12,16" >
+
+                                        <f:facet name="header">
+                                            Deplacements
+                                        </f:facet>
+
+                                        <p:panel header="#{car.ville}" style=" text-align:center" >
+                                            <h:panelGrid columns="1" style="width:100%">
+                                                <center>
+                                                    <table>
+                                                        <tr>
+                                                            <td>
+
+                                                            </td>
+                                                            <td>
+                                                                <h:outputText value="#{car.dateCreation}" >
+                                                                    <h1>  <f:convertDateTime pattern="dd/MM/yyyy" /></h1>
+                                                                </h:outputText>
+                                                            </td>
+
+                                                        </tr>
+
+
+                                                        <tr>
+                                                            <td>
+                                                                Montant
+                                                            </td>
+                                                            <td>
+                                                                <h1>
+                                                                    <h:outputText value="#{car.montantDepInt} DH" />
+
+                                                                </h1>
+                                                            </td>
+
+                                                        </tr>
+
+                                                    </table>
+                                                </center>
+                                                <p:commandLink  oncomplete="PF('carDialog').show()" title="View Detail">
+                                                    <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
+                                                    <f:setPropertyActionListener value="#{car}" target="#{intervenantController.deplacement}" />
+                                                </p:commandLink>
+                                            </h:panelGrid>
+                                        </p:panel>
+
+
+                                    </p:dataGrid>
+                                     
+                                </h:panelGrid>
+
+                            </p:tab>
+                        </p:accordionPanel>
+                    </h:form> 
+                </h3>
+
+
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                    <img src="http://chimplyimage.appspot.com/images/samples/classic-spinner/indicator.gif" />
+                </p:dialog>
+                <p:dialog header="Details Deplacement Interne" widgetVar="carDialog" modal="true" showEffect="explode" hideEffect="explode"  resizable="false">
+                    <p:outputPanel id="carDetail" style="text-align:center;width: 100%"  >
+                        <p:panelGrid  columns="2" rendered="#{! empty intervenantController.deplacement}" style="width: 100%">
+                            <f:facet name="header">
+                                <p:outputLabel value="#{intervenantController.deplacement.ville}" />
+                            </f:facet>
+
+                            <h:outputText value="Date depart" />
+                            <h:outputText value="#{intervenantController.deplacement.dateDepart}" />
+
+                            <h:outputText value="Date d'arrive" />
+                            <h:outputText value="#{intervenantController.deplacement.dateArrive}" />
+
+                            <h:outputText value="User" />
+                            <h:outputText value="#{intervenantController.deplacement.cinPpr.nomComplet}" />
+
+                            <h:outputText value="Motif" />
+                            <h:outputText value="#{intervenantController.deplacement.motif}" />
+                            <h:outputText value="Justification" />
+                            <h:outputText value="#{intervenantController.deplacement.justification}" />
+                        </p:panelGrid>
+                    </p:outputPanel>
+                </p:dialog>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

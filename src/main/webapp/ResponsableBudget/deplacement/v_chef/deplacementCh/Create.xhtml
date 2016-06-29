@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DeplacementCreateDlg" widgetVar="DeplacementCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateDeplacementTitle}">
+            <h:form id="DeplacementCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{deplacementController.selected != null}">
+
+
+
+
+                        <p:outputLabel value="Intervenant" for="cinPpr" />
+                        <p:selectOneMenu id="cinPpr" value="#{deplacementController.selected.cinPpr}" required="true" requiredMessage="#{bundle.EditDeplacementRequiredMessage_cinPpr}">
+                            <f:selectItems value="#{intervenantController.itemsAvailableSelectOne}"
+                                           var="cinPprItem"
+                                           itemValue="#{cinPprItem}" itemLabel="#{cinPprItem.nomComplet}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Indice" for="indice" />
+                        <p:inputText type="number" id="indice" value="#{deplacementController.selected.indice}" title="#{bundle.CreateDeplacementTitle_indice}" />
+
+                        <p:outputLabel value="Echelle" for="echelle" />
+                        <p:inputText type="number" id="echelle" value="#{deplacementController.selected.echelle}" title="#{bundle.CreateDeplacementTitle_echelle}" />
+
+                        <p:outputLabel value="Grade" for="grade" />
+                        <p:inputText id="grade" value="#{deplacementController.selected.grade}" title="#{bundle.CreateDeplacementTitle_grade}" />
+
+
+                        
+                        <p:outputLabel for="advanced" value="Ville :"  />
+                        <p:selectOneMenu editable="true" id="advanced" value="#{deplacementController.selected.ville}"  panelStyle="width:180px"
+                                         effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
+                            <f:selectItems value="#{selectOneMenuView.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme.displayName}" />
+
+                         
+                        </p:selectOneMenu>
+                        
+                        <p:outputLabel value="Date depart" for="dateDepart" />
+                        <p:calendar id="dateDepart" pattern="MM/dd/yyyy HH:mm:ss" value="#{deplacementController.selected.dateDepart}" title="#{bundle.EditDeplacementTitle_dateDepart}"  />
+
+                        <p:outputLabel value="Date d'arrive" for="dateArrive" />
+                        <p:calendar id="dateArrive" pattern="MM/dd/yyyy HH:mm:ss" value="#{deplacementController.selected.dateArrive}" title="#{bundle.EditDeplacementTitle_dateArrive}"  />
+
+
+
+                        <p:outputLabel value="User" for="idUser" />
+                        <p:selectOneMenu id="idUser" value="#{deplacementController.selected.idUser}" required="true" requiredMessage="#{bundle.EditDeplacementRequiredMessage_idUser}">
+                            <f:selectItems value="#{usersController.itemsAvailableSelectOne}"
+                                           var="idUserItem"
+                                           itemValue="#{idUserItem}" itemLabel="#{idUserItem.nom} #{idUserItem.prenom}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Secteur de deplacement" for="dotationsecteur" />
+                        <p:selectOneMenu id="dotationsecteur" value="#{deplacementController.selected.idDotationSect}" required="true" requiredMessage="#{bundle.EditDeplacementRequiredMessage_dotationsecteur}">
+                            <f:selectItems value="#{dotationsecteurController.itemsAvailableSelectOne}"
+                                           var="dotationsecteurItem"
+                                           itemValue="#{dotationsecteurItem}" itemLabel="#{dotationsecteurItem.idSecteur.intituleSecteur}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="Motif" for="motif" />
+                        <p:inputTextarea id="motif" value="#{deplacementController.selected.motif}" title="#{bundle.CreateDeplacementTitle_motif}" />
+
+
+
+
+
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{deplacementController.create}" value="#{bundle.Save}" update="display,:DeplacementListForm:datalist,:growl" oncomplete="handleSubmit(args,'DeplacementCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DeplacementCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

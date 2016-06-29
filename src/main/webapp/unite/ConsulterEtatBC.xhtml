@@ -74,6 +74,11 @@
                                     <p:column headerText="#{bundle.ListBoncommandeTitle_type}">
                                         <h:outputText value="#{item.type}"/>
                                     </p:column>
+                                     <p:ajax event="rowSelect" listener="#{boncommandeController.remplireFormulaire()}"  update="@form" process="@this"/>
+                                    <p:column headerText="Action">
+                                        <p:commandButton icon="ui-icon-pencil" action="#{boncommandeController.remplireFormulaireGBC()}" type="button" onclick="PF('formUpdate').show();"  class="btn btn-success btn-lg" >
+                                        </p:commandButton>
+                                    </p:column>
                                 </p:dataTable>
                             </div>
                         </div>

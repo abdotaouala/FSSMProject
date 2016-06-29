@@ -3,11 +3,13 @@ package beans;
 import model.Boncommande;
 import beans.util.JsfUtil;
 import beans.util.PaginationHelper;
+import java.io.IOException;
 import session.BoncommandeFacade;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -16,6 +18,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
@@ -23,6 +26,8 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.UserTransaction;
 import model.Compte;
 import model.Dotationsecteur;
@@ -31,6 +36,15 @@ import model.Lignecommande;
 import model.Secteur;
 import model.Secteurprincipal;
 import model.Users;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
+import net.sf.jasperreports.engine.export.ooxml.JRDocxExporterParameter;
+import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import org.example.shiro.bean.security.ShiroLoginBean;
 
 @Named("boncommandeController")
@@ -337,6 +351,7 @@ public class BoncommandeController implements Serializable {
     public List<Boncommande> getItemesCours() {
         Users user = getUser();
         try {
+            items = new ArrayList<Boncommande>();
             Query req = em.createQuery("SELECT o FROM Boncommande o where o.idUser=? and o.etat='enCours'").setParameter(1, user.getIdUser());
             items = (List<Boncommande>) req.getResultList();
         } catch (Exception e) {
@@ -345,6 +360,7 @@ public class BoncommandeController implements Serializable {
         }
         return items;
     }
+
     public List<Boncommande> getItemesEtatBC() {
         Users user = getUser();
         try {
@@ -390,7 +406,8 @@ public class BoncommandeController implements Serializable {
         }
         return items;
     }
-public List<Boncommande> getAllItemesRechValides() {
+
+    public List<Boncommande> getAllItemesRechValides() {
         try {
             Query req = em.createQuery("SELECT o FROM Boncommande o where (o.etat='valide' or o.etat='invalide') and o.type=?").setParameter(1, this.type);
             items = (List<Boncommande>) req.getResultList();
@@ -400,7 +417,8 @@ public List<Boncommande> getAllItemesRechValides() {
         }
         return items;
     }
-public List<Boncommande> getAllItemesRechValidesTraite() {
+
+    public List<Boncommande> getAllItemesRechValidesTraite() {
         try {
             Query req = em.createQuery("SELECT o FROM Boncommande o where (o.etat='valide' or o.etat='invalide' or o.etat='enTraitement') and o.type=?").setParameter(1, this.type);
             items = (List<Boncommande>) req.getResultList();
@@ -410,6 +428,7 @@ public List<Boncommande> getAllItemesRechValidesTraite() {
         }
         return items;
     }
+
     public List<Boncommande> getAllItemesRech() {
         try {
             Query req = em.createQuery("SELECT o FROM Boncommande o where o.etat='enTraitement' and o.type=?").setParameter(1, this.type);
@@ -571,12 +590,15 @@ public List<Boncommande> getAllItemesRechValidesTraite() {
                 current.setIdFournisseur(a.getIdFournisseur());
             }
             if (current.getEtat().equals("valide")) {
-                Query req = em.createQuery("select o.reliquat from Dotationsecteur o where o.idDotation=?").setParameter(1, current.getIdDotation());
-                Double d = (Double) req.getSingleResult();
+                Query req = em.createQuery("select o from Dotationsecteur o where o.idDotation=?").setParameter(1, current.getIdDotation());
+                Dotationsecteur ds = (Dotationsecteur) req.getSingleResult();
+                Double d = ds.getReliquat();
                 if (d >= current.getMontant()) {
+                    Double ancienMontant = ds.getMontantInitial() - ds.getReliquat();
+                    d = d - (ancienMontant - current.getMontant());
                     ut.begin();
                     em.joinTransaction();
-                    Query req2 = em.createQuery("update Dotationsecteur o set o.reliquat = o.reliquat - :Reliquat where o.idDotation = :ds").setParameter("Reliquat", current.getMontant()).setParameter("ds", current.getIdDotation());
+                    Query req2 = em.createQuery("update Dotationsecteur o set o.reliquat = :Reliquat where o.idDotation = :ds").setParameter("Reliquat", d).setParameter("ds", current.getIdDotation());
                     int n = req2.executeUpdate();
                     ut.commit();
                     if (n > 0) {
@@ -592,6 +614,7 @@ public List<Boncommande> getAllItemesRechValidesTraite() {
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BoncommandeUpdated"));
             return "View";
         } catch (Exception e) {
+            e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Erreure! Modification non effectué !", "Erreur"));
             return null;
         }
@@ -633,12 +656,15 @@ public List<Boncommande> getAllItemesRechValidesTraite() {
                 current.setIdFournisseur(a.getIdFournisseur());
             }
             if (current.getEtat().equals("valide")) {
-                Query req = em.createQuery("select o.reliquat from Dotationsecteur o where o.idDotation=?").setParameter(1, current.getIdDotation());
-                Double d = (Double) req.getSingleResult();
+                Query req = em.createQuery("select o from Dotationsecteur o where o.idDotation=?").setParameter(1, current.getIdDotation());
+                Dotationsecteur ds = (Dotationsecteur) req.getSingleResult();
+                Double d = ds.getReliquat();
                 if (d >= current.getMontant()) {
+                    Double ancienMontant = ds.getMontantInitial() - ds.getReliquat();
+                    d = d - (ancienMontant - current.getMontant());
                     ut.begin();
                     em.joinTransaction();
-                    Query req2 = em.createQuery("update Dotationsecteur o set o.reliquat = o.reliquat - :Reliquat where o.idDotation = :ds").setParameter("Reliquat", current.getMontant()).setParameter("ds", current.getIdDotation());
+                    Query req2 = em.createQuery("update Dotationsecteur o set o.reliquat = :Reliquat where o.idDotation = :ds").setParameter("Reliquat", d).setParameter("ds", current.getIdDotation());
                     int n = req2.executeUpdate();
                     ut.commit();
                     if (n > 0) {
@@ -648,12 +674,20 @@ public List<Boncommande> getAllItemesRechValidesTraite() {
                     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Vous avez dépassé le Reliquat de ce compte !", "Erreur"));
                 }
             } else {
-                getFacade().edit(current);
+                ut.begin();
+                em.joinTransaction();
+                Query req2 = em.createQuery("update Dotationsecteur o set o.reliquat = o.reliquat + :reliquat where o.idDotation =:dot").setParameter("reliquat", current.getMontant()).setParameter("dot", current.getIdDotation());
+                int updateCount = req2.executeUpdate();
+                ut.commit();
+                if (updateCount > 0) {
+                    getFacade().edit(current);
+                }
             }
             getAllItemesValides();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BoncommandeUpdated"));
             return "View";
         } catch (Exception e) {
+            e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Erreure! Modification non effectué !", "Erreur"));
             return null;
         }
@@ -661,9 +695,19 @@ public List<Boncommande> getAllItemesRechValidesTraite() {
 
     public void performDestroyBCG() {
         try {
-            Query req = em.createQuery("DELETE from Lignecommande where o.idBC=?").setParameter(1, current.getIdBC());
-            req.executeUpdate();
-            getFacade().remove(current);
+            ut.begin();
+            em.joinTransaction();
+            Query req2 = em.createQuery("update Dotationsecteur o set o.reliquat = o.reliquat + :reliquat where o.idDotation =:dot").setParameter("reliquat", current.getMontant()).setParameter("dot", current.getIdDotation());
+            int updateCount = req2.executeUpdate();
+            ut.commit();
+            if (updateCount > 0) {
+                 ut.begin();
+                em.joinTransaction();
+                Query req = em.createQuery("DELETE from Lignecommande o where o.idBC=?").setParameter(1, current.getIdBC());
+                req.executeUpdate();
+                ut.commit();
+                getFacade().remove(current);
+            }
             getAllItemesBCG();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BoncommandeDeleted"));
         } catch (Exception e) {
@@ -673,12 +717,23 @@ public List<Boncommande> getAllItemesRechValidesTraite() {
 
     public void performDestroyBCGValide() {
         try {
-            Query req = em.createQuery("DELETE from Lignecommande where o.idBC=?").setParameter(1, current.getIdBC());
-            req.executeUpdate();
-            getFacade().remove(current);
+            ut.begin();
+            em.joinTransaction();
+            Query req2 = em.createQuery("update Dotationsecteur o set o.reliquat = o.reliquat + :reliquat where o.idDotation =:dot").setParameter("reliquat", current.getMontant()).setParameter("dot", current.getIdDotation());
+            int updateCount = req2.executeUpdate();
+            ut.commit();
+            if (updateCount > 0) {
+                ut.begin();
+                em.joinTransaction();
+                Query req = em.createQuery("DELETE from Lignecommande o where o.idBC=?").setParameter(1, current.getIdBC());
+                req.executeUpdate();
+                ut.commit();
+                getFacade().remove(current);
+            }
             getAllItemesValides();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BoncommandeDeleted"));
         } catch (Exception e) {
+            e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Erreure! Suppression non effectué !", "Erreur"));
         }
     }
@@ -866,6 +921,92 @@ public List<Boncommande> getAllItemesRechValidesTraite() {
 
     public void setPagination(PaginationHelper pagination) {
         this.pagination = pagination;
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    //////******************************************************///////*************
+    /*
+    Etat
+     */
+    private List<Boncommande> listOfUsers = new ArrayList<Boncommande>();
+    HttpServletResponse httpServletResponse;
+    ServletOutputStream servletOutputStream;
+
+    JasperPrint jasperPrint;
+
+    public void initBon() throws JRException {
+
+        listOfUsers.add(current);
+        HashMap map = new HashMap();
+        map.put("nom", "");
+        map.put("grp", "1");
+        map.put("cmp", "1256944526,Barid Bank");
+
+        map.put("nbrjr", "");
+
+        map.put("prix", 100 + " DH");
+        map.put("prix1", " DH");
+        map.put("ttl", " DH");
+        map.put("NomFourniseur", " DH");
+        map.put("qulite", " DH");
+        map.put("cmpt", " DH");
+        map.put("intitule", " DH");
+
+        map.put("art1", " DH");
+        map.put("art2", " DH");
+        map.put("art3", " DH");
+        map.put("totale", " DH");
+        map.put("totaltva", " DH");
+        map.put("totalettc", " DH");
+        map.put("qte1", " DH");
+        map.put("qte2", " DH");
+        map.put("qte3", " DH");
+        map.put("pu1", " DH");
+        map.put("pu2", " DH");
+        map.put("pu3", " DH");
+        map.put("mnt1", " DH");
+        map.put("mnt2", " DH");
+        map.put("mnt3", " DH");
+        map.put("depatement", " DH");
+        map.put("totalht", " DH");
+        map.put("ttc", " DH");
+        map.put("totalttc", " DH");
+        map.put("titre", "");
+        JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(listOfUsers, false);
+        listOfUsers = new ArrayList<Boncommande>();
+        String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("report/report3.jasper");
+        jasperPrint = JasperFillManager.fillReport(reportPath, map, beanCollectionDataSource);
+        httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+    }
+
+    public void PDBon(ActionEvent actionEvent) throws JRException, IOException {
+        initBon();
+        httpServletResponse.addHeader("Content-disposition", "attachment; filename=report.pdf");
+        servletOutputStream = httpServletResponse.getOutputStream();
+        JasperExportManager.exportReportToPdfStream(jasperPrint, servletOutputStream);
+        FacesContext.getCurrentInstance().responseComplete();
+    }
+
+    public void DOCXBon(ActionEvent actionEvent) throws JRException, IOException {
+        initBon();
+        httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        httpServletResponse.addHeader("Content-disposition", "attachment; filename=report.docx");
+        servletOutputStream = httpServletResponse.getOutputStream();
+        JRDocxExporter docxExporter = new JRDocxExporter();
+        docxExporter.setParameter(JRExporterParameter.CHARACTER_ENCODING.JASPER_PRINT, jasperPrint);
+        docxExporter.setParameter(JRExporterParameter.OUTPUT_STREAM, servletOutputStream);
+        docxExporter.setParameter(JRDocxExporterParameter.OUTPUT_STREAM, servletOutputStream);
+        docxExporter.exportReport();
+    }
+
+    public void XLSXBon(ActionEvent actionEvent) throws JRException, IOException {
+        initBon();
+        httpServletResponse = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        httpServletResponse.addHeader("Content-disposition", "attachment; filename=report.xlsx");
+        servletOutputStream = httpServletResponse.getOutputStream();
+        JRXlsxExporter docxExporter = new JRXlsxExporter();
+        docxExporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+        docxExporter.setParameter(JRExporterParameter.OUTPUT_STREAM, servletOutputStream);
+        docxExporter.exportReport();
     }
 
 }

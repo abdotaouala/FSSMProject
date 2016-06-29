@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RAPORTaSMAE" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="NomFourniseur" class="java.lang.String"/>
+	<parameter name="qualite" class="java.lang.String"/>
+	<parameter name="cmpt" class="java.lang.String"/>
+	<parameter name="intitule" class="java.lang.String"/>
+	<parameter name="art1" class="java.lang.String"/>
+	<parameter name="art2" class="java.lang.String"/>
+	<parameter name="art3" class="java.lang.String"/>
+	<parameter name="totale" class="java.lang.String"/>
+	<parameter name="tva" class="java.lang.String"/>
+	<parameter name="totalettc" class="java.lang.String"/>
+	<parameter name="qte1" class="java.lang.String"/>
+	<parameter name="qte2" class="java.lang.String"/>
+	<parameter name="qte3" class="java.lang.String"/>
+	<parameter name="pu1" class="java.lang.String"/>
+	<parameter name="pu2" class="java.lang.String"/>
+	<parameter name="pu3" class="java.lang.String"/>
+	<parameter name="mnt1" class="java.lang.String"/>
+	<parameter name="mnt2" class="java.lang.String"/>
+	<parameter name="mnt3" class="java.lang.String"/>
+	<parameter name="depatement" class="java.lang.String"/>
+	<parameter name="totalht" class="java.lang.String"/>
+	<parameter name="totaltva" class="java.lang.String"/>
+	<parameter name="ttc" class="java.lang.String"/>
+	<parameter name="titre" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM BONCOMMANDE]]>
+	</queryString>
+	<field name="idBC" class="java.lang.Integer"/>
+	<field name="idFournisseur" class="java.lang.Integer"/>
+	<field name="idUser" class="java.lang.Integer"/>
+	<field name="idDotation" class="java.lang.Integer"/>
+	<field name="dateCommande" class="java.sql.Timestamp"/>
+	<field name="tva" class="java.lang.Integer"/>
+	<field name="dateReception" class="java.sql.Timestamp"/>
+	<field name="etat" class="java.lang.String"/>
+	<field name="montant" class="java.math.BigDecimal"/>
+	<field name="type" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="107" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="3" width="158" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[UNIVERSITE CADI AYYAD ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="23" width="158" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[FACULTE DES SCIENCES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="43" width="158" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[SEMLALIA-MARRAKECH ]]></text>
+			</staticText>
+			<image>
+				<reportElement x="214" y="28" width="57" height="57"/>
+				<imageExpression><![CDATA["C:\\Users\\zesz\\Documents\\NetBeansProjects\\WebApplication7\\web\\report\\Image1.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="271" y="23" width="92" height="50"/>
+				<imageExpression><![CDATA["C:\\Users\\zesz\\Documents\\NetBeansProjects\\WebApplication7\\web\\report\\logo.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="373" y="0" width="76" height="15"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EXERCICE ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="373" y="28" width="76" height="15"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[COMPTE N°]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="373" y="53" width="76" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[INTITULE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="63" width="158" height="44"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Bd.PRINCE MY ABDELLAH MARRAKECH TEL : 505°24 344649 FAX 05244337405]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="455" y="0" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[2016]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="449" y="28" width="106" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{cmpt}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="53" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{intitule}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="18" width="555" height="29"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="501" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="82" width="271" height="50"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="271" y="82" width="50" height="50"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="321" y="82" width="100" height="50"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="421" y="82" width="134" height="50"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="132" width="271" height="31"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="271" y="132" width="50" height="31"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="321" y="132" width="100" height="31"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="421" y="132" width="134" height="31"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="163" width="271" height="31"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="194" width="271" height="31"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="271" y="163" width="50" height="31"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="271" y="194" width="50" height="31"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="321" y="163" width="100" height="31"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="321" y="194" width="100" height="31"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="421" y="163" width="134" height="31"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="421" y="194" width="134" height="31"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="225" width="271" height="75"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="273" y="225" width="148" height="25"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="273" y="250" width="148" height="25"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="273" y="275" width="148" height="25"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="421" y="225" width="134" height="25"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="421" y="250" width="134" height="25"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="421" y="275" width="134" height="25"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="315" width="555" height="169"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="123" y="367" width="198" height="30"/>
+				<textElement>
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Marrakech le :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="82" width="271" height="50"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESIGNATIONS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="273" y="82" width="48" height="50"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[QTE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="321" y="82" width="100" height="50"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[P.U]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="421" y="82" width="134" height="50"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MONTANT]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="132" width="271" height="31"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{art1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="163" width="271" height="31"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{art2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="194" width="271" height="31"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{art3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="273" y="132" width="48" height="31"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{qte1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="273" y="163" width="48" height="31"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{qte2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="273" y="194" width="48" height="31"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{qte3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="321" y="132" width="100" height="31"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{pu1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="321" y="163" width="100" height="31"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{pu2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="321" y="194" width="100" height="31"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{pu3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="421" y="132" width="134" height="31"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{mnt1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="421" y="163" width="134" height="31"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{mnt2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="421" y="194" width="134" height="31"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{mnt3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="230" width="271" height="70"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{depatement}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="273" y="230" width="148" height="20"/>
+				<textElement/>
+				<text><![CDATA[TOTAL H.T]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="273" y="250" width="148" height="25"/>
+				<textElement/>
+				<text><![CDATA[TVA 20 %]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="271" y="275" width="150" height="25"/>
+				<textElement/>
+				<text><![CDATA[Total TTC]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="421" y="230" width="134" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{totalht}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="421" y="250" width="134" height="25"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{totaltva}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="421" y="275" width="134" height="25"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{ttc}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="16" width="158" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOM DU FOURNISEUR :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="36" width="158" height="20"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[QUALITE ET ADRESSE :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="158" y="16" width="397" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{NomFourniseur}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="158" y="36" width="397" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{qualite}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

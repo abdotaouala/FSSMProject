@@ -46,12 +46,14 @@
                                             </td>
                                         </tr>
                                         <tr> 
-                                            <td class="olab"><h:outputLabel value="#{bundle.CreateComptebcLabel_cinPpr}" for="cinPpr" /></td>
-                                            <td class="olab"> <p:inputText id="cinPpr" value="#{comptebcController.selected.cinPpr}" title="#{bundle.CreateComptebcTitle_cinPpr}" >
-                                            <p:ajax event="change" listener="#{comptebcController.subjectSelectionChanged()}" update="@form" process="@this" />
-                                            </p:inputText>
+                                            <td class="olab"><p:outputLabel value="#{bundle.CreateIntervenantLabel_cinPpr}" for="cinPpr" /></td>
+                                            <td class="olab">
+                                                <p:autoComplete dropdown="true" id="cinPpr" value="#{comptebcController.selected.cinPpr}" required="true" requiredMessage="#{bundle.CreateIntervenantRequiredMessage_cinPpr}" completeMethod="#{intervenantController.completeText}" title="#{bundle.CreateFournisseurTitle_idFournisseur}" >
+                                                    <p:ajax event="itemSelect" listener="#{comptebcController.subjectSelectionChanged()}" update="@form" process="@this" />
+                                                    <p:ajax event="change" listener="#{comptebcController.subjectSelectionChanged()}" update="@form" process="@this" />
+                                                </p:autoComplete>
                                             </td>
-                                        </tr> 
+                                        </tr>
                                         <tr> 
                                             <td class="olab"><h:outputLabel value="#{bundle.CreateComptebcLabel_bc}" for="bc" /></td>
                                             <td class="olab"> <p:inputText id="bc" value="#{comptebcController.selected.bc}" title="#{bundle.CreateComptebcTitle_bc}" /></td>

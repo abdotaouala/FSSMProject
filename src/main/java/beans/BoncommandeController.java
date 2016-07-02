@@ -539,6 +539,9 @@ public class BoncommandeController implements Serializable {
                     }
                 }
             }
+            if(current.getDateReception()!=null){
+            current.setEtat("paye");
+            }
             getFacade().edit(current);
             Query req = em.createQuery("select max(a.idBC) from Boncommande a");
             int max = (Integer) req.getSingleResult();
@@ -572,6 +575,9 @@ public class BoncommandeController implements Serializable {
             current.setTva(0);
             current.setDateReception(dateRecep);
             current.setType(type);
+            if(current.getDateReception()!=null){
+            current.setEtat("paye");
+            }
             getFacade().edit(current);
             getItemesCours();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BoncommandeUpdated"));

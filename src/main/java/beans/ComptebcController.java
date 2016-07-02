@@ -6,10 +6,13 @@ import beans.util.PaginationHelper;
 import session.ComptebcFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -18,20 +21,82 @@ import javax.faces.convert.FacesConverter;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import model.Article;
 
 @Named("comptebcController")
 @ManagedBean
 @SessionScoped
 public class ComptebcController implements Serializable {
 
+    @PersistenceContext(unitName = "AppFinanciere")
+    private EntityManager em;
     private Comptebc current;
-    private DataModel items = null;
+    private List<Comptebc> items = null;
+    private boolean disablCreate = false;
+    private boolean disablUpdate = true;
+    private boolean disablDelete = true;
     @EJB
     private session.ComptebcFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
     public ComptebcController() {
+        
+    }
+
+    public List<Comptebc> getItemes() {
+        try {
+            this.items = new ArrayList<Comptebc>();
+            Query req = em.createQuery("SELECT o FROM Comptebc o");
+            List<Comptebc> l = (List<Comptebc>) req.getResultList();
+            items = l;
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aucun Compte n'est trouvé !", "Information"));
+        }
+        return items;
+    }
+public List<String> completeText(String id) {
+        List<String> FiltredSP = new ArrayList<String>();
+        try {
+            List<Comptebc> AllSP = getItemes();
+            for (Comptebc c : AllSP) {
+                if (c.getIntitule().startsWith(id)) {
+                    FiltredSP.add(c.getIntitule());
+                }
+            }
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Echec de convertion !", "Erreure"));
+        }
+        return FiltredSP;
+    }
+    public void subjectSelectionChanged() {
+        if (current instanceof Comptebc && current != null) {
+            try {
+                Query req = em.createQuery("SELECT o FROM Comptebc o WHERE o.intitule =?").setParameter(1, current.getIntitule());
+                Comptebc c = (Comptebc) req.getSingleResult();
+                if (c != null && c instanceof Comptebc) {
+                    current.setIntitule(c.getIntitule());
+                    current.setBc(c.getBc());
+                    current.setRib(c.getRib());
+                    current.setCinPpr(c.getCinPpr());
+                    disablCreate = true;
+                    disablUpdate = false;
+                    disablDelete = false;
+                } else {
+                    disablCreate = false;
+                    disablUpdate = true;
+                    disablDelete = true;
+                }
+            } catch (Exception e) {
+                disablCreate = false;
+                disablUpdate = true;
+                disablDelete = true;
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Aucun Compte n'est trouvé !", "Information"));
+            }
+        }
     }
 
     public Comptebc getSelected() {
@@ -64,17 +129,24 @@ public class ComptebcController implements Serializable {
         return pagination;
     }
 
+    public List<Comptebc> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Comptebc> items) {
+        this.items = items;
+    }
+
     public String prepareList() {
         recreateModel();
         return "List";
     }
 
-    public String prepareView() {
+    /*public String prepareView() {
         current = (Comptebc) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
-    }
-
+    }*/
     public String prepareCreate() {
         current = new Comptebc();
         selectedItemIndex = -1;
@@ -83,7 +155,8 @@ public class ComptebcController implements Serializable {
 
     public String create() {
         try {
-            getFacade().create(current);
+            getFacade().edit(current);
+            this.items = getItemes();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ComptebcCreated"));
             return prepareCreate();
         } catch (Exception e) {
@@ -92,15 +165,18 @@ public class ComptebcController implements Serializable {
         }
     }
 
-    public String prepareEdit() {
+    /*public String prepareEdit() {
         current = (Comptebc) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
-    }
-
+    }*/
     public String update() {
         try {
+            Query req = em.createQuery("SELECT a FROM Comptebc a WHERE a.intitule =?").setParameter(1, current.getIntitule());
+            Comptebc c=(Comptebc) req.getSingleResult();
+            current.setIdCptBc(c.getIdCptBc());
             getFacade().edit(current);
+            this.items = getItemes();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ComptebcUpdated"));
             return "View";
         } catch (Exception e) {
@@ -109,15 +185,14 @@ public class ComptebcController implements Serializable {
         }
     }
 
-    public String destroy() {
+    /*  public String destroy() {
         current = (Comptebc) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
         recreateModel();
         return "List";
-    }
-
+    }*/
     public String destroyAndView() {
         performDestroy();
         recreateModel();
@@ -131,9 +206,13 @@ public class ComptebcController implements Serializable {
         }
     }
 
-    private void performDestroy() {
+    public void performDestroy() {
         try {
+            Query req = em.createQuery("SELECT a FROM Comptebc a WHERE a.intitule =?").setParameter(1, current.getIntitule());
+            Comptebc c=(Comptebc) req.getSingleResult();
+            current.setIdCptBc(c.getIdCptBc());
             getFacade().remove(current);
+            this.items = getItemes();
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ComptebcDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -155,13 +234,12 @@ public class ComptebcController implements Serializable {
         }
     }
 
-    public DataModel getItems() {
+    /* public DataModel getItems() {
         if (items == null) {
             items = getPagination().createPageDataModel();
         }
         return items;
-    }
-
+    }*/
     private void recreateModel() {
         items = null;
     }
@@ -192,6 +270,62 @@ public class ComptebcController implements Serializable {
 
     public Comptebc getComptebc(java.lang.Integer id) {
         return ejbFacade.find(id);
+    }
+
+    public EntityManager getEm() {
+        return em;
+    }
+
+    public void setEm(EntityManager em) {
+        this.em = em;
+    }
+
+    public Comptebc getCurrent() {
+        return current;
+    }
+
+    public void setCurrent(Comptebc current) {
+        this.current = current;
+    }
+
+    public boolean isDisablCreate() {
+        return disablCreate;
+    }
+
+    public void setDisablCreate(boolean disablCreate) {
+        this.disablCreate = disablCreate;
+    }
+
+    public boolean isDisablUpdate() {
+        return disablUpdate;
+    }
+
+    public void setDisablUpdate(boolean disablUpdate) {
+        this.disablUpdate = disablUpdate;
+    }
+
+    public boolean isDisablDelete() {
+        return disablDelete;
+    }
+
+    public void setDisablDelete(boolean disablDelete) {
+        this.disablDelete = disablDelete;
+    }
+
+    public ComptebcFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(ComptebcFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    public int getSelectedItemIndex() {
+        return selectedItemIndex;
+    }
+
+    public void setSelectedItemIndex(int selectedItemIndex) {
+        this.selectedItemIndex = selectedItemIndex;
     }
 
     @FacesConverter(forClass = Comptebc.class)

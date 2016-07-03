@@ -993,30 +993,112 @@ public class BoncommandeController implements Serializable {
             Lignecommande l1=new Lignecommande();
         Lignecommande l2=new Lignecommande();
         Lignecommande l3=new Lignecommande();
+        HashMap map = new HashMap();
             if(list.size()==1){
-         l1=list.get(1);
+         l1=list.get(0);
+        map.put("cmp", cpt.getIdCompte()+","+cpt.getIntitule());
+        map.put("NomFourniseur", f.getNom());
+        map.put("qulite", f.getAdresse());
+        map.put("cmpt", cpt.getIdCompte());
+        map.put("intitule",cpt.getIntitule());
+        Article a1=new Article();
+         a1=getArticle(l1.getIdArticle());
+        map.put("art1", a1.getDescription());
+        //map.put("totale", " DH");
+       // map.put("totalettc", " DH");
+        
+        map.put("qte1", l1.getQuantite());
+        map.put("pu1", l1.getPu()+" DH");
+        map.put("mnt1", list.get(0).getMontant()+" DH");
+        map.put("depatement", s.getIntituleSecteur());
+        Double ht=l1.getMontant();
+        map.put("totalht",ht+" DH");
+        map.put("totaltva", current.getTva()+" %");
+        map.put("ttc",ht+ht*current.getTva()+" DH");
+        //map.put("totalttc", current.getMontant());
+        map.put("titre", current.getType());
+        
         }else if(list.size()==2){
-        l1=list.get(1);
-        l2=list.get(2);
+        l1=list.get(0);
+        l2=list.get(1);
+        map.put("cmp", cpt.getIdCompte()+","+cpt.getIntitule());
+        map.put("NomFourniseur", f.getNom());
+        map.put("qulite", f.getAdresse());
+        map.put("cmpt", cpt.getIdCompte());
+        map.put("intitule",cpt.getIntitule());
+        Article a1=new Article();
+        Article a2=new Article();
+        a1=getArticle(list.get(0).getIdArticle());
+        a2=getArticle(list.get(1).getIdArticle());
+        map.put("art1", a1.getDescription());
+        map.put("art2", a2.getDescription());
+        map.put("qte1", l1.getQuantite());
+        map.put("qte2",l2.getQuantite());
+        map.put("pu1", l1.getPu()+" DH");
+        map.put("pu2",l2.getPu()+" DH");
+        map.put("mnt1", list.get(0).getMontant()+" DH");
+        map.put("mnt2", list.get(1).getMontant()+" DH");
+        map.put("depatement", s.getIntituleSecteur());
+        Double ht=l1.getMontant()+l2.getMontant();
+        map.put("totalht",ht+" DH");
+        map.put("totaltva", current.getTva()+" %");
+        map.put("ttc",ht+ht*current.getTva()+" DH");
+        //map.put("totalttc", current.getMontant());
+        map.put("titre", current.getType());
+        
         }else if(list.size()==3){
-        l1=list.get(1);
-        l2=list.get(2);
-        l3=list.get(3);
+        l1=list.get(0);
+        l2=list.get(1);
+        l3=list.get(2);
+        map.put("cmp", cpt.getIdCompte()+","+cpt.getIntitule());
+        map.put("NomFourniseur", f.getNom());
+        map.put("qulite", f.getAdresse());
+        map.put("cmpt", cpt.getIdCompte());
+        map.put("intitule",cpt.getIntitule());
+        Article a1=new Article();
+        Article a2=new Article();
+        Article a3=new Article();
+        a1=getArticle(list.get(0).getIdArticle());
+        a2=getArticle(list.get(1).getIdArticle());
+        a3=getArticle(list.get(2).getIdArticle());
+        
+        map.put("art1", a1.getDescription());
+        map.put("art2", a2.getDescription());
+        map.put("art3", a3.getDescription());
+        //map.put("totale", " DH");
+       // map.put("totalettc", " DH");
+        
+        map.put("qte1", l1.getQuantite());
+        map.put("qte2",l2.getQuantite());
+        map.put("qte3", l3.getQuantite());
+        map.put("pu1", l1.getPu()+" DH");
+        map.put("pu2",l2.getPu()+" DH");
+        map.put("pu3",l3.getPu()+" DH");
+        map.put("mnt1", list.get(0).getMontant()+" DH");
+        map.put("mnt2", list.get(1).getMontant()+" DH");
+        map.put("mnt3", list.get(2).getMontant()+" DH");
+        map.put("depatement", s.getIntituleSecteur());
+        Double ht=l1.getMontant()+l2.getMontant()+l3.getMontant();
+        map.put("totalht",ht+" DH");
+        map.put("totaltva", current.getTva()+" %");
+        map.put("ttc",ht+ht*current.getTva()+" DH");
         }else{
         l1=new Lignecommande();
          l2=new Lignecommande();
         l3=new Lignecommande();
+        
         }
+/*
         HashMap map = new HashMap();
-        map.put("nom", current.getType());
-        map.put("grp", current.getIdBC());
+        //map.put("nom", current.getType());
+      //  map.put("grp", current.getIdBC());
         map.put("cmp", cpt.getIdCompte()+","+cpt.getIntitule());
 
-        map.put("nbrjr", new Date());
+       // map.put("nbrjr", new Date());
         
-        map.put("prix", 100 + " DH");
-        map.put("prix1", " DH");
-        map.put("ttl", " DH");
+        //map.put("prix", 100 + " DH");
+        //map.put("prix1", " DH");
+       // map.put("ttl", " DH");
         map.put("NomFourniseur", f.getNom());
         map.put("qulite", f.getAdresse());
         map.put("cmpt", cpt.getIdCompte());
@@ -1041,9 +1123,8 @@ public class BoncommandeController implements Serializable {
         map.put("art1", a1.getDescription());
         map.put("art2", a2.getDescription());
         map.put("art3", a3.getDescription());
-        map.put("totale", " DH");
-        map.put("totaltva", " DH");
-        map.put("totalettc", " DH");
+        //map.put("totale", " DH");
+       // map.put("totalettc", " DH");
         
         map.put("qte1", l1.getQuantite());
         map.put("qte2",l2.getQuantite());
@@ -1057,9 +1138,11 @@ public class BoncommandeController implements Serializable {
         map.put("depatement", s.getIntituleSecteur());
         Double ht=l1.getMontant()+l2.getMontant()+l3.getMontant();
         map.put("totalht",ht+" DH");
+        map.put("totaltva", current.getTva()+" %");
         map.put("ttc",ht+ht*current.getTva()+" DH");
-        map.put("totalttc", current.getMontant());
-        map.put("titre", "BC");
+        //map.put("totalttc", current.getMontant());
+        map.put("titre", current.getType());
+*/
         JRBeanCollectionDataSource beanCollectionDataSource = new JRBeanCollectionDataSource(listOfUsers, false);
         listOfUsers = new ArrayList<Boncommande>();
         String reportPath = FacesContext.getCurrentInstance().getExternalContext().getRealPath("report/report3.jasper");

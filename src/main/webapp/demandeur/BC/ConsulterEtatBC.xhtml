@@ -21,13 +21,10 @@
             <ui:define name="titlepanel">
                 Consulter l'Etat Des Engagements
             </ui:define>
-
             <ui:define name="content">
-
                    <h:form id="ListCreateForm">
-            <p:growl id="message" life="2000" />
-            <p:dialog id="BoncommandeViewDlg"  widgetVar="BoncommandeViewDialog" modal="true" resizable="false" appendTo="@(body)" showEffect="explode" hideEffect="bounce" header="#{bundle.ViewBoncommandeTitle}">
-                <h:panelGroup id="display">
+                       <p:dialog id="BoncommandeViewDlg"  widgetVar="BoncommandeViewDialog" modal="true" resizable="false" appendTo="@(body)" showEffect="explode" hideEffect="bounce" header="#{bundle.ViewBoncommandeTitle}">
+                        <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{boncommandeController.selected != null}">
                         <h:outputText value="#{bundle.ViewBoncommandeLabel_idBC}"/>
                         <h:outputText value="#{boncommandeController.selected.idBC}" title="#{bundle.ViewBoncommandeTitle_idBC}"/>
@@ -55,10 +52,11 @@
                         <h:outputText value="#{boncommandeController.selected.idFournisseur}" title="#{bundle.ViewBoncommandeTitle_idFournisseur}"/>
                     </p:panelGrid>
                     <p:panelGrid columns="2"  >
-                        <p:panel><h:commandButton action="#{boncommandeController.PDBon}" value="PDF" styleClass="btn btn-success" type="submit" /><h:commandButton action="#{boncommandeController.XLSXBon}" styleClass="btn btn-success" value="Excel" /><h:commandButton styleClass="btn btn-success" action="#{boncommandeController.DOCXBon}" value="Word" /></p:panel>
+                        <p:panel><p:commandButton actionListener="#{boncommandeController.PDBon}" value="PDF" styleClass="btn btn-success" /><p:commandButton actionListener="#{boncommandeController.XLSXBon}" styleClass="btn btn-success" value="Excel" /><p:commandButton styleClass="btn btn-success" actionListener="#{boncommandeController.DOCXBon}" value="Word" /></p:panel>                        
                     </p:panelGrid>
                 </h:panelGroup>
             </p:dialog>
+            <p:growl id="message" life="2000" />
             <div class="col-md-12 col-sm-12">
                 <div class="panel panel-info">
                     <div class="panel-heading">

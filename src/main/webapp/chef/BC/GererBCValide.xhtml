@@ -210,8 +210,6 @@
                                         <h:outputText value="#{item.type}"/>
                                     </p:column>
                                     <p:column headerText="Action">
-                                        <p:commandButton icon="ui-icon-pencil" action="#{boncommandeController.remplireFormulaireGBC()}" type="button" onclick="PF('formUpdate').show();"  class="btn btn-success btn-lg" >
-                                        </p:commandButton>
                                         <p:commandButton id="ajaxdelete"  action="#{boncommandeController.performDestroyBCGValide()}" icon="ui-icon-trash" class="btn btn-danger btn-lg" update="@form">
                                             <p:confirm header="Confirmation de suppression" message="voulez-vous vraiment supprimer ces informations?" icon="ui-icon-alert" />
                                         </p:commandButton>

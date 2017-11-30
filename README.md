@@ -1,14 +1,23 @@
-Application Web gestion financière a la faculté des sciences Semlalya (FSSM) université Cadi Aayad.
-==================================================================================================
-Cette application web est faite pour permettre la gestion des services financière à la faculté des sciences Semlalia
-*- Gestion des vacations.
-*- Gestion des bons de commendes.
-*- Gestion des déplacements 
-*- Gestion des inscriptions.
-Les techniques java EE utilisé JSF 2.2, Hibernate, Primefaces 5, et pour la gestion d'authentification,d'Autorisation et de la session on utilise Apache Shiro.
-Nous sommes une équipe de trois personnes :
-*/ Abdelfatah Taouala
-*/ Mounir Aabada
-*/ Asmae El Mezouari.
+# Gestion service financiers
 
-PFE 2015/2016 FSSM LP Techno web.
+Cette application web est faite pour permettre la gestion des services financière à la faculté des sciences Semlalia
+<li> Gestion des vacations.</li>
+<li> Gestion des bons de commendes.</li>
+<li> Gestion des déplacements</li> 
+<li> Gestion des inscriptions. </li>
+
+## Built With
+<li>java EE J</li>
+<li>SF 2.2</li>
+<li>Hibernate</li>
+<li>Primefaces 5</li>
+<li>Apache Shiro.</li>
+## Authors
+<li>Abdelfatah Taouala</li>
+<li>Mounir Aabada</li>
+<li>Asmae El Mezouari</li>
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/abdotaouala/FSSMProject/blob/master/LICENSE.md) file for details 
+

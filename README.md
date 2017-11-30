@@ -12,6 +12,7 @@ Cette application web est faite pour permettre la gestion des services financiè
 <li>Hibernate</li>
 <li>Primefaces 5</li>
 <li>Apache Shiro.</li>
+
 ## Authors
 <li>Abdelfatah Taouala</li>
 <li>Mounir Aabada</li>

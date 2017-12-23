@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateDeplacementTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateDeplacementLabel_idDeplacement}" for="idDeplacement" />
+                    <h:inputText id="idDeplacement" value="#{deplacementController.selected.idDeplacement}" title="#{bundle.CreateDeplacementTitle_idDeplacement}" required="true" requiredMessage="#{bundle.CreateDeplacementRequiredMessage_idDeplacement}"/>
+                    <h:outputLabel value="#{bundle.CreateDeplacementLabel_cinPpr}" for="cinPpr" />
+                    <h:inputText id="cinPpr" value="#{deplacementController.selected.cinPpr}" title="#{bundle.CreateDeplacementTitle_cinPpr}" required="true" requiredMessage="#{bundle.CreateDeplacementRequiredMessage_cinPpr}"/>
+                    <h:outputLabel value="#{bundle.CreateDeplacementLabel_idUser}" for="idUser" />
+                    <h:inputText id="idUser" value="#{deplacementController.selected.idUser}" title="#{bundle.CreateDeplacementTitle_idUser}" required="true" requiredMessage="#{bundle.CreateDeplacementRequiredMessage_idUser}"/>
+                    <h:outputLabel value="#{bundle.CreateDeplacementLabel_idPays}" for="idPays" />
+                    <h:inputText id="idPays" value="#{deplacementController.selected.idPays}" title="#{bundle.CreateDeplacementTitle_idPays}" />
+                    <h:outputLabel value="#{bundle.CreateDeplacementLabel_nbrJours}" for="nbrJours" />
+                    <h:inputText id="nbrJours" value="#{deplacementController.selected.nbrJours}" title="#{bundle.CreateDeplacementTitle_nbrJours}" />
+                    <h:outputLabel value="#{bundle.CreateDeplacementLabel_dateDepart}" for="dateDepart" />
+                    <h:inputText id="dateDepart" value="#{deplacementController.selected.dateDepart}" title="#{bundle.CreateDeplacementTitle_dateDepart}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateDeplacementLabel_dateArrive}" for="dateArrive" />
+                    <h:inputText id="dateArrive" value="#{deplacementController.selected.dateArrive}" title="#{bundle.CreateDeplacementTitle_dateArrive}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateDeplacementLabel_annee}" for="annee" />
+                    <h:inputText id="annee" value="#{deplacementController.selected.annee}" title="#{bundle.CreateDeplacementTitle_annee}" />
+                    <h:outputLabel value="#{bundle.CreateDeplacementLabel_motifDeplacement}" for="motifDeplacement" />
+                    <h:inputText id="motifDeplacement" value="#{deplacementController.selected.motifDeplacement}" title="#{bundle.CreateDeplacementTitle_motifDeplacement}" />
+                    <h:outputLabel value="#{bundle.CreateDeplacementLabel_dateCreation}" for="dateCreation" />
+                    <h:inputText id="dateCreation" value="#{deplacementController.selected.dateCreation}" title="#{bundle.CreateDeplacementTitle_dateCreation}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateDeplacementLabel_statutMnt}" for="statutMnt" />
+                    <h:inputText id="statutMnt" value="#{deplacementController.selected.statutMnt}" title="#{bundle.CreateDeplacementTitle_statutMnt}" />
+                    <h:outputLabel value="#{bundle.CreateDeplacementLabel_indice}" for="indice" />
+                    <h:inputText id="indice" value="#{deplacementController.selected.indice}" title="#{bundle.CreateDeplacementTitle_indice}" />
+                    <h:outputLabel value="#{bundle.CreateDeplacementLabel_echelle}" for="echelle" />
+                    <h:inputText id="echelle" value="#{deplacementController.selected.echelle}" title="#{bundle.CreateDeplacementTitle_echelle}" />
+                    <h:outputLabel value="#{bundle.CreateDeplacementLabel_grade}" for="grade" />
+                    <h:inputText id="grade" value="#{deplacementController.selected.grade}" title="#{bundle.CreateDeplacementTitle_grade}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{deplacementController.create}" value="#{bundle.CreateDeplacementSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{deplacementController.prepareList}" value="#{bundle.CreateDeplacementShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateDeplacementIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

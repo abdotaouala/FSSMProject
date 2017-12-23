@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListBordereaucomptableTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListBordereaucomptableEmpty}" rendered="#{bordereaucomptableController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{bordereaucomptableController.items.rowCount > 0}">
+                    <h:outputText value="#{bordereaucomptableController.pagination.pageFirstItem + 1}..#{bordereaucomptableController.pagination.pageLastItem + 1}/#{bordereaucomptableController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{bordereaucomptableController.previous}" value="#{bundle.Previous} #{bordereaucomptableController.pagination.pageSize}" rendered="#{bordereaucomptableController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{bordereaucomptableController.next}" value="#{bundle.Next} #{bordereaucomptableController.pagination.pageSize}" rendered="#{bordereaucomptableController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{bordereaucomptableController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBordereaucomptableTitle_idBordComp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idBordComp}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBordereaucomptableTitle_annee}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.annee}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBordereaucomptableTitle_dateExercice}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateExercice}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBordereaucomptableTitle_totalIr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.totalIr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBordereaucomptableTitle_totalNet}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.totalNet}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{bordereaucomptableController.prepareView}" value="#{bundle.ListBordereaucomptableViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{bordereaucomptableController.prepareEdit}" value="#{bundle.ListBordereaucomptableEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{bordereaucomptableController.destroy}" value="#{bundle.ListBordereaucomptableDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{bordereaucomptableController.prepareCreate}" value="#{bundle.ListBordereaucomptableCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListBordereaucomptableIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

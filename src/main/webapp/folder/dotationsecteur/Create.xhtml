@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateDotationsecteurTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateDotationsecteurLabel_idCompte}" for="idCompte" />
+                    <h:inputText id="idCompte" value="#{dotationsecteurController.selected.idCompte}" title="#{bundle.CreateDotationsecteurTitle_idCompte}" required="true" requiredMessage="#{bundle.CreateDotationsecteurRequiredMessage_idCompte}"/>
+                    <h:outputLabel value="#{bundle.CreateDotationsecteurLabel_idSecteur}" for="idSecteur" />
+                    <h:inputText id="idSecteur" value="#{dotationsecteurController.selected.idSecteur}" title="#{bundle.CreateDotationsecteurTitle_idSecteur}" required="true" requiredMessage="#{bundle.CreateDotationsecteurRequiredMessage_idSecteur}"/>
+                    <h:outputLabel value="#{bundle.CreateDotationsecteurLabel_idDotation}" for="idDotation" />
+                    <h:inputText id="idDotation" value="#{dotationsecteurController.selected.idDotation}" title="#{bundle.CreateDotationsecteurTitle_idDotation}" required="true" requiredMessage="#{bundle.CreateDotationsecteurRequiredMessage_idDotation}"/>
+                    <h:outputLabel value="#{bundle.CreateDotationsecteurLabel_montantInitial}" for="montantInitial" />
+                    <h:inputText id="montantInitial" value="#{dotationsecteurController.selected.montantInitial}" title="#{bundle.CreateDotationsecteurTitle_montantInitial}" />
+                    <h:outputLabel value="#{bundle.CreateDotationsecteurLabel_reliquat}" for="reliquat" />
+                    <h:inputText id="reliquat" value="#{dotationsecteurController.selected.reliquat}" title="#{bundle.CreateDotationsecteurTitle_reliquat}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{dotationsecteurController.create}" value="#{bundle.CreateDotationsecteurSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{dotationsecteurController.prepareList}" value="#{bundle.CreateDotationsecteurShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateDotationsecteurIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

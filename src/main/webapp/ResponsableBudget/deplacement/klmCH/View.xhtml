@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DeplacementViewDlg" widgetVar="DeplacementViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDeplacementTitle}" showEffect="explode" hideEffect="explode">
+            <h:form id="DeplacementViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{kilometrique.selected != null}">
+                     
+                         <h:outputText value="Bénéficiaire"/>
+                         <h:outputText value="#{kilometrique.selected.cinPpr.nomComplet}" title="#{bundle.ViewDeplacementTitle_cinPpr}"/>
+                    
+                      
+                       
+                        <h:outputText value="Status : "/>
+                        <h:outputText value="#{kilometrique.selected.etat==0 ? 'Encours ..' : ''} #{kilometrique.selected.etat==1 ? 'Valide' : ''} #{kilometrique.selected.etat==2 ? 'Rejete' : ''}" title="#{bundle.ViewDeplacementTitle_motif}"/>
+                        
+                        <h:outputText value="Date de validation"/>
+                        <h:outputText value="#{kilometrique.selected.dateEtat}" title="#{bundle.ViewDeplacementTitle_dateEtat}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        
+                        <h:outputText value="Ville de destination"/>
+                        <h:outputText value="#{kilometrique.selected.ville}" title="#{bundle.ViewDeplacementTitle_ville}"/>
+                        
+                       <h:outputText value="Marque de la voiture"/>
+                        <h:outputText value="#{kilometrique.selected.marque}" title="#{bundle.ViewDeplacementTitle_marque}"/>
+                        
+                        <h:outputText value="Puissance de la voiture"/>
+                        <h:outputText value="#{kilometrique.selected.puissance}" title="#{bundle.ViewDeplacementTitle_puissance}"/>
+                        
+                       <h:outputText value="Nombre kilometre en route"/>
+                        <h:outputText value="#{kilometrique.selected.kmRoute}" title="#{bundle.ViewDeplacementTitle_kmRoute}"/>
+                       
+                        <h:outputText value="Nombre de kilometre sur piste"/>
+                        <h:outputText value="#{kilometrique.selected.kmPiste}" title="#{bundle.ViewDeplacementTitle_kmPiste}"/>
+                       
+                        <h:outputText value="Date depart"/>
+                        <h:outputText value="#{kilometrique.selected.dateDepart}" title="#{bundle.ViewDeplacementTitle_dateDepart}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        
+                        <h:outputText value="Date d'arrive"/>
+                        <h:outputText value="#{kilometrique.selected.dateArrive}" title="#{bundle.ViewDeplacementTitle_dateArrive}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        
+                        <h:outputText value="Date de creation"/>
+                        <h:outputText value="#{kilometrique.selected.dateCreation}" title="#{bundle.ViewDeplacementTitle_dateCreation}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>    
+                        
+                        <h:outputText value="Motif"/>
+                        <h:outputText value="#{kilometrique.selected.motif}" title="#{bundle.ViewDeplacementTitle_motif}"/>
+                       
+                        <h:outputText value="Creer par "/>
+                        <h:outputText value="#{kilometrique.selected.idUser.nom} #{kilometrique.selected.idUser.prenom}" title="#{bundle.ViewDeplacementTitle_idUser}"/>
+                        
+                        <h:outputText value="Secteur de deplacement"/>
+                        <h:outputText value="#{kilometrique.selected.idDotationSect.idSecteur.intituleSecteur}" title="Dotation secteur" />
+                       
+                      
+                         <h:outputText value="Montant totale"/>
+                         <h:outputText value="#{kilometrique.selected.mntkm}" title="#{bundle.ViewDeplacementTitle_mntKm}"/>
+                        
+                   
+                    </p:panelGrid>
+                    <p:panelGrid columns="2" rendered="#{kilometrique.selected.etat == 2 || kilometrique.selected.etat == 0 ? false:true}" >
+                        OP <p:panel><h:commandButton actionListener="#{kilometrique.PDFOP}" value="PDF" styleClass="btn btn-success" /><h:commandButton actionListener="#{kilometrique.XLSXOP}" styleClass="btn btn-success" value="Excel" /><h:commandButton styleClass="btn btn-success" actionListener="#{kilometrique.DOCXOP}" value="Word" /></p:panel>
+                        OV <p:panel> <h:commandButton actionListener="#{kilometrique.PDFOV}" value="PDF" styleClass="btn btn-success" /><h:commandButton actionListener="#{kilometrique.XLSXOV}" styleClass="btn btn-success" value="Excel" /><h:commandButton styleClass="btn btn-success" actionListener="#{kilometrique.DOCXOV}" value="Word" /></p:panel>
+                        Etat <p:panel> <h:commandButton actionListener ="#{kilometrique.PDEtat}" value="PDF" styleClass="btn btn-success" /><h:commandButton actionListener="#{kilometrique.XLSXEtat}" styleClass="btn btn-success" value="Excel" /><h:commandButton styleClass="btn btn-success" actionListener="#{kilometrique.DOCXEtat}" value="Word" /></p:panel>
+                        
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="DeplacementViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

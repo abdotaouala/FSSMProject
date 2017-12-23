@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:body onload="#{lignecommandeController.itemes}">
+
+        <ui:composition template="./../newTemplate.xhtml">
+
+            <ui:define name="titlepanelLeft">
+                Exprimer des Besoins
+            </ui:define>
+
+            <ui:define name="titlepanelRight">
+               Exprimer des Besoins
+            </ui:define>
+
+            <ui:define name="titlepanel">
+                Exprimer des Besoins
+            </ui:define>
+
+            <ui:define name="content">
+
+              <h:form id="LigneCommandeCreateForm">
+            <p:growl id="message" life="2000" />
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" widgetVar="confirmation" closeOnEscape="false" closable="true">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" onclick="confirmation.hide()" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" onclick="confirmation.hide()" icon="ui-icon-close" />
+            </p:confirmDialog>
+            <div class="col-md-12 col-sm-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        Formulaire :
+                    </div>
+                    <div class="panel-body">
+                        <center><table class='tab_form' style="width:500px;height:250px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
+                                <tr> 
+                                    <td class="olab"><h:outputLabel value="#{bundle.CreateLignecommandeLabel_idLigne}" for="idL" /></td>
+                                    <td class="olab"><p:inputText id="idL" value="#{lignecommandeController.current.idLigne}" title="#{bundle.CreateLignecommandeTitle_idLigne}">
+                                    <p:ajax event="change" listener="#{lignecommandeController.subjectSelectionChangedUnite()}" update="@form" process="@this" />
+                                        </p:inputText>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="olab" ><p:outputLabel value="#{bundle.CreateBoncommandeLabel_idBC}" for="id" /></td>
+                                    <td class="olab">
+                                        <p:autoComplete dropdown="true" id="id" value="#{lignecommandeController.bc}" completeMethod="#{boncommandeController.completeText}" title="#{bundle.CreateBoncommandeTitle_idBC}" required="true" 
+                                                        converter="bcConverter" var="bc" itemLabel="#{bc.idBC}" itemValue="#{bc}" >
+                                            <p:column style="width:10%">
+                                                <h:outputText value="#{bc.idBC}" />
+                                            </p:column>
+
+                                            <p:column>
+                                                <h:outputText value="#{bc.dateCommande}" /> 
+                                            </p:column>
+                                            <p:ajax event="itemSelect" listener="#{lignecommandeController.subjectSelectionChangedUnite()}" update="@form" process="@this" />
+                                            <p:ajax event="change" listener="#{lignecommandeController.subjectSelectionChangedUnite()}" update="@form" process="@this" />
+                                        </p:autoComplete>
+                                    </td>
+                                </tr>
+                                <tr> 
+                                    <td class="olab"><h:outputLabel value="Description de l'Article:" for="description" /></td>
+                                    <td class="olab">
+                                        <p:autoComplete dropdown="true" id="description" value="#{lignecommandeController.description}" completeMethod="#{articleController.completeText}" title="#{bundle.CreateArticleTitle_description}" >
+                                            <p:ajax event="itemSelect" listener="#{lignecommandeController.subjectSelectionChangedUnite()}" update="@form" process="@this" />
+                                            <p:ajax event="change" listener="#{lignecommandeController.subjectSelectionChangedUnite()}" update="@form" process="@this" />
+                                        </p:autoComplete>
+                                    </td>
+                                </tr>
+                                <tr> 
+                                    <td class="olab"><h:outputLabel value="#{bundle.CreateLignecommandeLabel_quantite}" for="quantite" /></td>
+                                    <td class="olab"><p:inputText id="quantite" value="#{lignecommandeController.qte}" title="#{bundle.CreateLignecommandeTitle_quantite}" >
+                                    <p:ajax event="change" listener="#{lignecommandeController.subjectSelectionChangedUnite()}" update="@form" process="@this" />
+                                        </p:inputText></td>
+                                </tr>
+                                <tr>
+                                    <td class="olab">
+                                        <p:commandButton  ajax="false" id="ajaxcreate"  action="#{lignecommandeController.create}" icon="ui-icon-plus" value="Ajouter" disabled="#{lignecommandeController.disablCreate}" class="btn btn-primary btn-lg" update="@form">
+                                        </p:commandButton>
+                                    </td>
+                                    <td class="olab">
+                                        <p:commandButton id="ajaxupdate"  action="#{lignecommandeController.update}" icon="ui-icon-pencil" value="Modifier" disabled="#{lignecommandeController.disablUpdate}" class="btn btn-success btn-lg" update="@form">
+                                            <p:confirm header="Confirmation de modification" message="voulez-vous vraiment modifier ces informations?" icon="ui-icon-alert" />
+                                        </p:commandButton>
+                                    </td>
+                                    <td class="olab">
+                                        <p:commandButton id="ajaxdelete"  action="#{lignecommandeController.performDestroy}" icon="ui-icon-trash" value="Supprimer" disabled="#{lignecommandeController.disablDelete}" class="btn btn-danger btn-lg" update="@form">
+                                            <p:confirm header="Confirmation de suppression" message="voulez-vous vraiment supprimer ces informations?" icon="ui-icon-alert" />
+                                        </p:commandButton>
+                                    </td>
+                                </tr>
+                            </table></center>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 col-sm-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        Liste Des Secteurs
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <p:dataTable value="#{lignecommandeController.items}" var="item" style="border:solid 1px" selectionMode="single" 
+                                         selection="#{lignecommandeController.current}"
+                                         paginator="true"
+                                         rowKey="#{item.idLigne}">
+                                <p:column headerText="#{bundle.ListLignecommandeTitle_idBC}">
+                                    <h:outputText value="#{item.idBC}"/>
+                                </p:column>
+                                <p:column headerText="#{bundle.ListLignecommandeTitle_idArticle}">
+                                    <h:outputText value="#{item.idArticle}"/>
+                                </p:column>
+                                <p:column headerText="#{bundle.ListLignecommandeTitle_idLigne}">
+                                    <h:outputText value="#{item.idLigne}"/>
+                                </p:column>
+                                <p:column headerText="#{bundle.ListLignecommandeTitle_quantite}">
+                                    <h:outputText value="#{item.quantite}"/>
+                                </p:column>
+                                <p:column headerText="#{bundle.ListLignecommandeTitle_pu}">
+                                    <h:outputText value="#{item.pu}"/>
+                                </p:column>
+                                <p:column headerText="#{bundle.ListLignecommandeTitle_montant}">
+                                    <h:outputText value="#{item.montant}"/>
+                                </p:column>
+                                <p:ajax event="rowSelect" listener="#{lignecommandeController.remplireFormulaireUnite()}" update="@form" process="@this"/>
+                                <p:column headerText="Action">
+                                    <p:commandButton id="ajaxdelete"  action="#{lignecommandeController.performDestroy}" icon="ui-icon-trash" class="btn btn-danger btn-lg" update="@form">
+                                        <p:confirm header="Confirmation de suppression" message="voulez-vous vraiment supprimer ces informations?" icon="ui-icon-alert" />
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form> 
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

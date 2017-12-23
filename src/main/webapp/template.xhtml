@@ -1,42 +1,75 @@
 <?xml version='1.0' encoding='UTF-8' ?> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:p="http://primefaces.org/ui"
-    xmlns:f="http://java.sun.com/jsf/core">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
 
-     <h:head>
-          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-          <h:outputStylesheet name="./css/default.css"/>
-          <h:outputStylesheet name="./css/cssLayout.css"/>
-          <title>Facelets Template</title>
-     </h:head>
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="css/default.css"/>
+        <h:outputStylesheet name="css/cssLayout.css"/>
+        <!-- lien vers le fichier css du style de la page budget.xhtml -->
+        <h:outputStylesheet name="css/style_budget.css"/>
+        <h:outputStylesheet name="tmp1Acc/css/bootstrap.css" />
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <h:outputScript name="tmp1Acc/js/jquery.min.js" />
+        <!-- Custom Theme files -->
+        <!--theme-style-->
+        <h:outputStylesheet name="tmp1Acc/css/style.css" />	
+        <!--//theme-style-->
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta property="og:title" content="Vide" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="keywords" content="Crude Oil  Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+              Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+        <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 
-     <h:body>
+        <h:outputScript name="tmp1Acc/js/bootstrap.min.js" />
 
-          <div id="top">
-               <ui:insert name="top">
-                    <!-- Top Header -->
-                    <ui:include src = "header.xhtml " />
-               
-               </ui:insert>
-          </div>
+        <!--JS for animate-->
+        <h:outputStylesheet name="tmp1Acc/css/animate.css" />
+        <h:outputScript name="tmp1Acc/js/wow.min.js" />
+        <script>
+            new WOW().init();
+        </script>
+        <!--//end-animate-->
+        <!--js-->
+        <h:outputStylesheet name="tmp1Acc/css/component.css" />
+        <h:outputStylesheet  name="css/jsfcrud.css"/>
+        <h:outputScript name="js/jsfcrud.js"/>
+        <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css' />
+        <link href='//fonts.googleapis.com/css?family=Play:400,700' rel='stylesheet' type='text/css' />
 
-          <div id="content" class="center_content">
-               <ui:insert name="content">
-                    <!-- Content -->
-                    
-               </ui:insert>
-          </div>
+        <ui:insert name="title">
+            <title>Projet Finance FSSM</title>
+        </ui:insert>
+    </h:head>
 
-          <div id="bottom">
-               <ui:insert name="bottom">
-                    <!-- Footer -->
-                    <ui:include src="footer.xhtml" />
-               </ui:insert>
-          </div>
+    <h:body>
 
-     </h:body>
+        <p:growl id="growl" life="3000" />
+        
+        <ui:insert name="top">
+            <ui:include src = "header.xhtml " />
+        </ui:insert>
+
+        <div class="center_content">
+            <ui:insert name="content">
+                <!-- Content -->
+            </ui:insert>
+        </div>
+
+        
+            <ui:insert name="bottom">
+                <!-- Footer -->
+                <ui:include src="footer.xhtml" />
+            </ui:insert>
+        
+
+    </h:body>
 
 </html>

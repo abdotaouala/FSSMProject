@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListPiecejustificativevacationTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListPiecejustificativevacationEmpty}" rendered="#{piecejustificativevacationController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{piecejustificativevacationController.items.rowCount > 0}">
+                    <h:outputText value="#{piecejustificativevacationController.pagination.pageFirstItem + 1}..#{piecejustificativevacationController.pagination.pageLastItem + 1}/#{piecejustificativevacationController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{piecejustificativevacationController.previous}" value="#{bundle.Previous} #{piecejustificativevacationController.pagination.pageSize}" rendered="#{piecejustificativevacationController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{piecejustificativevacationController.next}" value="#{bundle.Next} #{piecejustificativevacationController.pagination.pageSize}" rendered="#{piecejustificativevacationController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{piecejustificativevacationController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPiecejustificativevacationTitle_idPiece}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idPiece}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPiecejustificativevacationTitle_idDossier}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idDossier}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPiecejustificativevacationTitle_dosidDossier}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dosidDossier}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPiecejustificativevacationTitle_datePiece}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.datePiece}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPiecejustificativevacationTitle_intutilePiece}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intutilePiece}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListPiecejustificativevacationTitle_piece}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.piece}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{piecejustificativevacationController.prepareView}" value="#{bundle.ListPiecejustificativevacationViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{piecejustificativevacationController.prepareEdit}" value="#{bundle.ListPiecejustificativevacationEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{piecejustificativevacationController.destroy}" value="#{bundle.ListPiecejustificativevacationDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{piecejustificativevacationController.prepareCreate}" value="#{bundle.ListPiecejustificativevacationCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListPiecejustificativevacationIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

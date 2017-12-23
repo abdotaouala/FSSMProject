@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewDossiervacataireTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewDossiervacataireLabel_idDossier}"/>
+                    <h:outputText value="#{dossiervacataireController.selected.idDossier}" title="#{bundle.ViewDossiervacataireTitle_idDossier}"/>
+                    <h:outputText value="#{bundle.ViewDossiervacataireLabel_cinPpr}"/>
+                    <h:outputText value="#{dossiervacataireController.selected.cinPpr}" title="#{bundle.ViewDossiervacataireTitle_cinPpr}"/>
+                    <h:outputText value="#{bundle.ViewDossiervacataireLabel_idBordAut}"/>
+                    <h:outputText value="#{dossiervacataireController.selected.idBordAut}" title="#{bundle.ViewDossiervacataireTitle_idBordAut}"/>
+                    <h:outputText value="#{bundle.ViewDossiervacataireLabel_idDossierProv}"/>
+                    <h:outputText value="#{dossiervacataireController.selected.idDossierProv}" title="#{bundle.ViewDossiervacataireTitle_idDossierProv}"/>
+                    <h:outputText value="#{bundle.ViewDossiervacataireLabel_idBordComp}"/>
+                    <h:outputText value="#{dossiervacataireController.selected.idBordComp}" title="#{bundle.ViewDossiervacataireTitle_idBordComp}"/>
+                    <h:outputText value="#{bundle.ViewDossiervacataireLabel_idDotation}"/>
+                    <h:outputText value="#{dossiervacataireController.selected.idDotation}" title="#{bundle.ViewDossiervacataireTitle_idDotation}"/>
+                    <h:outputText value="#{bundle.ViewDossiervacataireLabel_idGrade}"/>
+                    <h:outputText value="#{dossiervacataireController.selected.idGrade}" title="#{bundle.ViewDossiervacataireTitle_idGrade}"/>
+                    <h:outputText value="#{bundle.ViewDossiervacataireLabel_nbrHeures}"/>
+                    <h:outputText value="#{dossiervacataireController.selected.nbrHeures}" title="#{bundle.ViewDossiervacataireTitle_nbrHeures}"/>
+                    <h:outputText value="#{bundle.ViewDossiervacataireLabel_mois}"/>
+                    <h:outputText value="#{dossiervacataireController.selected.mois}" title="#{bundle.ViewDossiervacataireTitle_mois}"/>
+                    <h:outputText value="#{bundle.ViewDossiervacataireLabel_semestre}"/>
+                    <h:outputText value="#{dossiervacataireController.selected.semestre}" title="#{bundle.ViewDossiervacataireTitle_semestre}"/>
+                    <h:outputText value="#{bundle.ViewDossiervacataireLabel_dateCreance}"/>
+                    <h:outputText value="#{dossiervacataireController.selected.dateCreance}" title="#{bundle.ViewDossiervacataireTitle_dateCreance}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewDossiervacataireLabel_net}"/>
+                    <h:outputText value="#{dossiervacataireController.selected.net}" title="#{bundle.ViewDossiervacataireTitle_net}"/>
+                    <h:outputText value="#{bundle.ViewDossiervacataireLabel_ir}"/>
+                    <h:outputText value="#{dossiervacataireController.selected.ir}" title="#{bundle.ViewDossiervacataireTitle_ir}"/>
+                    <h:outputText value="#{bundle.ViewDossiervacataireLabel_statutDossier}"/>
+                    <h:outputText value="#{dossiervacataireController.selected.statutDossier}" title="#{bundle.ViewDossiervacataireTitle_statutDossier}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{dossiervacataireController.destroyAndView}" value="#{bundle.ViewDossiervacataireDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewDossiervacataireEditLink}"/>
+                <br />
+                <h:commandLink action="#{dossiervacataireController.prepareCreate}" value="#{bundle.ViewDossiervacataireCreateLink}" />
+                <br />
+                <h:commandLink action="#{dossiervacataireController.prepareList}" value="#{bundle.ViewDossiervacataireShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewDossiervacataireIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

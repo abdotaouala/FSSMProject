@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateBordereaucomptableTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateBordereaucomptableLabel_idBordComp}" for="idBordComp" />
+                    <h:inputText id="idBordComp" value="#{bordereaucomptableController.selected.idBordComp}" title="#{bundle.CreateBordereaucomptableTitle_idBordComp}" required="true" requiredMessage="#{bundle.CreateBordereaucomptableRequiredMessage_idBordComp}"/>
+                    <h:outputLabel value="#{bundle.CreateBordereaucomptableLabel_annee}" for="annee" />
+                    <h:inputText id="annee" value="#{bordereaucomptableController.selected.annee}" title="#{bundle.CreateBordereaucomptableTitle_annee}" required="true" requiredMessage="#{bundle.CreateBordereaucomptableRequiredMessage_annee}"/>
+                    <h:outputLabel value="#{bundle.CreateBordereaucomptableLabel_dateExercice}" for="dateExercice" />
+                    <h:inputText id="dateExercice" value="#{bordereaucomptableController.selected.dateExercice}" title="#{bundle.CreateBordereaucomptableTitle_dateExercice}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateBordereaucomptableLabel_totalIr}" for="totalIr" />
+                    <h:inputText id="totalIr" value="#{bordereaucomptableController.selected.totalIr}" title="#{bundle.CreateBordereaucomptableTitle_totalIr}" />
+                    <h:outputLabel value="#{bundle.CreateBordereaucomptableLabel_totalNet}" for="totalNet" />
+                    <h:inputText id="totalNet" value="#{bordereaucomptableController.selected.totalNet}" title="#{bundle.CreateBordereaucomptableTitle_totalNet}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{bordereaucomptableController.create}" value="#{bundle.CreateBordereaucomptableSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{bordereaucomptableController.prepareList}" value="#{bundle.CreateBordereaucomptableShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateBordereaucomptableIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

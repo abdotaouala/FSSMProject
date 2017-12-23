@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="./../newTemplate.xhtml">
+
+        <ui:define name="titlepanelLeft">
+            Gestion
+        </ui:define>
+
+        <ui:define name="titlepanelRight">
+            Intervenants
+        </ui:define>
+
+        <ui:define name="titlepanel">
+            Gestion intervenants
+        </ui:define>
+
+        <ui:define name="content">
+            <h:form id="IntervenantListForm">
+                <p:panel header="#{bundle.ListIntervenantTitle}">
+                    <p:dataTable id="datalist" value="#{intervenantController.items}" var="item"
+                                 selectionMode="single" selection="#{intervenantController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.cinPpr}"
+                                 rows="8"
+                                 rowsPerPageTemplate="5,8,10,20,30,40,50"
+                                 widgetVar="carsTable"
+                                 emptyMessage="No cars found with given criteria"
+                                 paginatorPosition="bottom"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <f:facet name="header">
+                            <p:outputPanel style="float:right;margin-top: 10px">  
+                                <h:outputText value="Search all fields:" />
+                                <p:inputText id="globalFilter" onkeyup="PF('carsTable').filter()" style="width:100%" placeholder="Enter keyword"/>
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column >
+                            <f:facet name="header">
+                                <h:outputText value="CIN"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cinPpr}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIntervenantTitle_nomComplet}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nomComplet}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIntervenantTitle_nomArabe}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nomArabe}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIntervenantTitle_telephone}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.telephone}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIntervenantTitle_mail}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.mail}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIntervenantTitle_idUser}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idUser}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{intervenantController.prepareCreate}" update=":IntervenantCreateForm" oncomplete="PF('IntervenantCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":IntervenantViewForm" oncomplete="PF('IntervenantViewDialog').show()" disabled="#{empty intervenantController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":IntervenantEditForm" oncomplete="PF('IntervenantEditDialog').show()" disabled="#{empty intervenantController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{intervenantController.destroy}" update=":growl,datalist" disabled="#{empty intervenantController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

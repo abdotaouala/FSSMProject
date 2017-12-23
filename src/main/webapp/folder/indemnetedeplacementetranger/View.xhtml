@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewIndemnetedeplacementetrangerTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewIndemnetedeplacementetrangerLabel_indemnetedeplacementetrangerPK_idDeplacement}"/>
+                    <h:outputText value="#{indemnetedeplacementetrangerController.selected.indemnetedeplacementetrangerPK.idDeplacement}" title="#{bundle.ViewIndemnetedeplacementetrangerTitle_indemnetedeplacementetrangerPK_idDeplacement}"/>
+                    <h:outputText value="#{bundle.ViewIndemnetedeplacementetrangerLabel_indemnetedeplacementetrangerPK_idDepEx}"/>
+                    <h:outputText value="#{indemnetedeplacementetrangerController.selected.indemnetedeplacementetrangerPK.idDepEx}" title="#{bundle.ViewIndemnetedeplacementetrangerTitle_indemnetedeplacementetrangerPK_idDepEx}"/>
+                    <h:outputText value="#{bundle.ViewIndemnetedeplacementetrangerLabel_idPrixSej}"/>
+                    <h:outputText value="#{indemnetedeplacementetrangerController.selected.idPrixSej}" title="#{bundle.ViewIndemnetedeplacementetrangerTitle_idPrixSej}"/>
+                    <h:outputText value="#{bundle.ViewIndemnetedeplacementetrangerLabel_idDotation}"/>
+                    <h:outputText value="#{indemnetedeplacementetrangerController.selected.idDotation}" title="#{bundle.ViewIndemnetedeplacementetrangerTitle_idDotation}"/>
+                    <h:outputText value="#{bundle.ViewIndemnetedeplacementetrangerLabel_mntDepEx}"/>
+                    <h:outputText value="#{indemnetedeplacementetrangerController.selected.mntDepEx}" title="#{bundle.ViewIndemnetedeplacementetrangerTitle_mntDepEx}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{indemnetedeplacementetrangerController.destroyAndView}" value="#{bundle.ViewIndemnetedeplacementetrangerDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewIndemnetedeplacementetrangerEditLink}"/>
+                <br />
+                <h:commandLink action="#{indemnetedeplacementetrangerController.prepareCreate}" value="#{bundle.ViewIndemnetedeplacementetrangerCreateLink}" />
+                <br />
+                <h:commandLink action="#{indemnetedeplacementetrangerController.prepareList}" value="#{bundle.ViewIndemnetedeplacementetrangerShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewIndemnetedeplacementetrangerIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

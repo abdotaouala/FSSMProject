@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditLignecommandeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditLignecommandeLabel_idBC}" for="idBC" />
+                    <h:inputText id="idBC" value="#{lignecommandeController.selected.idBC}" title="#{bundle.EditLignecommandeTitle_idBC}" required="true" requiredMessage="#{bundle.EditLignecommandeRequiredMessage_idBC}"/>
+                    <h:outputLabel value="#{bundle.EditLignecommandeLabel_idArticle}" for="idArticle" />
+                    <h:inputText id="idArticle" value="#{lignecommandeController.selected.idArticle}" title="#{bundle.EditLignecommandeTitle_idArticle}" required="true" requiredMessage="#{bundle.EditLignecommandeRequiredMessage_idArticle}"/>
+                    <h:outputLabel value="#{bundle.EditLignecommandeLabel_idLigne}" for="idLigne" />
+                    <h:inputText id="idLigne" value="#{lignecommandeController.selected.idLigne}" title="#{bundle.EditLignecommandeTitle_idLigne}" required="true" requiredMessage="#{bundle.EditLignecommandeRequiredMessage_idLigne}"/>
+                    <h:outputLabel value="#{bundle.EditLignecommandeLabel_quantite}" for="quantite" />
+                    <h:inputText id="quantite" value="#{lignecommandeController.selected.quantite}" title="#{bundle.EditLignecommandeTitle_quantite}" />
+                    <h:outputLabel value="#{bundle.EditLignecommandeLabel_pu}" for="pu" />
+                    <h:inputText id="pu" value="#{lignecommandeController.selected.pu}" title="#{bundle.EditLignecommandeTitle_pu}" />
+                    <h:outputLabel value="#{bundle.EditLignecommandeLabel_montant}" for="montant" />
+                    <h:inputText id="montant" value="#{lignecommandeController.selected.montant}" title="#{bundle.EditLignecommandeTitle_montant}" />
+                </h:panelGrid>
+                <h:commandLink action="#{lignecommandeController.update}" value="#{bundle.EditLignecommandeSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditLignecommandeViewLink}"/>
+                <br />
+                <h:commandLink action="#{lignecommandeController.prepareList}" value="#{bundle.EditLignecommandeShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditLignecommandeIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

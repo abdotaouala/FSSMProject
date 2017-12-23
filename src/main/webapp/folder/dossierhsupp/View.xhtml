@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewDossierhsuppTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewDossierhsuppLabel_idDossier}"/>
+                    <h:outputText value="#{dossierhsuppController.selected.idDossier}" title="#{bundle.ViewDossierhsuppTitle_idDossier}"/>
+                    <h:outputText value="#{bundle.ViewDossierhsuppLabel_cinPpr}"/>
+                    <h:outputText value="#{dossierhsuppController.selected.cinPpr}" title="#{bundle.ViewDossierhsuppTitle_cinPpr}"/>
+                    <h:outputText value="#{bundle.ViewDossierhsuppLabel_idBordAut}"/>
+                    <h:outputText value="#{dossierhsuppController.selected.idBordAut}" title="#{bundle.ViewDossierhsuppTitle_idBordAut}"/>
+                    <h:outputText value="#{bundle.ViewDossierhsuppLabel_idDossierProv}"/>
+                    <h:outputText value="#{dossierhsuppController.selected.idDossierProv}" title="#{bundle.ViewDossierhsuppTitle_idDossierProv}"/>
+                    <h:outputText value="#{bundle.ViewDossierhsuppLabel_idBordComp}"/>
+                    <h:outputText value="#{dossierhsuppController.selected.idBordComp}" title="#{bundle.ViewDossierhsuppTitle_idBordComp}"/>
+                    <h:outputText value="#{bundle.ViewDossierhsuppLabel_idDotation}"/>
+                    <h:outputText value="#{dossierhsuppController.selected.idDotation}" title="#{bundle.ViewDossierhsuppTitle_idDotation}"/>
+                    <h:outputText value="#{bundle.ViewDossierhsuppLabel_idGrade}"/>
+                    <h:outputText value="#{dossierhsuppController.selected.idGrade}" title="#{bundle.ViewDossierhsuppTitle_idGrade}"/>
+                    <h:outputText value="#{bundle.ViewDossierhsuppLabel_idDetail}"/>
+                    <h:outputText value="#{dossierhsuppController.selected.idDetail}" title="#{bundle.ViewDossierhsuppTitle_idDetail}"/>
+                    <h:outputText value="#{bundle.ViewDossierhsuppLabel_nbrHeures}"/>
+                    <h:outputText value="#{dossierhsuppController.selected.nbrHeures}" title="#{bundle.ViewDossierhsuppTitle_nbrHeures}"/>
+                    <h:outputText value="#{bundle.ViewDossierhsuppLabel_mois}"/>
+                    <h:outputText value="#{dossierhsuppController.selected.mois}" title="#{bundle.ViewDossierhsuppTitle_mois}"/>
+                    <h:outputText value="#{bundle.ViewDossierhsuppLabel_semestre}"/>
+                    <h:outputText value="#{dossierhsuppController.selected.semestre}" title="#{bundle.ViewDossierhsuppTitle_semestre}"/>
+                    <h:outputText value="#{bundle.ViewDossierhsuppLabel_dateCreance}"/>
+                    <h:outputText value="#{dossierhsuppController.selected.dateCreance}" title="#{bundle.ViewDossierhsuppTitle_dateCreance}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewDossierhsuppLabel_montantHsupp}"/>
+                    <h:outputText value="#{dossierhsuppController.selected.montantHsupp}" title="#{bundle.ViewDossierhsuppTitle_montantHsupp}"/>
+                    <h:outputText value="#{bundle.ViewDossierhsuppLabel_statutDossier}"/>
+                    <h:outputText value="#{dossierhsuppController.selected.statutDossier}" title="#{bundle.ViewDossierhsuppTitle_statutDossier}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{dossierhsuppController.destroyAndView}" value="#{bundle.ViewDossierhsuppDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewDossierhsuppEditLink}"/>
+                <br />
+                <h:commandLink action="#{dossierhsuppController.prepareCreate}" value="#{bundle.ViewDossierhsuppCreateLink}" />
+                <br />
+                <h:commandLink action="#{dossierhsuppController.prepareList}" value="#{bundle.ViewDossierhsuppShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewDossierhsuppIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

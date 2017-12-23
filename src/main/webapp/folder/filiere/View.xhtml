@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewFiliereTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewFiliereLabel_idFiliere}"/>
+                    <h:outputText value="#{filiereController.selected.idFiliere}" title="#{bundle.ViewFiliereTitle_idFiliere}"/>
+                    <h:outputText value="#{bundle.ViewFiliereLabel_idDep}"/>
+                    <h:outputText value="#{filiereController.selected.idDep}" title="#{bundle.ViewFiliereTitle_idDep}"/>
+                    <h:outputText value="#{bundle.ViewFiliereLabel_idType}"/>
+                    <h:outputText value="#{filiereController.selected.idType}" title="#{bundle.ViewFiliereTitle_idType}"/>
+                    <h:outputText value="#{bundle.ViewFiliereLabel_idUser}"/>
+                    <h:outputText value="#{filiereController.selected.idUser}" title="#{bundle.ViewFiliereTitle_idUser}"/>
+                    <h:outputText value="#{bundle.ViewFiliereLabel_intitule}"/>
+                    <h:outputText value="#{filiereController.selected.intitule}" title="#{bundle.ViewFiliereTitle_intitule}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{filiereController.destroyAndView}" value="#{bundle.ViewFiliereDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewFiliereEditLink}"/>
+                <br />
+                <h:commandLink action="#{filiereController.prepareCreate}" value="#{bundle.ViewFiliereCreateLink}" />
+                <br />
+                <h:commandLink action="#{filiereController.prepareList}" value="#{bundle.ViewFiliereShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewFiliereIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

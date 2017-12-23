@@ -1,0 +1,324 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../newTemplate.xhtml">
+
+            <ui:define name="titlepanelLeft">
+                BORDEREAU DE TRANSMISSION
+            </ui:define>
+
+            <ui:define name="titlepanelRight">
+                BORDEREAU DE TRANSMISSION
+            </ui:define>
+
+            <ui:define name="titlepanel">
+                BORDEREAU DE TRANSMISSION
+            </ui:define>
+
+            <ui:define name="content">
+                <script type="text/javascript">
+                    function handleDrop(event, ui) {
+                        var droppedCar = ui.draggable;
+
+                        droppedCar.fadeOut('fast');
+                    }
+                </script>
+
+                <h:form id="carForm">
+                    <p:fieldset id="availableCarsField" legend="Deplacement Disponible">
+                        <h:commandLink>
+                            <p:graphicImage name="/tem3Ges/images/exel.png" width="24"/>
+                            <p:dataExporter type="xls" target="availableCars" fileName="availableCars" />
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage name="/tem3Ges/images/pdf.png" width="24"/>
+                            <p:dataExporter type="pdf" target="availableCars" fileName="cars"/>
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage name="/tem3Ges/images/csv.png" width="24"/>
+                            <p:dataExporter type="csv" target="availableCars" fileName="cars" />
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage name="/tem3Ges/images/xml.png" width="24"/>
+                            <p:dataExporter type="xml" target="availableCars" fileName="cars" />
+                        </h:commandLink>
+
+                        <p:dataTable id="availableCars" var="car" value="#{dndDeplacementsView.deplacements}"
+                                     paginatorPosition="bottom"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                                     rows="5"
+
+                                     rowsPerPageTemplate="5,8,10,20,30,40,50"
+                                     >
+                            <p:column style="width:20px">
+                                <h:outputText id="dragIcon" styleClass="ui-icon ui-icon-arrow-4" />
+                                <p:draggable for="dragIcon" revert="true" helper="clone"/>
+                            </p:column>
+                            <p:column style="font-size: 140%" filterBy="#{item.cinPpr.nomComplet}" sortBy="#{item.cinPpr.nomComplet}"  filterMatchMode="contains" width="10%" >
+                                <f:facet name="header">
+                                    <h:outputText value="Bénéficiaire"/>
+                                </f:facet>
+                                <h:outputText value="#{car.cinPpr.nomComplet}" />
+
+                            </p:column>
+                            <p:column  filterBy="#{car.typedep}"  headerText="NATURE DE LA DEPENSE" style="width: 20%;font-size: 100%" filterMatchMode="equals">
+                                <f:facet name="filter">
+                                    <p:selectOneButton onchange="PF('carsTable').filter()">
+                                        <f:converter converterId="javax.faces.Integer" />
+                                        <f:selectItem itemLabel="Interne" itemValue="0" />
+                                        <f:selectItem itemLabel="Kil.." itemValue="1" />
+                                        <f:selectItem itemLabel="Externe" itemValue="2" />
+                                    </p:selectOneButton>
+                                </f:facet>
+                                <f:facet name="NATURE DE LA DEPENSE">
+                                    <h:outputText value="NATURE DE LA DEPENSE"/>
+                                </f:facet>
+                                <h:outputText value="#{car.typedep ==0 ?  'Indemnités de déplacement à l\'intérieur du royaume' : '' } #{car.typedep ==1 ?  'Indemnités Kilométriques' : '' } #{car.typedep ==2 ?  'Indemnités de déplacement à l\'exterieur du royaume' : '' }" />
+                            </p:column>
+                            <p:column  filterBy="#{car.etat}"  headerText="Status" style="width: 20%;font-size: 100%" filterMatchMode="equals">
+                                <f:facet name="filter">
+                                    <p:selectOneButton onchange="PF('carsTable').filter()">
+                                        <f:converter converterId="javax.faces.Integer" />
+                                        <f:selectItem itemLabel="Encours" itemValue="0" />
+                                        <f:selectItem itemLabel="Valide" itemValue="1" />
+                                        <f:selectItem itemLabel="Rejeter" itemValue="2" />
+                                    </p:selectOneButton>
+                                </f:facet>
+                                <f:facet name="header">
+                                    <h:outputText value="Status"/>
+                                </f:facet>
+                                <h:outputText value="#{car.etat ==0 ?  'EnCours' : '' } #{car.etat ==1 ?  'Valide' : '' } #{car.etat ==2 ?  'Rjeter' : '' }" />
+                            </p:column>
+
+                            <p:column style="font-size: 140%"  width="10%" filterBy="#{car.motif}" sortBy="#{car.motif}"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Motif"/>
+                                </f:facet>
+
+                                <h:outputText value="#{car.motif}" />
+                            </p:column>
+
+                            <p:column style="font-size: 140%" width="10%" filterBy="#{car.montantDepInt}" sortBy="#{car.montantDepInt}"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Montant totale"/>
+                                </f:facet>
+                                <h:outputText value="#{car.montantDepInt}"/>
+                            </p:column>
+                            <p:column style="font-size: 140%" width="10%" filterBy="#{car.dateDepart}" sortBy="#{car.dateDepart}"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Date depart"/>
+                                </f:facet>
+                                <h:outputText value="#{car.dateDepart}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column style="font-size: 140%" width="10%" filterBy="#{car.dateArrive}" sortBy="#{car.dateArrive}"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Date d'arrive"/>
+                                </f:facet>
+                                <h:outputText value="#{car.dateArrive}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column style="font-size: 140%" width="10%" filterBy="#{car.dateCreation}" sortBy="#{car.dateCreation}"  filterMatchMode="contains">
+                                <f:facet name="header">
+                                    <h:outputText value="Date de creation"/>
+                                </f:facet>
+                                <h:outputText value="#{car.dateCreation}">
+                                    <f:convertDateTime pattern="yyyy  (dd/MM)" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column style="width:32px" exportable="false">
+                                <p:commandButton update=":carForm:display" oncomplete="PF('carDialog').show()" icon="ui-icon-search">
+                                    <f:setPropertyActionListener value="#{car}" target="#{dndDeplacementsView.selectedDeplacement}" />
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </p:fieldset>
+
+                    <p:fieldset id="selectedCars" legend="Selected Deplacements" style="margin-top:20px">
+                        <h:commandLink>
+                            <p:graphicImage name="/tem3Ges/images/exel.png" width="24"/>
+                            <p:dataExporter type="xls" target="selectedCarsTable" fileName="availableCars" />
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage name="/tem3Ges/images/pdf.png" width="24"/>
+                            <p:dataExporter type="pdf" target="selectedCarsTable" fileName="cars"/>
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage name="/tem3Ges/images/csv.png" width="24"/>
+                            <p:dataExporter type="csv" target="selectedCarsTable" fileName="cars" />
+                        </h:commandLink>
+
+                        <h:commandLink>
+                            <p:graphicImage name="/tem3Ges/images/xml.png" width="24"/>
+                            <p:dataExporter type="xml" target="selectedCarsTable" fileName="cars" />
+                        </h:commandLink>
+                        <p:commandButton  type="button" icon="ui-icon-print" style="width: 24px">
+                                <p:printer target="image"  />
+                        </p:commandButton>
+                        <p:outputPanel id="dropArea">
+                            <h:outputText value=" déposer ici " rendered="#{empty dndDeplacementsView.droppedDeplacements}" style="font-size:24px;" />
+                            
+                            <p:panel id="image">
+                                <h4> UNIVERSITE CADI AYYAD<br />
+                                    FACULTE DES SCIENCES<br />
+                                    SEMLALIA-MARRAKECH<br /></h4>
+                                <hr />
+                                <h2><center>BORDEREAU DE TRANSMISSION DES ORDONNANCES DE PAIMENT </center></h2>
+                                <h3><center>EXERCICE 2016</center></h3>
+                                <hr />
+                                <p:dataTable id="selectedCarsTable" var="car" value="#{dndDeplacementsView.droppedDeplacements}" rendered="#{not empty dndDeplacementsView.droppedDeplacements}">
+                                    <p:column   width="20%" >
+                                        <f:facet name="header">
+                                            <h:outputText value="Bénéficiaire"/>
+                                        </f:facet>
+                                        <h:outputText value="#{car.cinPpr.nomComplet}" />
+
+                                    </p:column>
+
+                                    <p:column   headerText="NATURE DE LA DEPENSE" style="width: 30%;" >
+
+                                        <f:facet name="NATURE DE LA DEPENSE">
+                                            <h:outputText value="Status"/>
+                                        </f:facet>
+                                        <h:outputText value="#{car.etat ==0 ?  'Indemnités de déplacement à l\'intérieur du royaume' : '' } #{car.etat ==1 ?  'Indemnités Kilométriques' : '' } #{car.etat ==2 ?  'Indemnités de déplacement à l\'exterieur du royaume' : '' }" />
+                                    </p:column>
+                                    <p:column    width="30%" >
+                                        <f:facet name="header">
+                                            <h:outputText value="COMPTE N°"/>
+                                        </f:facet>
+                                        <h:outputText value="#{deplacementController.compte.intitule}" />
+
+                                    </p:column>
+                                    <p:column    width="20%" >
+                                        <f:facet name="header">
+                                            <h:outputText value="MONTANT DES ORDONNANCES"/>
+                                        </f:facet>
+                                        <h:outputText value="#{car.montantDepInt} #{car.mntkm} #{car.montantDepExt} DH" />
+
+                                    </p:column>
+                                    <p:column   width="10%" >
+                                        <f:facet name="header">
+                                            <h:outputText value="M NT REJETS"/>
+                                        </f:facet>
+
+                                    </p:column>
+                                    <p:column    width="10%" >
+                                        <f:facet name="header">
+                                            <h:outputText value="OBSERV."/>
+                                        </f:facet>
+
+                                    </p:column>
+
+                                </p:dataTable>
+                                <br />
+                                <br />
+                                <p:panel>
+                                    <p>SOUS-ORDONNATEUR</p><br />
+                                    <p>Pris en charge par</p><br />
+                                    <p>Le fondé de pouvoirs  </p>                                             
+                                </p:panel>
+                            </p:panel>
+                        </p:outputPanel>
+                    </p:fieldset>
+                    <p:draggable for="selectedCars" />
+                    <p:droppable for="selectedCars" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="availableCars" onDrop="handleDrop">
+                        <p:ajax listener="#{dndDeplacementsView.onDeplacementDrop}" update="dropArea availableCars" />
+                    </p:droppable>
+
+                    <p:dialog header="Car Detail" widgetVar="carDialog" resizable="false" draggable="false"
+                              showEffect="explode" hideEffect="explode" modal="true">
+
+                        <p:outputPanel id="display">
+                            <h:panelGrid columns="2" cellpadding="4" rendered="#{not empty dndDeplacementsView.selectedDeplacement}">
+
+
+
+
+                                <h:outputText value="Bénéficiaire"/>
+                                <h:outputText value="#{dndDeplacementsView.selectedDeplacement.cinPpr.nomComplet}" title="#{bundle.ViewDeplacementTitle_cinPpr}"/>
+
+
+                                <h:outputText value="Motif : "/>
+                                <h:outputText value="#{dndDeplacementsView.selectedDeplacement.motif}" title="#{bundle.ViewDeplacementTitle_motif}"/>
+
+
+
+
+
+
+                                <h:outputText value="Date depart"/>
+                                <h:outputText value="#{dndDeplacementsView.selectedDeplacement.dateDepart}" title="#{bundle.ViewDeplacementTitle_dateDepart}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+
+                                <h:outputText value="Date d'arrive"/>
+                                <h:outputText value="#{dndDeplacementsView.selectedDeplacement.dateArrive}" title="#{bundle.ViewDeplacementTitle_dateArrive}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+
+                                <h:outputText value="Date de creation"/>
+                                <h:outputText value="#{dndDeplacementsView.selectedDeplacement.dateCreation}" title="#{bundle.ViewDeplacementTitle_dateCreation}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+
+
+                                <h:outputText value="Creer par "/>
+                                <h:outputText value="#{dndDeplacementsView.selectedDeplacement.idUser.nom} #{deplacementController.selected.idUser.prenom}" title="#{bundle.ViewDeplacementTitle_idUser}"/>
+
+                                <h:outputText value="Secteur de deplacement"/>
+                                <h:outputText value="#{dndDeplacementsView.selectedDeplacement.idDotationSect.idSecteur.intituleSecteur}" title="#{bundle.ViewDeplacementTitle_dotationsecteur}"/>
+
+                                <h:outputText value="Status"/>
+                                <h:outputText value="#{dndDeplacementsView.selectedDeplacement.etat ==0 ?  'en Cour' : '' } #{dndDeplacementsView.selectedDeplacement.etat ==1 ?  'Valide' : '' } #{dndDeplacementsView.selectedDeplacement.etat ==2 ?  'Rjeter' : '' }" title="Status Deplacement"/>
+
+                                <h:outputText value="Date de validation"/>
+                                <h:outputText value="#{dndDeplacementsView.selectedDeplacement.dateEtat}" title="#{bundle.ViewDeplacementTitle_dateEtat}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                </h:outputText>
+
+                                <h:outputText value="Ville de destination"/>
+                                <h:outputText value="#{dndDeplacementsView.selectedDeplacement.ville}" title="#{bundle.ViewDeplacementTitle_ville}"/>
+
+
+                                <h:outputText value="Indice"/>
+                                <h:outputText value="#{dndDeplacementsView.selectedDeplacement.indice}" title="#{bundle.ViewDeplacementTitle_indice}"/>
+
+                                <h:outputText value="Echelle"/>
+                                <h:outputText value="#{dndDeplacementsView.selectedDeplacement.echelle}" title="#{bundle.ViewDeplacementTitle_echelle}"/>
+
+                                <h:outputText value="Grade"/>
+                                <h:outputText value="#{dndDeplacementsView.selectedDeplacement.grade}" title="#{bundle.ViewDeplacementTitle_grade}"/>
+
+                                <h:outputText value="justification"/>
+                                <h:outputText value="#{deplacementController.selected.justification}" title="Justification"/>
+
+                                <h:outputText value="Montant totale"/>
+                                <h4> <h:outputText  style='color: #0044DD' value="#{dndDeplacementsView.selectedDeplacement.montantDepInt}" title="#{bundle.ViewDeplacementTitle_mntKm}"/></h4>
+
+
+                            </h:panelGrid>
+                        </p:outputPanel>
+                    </p:dialog>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditIndemnetedeplacementinterneTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditIndemnetedeplacementinterneLabel_indemnetedeplacementinternePK_idDeplacement}" for="indemnetedeplacementinternePK_idDeplacement" />
+                    <h:inputText id="indemnetedeplacementinternePK_idDeplacement" value="#{indemnetedeplacementinterneController.selected.indemnetedeplacementinternePK.idDeplacement}" title="#{bundle.EditIndemnetedeplacementinterneTitle_indemnetedeplacementinternePK_idDeplacement}" required="true" requiredMessage="#{bundle.EditIndemnetedeplacementinterneRequiredMessage_indemnetedeplacementinternePK_idDeplacement}"/>
+                    <h:outputLabel value="#{bundle.EditIndemnetedeplacementinterneLabel_indemnetedeplacementinternePK_idIndDep}" for="indemnetedeplacementinternePK_idIndDep" />
+                    <h:inputText id="indemnetedeplacementinternePK_idIndDep" value="#{indemnetedeplacementinterneController.selected.indemnetedeplacementinternePK.idIndDep}" title="#{bundle.EditIndemnetedeplacementinterneTitle_indemnetedeplacementinternePK_idIndDep}" required="true" requiredMessage="#{bundle.EditIndemnetedeplacementinterneRequiredMessage_indemnetedeplacementinternePK_idIndDep}"/>
+                    <h:outputLabel value="#{bundle.EditIndemnetedeplacementinterneLabel_idPrixRepas}" for="idPrixRepas" />
+                    <h:inputText id="idPrixRepas" value="#{indemnetedeplacementinterneController.selected.idPrixRepas}" title="#{bundle.EditIndemnetedeplacementinterneTitle_idPrixRepas}" />
+                    <h:outputLabel value="#{bundle.EditIndemnetedeplacementinterneLabel_idDotation}" for="idDotation" />
+                    <h:inputText id="idDotation" value="#{indemnetedeplacementinterneController.selected.idDotation}" title="#{bundle.EditIndemnetedeplacementinterneTitle_idDotation}" required="true" requiredMessage="#{bundle.EditIndemnetedeplacementinterneRequiredMessage_idDotation}"/>
+                    <h:outputLabel value="#{bundle.EditIndemnetedeplacementinterneLabel_montantDepInt}" for="montantDepInt" />
+                    <h:inputText id="montantDepInt" value="#{indemnetedeplacementinterneController.selected.montantDepInt}" title="#{bundle.EditIndemnetedeplacementinterneTitle_montantDepInt}" />
+                </h:panelGrid>
+                <h:commandLink action="#{indemnetedeplacementinterneController.update}" value="#{bundle.EditIndemnetedeplacementinterneSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditIndemnetedeplacementinterneViewLink}"/>
+                <br />
+                <h:commandLink action="#{indemnetedeplacementinterneController.prepareList}" value="#{bundle.EditIndemnetedeplacementinterneShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditIndemnetedeplacementinterneIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

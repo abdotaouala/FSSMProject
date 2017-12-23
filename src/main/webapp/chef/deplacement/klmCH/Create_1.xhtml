@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DeplacementCreateDlg" widgetVar="DeplacementCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="Nouvelle kilométrique" width="70%" height="100%" showEffect="explode" hideEffect="explode">
+            <h:form id="DeplacementCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="4" rendered="#{kilometrique.selected != null}" columnClasses="ui-grid-col-2,ui-grid-col-10" styleClass="ui-panelgrid-blank" style="width: 100%">
+
+
+
+
+
+
+
+
+                        <p:growl id="growl" sticky="true" showDetail="true"/>
+
+                        <p:wizard>
+                            <p:tab id="personal" title="Bénéficiaire">
+                                <p:panel header="Information Bénéficiaire">
+                                    <p:messages />
+                                    <h:panelGrid columns="2" >
+
+                                        <p:outputLabel value="Bénéficiaire" for="cinPpr" />
+                                        <p:selectOneMenu  id="cinPpr" value="#{kilometrique.selected.cinPpr}" required="true" requiredMessage="#{bundle.EditDeplacementRequiredMessage_cinPpr}">
+                                            <f:selectItem itemLabel="Select one" /> 
+                                            <f:selectItems value="#{intervenantController.itemsAvailableSelectOne}"
+                                                           var="cinPprItem"
+                                                           itemValue="#{cinPprItem}" itemLabel="#{cinPprItem.nomComplet}"/>
+                                            <p:ajax update="chowinfben" />
+                                        </p:selectOneMenu>
+
+                                        <h:panelGrid  id="chowinfben" columns="2" width="100%" >
+                                            <p:outputLabel value="Nom Complet : " />
+                                            <p:outputLabel value="#{kilometrique.selected.cinPpr.nomComplet}" />
+                                            <p:outputLabel value="Mail : " />
+                                            <p:outputLabel value="#{kilometrique.selected.cinPpr.mail}" />
+                                            <p:outputLabel value="Téléphone : " />
+                                            <p:outputLabel value="#{kilometrique.selected.cinPpr.telephone}" />
+
+                                            <p:outputLabel value="compte bancaire : " />
+
+                                            <p:outputLabel value="#{kilometrique.selected.cinPpr.comptebcList.get(1).intitule}" />
+
+                                            <p:outputLabel value="RIP : " />
+
+                                            <p:outputLabel value="#{kilometrique.selected.cinPpr.comptebcList.get(1).rib}" />
+
+                                            <p:outputLabel value="Banque : " />
+
+                                            <p:outputLabel value="#{kilometrique.selected.cinPpr.comptebcList.get(1).bc}" />
+
+                                        </h:panelGrid>
+
+                                    </h:panelGrid>
+
+                                </p:panel>
+                            </p:tab>
+                            <p:tab id="personal1" title="Voiture">
+                                <p:panel header="Information Voiture">
+                                    <p:messages />
+                                    <h:panelGrid columns="2" >
+                                        <p:outputLabel value="Puissance de voiture" for="puissance" />
+                                        <p:inputText id="puissance" type="number" value="#{kilometrique.selected.puissance}" title="#{bundle.CreateDeplacementTitle_puissance}" />
+                                        <p:outputLabel value="Marque de voiture" for="marque" />
+                                        <p:inputText id="marque" type="number" value="#{kilometrique.selected.marque}" title="#{bundle.CreateDeplacementTitle_puissance}" />
+
+                                    </h:panelGrid>
+                                </p:panel>
+                            </p:tab>
+                            <p:tab id="address" title="kilométrique">
+                                <p:panel header="Information deplacement">
+                                    <p:messages />
+                                    <h:panelGrid columns="4" >
+
+                                        <p:outputLabel for="advanced" value="Ville :"  />
+                                        <p:selectOneMenu editable="true" id="advanced" value="#{kilometrique.selected.ville}"  panelStyle="width:180px"
+                                                         effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
+                                            <f:selectItems value="#{selectOneMenuView.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme.displayName}" />
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="Nombre des kilometres sur la route" for="kmRoute" />
+                                        <p:inputText id="kmRoute" type="number" value="#{kilometrique.selected.kmRoute}" title="#{bundle.CreateDeplacementTitle_kmRoute}" />
+
+                                        <p:outputLabel value="Nombre des kilometres sur la piste" for="kmPiste" />
+                                        <p:inputText id="kmPiste" type="number" value="#{kilometrique.selected.kmPiste}" title="#{bundle.CreateDeplacementTitle_kmPiste}" />
+
+                                        <p:outputLabel value="Date depart" for="dateDepart" />
+                                        <p:calendar id="dateDepart" pattern="MM/dd/yyyy HH:mm:ss" value="#{kilometrique.selected.dateDepart}" title="#{bundle.EditDeplacementTitle_dateDepart}"  />
+
+                                        <p:outputLabel value="Date d'arrive" for="dateArrive" />
+                                        <p:calendar id="dateArrive" pattern="MM/dd/yyyy HH:mm:ss" value="#{kilometrique.selected.dateArrive}" title="#{bundle.EditDeplacementTitle_dateArrive}"  />
+
+
+                                        <p:outputLabel value="User" for="idUser" />
+                                        <p:selectOneMenu id="idUser" value="#{kilometrique.selected.idUser}" required="true" requiredMessage="#{bundle.EditDeplacementRequiredMessage_idUser}">
+                                            <f:selectItems value="#{usersController.itemsAvailableSelectOne}"
+                                                           var="idUserItem"
+                                                           itemValue="#{idUserItem}" itemLabel="#{idUserItem.nom} #{idUserItem.prenom}"/>
+                                        </p:selectOneMenu>
+
+                                        <p:outputLabel value="Motif" for="motif" />
+                                        <p:inputTextarea id="motif" value="#{kilometrique.selected.motif}" title="#{bundle.CreateDeplacementTitle_motif}" />
+
+                                        
+
+                                    </h:panelGrid>
+                                </p:panel>
+                            </p:tab>
+                            <p:tab id="secteur" title="Secteur">
+                                <p:panel header="Secteur Information">
+                                    <p:messages />
+                                    <p:panelGrid columns="1" >
+
+                                        <p:outputLabel value="Intitule Compte Deplacement Interne : " />
+                                        <p:outputLabel value="#{kilometrique.compte.intitule}"  />
+
+                                        <p:outputLabel value="Secteur de deplacement Principal"  />
+                                        <p:selectOneMenu value="#{kilometrique.secteurprincipal}">
+                                            <f:selectItem  itemLabel="Select One" />
+                                            <f:selectItems value="#{kilometrique.listSp}" var="item1" itemValue="#{item1}" itemLabel="#{item1.designation}" />
+                                            <p:ajax update="sect" />
+                                        </p:selectOneMenu>
+
+                                        <p:outputLabel value="Secteur de deplacement"  />
+                                        <p:selectOneMenu id="sect" value="#{kilometrique.secteur}"  > 
+                                            <f:selectItem  itemLabel="Select One"/>
+                                            <f:selectItems value="#{kilometrique.secteurprincipal.secteurList}" var="item2" itemValue="#{item2}" itemLabel="#{item2.intituleSecteur}" />
+
+                                        </p:selectOneMenu>
+
+                                    </p:panelGrid>
+                                </p:panel>
+                            </p:tab>
+
+                            <p:tab id="contact" title="Justification">
+                                <p:panel header="Contact Information">
+                                    <p:messages />
+                                    <p:panelGrid columns="2" >
+
+                                        <p:outputLabel value="Justification :" for="justifi" />
+                                        <p:inputTextarea id="justifi" value="#{kilometrique.selected.justification}"/>
+
+
+
+
+
+                                    </p:panelGrid>
+                                </p:panel>
+                            </p:tab>
+
+                            <p:tab id="confirm" title="Confirmation">
+
+                                <p:panel header="Confirmation">
+
+                                    <p:panelGrid columns="6" >
+                                        <h:outputText value="Bénéficiaire"/>
+                                        <h:outputText value="#{kilometrique.selected.cinPpr.nomComplet}" title="#{bundle.ViewDeplacementTitle_cinPpr}"/>
+
+
+
+                                        <h:outputText value="Status : "/>
+                                        <h:outputText value="#{kilometrique.selected.etat==0 ? 'Encours ..' : ''} #{kilometrique.selected.motif==1 ? 'Valide' : ''} #{kilometrique.selected.motif==2 ? 'Rejete' : ''}" title="#{bundle.ViewDeplacementTitle_motif}"/>
+
+                                        <h:outputText value="Date de validation"/>
+                                        <h:outputText value="#{kilometrique.selected.dateEtat}" title="#{bundle.ViewDeplacementTitle_dateEtat}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+
+                                        <h:outputText value="Ville de destination"/>
+                                        <h:outputText value="#{kilometrique.selected.ville}" title="#{bundle.ViewDeplacementTitle_ville}"/>
+
+                                        <h:outputText value="Marque de la voiture"/>
+                                        <h:outputText value="#{kilometrique.selected.marque}" title="#{bundle.ViewDeplacementTitle_marque}"/>
+
+                                        <h:outputText value="Puissance de la voiture"/>
+                                        <h:outputText value="#{kilometrique.selected.puissance}" title="#{bundle.ViewDeplacementTitle_puissance}"/>
+
+                                        <h:outputText value="Nombre kilometre en route"/>
+                                        <h:outputText value="#{kilometrique.selected.kmRoute}" title="#{bundle.ViewDeplacementTitle_kmRoute}"/>
+
+                                        <h:outputText value="Nombre de kilometre sur piste"/>
+                                        <h:outputText value="#{kilometrique.selected.kmPiste}" title="#{bundle.ViewDeplacementTitle_kmPiste}"/>
+
+                                        <h:outputText value="Date depart"/>
+                                        <h:outputText value="#{kilometrique.selected.dateDepart}" title="#{bundle.ViewDeplacementTitle_dateDepart}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+
+                                        <h:outputText value="Date d'arrive"/>
+                                        <h:outputText value="#{kilometrique.selected.dateArrive}" title="#{bundle.ViewDeplacementTitle_dateArrive}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                        </h:outputText>
+
+
+
+                                        <h:outputText value="Motif"/>
+                                        <h:outputText value="#{kilometrique.selected.motif}" title="#{bundle.ViewDeplacementTitle_motif}"/>
+
+                                        <h:outputText value="Creer par "/>
+                                        <h:outputText value="#{kilometrique.selected.idUser.nom} #{kilometrique.selected.idUser.prenom}" title="#{bundle.ViewDeplacementTitle_idUser}"/>
+
+                                        <h:outputText value="Secteur de deplacement"/>
+                                        <h:outputText value="#{kilometrique.selected.idDotationSect.idSecteur.intituleSecteur}" title="Dotation secteur" />
+
+
+                                    </p:panelGrid>
+<!--                                    <p:commandButton actionListener="#{deplacementController.create}" value="#{bundle.Save}" update="display2,:DeplacementListForm:datalist,:growl" oncomplete="handleSubmit(args,'DeplacementCreateDialog');"/>
+                                <f:ajax execute="@all" render="@form"/>-->
+                                    <!--</p:commandButton>-->
+                                    <p:commandButton onclick="DeplacementCreateDialog.hide()" actionListener="#{kilometrique.create}" value="#{bundle.Save}" update="display,:DeplacementListForm:datalist,:growl" oncomplete="handleSubmit(args,'DeplacementCreateDialog');"/>
+                                   
+                                </p:panel>
+                            </p:tab>
+                        </p:wizard>
+
+
+
+
+
+
+
+                    </p:panelGrid>
+
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+</html>

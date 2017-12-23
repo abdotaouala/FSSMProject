@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditReleveTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditReleveLabel_idRelever}" for="idRelever" />
+                    <h:inputText id="idRelever" value="#{releveController.selected.idRelever}" title="#{bundle.EditReleveTitle_idRelever}" required="true" requiredMessage="#{bundle.EditReleveRequiredMessage_idRelever}"/>
+                    <h:outputLabel value="#{bundle.EditReleveLabel_idFiliere}" for="idFiliere" />
+                    <h:inputText id="idFiliere" value="#{releveController.selected.idFiliere}" title="#{bundle.EditReleveTitle_idFiliere}" required="true" requiredMessage="#{bundle.EditReleveRequiredMessage_idFiliere}"/>
+                    <h:outputLabel value="#{bundle.EditReleveLabel_semestre}" for="semestre" />
+                    <h:inputText id="semestre" value="#{releveController.selected.semestre}" title="#{bundle.EditReleveTitle_semestre}" />
+                    <h:outputLabel value="#{bundle.EditReleveLabel_anneeUniversitaire}" for="anneeUniversitaire" />
+                    <h:inputText id="anneeUniversitaire" value="#{releveController.selected.anneeUniversitaire}" title="#{bundle.EditReleveTitle_anneeUniversitaire}" />
+                </h:panelGrid>
+                <h:commandLink action="#{releveController.update}" value="#{bundle.EditReleveSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditReleveViewLink}"/>
+                <br />
+                <h:commandLink action="#{releveController.prepareList}" value="#{bundle.EditReleveShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditReleveIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -19,11 +19,14 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.logging.Level;
 import javax.faces.application.NavigationHandler;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 
-@Named
+@Named("shiroLoginBean")
+@ManagedBean
 @Stateless
-@ViewScoped
+@SessionScoped
 public class ShiroLoginBean implements Serializable {
     private static final Logger log = LoggerFactory.getLogger(ShiroLoginBean.class);
 
@@ -47,6 +50,12 @@ public class ShiroLoginBean implements Serializable {
 
             if (subject.hasRole("admin")) {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("admin/index.xhtml");
+            }else if(subject.hasRole("operateur")){
+                FacesContext.getCurrentInstance().getExternalContext().redirect("operateur/index.xhtml");
+            }else if(subject.hasRole("Unite")){
+                FacesContext.getCurrentInstance().getExternalContext().redirect("unite/index.xhtml");
+            }else if(subject.hasRole("ResponsableBudget")){
+                FacesContext.getCurrentInstance().getExternalContext().redirect("serviceBudget/index.xhtml");
             }
             else {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml");

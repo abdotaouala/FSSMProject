@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateComptebcTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateComptebcLabel_idCptBc}" for="idCptBc" />
+                    <h:inputText id="idCptBc" value="#{comptebcController.selected.idCptBc}" title="#{bundle.CreateComptebcTitle_idCptBc}" required="true" requiredMessage="#{bundle.CreateComptebcRequiredMessage_idCptBc}"/>
+                    <h:outputLabel value="#{bundle.CreateComptebcLabel_cinPpr}" for="cinPpr" />
+                    <h:inputText id="cinPpr" value="#{comptebcController.selected.cinPpr}" title="#{bundle.CreateComptebcTitle_cinPpr}" required="true" requiredMessage="#{bundle.CreateComptebcRequiredMessage_cinPpr}"/>
+                    <h:outputLabel value="#{bundle.CreateComptebcLabel_intitule}" for="intitule" />
+                    <h:inputText id="intitule" value="#{comptebcController.selected.intitule}" title="#{bundle.CreateComptebcTitle_intitule}" />
+                    <h:outputLabel value="#{bundle.CreateComptebcLabel_bc}" for="bc" />
+                    <h:inputText id="bc" value="#{comptebcController.selected.bc}" title="#{bundle.CreateComptebcTitle_bc}" />
+                    <h:outputLabel value="#{bundle.CreateComptebcLabel_rib}" for="rib" />
+                    <h:inputText id="rib" value="#{comptebcController.selected.rib}" title="#{bundle.CreateComptebcTitle_rib}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{comptebcController.create}" value="#{bundle.CreateComptebcSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{comptebcController.prepareList}" value="#{bundle.CreateComptebcShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateComptebcIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

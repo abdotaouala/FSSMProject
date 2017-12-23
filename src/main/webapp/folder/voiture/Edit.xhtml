@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditVoitureTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditVoitureLabel_idVoiture}" for="idVoiture" />
+                    <h:inputText id="idVoiture" value="#{voitureController.selected.idVoiture}" title="#{bundle.EditVoitureTitle_idVoiture}" required="true" requiredMessage="#{bundle.EditVoitureRequiredMessage_idVoiture}"/>
+                    <h:outputLabel value="#{bundle.EditVoitureLabel_idPrixKilo}" for="idPrixKilo" />
+                    <h:inputText id="idPrixKilo" value="#{voitureController.selected.idPrixKilo}" title="#{bundle.EditVoitureTitle_idPrixKilo}" required="true" requiredMessage="#{bundle.EditVoitureRequiredMessage_idPrixKilo}"/>
+                    <h:outputLabel value="#{bundle.EditVoitureLabel_idDeplacement}" for="idDeplacement" />
+                    <h:inputText id="idDeplacement" value="#{voitureController.selected.idDeplacement}" title="#{bundle.EditVoitureTitle_idDeplacement}" required="true" requiredMessage="#{bundle.EditVoitureRequiredMessage_idDeplacement}"/>
+                    <h:outputLabel value="#{bundle.EditVoitureLabel_idIndKm}" for="idIndKm" />
+                    <h:inputText id="idIndKm" value="#{voitureController.selected.idIndKm}" title="#{bundle.EditVoitureTitle_idIndKm}" required="true" requiredMessage="#{bundle.EditVoitureRequiredMessage_idIndKm}"/>
+                    <h:outputLabel value="#{bundle.EditVoitureLabel_marque}" for="marque" />
+                    <h:inputText id="marque" value="#{voitureController.selected.marque}" title="#{bundle.EditVoitureTitle_marque}" />
+                    <h:outputLabel value="#{bundle.EditVoitureLabel_puissance}" for="puissance" />
+                    <h:inputText id="puissance" value="#{voitureController.selected.puissance}" title="#{bundle.EditVoitureTitle_puissance}" />
+                </h:panelGrid>
+                <h:commandLink action="#{voitureController.update}" value="#{bundle.EditVoitureSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditVoitureViewLink}"/>
+                <br />
+                <h:commandLink action="#{voitureController.prepareList}" value="#{bundle.EditVoitureShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditVoitureIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

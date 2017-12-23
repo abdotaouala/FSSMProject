@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListDossierrejeteTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListDossierrejeteEmpty}" rendered="#{dossierrejeteController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{dossierrejeteController.items.rowCount > 0}">
+                    <h:outputText value="#{dossierrejeteController.pagination.pageFirstItem + 1}..#{dossierrejeteController.pagination.pageLastItem + 1}/#{dossierrejeteController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{dossierrejeteController.previous}" value="#{bundle.Previous} #{dossierrejeteController.pagination.pageSize}" rendered="#{dossierrejeteController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{dossierrejeteController.next}" value="#{bundle.Next} #{dossierrejeteController.pagination.pageSize}" rendered="#{dossierrejeteController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{dossierrejeteController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossierrejeteTitle_idDossierRejete}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idDossierRejete}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossierrejeteTitle_idDossier}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idDossier}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossierrejeteTitle_dosidDossier}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dosidDossier}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossierrejeteTitle_motifRejet}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.motifRejet}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{dossierrejeteController.prepareView}" value="#{bundle.ListDossierrejeteViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{dossierrejeteController.prepareEdit}" value="#{bundle.ListDossierrejeteEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{dossierrejeteController.destroy}" value="#{bundle.ListDossierrejeteDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{dossierrejeteController.prepareCreate}" value="#{bundle.ListDossierrejeteCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListDossierrejeteIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

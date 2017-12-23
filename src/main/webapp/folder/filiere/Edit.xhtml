@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditFiliereTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditFiliereLabel_idFiliere}" for="idFiliere" />
+                    <h:inputText id="idFiliere" value="#{filiereController.selected.idFiliere}" title="#{bundle.EditFiliereTitle_idFiliere}" required="true" requiredMessage="#{bundle.EditFiliereRequiredMessage_idFiliere}"/>
+                    <h:outputLabel value="#{bundle.EditFiliereLabel_idDep}" for="idDep" />
+                    <h:inputText id="idDep" value="#{filiereController.selected.idDep}" title="#{bundle.EditFiliereTitle_idDep}" required="true" requiredMessage="#{bundle.EditFiliereRequiredMessage_idDep}"/>
+                    <h:outputLabel value="#{bundle.EditFiliereLabel_idType}" for="idType" />
+                    <h:inputText id="idType" value="#{filiereController.selected.idType}" title="#{bundle.EditFiliereTitle_idType}" required="true" requiredMessage="#{bundle.EditFiliereRequiredMessage_idType}"/>
+                    <h:outputLabel value="#{bundle.EditFiliereLabel_idUser}" for="idUser" />
+                    <h:inputText id="idUser" value="#{filiereController.selected.idUser}" title="#{bundle.EditFiliereTitle_idUser}" required="true" requiredMessage="#{bundle.EditFiliereRequiredMessage_idUser}"/>
+                    <h:outputLabel value="#{bundle.EditFiliereLabel_intitule}" for="intitule" />
+                    <h:inputText id="intitule" value="#{filiereController.selected.intitule}" title="#{bundle.EditFiliereTitle_intitule}" />
+                </h:panelGrid>
+                <h:commandLink action="#{filiereController.update}" value="#{bundle.EditFiliereSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditFiliereViewLink}"/>
+                <br />
+                <h:commandLink action="#{filiereController.prepareList}" value="#{bundle.EditFiliereShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditFiliereIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

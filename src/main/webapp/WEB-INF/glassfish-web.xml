@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE glassfish-web-app PUBLIC "-//GlassFish.org//DTD GlassFish Application Server 3.1 Servlet 3.0//EN" "http://glassfish.org/dtds/glassfish-web-app_3_0-1.dtd">
 <glassfish-web-app error-url="">
-  <context-root>/shiro-primefaces-example</context-root>
+  <context-root>/display</context-root>
   <resource-ref>
-    <res-ref-name>jdbc/shiro-primefaces</res-ref-name>
-    <jndi-name>java:app/jdbc/shiro-primefaces</jndi-name>
+    <res-ref-name>jdbc/finance_fssm</res-ref-name>
+    <jndi-name>java:app/jdbc/finance_fssm</jndi-name>
   </resource-ref>
   <class-loader delegate="false"/>
   <parameter-encoding default-charset="UTF-8"/>

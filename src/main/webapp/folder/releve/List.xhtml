@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListReleveTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListReleveEmpty}" rendered="#{releveController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{releveController.items.rowCount > 0}">
+                    <h:outputText value="#{releveController.pagination.pageFirstItem + 1}..#{releveController.pagination.pageLastItem + 1}/#{releveController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{releveController.previous}" value="#{bundle.Previous} #{releveController.pagination.pageSize}" rendered="#{releveController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{releveController.next}" value="#{bundle.Next} #{releveController.pagination.pageSize}" rendered="#{releveController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{releveController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListReleveTitle_idRelever}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idRelever}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListReleveTitle_idFiliere}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idFiliere}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListReleveTitle_semestre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.semestre}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListReleveTitle_anneeUniversitaire}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.anneeUniversitaire}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{releveController.prepareView}" value="#{bundle.ListReleveViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{releveController.prepareEdit}" value="#{bundle.ListReleveEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{releveController.destroy}" value="#{bundle.ListReleveDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{releveController.prepareCreate}" value="#{bundle.ListReleveCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListReleveIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

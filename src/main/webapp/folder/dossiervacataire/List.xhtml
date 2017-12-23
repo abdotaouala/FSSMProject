@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListDossiervacataireTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListDossiervacataireEmpty}" rendered="#{dossiervacataireController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{dossiervacataireController.items.rowCount > 0}">
+                    <h:outputText value="#{dossiervacataireController.pagination.pageFirstItem + 1}..#{dossiervacataireController.pagination.pageLastItem + 1}/#{dossiervacataireController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{dossiervacataireController.previous}" value="#{bundle.Previous} #{dossiervacataireController.pagination.pageSize}" rendered="#{dossiervacataireController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{dossiervacataireController.next}" value="#{bundle.Next} #{dossiervacataireController.pagination.pageSize}" rendered="#{dossiervacataireController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{dossiervacataireController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossiervacataireTitle_idDossier}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idDossier}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossiervacataireTitle_cinPpr}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.cinPpr}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossiervacataireTitle_idBordAut}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idBordAut}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossiervacataireTitle_idDossierProv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idDossierProv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossiervacataireTitle_idBordComp}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idBordComp}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossiervacataireTitle_idDotation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idDotation}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossiervacataireTitle_idGrade}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idGrade}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossiervacataireTitle_nbrHeures}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nbrHeures}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossiervacataireTitle_mois}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.mois}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossiervacataireTitle_semestre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.semestre}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossiervacataireTitle_dateCreance}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateCreance}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossiervacataireTitle_net}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.net}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossiervacataireTitle_ir}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.ir}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossiervacataireTitle_statutDossier}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.statutDossier}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{dossiervacataireController.prepareView}" value="#{bundle.ListDossiervacataireViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{dossiervacataireController.prepareEdit}" value="#{bundle.ListDossiervacataireEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{dossiervacataireController.destroy}" value="#{bundle.ListDossiervacataireDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{dossiervacataireController.prepareCreate}" value="#{bundle.ListDossiervacataireCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListDossiervacataireIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

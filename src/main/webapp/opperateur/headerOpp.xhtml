@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+
+
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <strong>Email: </strong>fssm@uca.ma
+
+                    <strong>Support: </strong>+212 (0)5 24 43 46 49 
+                </div>
+
+            </div>
+        </div>
+    </header>
+    <!-- HEADER END-->
+    <div class="navbar navbar-inverse set-radius-zero">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="index.html" >
+                    <h:graphicImage name="temp2Simp/img/logo.png" alt="" styleClass="img-responsive"  style="margin-top: 25px;"/>
+                </a>
+
+            </div>
+
+            <div class="left-div pull-right">
+                <div class="user-settings-wrapper">
+                    <ul class="nav">
+
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="false">
+                                <span class="glyphicon glyphicon-user" style="font-size: 25px;"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-settings">
+                                <div class="media">
+                                    <a class="media-left" href="#">
+                                        <h:graphicImage name="temp2Simp/img/face-asmae.jpg" alt="" styleClass="img-rounded" />
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading">El Mezouari Asmae </h4>
+                                        <h5>Licenciée à la FSSM</h5>
+
+                                    </div>
+                                </div>
+                                <hr />
+                                <h5><strong>Personal Bio : </strong></h5>
+                                Anim pariatur cliche reprehen derit.
+                                <hr />
+                                <a href="#" class="btn btn-info btn-sm">Full Profile</a> <a href="login.html" class="btn btn-danger btn-sm">Logout</a>
+
+                            </div>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- LOGO HEADER END-->
+    <section class="menu-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="navbar-collapse collapse ">
+                        <ul id="menu-top" class="nav navbar-nav navbar-right">
+                            <li><h:outputLink class="menu-top-active" value="#{request.contextPath}/unite/index.xhtml">Acceuil</h:outputLink></li>
+                            <!--                            <li><a href="index.html">Accueil</a></li>
+                                                        <li><a href="ui.html">Relever</a></li>-->
+                            <li><h:outputLink value="#{request.contextPath}/opperateur/GererLigneCommande.xhtml">Valider Les Besoins</h:outputLink></li>
+                            <li><h:outputLink value="#{request.contextPath}/opperateur/GererBC.xhtml">Valider Les engagements</h:outputLink></li>
+                            <li><h:outputLink value="#{request.contextPath}/opperateur/GererBCValide.xhtml">Gerer les Engagements Validés</h:outputLink></li>                     
+                            <li><h:outputLink value="#{request.contextPath}/opperateur/GererArticle.xhtml">Gerer Les Articles</h:outputLink></li>                      
+
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- MENU SECTION END-->
+
+</html>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListCompteTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListCompteEmpty}" rendered="#{compteController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{compteController.items.rowCount > 0}">
+                    <h:outputText value="#{compteController.pagination.pageFirstItem + 1}..#{compteController.pagination.pageLastItem + 1}/#{compteController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{compteController.previous}" value="#{bundle.Previous} #{compteController.pagination.pageSize}" rendered="#{compteController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{compteController.next}" value="#{bundle.Next} #{compteController.pagination.pageSize}" rendered="#{compteController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{compteController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCompteTitle_idCompte}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idCompte}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCompteTitle_intitule}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intitule}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCompteTitle_rap}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.rap}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{compteController.prepareView}" value="#{bundle.ListCompteViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{compteController.prepareEdit}" value="#{bundle.ListCompteEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{compteController.destroy}" value="#{bundle.ListCompteDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{compteController.prepareCreate}" value="#{bundle.ListCompteCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListCompteIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

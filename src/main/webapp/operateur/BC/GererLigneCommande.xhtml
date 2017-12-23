@@ -1,0 +1,219 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <!-- Meta, title, CSS, favicons, etc. -->
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <title>Gestion Des Lignes De Commandes</title>
+
+        <!-- Bootstrap -->
+        <link href="../../resources/tem3Ges/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <!-- Font Awesome -->
+        <link href="../../resources/tem3Ges/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+        <!-- iCheck -->
+        <link href="../../resources/tem3Ges/vendors/iCheck/skins/flat/green.css" rel="stylesheet" />
+        <!-- bootstrap-progressbar -->
+        <link href="../../resources/tem3Ges/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" />
+        <!-- jVectorMap -->
+        <link href="../../resources/tem3Ges/css/maps/jquery-jvectormap-2.0.3.css" rel="stylesheet"/>
+
+        <!-- Custom Theme Style -->
+        <link href="../../resources/tem3Ges/css/custom.css" rel="stylesheet" />
+    </h:head>
+    <h:body class="nav-md" onload="#{lignecommandeController.allItemesBC}">
+        <div class="container body">
+            <div class="main_container">
+
+                <!-- header content -->
+                <ui:include src="../header.xhtml" />
+                <!-- /header content -->
+
+                <!-- page content -->
+                <div class="right_col" role="main">
+                    <div class="">
+                        <div class="page-title">
+                            <div class="title_left">
+                                <h3>Gestion Des Lignes De Commande</h3>
+                            </div>
+
+                            <div class="title_right">
+                                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Search for..." />
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">Go!</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="row">
+
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="x_panel" style="height:1000px;">
+                                    <div class="x_title">
+                                        <h2>Gestion des Lignes De Commande</h2>
+                                        <ul class="nav navbar-right panel_toolbox">
+                                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                            </li>
+                                            <li class="dropdown">
+                                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="#">Settings 1</a>
+                                                    </li>
+                                                    <li><a href="#">Settings 2</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                            </li>
+                                        </ul>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="x_content">
+                                        <h:form id="LigneCommandeCreateForm">
+                                            <p:growl id="message" life="2000" />
+                                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" widgetVar="confirmation" closeOnEscape="false" closable="true">
+                                                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" onclick="confirmation.hide()" icon="ui-icon-check" />
+                                                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" onclick="confirmation.hide()" icon="ui-icon-close" />
+                                            </p:confirmDialog>
+                                            <p:dialog id="dialogue" header="Effects" widgetVar="formUpdate" showEffect="explode" hideEffect="bounce" height="400" modal="true">
+                                                <div class="panel-body">
+                                                    <center><table class='tab_form' style="width:500px;height:250px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
+                                                            <tr> 
+                                                                <td class="olab"><p:outputLabel value="Description de l'Article:" for="description" /></td>
+                                                                <td class="olab">
+                                                                    <p:outputLabel id="description" value="#{lignecommandeController.description}"  title="#{bundle.CreateArticleTitle_description}" />
+                                                                </td>
+                                                            </tr>
+                                                            <tr> 
+                                                                <td class="olab"><p:outputLabel value="#{bundle.CreateLignecommandeLabel_quantite}" for="quantite" /></td>
+                                                                <td class="olab">
+                                                                    <p:inputText id="quantite" value="#{lignecommandeController.current.quantite}" title="#{bundle.CreateLignecommandeTitle_quantite}" required="false">
+                                                                        <p:ajax event="change" listener="#{lignecommandeController.remplireFormulaire()}" update="montant" process="@this"/>
+                                                                    </p:inputText>
+                                                                </td>
+                                                            </tr>
+                                                            <tr> 
+                                                                <td class="olab"><p:outputLabel value="#{bundle.CreateLignecommandeLabel_pu}" for="pu" /></td>
+                                                                <td class="olab">
+                                                                    <p:inputText id="pu" value="#{lignecommandeController.selected.pu}" title="#{bundle.CreateLignecommandeTitle_pu}" >
+                                                                        <p:ajax event="change" listener="#{lignecommandeController.remplireFormulaire()}" update="montant" process="@this"/>
+                                                                    </p:inputText>
+                                                                </td>
+                                                            </tr>
+                                                            <tr> 
+                                                                <td class="olab"><p:outputLabel value="#{bundle.CreateLignecommandeLabel_montant}" for="montant" /></td>
+                                                                <td class="olab"><p:outputLabel id="montant" value="#{lignecommandeController.current.montant}" title="#{bundle.CreateLignecommandeTitle_montant}" /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="olab">
+                                                                    <p:commandButton id="ajaxupdate"  icon="ui-icon-pencil" action="#{lignecommandeController.updateGLC}" value="Modifier"  class="btn btn-success btn-lg" update="@form" process="@this">
+                                                                        <p:confirm header="Confirmation de modification" message="voulez-vous vraiment modifier ces informations?" icon="ui-icon-alert" />
+                                                                    </p:commandButton>
+                                                                </td>
+                                                            </tr>
+                                                        </table></center>
+                                                </div>
+                                            </p:dialog>
+                                            <div class="col-md-12 col-sm-12">
+                                                <div class="panel panel-info">
+                                                    <div class="panel-heading">
+                                                        Liste Des Lignes De Commande
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <center><table class='tab_form' style="width:500px;height:100px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
+                                                                <tr>
+                                                                    <td class="olab" ><p:outputLabel value="#{bundle.CreateBoncommandeLabel_idBC}" for="id" /></td>
+                                                                    <td class="olab">
+                                                                        <p:autoComplete dropdown="true" id="id" value="#{lignecommandeController.bc}" completeMethod="#{boncommandeController.completeText}" title="#{bundle.CreateBoncommandeTitle_idBC}"
+                                                                                        converter="bcConverter" var="bc" itemLabel="#{bc.idBC}" itemValue="#{bc}" >
+                                                                            <p:column style="width:10%">
+                                                                                <h:outputText value="#{bc.idBC}" />
+                                                                            </p:column>
+
+                                                                            <p:column>
+                                                                                <h:outputText value="#{bc.dateCommande}" /> 
+                                                                            </p:column>
+                                                                            <p:ajax event="itemSelect" listener="#{lignecommandeController.changeBC()}" update="@form" process="@this" />
+                                                                            <p:ajax event="change" listener="#{lignecommandeController.changeBC()}" update="@form" process="@this" />
+                                                                        </p:autoComplete>
+                                                                    </td>
+                                                                </tr>
+                                                            </table></center>
+                                                        <div class="table-responsive">
+                                                            <p:dataTable value="#{lignecommandeController.items}" var="item" style="border:solid 1px" selectionMode="single" 
+                                                                         selection="#{lignecommandeController.current}"
+                                                                         paginator="true"
+                                                                         rowKey="#{item.idLigne}">
+                                                                <p:column headerText="#{bundle.ListLignecommandeTitle_idBC}">
+                                                                    <h:outputText value="#{item.idBC}"/>
+                                                                </p:column>
+                                                                <p:column headerText="#{bundle.ListLignecommandeTitle_idArticle}">
+                                                                    <h:outputText value="#{item.idArticle}"/>
+                                                                </p:column>
+                                                                <p:column headerText="#{bundle.ListLignecommandeTitle_idLigne}">
+                                                                    <h:outputText value="#{item.idLigne}"/>
+                                                                </p:column>
+                                                                <p:column headerText="#{bundle.ListLignecommandeTitle_quantite}">
+                                                                    <h:outputText value="#{item.quantite}"/>
+                                                                </p:column>
+                                                                <p:column headerText="#{bundle.ListLignecommandeTitle_pu}">
+                                                                    <h:outputText value="#{item.pu}"/>
+                                                                </p:column>
+                                                                <p:column headerText="#{bundle.ListLignecommandeTitle_montant}">
+                                                                    <h:outputText value="#{item.montant}"/>
+                                                                </p:column>
+                                                                <p:ajax event="rowSelect" listener="#{lignecommandeController.remplireFormulaire()}" update="@form" process="@this"/>
+                                                                <p:column headerText="Action">
+                                                                    <p:commandButton icon="ui-icon-pencil" action="#{lignecommandeController.remplireFormulaire()}" type="button" onclick="PF('formUpdate').show();"  class="btn btn-success btn-lg" >
+                                                                    </p:commandButton>
+                                                                    <p:commandButton id="ajaxdelete"  action="#{lignecommandeController.performDestroyGBC}" icon="ui-icon-trash" class="btn btn-danger btn-lg" update="@form">
+                                                                        <p:confirm header="Confirmation de suppression" message="voulez-vous vraiment supprimer ces informations?" icon="ui-icon-alert" />
+                                                                    </p:commandButton>
+                                                                </p:column>
+                                                            </p:dataTable>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </h:form>  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /page content -->
+
+                <!-- footer content -->
+                <ui:include src="../footer.xhtml" />
+                <!-- /footer content -->
+            </div>
+        </div>
+    </h:body>
+    <!-- jQuery -->
+    <script src="../../resources/tem3Ges/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="../../resources/tem3Ges/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="../../resources/tem3Ges/vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="../../resources/tem3Ges/vendors/nprogress/nprogress.js"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="../../resources/tem3Ges/js/custom.js"></script>
+</html>
+
+

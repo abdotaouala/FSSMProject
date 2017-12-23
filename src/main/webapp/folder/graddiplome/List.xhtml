@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListGraddiplomeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListGraddiplomeEmpty}" rendered="#{graddiplomeController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{graddiplomeController.items.rowCount > 0}">
+                    <h:outputText value="#{graddiplomeController.pagination.pageFirstItem + 1}..#{graddiplomeController.pagination.pageLastItem + 1}/#{graddiplomeController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{graddiplomeController.previous}" value="#{bundle.Previous} #{graddiplomeController.pagination.pageSize}" rendered="#{graddiplomeController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{graddiplomeController.next}" value="#{bundle.Next} #{graddiplomeController.pagination.pageSize}" rendered="#{graddiplomeController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{graddiplomeController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGraddiplomeTitle_idGrade}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idGrade}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGraddiplomeTitle_intituleGrade}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.intituleGrade}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGraddiplomeTitle_taux}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.taux}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{graddiplomeController.prepareView}" value="#{bundle.ListGraddiplomeViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{graddiplomeController.prepareEdit}" value="#{bundle.ListGraddiplomeEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{graddiplomeController.destroy}" value="#{bundle.ListGraddiplomeDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{graddiplomeController.prepareCreate}" value="#{bundle.ListGraddiplomeCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListGraddiplomeIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

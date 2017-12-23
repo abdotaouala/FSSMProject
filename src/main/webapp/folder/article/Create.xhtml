@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateArticleTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateArticleLabel_idArticle}" for="idArticle" />
+                    <h:inputText id="idArticle" value="#{articleController.selected.idArticle}" title="#{bundle.CreateArticleTitle_idArticle}" required="true" requiredMessage="#{bundle.CreateArticleRequiredMessage_idArticle}"/>
+                    <h:outputLabel value="#{bundle.CreateArticleLabel_description}" for="description" />
+                    <h:inputText id="description" value="#{articleController.selected.description}" title="#{bundle.CreateArticleTitle_description}" />
+                    <h:outputLabel value="#{bundle.CreateArticleLabel_pu}" for="pu" />
+                    <h:inputText id="pu" value="#{articleController.selected.pu}" title="#{bundle.CreateArticleTitle_pu}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{articleController.create}" value="#{bundle.CreateArticleSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{articleController.prepareList}" value="#{bundle.CreateArticleShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateArticleIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

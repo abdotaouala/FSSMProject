@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateIndemntekmTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateIndemntekmLabel_indemntekmPK_idDeplacement}" for="indemntekmPK_idDeplacement" />
+                    <h:inputText id="indemntekmPK_idDeplacement" value="#{indemntekmController.selected.indemntekmPK.idDeplacement}" title="#{bundle.CreateIndemntekmTitle_indemntekmPK_idDeplacement}" required="true" requiredMessage="#{bundle.CreateIndemntekmRequiredMessage_indemntekmPK_idDeplacement}"/>
+                    <h:outputLabel value="#{bundle.CreateIndemntekmLabel_indemntekmPK_idIndKm}" for="indemntekmPK_idIndKm" />
+                    <h:inputText id="indemntekmPK_idIndKm" value="#{indemntekmController.selected.indemntekmPK.idIndKm}" title="#{bundle.CreateIndemntekmTitle_indemntekmPK_idIndKm}" required="true" requiredMessage="#{bundle.CreateIndemntekmRequiredMessage_indemntekmPK_idIndKm}"/>
+                    <h:outputLabel value="#{bundle.CreateIndemntekmLabel_idDotation}" for="idDotation" />
+                    <h:inputText id="idDotation" value="#{indemntekmController.selected.idDotation}" title="#{bundle.CreateIndemntekmTitle_idDotation}" required="true" requiredMessage="#{bundle.CreateIndemntekmRequiredMessage_idDotation}"/>
+                    <h:outputLabel value="#{bundle.CreateIndemntekmLabel_montantDepInt}" for="montantDepInt" />
+                    <h:inputText id="montantDepInt" value="#{indemntekmController.selected.montantDepInt}" title="#{bundle.CreateIndemntekmTitle_montantDepInt}" />
+                    <h:outputLabel value="#{bundle.CreateIndemntekmLabel_kmRoute}" for="kmRoute" />
+                    <h:inputText id="kmRoute" value="#{indemntekmController.selected.kmRoute}" title="#{bundle.CreateIndemntekmTitle_kmRoute}" />
+                    <h:outputLabel value="#{bundle.CreateIndemntekmLabel_kmPiste}" for="kmPiste" />
+                    <h:inputText id="kmPiste" value="#{indemntekmController.selected.kmPiste}" title="#{bundle.CreateIndemntekmTitle_kmPiste}" />
+                    <h:outputLabel value="#{bundle.CreateIndemntekmLabel_mntKm}" for="mntKm" />
+                    <h:inputText id="mntKm" value="#{indemntekmController.selected.mntKm}" title="#{bundle.CreateIndemntekmTitle_mntKm}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{indemntekmController.create}" value="#{bundle.CreateIndemntekmSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{indemntekmController.prepareList}" value="#{bundle.CreateIndemntekmShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateIndemntekmIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

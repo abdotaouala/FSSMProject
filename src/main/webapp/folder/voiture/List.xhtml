@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListVoitureTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListVoitureEmpty}" rendered="#{voitureController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{voitureController.items.rowCount > 0}">
+                    <h:outputText value="#{voitureController.pagination.pageFirstItem + 1}..#{voitureController.pagination.pageLastItem + 1}/#{voitureController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{voitureController.previous}" value="#{bundle.Previous} #{voitureController.pagination.pageSize}" rendered="#{voitureController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{voitureController.next}" value="#{bundle.Next} #{voitureController.pagination.pageSize}" rendered="#{voitureController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{voitureController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVoitureTitle_idVoiture}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idVoiture}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVoitureTitle_idPrixKilo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idPrixKilo}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVoitureTitle_idDeplacement}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idDeplacement}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVoitureTitle_idIndKm}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idIndKm}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVoitureTitle_marque}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.marque}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVoitureTitle_puissance}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.puissance}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{voitureController.prepareView}" value="#{bundle.ListVoitureViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{voitureController.prepareEdit}" value="#{bundle.ListVoitureEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{voitureController.destroy}" value="#{bundle.ListVoitureDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{voitureController.prepareCreate}" value="#{bundle.ListVoitureCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListVoitureIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

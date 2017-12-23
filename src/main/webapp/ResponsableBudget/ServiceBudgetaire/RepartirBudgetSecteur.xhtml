@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:body onload="#{dotationsecteurController.itemes}">
+
+        <ui:composition template="./../newTemplate.xhtml">
+
+            <ui:define name="titlepanelLeft">
+                Répartir Le budget Des Secteurs
+            </ui:define>
+
+            <ui:define name="titlepanelRight">
+                Répartir Le budget Des Secteurs
+            </ui:define>
+
+            <ui:define name="titlepanel">
+                Répartir Le budget Des Secteurs
+            </ui:define>
+
+            <ui:define name="content">
+
+                <h:form id="SecteurPrincipalCreateForm">
+                    <p:growl id="message" life="2000" />
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" widgetVar="confirmation" closeOnEscape="false" closable="true">
+                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" onclick="confirmation.hide()" icon="ui-icon-check" />
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" onclick="confirmation.hide()" icon="ui-icon-close" />
+                    </p:confirmDialog>
+                    <div class="col-md-12 col-sm-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                Formulaire :
+                            </div>
+                            <div class="panel-body">
+                                <center><table class='tab_form' style="width:450px;height:400px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
+                                        <tr> 
+                                            <td class="olab"><h:outputLabel value="SecteurPrincipal:" for="designation" /></td>
+                                            <td class="olab">
+                                                <p:autoComplete dropdown="true" id="designation" value="#{dotationsecteurController.secteurP}" completeMethod="#{secteurprincipalController.completeText}" title="#{bundle.CreateSecteurprincipalTitle_designation}" forceSelection="true">
+                                                    <p:ajax event="itemSelect" listener="#{dotationsecteurController.subjectSelectionChanged()}" update="@form" process="@form" />
+                                                    <p:ajax event="change" listener="#{dotationsecteurController.subjectSelectionChanged()}" update="@form" process="@form" />
+                                                </p:autoComplete>
+                                            </td>
+                                        </tr>
+                                        <tr> 
+                                            <td class="olab"><h:outputLabel value="#{bundle.CreateSecteurLabel_intituleSecteur}" for="intituleSecteur" /></td>
+                                            <td class="olab">
+                                                <p:autoComplete dropdown="true" id="intituleSecteur" value="#{dotationsecteurController.secteur}" completeMethod="#{secteurController.completeText}" title="#{bundle.CreateSecteurprincipalTitle_designation}" required="true" forceSelection="true">
+                                                    <p:ajax event="itemSelect" listener="#{dotationsecteurController.subjectSelectionChanged()}" update="@form" process="@form" />
+                                                    <p:ajax event="change" listener="#{dotationsecteurController.subjectSelectionChanged()}" update="@form" process="@form" />
+                                                </p:autoComplete>
+                                            </td>
+                                        </tr>
+                                        <tr> 
+                                            <td class="olab"><h:outputLabel value="#{bundle.CreateBudgetLabel_budgetPK_idCompte}" for="budgetPK_idCompte" /></td>
+                                            <td class="olab">
+                                                <p:autoComplete dropdown="true" id="budgetPK_idCompte" value="#{dotationsecteurController.cpt}" completeMethod="#{compteController.completeText}" title="#{bundle.CreateBudgetTitle_budgetPK_idCompte}" required="true"  
+                                                                converter="cptConverter" var="cmp" itemLabel="#{cmp.idCompte}" itemValue="#{cmp}" forceSelection="true">
+                                                    <p:column style="width:10%">
+                                                        <h:outputText value="#{cmp.idCompte}" />
+                                                    </p:column>
+
+                                                    <p:column>
+                                                        <h:outputText value="#{cmp.intitule}" /> 
+                                                    </p:column>
+                                                    <p:ajax event="itemSelect" listener="#{dotationsecteurController.subjectSelectionChanged()}" update="@form" process="@form" />
+                                                    <p:ajax event="change" listener="#{dotationsecteurController.subjectSelectionChanged()}" update="@form" process="@form" />
+                                                </p:autoComplete>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="olab" ><p:outputLabel value="Reliquat De Ce Compte:"></p:outputLabel></td>
+                                            <td class="olab" ><p:outputLabel value="#{dotationsecteurController.reliquatCompte}"></p:outputLabel></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="olab"><h:outputLabel value="DotationSecteur:" for="budgetAnnuel" /></td>
+                                            <td><p:inputText id="budgetAnnuel" value="#{dotationsecteurController.selected.montantInitial}" title="#{bundle.CreateBudgetTitle_budgetAnnuel}"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="olab" ><p:outputLabel value="ReliquatSecteur:"></p:outputLabel></td>
+                                            <td class="olab" ><p:outputLabel value="#{dotationsecteurController.selected.reliquat}"></p:outputLabel></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="olab">
+                                                <p:commandButton  ajax="false" id="ajaxcreate"  action="#{dotationsecteurController.create}" value="Ajouter" icon="ui-icon-plus" disabled="#{dotationsecteurController.disablCreate}" class="btn btn-primary btn-lg" update="@form">
+                                                </p:commandButton>
+                                            </td>
+                                            <td class="olab">
+                                                <p:commandButton id="ajaxupdate"  action="#{dotationsecteurController.update}" value="Modifier" icon="ui-icon-pencil" disabled="#{dotationsecteurController.disablUpdate}" class="btn btn-success btn-lg" update="@form">
+                                                    <p:confirm header="Confirmation de modification" message="voulez-vous vraiment modifier ces informations?" icon="ui-icon-alert" />
+                                                </p:commandButton>
+                                            </td>
+                                            <td class="olab">
+                                                <p:commandButton id="ajaxdelete"  action="#{dotationsecteurController.performDestroy}" value="Supprimer" icon="ui-icon-trash" disabled="#{dotationsecteurController.disablDelete}" class="btn btn-danger btn-lg" update="@form">
+                                                    <p:confirm header="Confirmation de suppression" message="voulez-vous vraiment supprimer ces informations?" icon="ui-icon-alert" />
+                                                </p:commandButton>
+                                            </td>
+                                        </tr>
+                                    </table></center>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">
+                                Liste Des Secteurs
+                            </div>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <p:dataTable value="#{dotationsecteurController.items}" var="item" style="border:solid 1px">
+                                        <p:column headerText="#{bundle.ListDotationsecteurTitle_idCompte}">
+                                            <h:outputText value="#{item.idCompte}"/>
+                                        </p:column>
+                                        <p:column  headerText="#{bundle.ListDotationsecteurTitle_idSecteur}">
+                                            <h:outputText value="#{item.idSecteur}"/>
+                                        </p:column>
+                                        <p:column headerText="#{bundle.ListDotationsecteurTitle_idDotation}">
+                                            <h:outputText value="#{item.idDotation}"/>
+                                        </p:column>
+                                        <p:column headerText="#{bundle.ListDotationsecteurTitle_montantInitial}">
+                                            <h:outputText value="#{item.montantInitial}"/>
+                                        </p:column>
+                                        <p:column headerText="#{bundle.ListDotationsecteurTitle_reliquat}">
+                                            <h:outputText value="#{item.reliquat}"/>
+                                        </p:column>
+                                    </p:dataTable>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

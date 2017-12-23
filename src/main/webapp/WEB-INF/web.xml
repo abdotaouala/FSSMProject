@@ -4,7 +4,7 @@
         version="3.0">
 
     <display-name>Display</display-name>
-    <description>project commerce</description>
+    <description>projet de finance 2015 2016</description>
 
     <!-- JSF Config -->
     <context-param>
@@ -47,7 +47,7 @@
 
     <!-- Resources -->
     <resource-ref>
-        <res-ref-name>jdbc/shiro-primefaces</res-ref-name>
+        <res-ref-name>jdbc/finance_fssm</res-ref-name>
         <res-type>javax.sql.ConnectionPoolDataSource</res-type>
         <res-auth>Container</res-auth>
         <lookup-name>java:app/jdbc/embeddedDS</lookup-name>
@@ -76,9 +76,18 @@
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
+   <!--
+     <error-page>
+          <error-code>404</error-code>
+          <location>/page_404.html</location>
+     </error-page>
+      <error-page>
+          <error-code>500</error-code>
+          <location>/page_500.html</location>
+     </error-page>
+    -->
 </web-app>

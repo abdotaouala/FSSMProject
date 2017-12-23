@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditDetailTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditDetailLabel_idDetail}" for="idDetail" />
+                    <h:inputText id="idDetail" value="#{detailController.selected.idDetail}" title="#{bundle.EditDetailTitle_idDetail}" required="true" requiredMessage="#{bundle.EditDetailRequiredMessage_idDetail}"/>
+                    <h:outputLabel value="#{bundle.EditDetailLabel_salaireAnnuelleBrut}" for="salaireAnnuelleBrut" />
+                    <h:inputText id="salaireAnnuelleBrut" value="#{detailController.selected.salaireAnnuelleBrut}" title="#{bundle.EditDetailTitle_salaireAnnuelleBrut}" />
+                    <h:outputLabel value="#{bundle.EditDetailLabel_allocationFamiliale}" for="allocationFamiliale" />
+                    <h:inputText id="allocationFamiliale" value="#{detailController.selected.allocationFamiliale}" title="#{bundle.EditDetailTitle_allocationFamiliale}" />
+                    <h:outputLabel value="#{bundle.EditDetailLabel_brutAdditionner}" for="brutAdditionner" />
+                    <h:inputText id="brutAdditionner" value="#{detailController.selected.brutAdditionner}" title="#{bundle.EditDetailTitle_brutAdditionner}" />
+                    <h:outputLabel value="#{bundle.EditDetailLabel_amo}" for="amo" />
+                    <h:inputText id="amo" value="#{detailController.selected.amo}" title="#{bundle.EditDetailTitle_amo}" />
+                    <h:outputLabel value="#{bundle.EditDetailLabel_retenuCmr}" for="retenuCmr" />
+                    <h:inputText id="retenuCmr" value="#{detailController.selected.retenuCmr}" title="#{bundle.EditDetailTitle_retenuCmr}" />
+                    <h:outputLabel value="#{bundle.EditDetailLabel_mutuelleMutialiste}" for="mutuelleMutialiste" />
+                    <h:inputText id="mutuelleMutialiste" value="#{detailController.selected.mutuelleMutialiste}" title="#{bundle.EditDetailTitle_mutuelleMutialiste}" />
+                    <h:outputLabel value="#{bundle.EditDetailLabel_mutuelleCaisse}" for="mutuelleCaisse" />
+                    <h:inputText id="mutuelleCaisse" value="#{detailController.selected.mutuelleCaisse}" title="#{bundle.EditDetailTitle_mutuelleCaisse}" />
+                    <h:outputLabel value="#{bundle.EditDetailLabel_rachatCmr}" for="rachatCmr" />
+                    <h:inputText id="rachatCmr" value="#{detailController.selected.rachatCmr}" title="#{bundle.EditDetailTitle_rachatCmr}" />
+                    <h:outputLabel value="#{bundle.EditDetailLabel_sommeDeduire}" for="sommeDeduire" />
+                    <h:inputText id="sommeDeduire" value="#{detailController.selected.sommeDeduire}" title="#{bundle.EditDetailTitle_sommeDeduire}" />
+                    <h:outputLabel value="#{bundle.EditDetailLabel_nbrEnfant}" for="nbrEnfant" />
+                    <h:inputText id="nbrEnfant" value="#{detailController.selected.nbrEnfant}" title="#{bundle.EditDetailTitle_nbrEnfant}" />
+                    <h:outputLabel value="#{bundle.EditDetailLabel_conjoint}" for="conjoint" />
+                    <h:inputText id="conjoint" value="#{detailController.selected.conjoint}" title="#{bundle.EditDetailTitle_conjoint}" />
+                    <h:outputLabel value="#{bundle.EditDetailLabel_chargeFamiliale}" for="chargeFamiliale" />
+                    <h:inputText id="chargeFamiliale" value="#{detailController.selected.chargeFamiliale}" title="#{bundle.EditDetailTitle_chargeFamiliale}" />
+                    <h:outputLabel value="#{bundle.EditDetailLabel_irSource}" for="irSource" />
+                    <h:inputText id="irSource" value="#{detailController.selected.irSource}" title="#{bundle.EditDetailTitle_irSource}" />
+                    <h:outputLabel value="#{bundle.EditDetailLabel_irComplement}" for="irComplement" />
+                    <h:inputText id="irComplement" value="#{detailController.selected.irComplement}" title="#{bundle.EditDetailTitle_irComplement}" />
+                    <h:outputLabel value="#{bundle.EditDetailLabel_net}" for="net" />
+                    <h:inputText id="net" value="#{detailController.selected.net}" title="#{bundle.EditDetailTitle_net}" />
+                    <h:outputLabel value="#{bundle.EditDetailLabel_ir}" for="ir" />
+                    <h:inputText id="ir" value="#{detailController.selected.ir}" title="#{bundle.EditDetailTitle_ir}" />
+                    <h:outputLabel value="#{bundle.EditDetailLabel_echelle}" for="echelle" />
+                    <h:inputText id="echelle" value="#{detailController.selected.echelle}" title="#{bundle.EditDetailTitle_echelle}" />
+                    <h:outputLabel value="#{bundle.EditDetailLabel_echelon}" for="echelon" />
+                    <h:inputText id="echelon" value="#{detailController.selected.echelon}" title="#{bundle.EditDetailTitle_echelon}" />
+                </h:panelGrid>
+                <h:commandLink action="#{detailController.update}" value="#{bundle.EditDetailSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditDetailViewLink}"/>
+                <br />
+                <h:commandLink action="#{detailController.prepareList}" value="#{bundle.EditDetailShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditDetailIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

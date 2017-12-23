@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewDossierprovisoirTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewDossierprovisoirLabel_idDossierProv}"/>
+                    <h:outputText value="#{dossierprovisoirController.selected.idDossierProv}" title="#{bundle.ViewDossierprovisoirTitle_idDossierProv}"/>
+                    <h:outputText value="#{bundle.ViewDossierprovisoirLabel_idRelever}"/>
+                    <h:outputText value="#{dossierprovisoirController.selected.idRelever}" title="#{bundle.ViewDossierprovisoirTitle_idRelever}"/>
+                    <h:outputText value="#{bundle.ViewDossierprovisoirLabel_idGrade}"/>
+                    <h:outputText value="#{dossierprovisoirController.selected.idGrade}" title="#{bundle.ViewDossierprovisoirTitle_idGrade}"/>
+                    <h:outputText value="#{bundle.ViewDossierprovisoirLabel_nomComplet}"/>
+                    <h:outputText value="#{dossierprovisoirController.selected.nomComplet}" title="#{bundle.ViewDossierprovisoirTitle_nomComplet}"/>
+                    <h:outputText value="#{bundle.ViewDossierprovisoirLabel_dernierDiplome}"/>
+                    <h:outputText value="#{dossierprovisoirController.selected.dernierDiplome}" title="#{bundle.ViewDossierprovisoirTitle_dernierDiplome}"/>
+                    <h:outputText value="#{bundle.ViewDossierprovisoirLabel_nbrHeures}"/>
+                    <h:outputText value="#{dossierprovisoirController.selected.nbrHeures}" title="#{bundle.ViewDossierprovisoirTitle_nbrHeures}"/>
+                    <h:outputText value="#{bundle.ViewDossierprovisoirLabel_module}"/>
+                    <h:outputText value="#{dossierprovisoirController.selected.module}" title="#{bundle.ViewDossierprovisoirTitle_module}"/>
+                    <h:outputText value="#{bundle.ViewDossierprovisoirLabel_etat}"/>
+                    <h:outputText value="#{dossierprovisoirController.selected.etat}" title="#{bundle.ViewDossierprovisoirTitle_etat}"/>
+                    <h:outputText value="#{bundle.ViewDossierprovisoirLabel_dateDebut}"/>
+                    <h:outputText value="#{dossierprovisoirController.selected.dateDebut}" title="#{bundle.ViewDossierprovisoirTitle_dateDebut}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewDossierprovisoirLabel_dateFin}"/>
+                    <h:outputText value="#{dossierprovisoirController.selected.dateFin}" title="#{bundle.ViewDossierprovisoirTitle_dateFin}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{dossierprovisoirController.destroyAndView}" value="#{bundle.ViewDossierprovisoirDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewDossierprovisoirEditLink}"/>
+                <br />
+                <h:commandLink action="#{dossierprovisoirController.prepareCreate}" value="#{bundle.ViewDossierprovisoirCreateLink}" />
+                <br />
+                <h:commandLink action="#{dossierprovisoirController.prepareList}" value="#{bundle.ViewDossierprovisoirShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewDossierprovisoirIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

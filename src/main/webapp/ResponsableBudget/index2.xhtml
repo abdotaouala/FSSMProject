@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <body>
+
+        <ui:composition template="./Template.xhtml">
+
+            <ui:define name="content">
+                
+                <h1>Welcome Operateur</h1>
+                <h:outputLink value="../logout">logout</h:outputLink>
+                <pre>
+                subject = <h:outputText value="#{indexBean.subject}"/>
+                principal = <h:outputText value="#{indexBean.subject.principal}"/>
+                session = <h:outputText value="#{indexBean.subject.session}"/>
+                role operateur = <h:outputText value="#{indexBean.subject.hasRole('operateur')}"/>
+                role admin = <h:outputText value="#{indexBean.subject.hasRole('admin')}"/>
+                </pre>
+
+                <p:editor value="&lt;b&gt;primefaces"/>
+                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

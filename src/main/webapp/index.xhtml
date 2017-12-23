@@ -6,23 +6,22 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:p="http://primefaces.org/ui"
-    xmlns:f="http://java.sun.com/jsf/core">
-     <head>
-          <title>Welcome to E-Intendance</title>
-          <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-     </head>
-     <body>
-         <h1><font color="blue">Welcome to E-Intendance</font></h1>
-          <ui:composition  template="./template.xhtml">
-             
-          
-               <ui:define name="content">
-                    This section is private for Intendance services of FSSM .
-               </ui:define>
-               
-          </ui:composition>
-     </body>
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+        <ui:composition  template="./template.xhtml">
+
+            <ui:define name="top">
+                <ui:include src = "headerIndex.xhtml" />
+            </ui:define>
+            <ui:define name="content">
+                Content
+                <br />
+                <h:link outcome="/folder/users/List" value="Show All Users Items"/>
+            </ui:define>
+
+        </ui:composition>
+
 </html>

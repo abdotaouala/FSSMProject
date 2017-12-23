@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewDetailTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewDetailLabel_idDetail}"/>
+                    <h:outputText value="#{detailController.selected.idDetail}" title="#{bundle.ViewDetailTitle_idDetail}"/>
+                    <h:outputText value="#{bundle.ViewDetailLabel_salaireAnnuelleBrut}"/>
+                    <h:outputText value="#{detailController.selected.salaireAnnuelleBrut}" title="#{bundle.ViewDetailTitle_salaireAnnuelleBrut}"/>
+                    <h:outputText value="#{bundle.ViewDetailLabel_allocationFamiliale}"/>
+                    <h:outputText value="#{detailController.selected.allocationFamiliale}" title="#{bundle.ViewDetailTitle_allocationFamiliale}"/>
+                    <h:outputText value="#{bundle.ViewDetailLabel_brutAdditionner}"/>
+                    <h:outputText value="#{detailController.selected.brutAdditionner}" title="#{bundle.ViewDetailTitle_brutAdditionner}"/>
+                    <h:outputText value="#{bundle.ViewDetailLabel_amo}"/>
+                    <h:outputText value="#{detailController.selected.amo}" title="#{bundle.ViewDetailTitle_amo}"/>
+                    <h:outputText value="#{bundle.ViewDetailLabel_retenuCmr}"/>
+                    <h:outputText value="#{detailController.selected.retenuCmr}" title="#{bundle.ViewDetailTitle_retenuCmr}"/>
+                    <h:outputText value="#{bundle.ViewDetailLabel_mutuelleMutialiste}"/>
+                    <h:outputText value="#{detailController.selected.mutuelleMutialiste}" title="#{bundle.ViewDetailTitle_mutuelleMutialiste}"/>
+                    <h:outputText value="#{bundle.ViewDetailLabel_mutuelleCaisse}"/>
+                    <h:outputText value="#{detailController.selected.mutuelleCaisse}" title="#{bundle.ViewDetailTitle_mutuelleCaisse}"/>
+                    <h:outputText value="#{bundle.ViewDetailLabel_rachatCmr}"/>
+                    <h:outputText value="#{detailController.selected.rachatCmr}" title="#{bundle.ViewDetailTitle_rachatCmr}"/>
+                    <h:outputText value="#{bundle.ViewDetailLabel_sommeDeduire}"/>
+                    <h:outputText value="#{detailController.selected.sommeDeduire}" title="#{bundle.ViewDetailTitle_sommeDeduire}"/>
+                    <h:outputText value="#{bundle.ViewDetailLabel_nbrEnfant}"/>
+                    <h:outputText value="#{detailController.selected.nbrEnfant}" title="#{bundle.ViewDetailTitle_nbrEnfant}"/>
+                    <h:outputText value="#{bundle.ViewDetailLabel_conjoint}"/>
+                    <h:outputText value="#{detailController.selected.conjoint}" title="#{bundle.ViewDetailTitle_conjoint}"/>
+                    <h:outputText value="#{bundle.ViewDetailLabel_chargeFamiliale}"/>
+                    <h:outputText value="#{detailController.selected.chargeFamiliale}" title="#{bundle.ViewDetailTitle_chargeFamiliale}"/>
+                    <h:outputText value="#{bundle.ViewDetailLabel_irSource}"/>
+                    <h:outputText value="#{detailController.selected.irSource}" title="#{bundle.ViewDetailTitle_irSource}"/>
+                    <h:outputText value="#{bundle.ViewDetailLabel_irComplement}"/>
+                    <h:outputText value="#{detailController.selected.irComplement}" title="#{bundle.ViewDetailTitle_irComplement}"/>
+                    <h:outputText value="#{bundle.ViewDetailLabel_net}"/>
+                    <h:outputText value="#{detailController.selected.net}" title="#{bundle.ViewDetailTitle_net}"/>
+                    <h:outputText value="#{bundle.ViewDetailLabel_ir}"/>
+                    <h:outputText value="#{detailController.selected.ir}" title="#{bundle.ViewDetailTitle_ir}"/>
+                    <h:outputText value="#{bundle.ViewDetailLabel_echelle}"/>
+                    <h:outputText value="#{detailController.selected.echelle}" title="#{bundle.ViewDetailTitle_echelle}"/>
+                    <h:outputText value="#{bundle.ViewDetailLabel_echelon}"/>
+                    <h:outputText value="#{detailController.selected.echelon}" title="#{bundle.ViewDetailTitle_echelon}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{detailController.destroyAndView}" value="#{bundle.ViewDetailDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewDetailEditLink}"/>
+                <br />
+                <h:commandLink action="#{detailController.prepareCreate}" value="#{bundle.ViewDetailCreateLink}" />
+                <br />
+                <h:commandLink action="#{detailController.prepareList}" value="#{bundle.ViewDetailShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewDetailIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

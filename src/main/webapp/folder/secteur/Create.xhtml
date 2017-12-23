@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateSecteurTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateSecteurLabel_idSecteur}" for="idSecteur" />
+                    <h:inputText id="idSecteur" value="#{secteurController.selected.idSecteur}" title="#{bundle.CreateSecteurTitle_idSecteur}" required="true" requiredMessage="#{bundle.CreateSecteurRequiredMessage_idSecteur}"/>
+                    <h:outputLabel value="#{bundle.CreateSecteurLabel_idSecteurP}" for="idSecteurP" />
+                    <h:inputText id="idSecteurP" value="#{secteurController.selected.idSecteurP}" title="#{bundle.CreateSecteurTitle_idSecteurP}" />
+                    <h:outputLabel value="#{bundle.CreateSecteurLabel_intituleSecteur}" for="intituleSecteur" />
+                    <h:inputText id="intituleSecteur" value="#{secteurController.selected.intituleSecteur}" title="#{bundle.CreateSecteurTitle_intituleSecteur}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{secteurController.create}" value="#{bundle.CreateSecteurSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{secteurController.prepareList}" value="#{bundle.CreateSecteurShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateSecteurIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

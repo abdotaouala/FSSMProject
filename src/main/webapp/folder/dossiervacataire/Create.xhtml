@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateDossiervacataireTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateDossiervacataireLabel_idDossier}" for="idDossier" />
+                    <h:inputText id="idDossier" value="#{dossiervacataireController.selected.idDossier}" title="#{bundle.CreateDossiervacataireTitle_idDossier}" required="true" requiredMessage="#{bundle.CreateDossiervacataireRequiredMessage_idDossier}"/>
+                    <h:outputLabel value="#{bundle.CreateDossiervacataireLabel_cinPpr}" for="cinPpr" />
+                    <h:inputText id="cinPpr" value="#{dossiervacataireController.selected.cinPpr}" title="#{bundle.CreateDossiervacataireTitle_cinPpr}" required="true" requiredMessage="#{bundle.CreateDossiervacataireRequiredMessage_cinPpr}"/>
+                    <h:outputLabel value="#{bundle.CreateDossiervacataireLabel_idBordAut}" for="idBordAut" />
+                    <h:inputText id="idBordAut" value="#{dossiervacataireController.selected.idBordAut}" title="#{bundle.CreateDossiervacataireTitle_idBordAut}" />
+                    <h:outputLabel value="#{bundle.CreateDossiervacataireLabel_idDossierProv}" for="idDossierProv" />
+                    <h:inputText id="idDossierProv" value="#{dossiervacataireController.selected.idDossierProv}" title="#{bundle.CreateDossiervacataireTitle_idDossierProv}" required="true" requiredMessage="#{bundle.CreateDossiervacataireRequiredMessage_idDossierProv}"/>
+                    <h:outputLabel value="#{bundle.CreateDossiervacataireLabel_idBordComp}" for="idBordComp" />
+                    <h:inputText id="idBordComp" value="#{dossiervacataireController.selected.idBordComp}" title="#{bundle.CreateDossiervacataireTitle_idBordComp}" />
+                    <h:outputLabel value="#{bundle.CreateDossiervacataireLabel_idDotation}" for="idDotation" />
+                    <h:inputText id="idDotation" value="#{dossiervacataireController.selected.idDotation}" title="#{bundle.CreateDossiervacataireTitle_idDotation}" required="true" requiredMessage="#{bundle.CreateDossiervacataireRequiredMessage_idDotation}"/>
+                    <h:outputLabel value="#{bundle.CreateDossiervacataireLabel_idGrade}" for="idGrade" />
+                    <h:inputText id="idGrade" value="#{dossiervacataireController.selected.idGrade}" title="#{bundle.CreateDossiervacataireTitle_idGrade}" />
+                    <h:outputLabel value="#{bundle.CreateDossiervacataireLabel_nbrHeures}" for="nbrHeures" />
+                    <h:inputText id="nbrHeures" value="#{dossiervacataireController.selected.nbrHeures}" title="#{bundle.CreateDossiervacataireTitle_nbrHeures}" />
+                    <h:outputLabel value="#{bundle.CreateDossiervacataireLabel_mois}" for="mois" />
+                    <h:inputText id="mois" value="#{dossiervacataireController.selected.mois}" title="#{bundle.CreateDossiervacataireTitle_mois}" />
+                    <h:outputLabel value="#{bundle.CreateDossiervacataireLabel_semestre}" for="semestre" />
+                    <h:inputText id="semestre" value="#{dossiervacataireController.selected.semestre}" title="#{bundle.CreateDossiervacataireTitle_semestre}" />
+                    <h:outputLabel value="#{bundle.CreateDossiervacataireLabel_dateCreance}" for="dateCreance" />
+                    <h:inputText id="dateCreance" value="#{dossiervacataireController.selected.dateCreance}" title="#{bundle.CreateDossiervacataireTitle_dateCreance}" >
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateDossiervacataireLabel_net}" for="net" />
+                    <h:inputText id="net" value="#{dossiervacataireController.selected.net}" title="#{bundle.CreateDossiervacataireTitle_net}" />
+                    <h:outputLabel value="#{bundle.CreateDossiervacataireLabel_ir}" for="ir" />
+                    <h:inputText id="ir" value="#{dossiervacataireController.selected.ir}" title="#{bundle.CreateDossiervacataireTitle_ir}" />
+                    <h:outputLabel value="#{bundle.CreateDossiervacataireLabel_statutDossier}" for="statutDossier" />
+                    <h:inputText id="statutDossier" value="#{dossiervacataireController.selected.statutDossier}" title="#{bundle.CreateDossiervacataireTitle_statutDossier}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{dossiervacataireController.create}" value="#{bundle.CreateDossiervacataireSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{dossiervacataireController.prepareList}" value="#{bundle.CreateDossiervacataireShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateDossiervacataireIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

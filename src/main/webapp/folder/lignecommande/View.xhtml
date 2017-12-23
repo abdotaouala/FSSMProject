@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewLignecommandeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewLignecommandeLabel_idBC}"/>
+                    <h:outputText value="#{lignecommandeController.selected.idBC}" title="#{bundle.ViewLignecommandeTitle_idBC}"/>
+                    <h:outputText value="#{bundle.ViewLignecommandeLabel_idArticle}"/>
+                    <h:outputText value="#{lignecommandeController.selected.idArticle}" title="#{bundle.ViewLignecommandeTitle_idArticle}"/>
+                    <h:outputText value="#{bundle.ViewLignecommandeLabel_idLigne}"/>
+                    <h:outputText value="#{lignecommandeController.selected.idLigne}" title="#{bundle.ViewLignecommandeTitle_idLigne}"/>
+                    <h:outputText value="#{bundle.ViewLignecommandeLabel_quantite}"/>
+                    <h:outputText value="#{lignecommandeController.selected.quantite}" title="#{bundle.ViewLignecommandeTitle_quantite}"/>
+                    <h:outputText value="#{bundle.ViewLignecommandeLabel_pu}"/>
+                    <h:outputText value="#{lignecommandeController.selected.pu}" title="#{bundle.ViewLignecommandeTitle_pu}"/>
+                    <h:outputText value="#{bundle.ViewLignecommandeLabel_montant}"/>
+                    <h:outputText value="#{lignecommandeController.selected.montant}" title="#{bundle.ViewLignecommandeTitle_montant}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{lignecommandeController.destroyAndView}" value="#{bundle.ViewLignecommandeDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewLignecommandeEditLink}"/>
+                <br />
+                <h:commandLink action="#{lignecommandeController.prepareCreate}" value="#{bundle.ViewLignecommandeCreateLink}" />
+                <br />
+                <h:commandLink action="#{lignecommandeController.prepareList}" value="#{bundle.ViewLignecommandeShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewLignecommandeIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

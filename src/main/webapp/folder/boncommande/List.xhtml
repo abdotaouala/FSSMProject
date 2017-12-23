@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListBoncommandeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListBoncommandeEmpty}" rendered="#{boncommandeController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{boncommandeController.items.rowCount > 0}">
+                    <h:outputText value="#{boncommandeController.pagination.pageFirstItem + 1}..#{boncommandeController.pagination.pageLastItem + 1}/#{boncommandeController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{boncommandeController.previous}" value="#{bundle.Previous} #{boncommandeController.pagination.pageSize}" rendered="#{boncommandeController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{boncommandeController.next}" value="#{bundle.Next} #{boncommandeController.pagination.pageSize}" rendered="#{boncommandeController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{boncommandeController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBoncommandeTitle_idBC}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idBC}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBoncommandeTitle_idFournisseur}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idFournisseur}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBoncommandeTitle_idUser}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idUser}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBoncommandeTitle_idDotation}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idDotation}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBoncommandeTitle_dateCommande}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateCommande}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBoncommandeTitle_tva}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tva}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBoncommandeTitle_dateReception}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateReception}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBoncommandeTitle_etat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.etat}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBoncommandeTitle_montant}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.montant}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBoncommandeTitle_type}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.type}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{boncommandeController.prepareView}" value="#{bundle.ListBoncommandeViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{boncommandeController.prepareEdit}" value="#{bundle.ListBoncommandeEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{boncommandeController.destroy}" value="#{bundle.ListBoncommandeDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{boncommandeController.prepareCreate}" value="#{bundle.ListBoncommandeCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListBoncommandeIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

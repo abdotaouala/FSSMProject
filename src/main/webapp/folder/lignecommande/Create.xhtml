@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateLignecommandeTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateLignecommandeLabel_idBC}" for="idBC" />
+                    <h:inputText id="idBC" value="#{lignecommandeController.selected.idBC}" title="#{bundle.CreateLignecommandeTitle_idBC}" required="true" requiredMessage="#{bundle.CreateLignecommandeRequiredMessage_idBC}"/>
+                    <h:outputLabel value="#{bundle.CreateLignecommandeLabel_idArticle}" for="idArticle" />
+                    <h:inputText id="idArticle" value="#{lignecommandeController.selected.idArticle}" title="#{bundle.CreateLignecommandeTitle_idArticle}" required="true" requiredMessage="#{bundle.CreateLignecommandeRequiredMessage_idArticle}"/>
+                    <h:outputLabel value="#{bundle.CreateLignecommandeLabel_idLigne}" for="idLigne" />
+                    <h:inputText id="idLigne" value="#{lignecommandeController.selected.idLigne}" title="#{bundle.CreateLignecommandeTitle_idLigne}" required="true" requiredMessage="#{bundle.CreateLignecommandeRequiredMessage_idLigne}"/>
+                    <h:outputLabel value="#{bundle.CreateLignecommandeLabel_quantite}" for="quantite" />
+                    <h:inputText id="quantite" value="#{lignecommandeController.selected.quantite}" title="#{bundle.CreateLignecommandeTitle_quantite}" />
+                    <h:outputLabel value="#{bundle.CreateLignecommandeLabel_pu}" for="pu" />
+                    <h:inputText id="pu" value="#{lignecommandeController.selected.pu}" title="#{bundle.CreateLignecommandeTitle_pu}" />
+                    <h:outputLabel value="#{bundle.CreateLignecommandeLabel_montant}" for="montant" />
+                    <h:inputText id="montant" value="#{lignecommandeController.selected.montant}" title="#{bundle.CreateLignecommandeTitle_montant}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{lignecommandeController.create}" value="#{bundle.CreateLignecommandeSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{lignecommandeController.prepareList}" value="#{bundle.CreateLignecommandeShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateLignecommandeIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

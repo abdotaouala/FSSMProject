@@ -1,0 +1,243 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../newTemplate.xhtml">
+
+            <ui:define name="titlepanelLeft">
+                Statistiques
+            </ui:define>
+
+
+
+            <ui:define name="titlepanel">
+                Statistiques deplacement
+            </ui:define>
+
+            <ui:define name="content">
+                <h3>
+                    <h:form>
+                        <p:ajaxStatus style="display:block;margin-bottom:2em;height:24px;">
+                            <f:facet name="default">
+                                <h:outputText value="Statistique  kilometrique" />
+                            </f:facet>
+
+                            <f:facet name="start">
+                                <img src="http://chimplyimage.appspot.com/images/samples/classic-spinner/indicator.gif" />
+                            </f:facet>
+
+                            <f:facet name="complete">
+                                <h:outputText value="Statistique kilometrique" />
+                            </f:facet>
+                        </p:ajaxStatus>
+
+                    </h:form>
+                </h3>
+                <h3>
+                    <h:form id="form">
+                        <div class="row tile_count">
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <span class="count_top"><i class="fa fa-user"></i>Kilometrique</span>
+                                <div class="count">#{kilometrique.items.size() }</div>
+                                <span class="count_bottom"><i class="green">4% </i> From last Week</span>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <span class="count_top"><i class="fa fa-clock-o"></i> Montant initiale</span>
+                                <div class="count">#{kilometrique.items.size()}0007DH</div>
+                                <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <span class="count_top"><i class="fa fa-user"></i> Reliquat</span>
+                                <div class="count green">#{kilometrique.items.size()}011DH</div>
+                                <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <span class="count_top"><i class="fa fa-user"></i> Deplacement encours</span>
+                                <div class="count">#{kilometrique.items.size()}</div>
+                                <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <span class="count_top"><i class="fa fa-user"></i> Deplacement valide</span>
+                                <div class="count">#{externe.items.size()}</div>
+                                <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+                            </div>
+                            <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+                                <span class="count_top"><i class="fa fa-user"></i> Deplacement rejete</span>
+                                <div class="count">#{kilometrique.items.size()}</div>
+                                <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+                            </div>
+                        </div>
+                        <div class="bs-example" data-example-id="simple-jumbotron">
+                            <div class="jumbotron">
+
+
+                                <h1>budget déplacement Kilometrique</h1>
+                                <table >
+                                    <tr>
+                                        <td>
+                                            <p:outputLabel value="Intitulé de compte" />
+                                        </td>
+                                        <td>
+                                            <p:outputLabel value="#{kilometrique.compte.intitule}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p:outputLabel value="RAP de compte" />
+                                        </td>
+                                        <td>
+                                            <p:outputLabel value="#{kilometrique.compte.rap}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+
+                                            <h3> <p:outputLabel value="Dotation des secteurs" /></h3>
+
+                                        </td>
+                                        <td></td>
+                                    </tr>
+
+                                    <ui:repeat value="#{kilometrique.compte.dotationsecteurList}" var="item" >
+                                        <tr>
+                                            <td>
+                                                <p:outputLabel value="Intitule secteur" />
+                                            </td>
+                                            <td>
+                                                <p:outputLabel value="#{item.idSecteur.intituleSecteur}" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p:outputLabel value="Montant Initial" />
+                                            </td>
+                                            <td>
+                                                <p:outputLabel value="#{item.montantInitial} DH" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p:outputLabel value="Reliquat" />
+                                            </td>
+                                            <td>
+                                                <p:outputLabel value="#{item.reliquat} DH" />
+
+                                            </td> 
+                                        </tr>
+
+                                    </ui:repeat>
+
+                                </table>
+
+                            </div>
+                        </div>
+
+
+
+                        <h3 style="margin-top:0"></h3>
+
+                        <p:accordionPanel id="panelList">
+
+                            <p:tab title="Indemnte kilometrique">
+                                <h:panelGrid rendered="#{intervenantController.klms.size() != 0}" columns="1" cellpadding="10" width="100%" >
+                                    <p:dataGrid var="car" value="#{intervenantController.klms}" columns="3"  style="width:100%"
+                                                rows="6" paginator="true" id="cars3"
+                                                paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                                rowsPerPageTemplate="6,12,16" >
+
+                                        <f:facet name="header">
+                                            Deplacements
+                                        </f:facet>
+
+                                        <p:panel header="#{car.ville}" style=" text-align:center" >
+                                            <h:panelGrid columns="1" style="width:100%">
+                                                <center>
+                                                    <table>
+                                                        <tr>
+                                                            <td>
+
+                                                            </td>
+                                                            <td>
+                                                                <h:outputText value="#{car.dateCreation}" >
+                                                                    <h1>  <f:convertDateTime pattern="dd/MM/yyyy" /></h1>
+                                                                </h:outputText>
+                                                            </td>
+
+                                                        </tr>
+
+
+                                                        <tr>
+                                                            <td>
+                                                                Montant
+                                                            </td>
+                                                            <td>
+                                                                <h1>
+                                                                    <h:outputText value="#{car.montantDepInt} DH" />
+
+                                                                </h1>
+                                                            </td>
+
+                                                        </tr>
+
+                                                    </table>
+                                                </center>
+                                                <p:commandLink update=":form:displayDep"   oncomplete="PF('carDialog').show()" title="View Detail">
+                                                    <h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
+                                                    <f:setPropertyActionListener value="#{car}" target="#{intervenantController.deplacement}" />
+                                                </p:commandLink>
+                                            </h:panelGrid>
+                                        </p:panel>
+
+
+                                    </p:dataGrid>
+
+                                </h:panelGrid>
+
+                            </p:tab>
+
+                        </p:accordionPanel>
+
+
+
+                        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+                        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                            <img src="http://chimplyimage.appspot.com/images/samples/classic-spinner/indicator.gif" />
+                        </p:dialog>
+                        <p:dialog id="displayDep" header="Details kilometrique" widgetVar="carDialog"  modal="true" showEffect="explode" hideEffect="explode"  resizable="false">
+                            <p:outputPanel id="carDetail" style="text-align:center;width: 100%"  >
+                                <p:panelGrid id="panlView" columns="2" rendered="#{! empty intervenantController.deplacement}" style="width: 100%">
+                                    <f:facet name="header">
+                                        <p:outputLabel value="#{intervenantController.deplacement.ville}" />
+                                    </f:facet>
+
+                                    <h:outputText value="Date depart" />
+                                    <h:outputText value="#{intervenantController.deplacement.dateDepart}" />
+
+                                    <h:outputText value="Date d'arrive" />
+                                    <h:outputText value="#{intervenantController.deplacement.dateArrive}" />
+
+                                    <h:outputText value="User" />
+                                    <h:outputText value="#{intervenantController.deplacement.cinPpr.nomComplet}" />
+
+                                    <h:outputText value="Motif" />
+                                    <h:outputText value="#{intervenantController.deplacement.motif}" />
+                                    <h:outputText value="Justification" />
+                                    <h:outputText value="#{intervenantController.deplacement.justification}" />
+                                </p:panelGrid>
+                            </p:outputPanel>
+                        </p:dialog>
+                    </h:form> 
+                </h3>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

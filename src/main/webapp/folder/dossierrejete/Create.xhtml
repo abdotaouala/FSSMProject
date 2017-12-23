@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateDossierrejeteTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateDossierrejeteLabel_idDossierRejete}" for="idDossierRejete" />
+                    <h:inputText id="idDossierRejete" value="#{dossierrejeteController.selected.idDossierRejete}" title="#{bundle.CreateDossierrejeteTitle_idDossierRejete}" required="true" requiredMessage="#{bundle.CreateDossierrejeteRequiredMessage_idDossierRejete}"/>
+                    <h:outputLabel value="#{bundle.CreateDossierrejeteLabel_idDossier}" for="idDossier" />
+                    <h:inputText id="idDossier" value="#{dossierrejeteController.selected.idDossier}" title="#{bundle.CreateDossierrejeteTitle_idDossier}" required="true" requiredMessage="#{bundle.CreateDossierrejeteRequiredMessage_idDossier}"/>
+                    <h:outputLabel value="#{bundle.CreateDossierrejeteLabel_dosidDossier}" for="dosidDossier" />
+                    <h:inputText id="dosidDossier" value="#{dossierrejeteController.selected.dosidDossier}" title="#{bundle.CreateDossierrejeteTitle_dosidDossier}" required="true" requiredMessage="#{bundle.CreateDossierrejeteRequiredMessage_dosidDossier}"/>
+                    <h:outputLabel value="#{bundle.CreateDossierrejeteLabel_motifRejet}" for="motifRejet" />
+                    <h:inputText id="motifRejet" value="#{dossierrejeteController.selected.motifRejet}" title="#{bundle.CreateDossierrejeteTitle_motifRejet}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{dossierrejeteController.create}" value="#{bundle.CreateDossierrejeteSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{dossierrejeteController.prepareList}" value="#{bundle.CreateDossierrejeteShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateDossierrejeteIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

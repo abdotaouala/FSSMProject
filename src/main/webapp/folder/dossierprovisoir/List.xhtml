@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListDossierprovisoirTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListDossierprovisoirEmpty}" rendered="#{dossierprovisoirController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{dossierprovisoirController.items.rowCount > 0}">
+                    <h:outputText value="#{dossierprovisoirController.pagination.pageFirstItem + 1}..#{dossierprovisoirController.pagination.pageLastItem + 1}/#{dossierprovisoirController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{dossierprovisoirController.previous}" value="#{bundle.Previous} #{dossierprovisoirController.pagination.pageSize}" rendered="#{dossierprovisoirController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{dossierprovisoirController.next}" value="#{bundle.Next} #{dossierprovisoirController.pagination.pageSize}" rendered="#{dossierprovisoirController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{dossierprovisoirController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossierprovisoirTitle_idDossierProv}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idDossierProv}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossierprovisoirTitle_idRelever}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idRelever}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossierprovisoirTitle_idGrade}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idGrade}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossierprovisoirTitle_nomComplet}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nomComplet}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossierprovisoirTitle_dernierDiplome}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dernierDiplome}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossierprovisoirTitle_nbrHeures}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nbrHeures}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossierprovisoirTitle_module}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.module}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossierprovisoirTitle_etat}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.etat}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossierprovisoirTitle_dateDebut}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateDebut}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDossierprovisoirTitle_dateFin}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dateFin}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{dossierprovisoirController.prepareView}" value="#{bundle.ListDossierprovisoirViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{dossierprovisoirController.prepareEdit}" value="#{bundle.ListDossierprovisoirEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{dossierprovisoirController.destroy}" value="#{bundle.ListDossierprovisoirDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{dossierprovisoirController.prepareCreate}" value="#{bundle.ListDossierprovisoirCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListDossierprovisoirIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

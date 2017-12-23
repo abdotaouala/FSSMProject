@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:body onload="#{boncommandeController.itemesEtatBC}">
+
+        <ui:composition template="./../newTemplate.xhtml">
+
+            <ui:define name="titlepanelLeft">
+                Consulter l'Etat Des Engagements
+            </ui:define>
+
+            <ui:define name="titlepanelRight">
+               Consulter l'Etat Des Engagements
+            </ui:define>
+
+            <ui:define name="titlepanel">
+                Consulter l'Etat Des Engagements
+            </ui:define>
+            <ui:define name="content">
+                   <h:form id="ListCreateForm">
+                       <p:dialog id="BoncommandeViewDlg"  widgetVar="BoncommandeViewDialog" modal="true" resizable="false" appendTo="@(body)" showEffect="explode" hideEffect="bounce" header="#{bundle.ViewBoncommandeTitle}">
+                        <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{boncommandeController.selected != null}">
+                        <h:outputText value="#{bundle.ViewBoncommandeLabel_idBC}"/>
+                        <h:outputText value="#{boncommandeController.selected.idBC}" title="#{bundle.ViewBoncommandeTitle_idBC}"/>
+                        <h:outputText value="#{bundle.ViewBoncommandeLabel_dateCommande}"/>
+                        <h:outputText value="#{boncommandeController.selected.dateCommande}" title="#{bundle.ViewBoncommandeTitle_dateCommande}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewBoncommandeLabel_tva}"/>
+                        <h:outputText value="#{boncommandeController.selected.tva}" title="#{bundle.ViewBoncommandeTitle_tva}"/>
+                        <h:outputText value="#{bundle.ViewBoncommandeLabel_dateReception}"/>
+                        <h:outputText value="#{boncommandeController.selected.dateReception}" title="#{bundle.ViewBoncommandeTitle_dateReception}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewBoncommandeLabel_etat}"/>
+                        <h:outputText value="#{boncommandeController.selected.etat}" title="#{bundle.ViewBoncommandeTitle_etat}"/>
+                        <h:outputText value="#{bundle.ViewBoncommandeLabel_montant}"/>
+                        <h:outputText value="#{boncommandeController.selected.montant}" title="#{bundle.ViewBoncommandeTitle_montant}"/>
+                        <h:outputText value="#{bundle.ViewBoncommandeLabel_type}"/>
+                        <h:outputText value="#{boncommandeController.selected.type}" title="#{bundle.ViewBoncommandeTitle_type}"/>
+                        <h:outputText value="#{bundle.ViewBoncommandeLabel_idUser}"/>
+                        <h:outputText value="#{boncommandeController.selected.idUser}" title="#{bundle.ViewBoncommandeTitle_idUser}"/>
+                        <h:outputText value="#{bundle.ViewBoncommandeLabel_idDotation}"/>
+                        <h:outputText value="#{boncommandeController.selected.idDotation}" title="#{bundle.ViewBoncommandeTitle_idDotation}"/>
+                        <h:outputText value="#{bundle.ViewBoncommandeLabel_idFournisseur}"/>
+                        <h:outputText value="#{boncommandeController.selected.idFournisseur}" title="#{bundle.ViewBoncommandeTitle_idFournisseur}"/>
+                    </p:panelGrid>
+                    <p:panelGrid columns="2"  >
+                        <p:panel><p:commandButton actionListener="#{boncommandeController.PDBon}" value="PDF" styleClass="btn btn-success" /><p:commandButton actionListener="#{boncommandeController.XLSXBon}" styleClass="btn btn-success" value="Excel" /><p:commandButton styleClass="btn btn-success" actionListener="#{boncommandeController.DOCXBon}" value="Word" /></p:panel>                        
+                    </p:panelGrid>
+                </h:panelGroup>
+            </p:dialog>
+            <p:growl id="message" life="2000" />
+            <div class="col-md-12 col-sm-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        Liste Des Engagements valide/enTraitement/invalide
+                    </div>
+                    <div class="panel-body">
+                        <center><table class='tab_form' style="width:500px;height:100px; margin:0px;padding:0px; border-width: 5px; text-align: center;align-content: center;">
+                                <tr>
+                                    <td class="olab" ><p:outputLabel value="#{bundle.CreateBoncommandeLabel_type}" for="typeRecherche" /></td>
+                                    <td class="olab" >
+                                        <h:selectOneMenu id="typeRecherche" value="#{boncommandeController.type}"  title="#{bundle.CreateBoncommandeTitle_type}" style="width:155px" >
+                                            <f:selectItem itemLabel="Bon de Commande" itemValue="BC" />
+                                            <f:selectItem itemLabel="Lettre de Commande" itemValue="LC" />
+                                            <p:ajax event="change" listener="#{boncommandeController.getAllItemesRechValidesTraite()}" update="@form" process="@form"/>
+                                        </h:selectOneMenu>
+                                    </td>
+                                </tr>
+                            </table></center>
+                        <div class="table-responsive">
+                            <div class="table-responsive">
+                                <p:dataTable id="datalist" value="#{boncommandeController.items}" var="item" style="border:solid 1px"
+                                             selectionMode="single" selection="#{boncommandeController.current}"
+                                             paginator="true"
+                                             rowKey="#{item.idBC}"
+                                             >
+                                    <p:column headerText="#{bundle.ListBoncommandeTitle_idBC}">
+                                        <h:outputText value="#{item.idBC}"/>
+                                    </p:column>
+                                    <p:column headerText="#{bundle.ListBoncommandeTitle_idFournisseur}">
+                                        <h:outputText value="#{item.idFournisseur}"/>
+                                    </p:column>
+                                    <p:column headerText="#{bundle.ListBoncommandeTitle_idUser}">
+                                        <h:outputText value="#{item.idUser}"/>
+                                    </p:column>
+                                    <p:column headerText="#{bundle.ListBoncommandeTitle_idDotation}">
+                                        <h:outputText value="#{item.idDotation}"/>
+                                    </p:column>
+                                    <p:column headerText="#{bundle.ListBoncommandeTitle_dateCommande}">
+                                        <h:outputText value="#{item.dateCommande}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column headerText="#{bundle.ListBoncommandeTitle_tva}">
+                                        <h:outputText value="#{item.tva}"/>
+                                    </p:column>
+                                    <p:column headerText="#{bundle.ListBoncommandeTitle_dateReception}">
+                                        <h:outputText value="#{item.dateReception}">
+                                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                                        </h:outputText>
+                                    </p:column>
+                                    <p:column headerText="#{bundle.ListBoncommandeTitle_etat}">
+                                        <h:outputText value="#{item.etat}"/>
+                                    </p:column>
+                                    <p:column headerText="#{bundle.ListBoncommandeTitle_montant}">
+                                        <h:outputText value="#{item.montant}"/>
+                                    </p:column>
+                                    <p:column headerText="#{bundle.ListBoncommandeTitle_type}">
+                                        <h:outputText value="#{item.type}"/>
+                                    </p:column>
+                                    <p:ajax event="rowSelect" listener="#{boncommandeController.remplireFormulaire()}"  update="@form" process="@this"/>
+                                    <p:column headerText="Action">
+                                        <p:commandButton icon="ui-icon-search"  action="#{boncommandeController.remplireFormulaireGBC()}" type="button" onclick="PF('BoncommandeViewDialog').show();"  class="btn btn-success btn-lg" >
+                                        </p:commandButton>
+                                    </p:column>
+                                </p:dataTable>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form> 
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

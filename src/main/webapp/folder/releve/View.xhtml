@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewReleveTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewReleveLabel_idRelever}"/>
+                    <h:outputText value="#{releveController.selected.idRelever}" title="#{bundle.ViewReleveTitle_idRelever}"/>
+                    <h:outputText value="#{bundle.ViewReleveLabel_idFiliere}"/>
+                    <h:outputText value="#{releveController.selected.idFiliere}" title="#{bundle.ViewReleveTitle_idFiliere}"/>
+                    <h:outputText value="#{bundle.ViewReleveLabel_semestre}"/>
+                    <h:outputText value="#{releveController.selected.semestre}" title="#{bundle.ViewReleveTitle_semestre}"/>
+                    <h:outputText value="#{bundle.ViewReleveLabel_anneeUniversitaire}"/>
+                    <h:outputText value="#{releveController.selected.anneeUniversitaire}" title="#{bundle.ViewReleveTitle_anneeUniversitaire}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{releveController.destroyAndView}" value="#{bundle.ViewReleveDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewReleveEditLink}"/>
+                <br />
+                <h:commandLink action="#{releveController.prepareCreate}" value="#{bundle.ViewReleveCreateLink}" />
+                <br />
+                <h:commandLink action="#{releveController.prepareList}" value="#{bundle.ViewReleveShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewReleveIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

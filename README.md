@@ -7,11 +7,12 @@ Cette application web est faite pour permettre la gestion des services financiè
 <li> Gestion des inscriptions. </li>
 
 ## Built With
-<li>java EE J</li>
+<li>java EE</li>
 <li>SF 2.2</li>
 <li>Hibernate</li>
 <li>Primefaces 5</li>
-<li>Apache Shiro.</li>
+<li>Apache Shiro</li>
+<li>JasperReport</li>
 
 ## Authors
 <li>Abdelfatah Taouala</li>

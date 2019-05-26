@@ -19,6 +19,12 @@ Cette application web est faite pour permettre la gestion des services financiè
 <li>Mounir Aabada</li>
 <li>Asmae El Mezouari</li>
 
+## Pictures of the project
+
+![alt intervenant](https://raw.githubusercontent.com/abdotaouala/FSSMProject/master/index.PNG)
+![alt index](https://raw.githubusercontent.com/abdotaouala/FSSMProject/master/intervenants.PNG)
+![alt intervenant](https://raw.githubusercontent.com/abdotaouala/FSSMProject/master/cap-afficher-releve.PNG)
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/abdotaouala/FSSMProject/blob/master/LICENSE.md) file for details 

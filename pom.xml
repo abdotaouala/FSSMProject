@@ -13,7 +13,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <apache-shiro.version>1.2.1</apache-shiro.version>
+        <apache-shiro.version>1.5.0</apache-shiro.version>
         <slf4j.version>1.7.2</slf4j.version>
         <logback.version>1.0.7</logback.version>
     </properties>
